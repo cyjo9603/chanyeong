@@ -6,7 +6,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 
 ### Lock Resolvers:
 
-- [ ]  admin Sign Up
+- [x]  admin Sign Up
 - [ ]  Edit User Info
 
 ### Authentication:
