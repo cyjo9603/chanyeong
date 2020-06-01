@@ -1,0 +1,17 @@
+type Token {
+    refreshToken: String!
+    accessToken: String!
+}
+
+type SignInResponse {
+    ok: Boolean!
+    error: String
+    token: Token
+}
+
+type Mutation {
+    SignIn(
+        userId: String!,
+        password: String!,
+    ): SignInResponse!
+}

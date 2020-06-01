@@ -11,13 +11,13 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 
 ### Authentication:
 
-- [ ]  Generate JWT ( Refresh and Access )
+- [x]  Generate JWT ( Refresh and Access )
 - [ ]  Generate JWT ( only Access )
 - [ ]  Verify Access JWT
 
 ### Public Resolvers:
 
-- [ ]  Sign In
+- [x]  Sign In
 - [ ]  Get FrontEnd Skills
 - [ ]  Get BackEnd Skills
 - [ ]  Get DebOps Skills
