@@ -21,7 +21,7 @@ interface JWT {
   exp: number;
 }
 
-interface decodeJWTResponse {
+export interface decodeJWTResponse {
   id?: number;
   error?: DecodeError;
 }
