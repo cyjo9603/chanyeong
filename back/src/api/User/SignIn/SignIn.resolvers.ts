@@ -28,6 +28,9 @@ const resolvers: Resolvers = {
           const refreshToken = createRefreshToken(user.id);
           const accessToken = createAccessToken(user.id);
 
+          user.refreshToken = refreshToken;
+          user.save();
+
           return {
             ok: true,
             token: {

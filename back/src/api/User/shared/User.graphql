@@ -6,8 +6,6 @@ type User {
     id: Int!
     level: UserLevel!
     userId: String!
-    password: String!
     familyName: String!
     givenName: String!
-    refreshToken: String
 }
