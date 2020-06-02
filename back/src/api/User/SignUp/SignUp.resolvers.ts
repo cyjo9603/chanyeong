@@ -14,12 +14,14 @@ const resolvers: Resolvers = {
         const { userId, password, familyName, givenName } = args;
         const isUserId = await User.findOne({ userId });
         if (!isUserId) {
-          await User.create({
+          const user = await User.create({
             userId,
             password,
             familyName,
             givenName,
-          }).save();
+          });
+          await user.savePassword();
+          user.save();
 
           return {
             ok: true,

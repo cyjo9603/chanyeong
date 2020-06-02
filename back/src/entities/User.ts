@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import bcrypt from 'bcrypt';
 
 const BCRYPT_SALT = 10 as const;
@@ -41,9 +41,7 @@ class User extends BaseEntity {
     return bcrypt.compare(password, this.password);
   }
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  async savePassword() {
+  public async savePassword() {
     if (this.password) {
       const hashedPassword = await this.hashPassword(this.password);
       this.password = hashedPassword;
