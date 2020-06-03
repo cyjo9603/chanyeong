@@ -33,4 +33,4 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  Delete Project
 - [x]  Add Tag
 - [x]  Write Post
-- [ ]  Edit Post
+- [x]  Edit Post

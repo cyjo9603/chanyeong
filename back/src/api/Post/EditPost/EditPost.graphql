@@ -1,0 +1,15 @@
+type EditPostResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    EditPost(
+        id: Int!
+        category: PostCategory
+        title: String
+        content: String
+        titleImage: String
+        tagIds: [Int]
+    ): EditPostResponse!
+}
