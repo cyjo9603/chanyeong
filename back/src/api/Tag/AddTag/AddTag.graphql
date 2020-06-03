@@ -1,0 +1,9 @@
+type AddTagResponse {
+    ok: Boolean!
+    error: String
+    tagId: Int
+}
+
+type Mutation{
+    AddTag(name: String!): AddTagResponse!
+}
