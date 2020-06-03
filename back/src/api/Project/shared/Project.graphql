@@ -1,0 +1,22 @@
+enum ProjectType {
+    PERSONAL
+    GROUP
+}
+
+type Project {
+    id: Int!
+    type: ProjectType!
+    groupName: String!
+    title: String!
+    description: String!
+    content: String!
+    startDate: String!
+    endDate: String
+    githubAddr: String
+    titleImage: String
+    contribution: Int!
+    picked: Boolean!
+    createdAt: String!
+    updatedAt: String!
+    skills: [Skill]
+}

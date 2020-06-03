@@ -10,17 +10,13 @@ import {
 } from 'typeorm';
 
 import Skill from './Skill';
-
-enum ProjectType {
-  PERSONAL = 'PERSONAL',
-  GROUP = 'GROUP',
-}
+import { ProjectType } from '../types/graph';
 
 @Entity()
 class Project extends BaseEntity {
   @PrimaryGeneratedColumn() id!: number;
 
-  @Column({ type: 'enum', enum: ProjectType })
+  @Column({ type: 'enum', enum: ['PERSONAL', 'GROUP'] })
   type!: ProjectType;
 
   @Column({ type: 'varchar', length: 30 })
@@ -38,7 +34,7 @@ class Project extends BaseEntity {
   @Column({ type: 'date' })
   startDate!: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   endDate?: string;
 
   @Column({ type: 'varchar', nullable: true })
