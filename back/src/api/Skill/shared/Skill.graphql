@@ -1,0 +1,14 @@
+enum SkillType {
+    FRONT_END
+    BACK_END
+    DEV_OPS
+}
+
+type Skill {
+    id: Int!
+    name: String!
+    type: SkillType! 
+    level: Int!
+    description: String!
+    icon: String!
+}
