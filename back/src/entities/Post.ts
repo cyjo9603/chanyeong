@@ -10,17 +10,13 @@ import {
 } from 'typeorm';
 
 import Tag from './Tag';
-
-enum PostCategory {
-  DIARY = 'DIARY',
-  DEV = 'DEV',
-}
+import { PostCategory } from '../types/graph';
 
 @Entity()
 class Post extends BaseEntity {
   @PrimaryGeneratedColumn() id!: number;
 
-  @Column({ type: 'enum', enum: PostCategory })
+  @Column({ type: 'enum', enum: ['DIARY', 'DEV'] })
   category!: PostCategory;
 
   @Column({ type: 'varchar', length: 50 })

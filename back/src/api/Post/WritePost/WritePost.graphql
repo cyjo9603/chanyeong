@@ -1,0 +1,14 @@
+type WritePostResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    WritePost(
+        category: PostCategory!
+        title: String!
+        content: String!
+        titleImage: String
+        tagIds: [Int]
+    ): WritePostResponse!
+}

@@ -1,0 +1,15 @@
+enum PostCategory {
+    DIARY
+    DEV
+}
+
+type Post {
+    id: Int!
+    category: PostCategory!
+    title: String!
+    content: String!
+    titleImage: String
+    createdAt: String!
+    updatedAt: String
+    tags: [Tag]
+}
