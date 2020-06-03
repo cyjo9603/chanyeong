@@ -1,0 +1,8 @@
+type DeleteProjectResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    DeleteProject(id: Int!): DeleteProjectResponse!
+}
