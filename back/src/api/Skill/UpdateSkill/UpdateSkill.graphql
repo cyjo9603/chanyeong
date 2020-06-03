@@ -1,0 +1,15 @@
+type UpdateSkillResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    UpdateSkill(
+        id: Int!,
+        name: String,
+        type: SkillType,
+        level: Int,
+        description: String,
+        icon: String
+    ): UpdateSkillResponse!
+}
