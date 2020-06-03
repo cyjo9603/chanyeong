@@ -18,9 +18,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 ### Public Resolvers:
 
 - [x]  Sign In
-- [ ]  Get FrontEnd Skills
-- [ ]  Get BackEnd Skills
-- [ ]  Get DebOps Skills
+- [x]  Get Skills
 - [ ]  Get Group Projects
 - [ ]  Get Personal Projects
 - [ ]  Get All Posts

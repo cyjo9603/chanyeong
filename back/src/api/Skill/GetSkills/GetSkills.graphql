@@ -1,0 +1,9 @@
+type GetSkillsResponse {
+    ok: Boolean!
+    error: String
+    skill: [Skill]
+}
+
+type Query {
+    GetSkills(type: SkillType) : GetSkillsResponse!
+}
