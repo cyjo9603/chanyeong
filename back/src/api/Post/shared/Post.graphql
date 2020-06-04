@@ -11,5 +11,5 @@ type Post {
     titleImage: String
     createdAt: String!
     updatedAt: String
-    tags: [Tag]
+    Tags: [Tag]
 }

@@ -1,0 +1,9 @@
+type GetPostsResponse {
+    ok: Boolean!
+    error: String
+    posts: [Post]
+}
+
+type Query {
+    GetPosts(lastId: Int, category: PostCategory, tagId: Int): GetPostsResponse!
+}
