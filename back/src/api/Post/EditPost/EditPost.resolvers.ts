@@ -1,6 +1,7 @@
 import { Resolvers } from '../../../types/resolvers';
 
-import Post from '../../../entities/Post';
+import Post from '../../../models/Post';
+import Tag from '../../../models/Tag';
 import privateResolver from '../../../utils/privateResolver';
 
 interface EditValue {
@@ -15,8 +16,7 @@ const resolvers: Resolvers = {
   Mutation: {
     EditPost: privateResolver(async (_, args) => {
       try {
-        const { id, tagIds } = args;
-        const tags = tagIds?.map((v: number) => ({ id: v }));
+        const { id, deleteTags, addTags } = args;
 
         const editValue = Object.keys(args).reduce((value: EditValue, key) => {
           if (args[key] && key !== 'id' && key !== 'tagIds') {
@@ -26,10 +26,16 @@ const resolvers: Resolvers = {
           return value;
         }, {});
 
-        const post = await Post.findOne({ id }, { relations: ['tags'] });
+        const post = await Post.findOne({ where: { id }, include: [{ model: Tag }] });
 
         if (post) {
-          const editPost = Object.assign(post, { ...editValue, tags });
+          const editPost = Object.assign(post, editValue);
+          if (deleteTags) {
+            editPost.removeTag(deleteTags);
+          }
+          if (addTags) {
+            editPost.addTag(addTags);
+          }
           editPost.save();
         }
 

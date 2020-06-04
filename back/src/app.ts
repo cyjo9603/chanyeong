@@ -8,7 +8,7 @@ import hpp from 'hpp';
 
 import schema from './schema';
 import { ACCESS_TOKEN } from './utils/createJWT';
-import decodeJWT, { decodeJWTResponse } from './utils/decodeJWT';
+import decodeJWT from './utils/decodeJWT';
 
 const GRAPHQL_ENDPOINT = '/graphql' as const;
 const prod = process.env.NODE_ENV === 'production';

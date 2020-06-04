@@ -1,6 +1,6 @@
 import { Resolvers } from '../../../types/resolvers';
 
-import Skill from '../../../entities/Skill';
+import Skill from '../../../models/Skill';
 import privateResolver from '../../../utils/privateResolver';
 
 interface UpdateValue {
@@ -22,7 +22,7 @@ const resolvers: Resolvers = {
           return value;
         }, {});
 
-        await Skill.update({ id: args.id as number }, updateValue);
+        await Skill.update(updateValue, { where: { id: args.id as number } });
 
         return {
           ok: true,

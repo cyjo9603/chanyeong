@@ -1,7 +1,7 @@
 import { AddTagMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import Tag from '../../../entities/Tag';
+import Tag from '../../../models/Tag';
 import privateResolver from '../../../utils/privateResolver';
 
 /** AddTag
@@ -13,19 +13,11 @@ const resolvers: Resolvers = {
       try {
         const { name } = args;
 
-        const existingTag = await Tag.findOne({ name });
-        if (!existingTag) {
-          const newTag = await Tag.create({ name }).save();
-
-          return {
-            ok: true,
-            tagId: newTag.id,
-          };
-        }
+        const tag = await Tag.findOrCreate({ where: { name } });
 
         return {
           ok: true,
-          tagId: existingTag.id,
+          tagId: tag[0].id,
         };
       } catch (error) {
         return {

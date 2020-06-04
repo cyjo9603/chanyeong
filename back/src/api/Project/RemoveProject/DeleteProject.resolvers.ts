@@ -1,7 +1,7 @@
 import { DeleteProjectMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import Project from '../../../entities/Project';
+import Project from '../../../models/Project';
 import privateResolver from '../../../utils/privateResolver';
 
 /** DeleteProject
@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
       try {
         const { id } = args;
 
-        await Project.delete({ id });
+        await Project.destroy({ where: { id } });
 
         return {
           ok: true,

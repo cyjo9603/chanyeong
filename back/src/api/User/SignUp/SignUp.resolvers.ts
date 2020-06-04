@@ -1,6 +1,7 @@
 import { SignUpMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
-import User from '../../../entities/User';
+import User from '../../../models/User';
+import { hashPassword } from '../../../utils/hashPassword';
 
 /** SignUp
  *  id가 이미 있는지 검사 후
@@ -12,16 +13,16 @@ const resolvers: Resolvers = {
     SignUp: async (_, args: SignUpMutationArgs) => {
       try {
         const { userId, password, familyName, givenName } = args;
-        const isUserId = await User.findOne({ userId });
+        const isUserId = await User.findOne({ where: { userId } });
         if (!isUserId) {
-          const user = await User.create({
+          const hashedPassword = await hashPassword(password);
+
+          await User.create({
             userId,
-            password,
+            password: hashedPassword,
             familyName,
             givenName,
           });
-          await user.savePassword();
-          user.save();
 
           return {
             ok: true,

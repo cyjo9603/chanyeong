@@ -1,7 +1,6 @@
 type AddSkillResponse {
     ok: Boolean!
     error: String
-    skill: Skill
 }
 
 type Mutation {

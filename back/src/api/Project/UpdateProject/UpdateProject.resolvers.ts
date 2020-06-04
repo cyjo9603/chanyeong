@@ -1,7 +1,8 @@
 import { Resolvers } from '../../../types/resolvers';
 
-import Project from '../../../entities/Project';
+import Project from '../../../models/Project';
 import privateResolver from '../../../utils/privateResolver';
+import Skill from '../../../models/Skill';
 
 interface UpdateValue {
   [key: string]: string | number;
@@ -15,21 +16,26 @@ const resolvers: Resolvers = {
   Mutation: {
     UpdateProject: privateResolver(async (_, args) => {
       try {
-        const { id, skillIds } = args;
-        const skills = skillIds?.map((v: number) => ({ id: v }));
+        const { id, deleteSkills, addSkills } = args;
 
         const updateValue = Object.keys(args).reduce((value: UpdateValue, key) => {
-          if (args[key] && key !== 'id' && key !== 'skillIds') {
+          if (args[key] && key !== 'id' && key !== 'deleteSkills' && key !== 'addSkills') {
             // eslint-disable-next-line no-param-reassign
             value[key] = args[key];
           }
           return value;
         }, {});
 
-        const project = await Project.findOne({ id }, { relations: ['skills'] });
-
+        // await Project.update({ ...updateValue, Skills: skillIds }, { where: { id } });
+        const project = await Project.findOne({ where: { id }, include: [{ model: Skill }] });
         if (project) {
-          const updateProject = Object.assign(project, { ...updateValue, skills });
+          const updateProject = Object.assign(project, updateValue);
+          if (deleteSkills) {
+            updateProject.removeSkill(deleteSkills);
+          }
+          if (addSkills) {
+            updateProject.addSkill(addSkills);
+          }
           updateProject.save();
         }
 

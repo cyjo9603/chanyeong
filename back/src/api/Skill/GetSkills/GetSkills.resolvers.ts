@@ -1,7 +1,7 @@
 import { GetSkillsQueryArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import Skill from '../../../entities/Skill';
+import Skill from '../../../models/Skill';
 
 /** GetSkills
  *  FRONT_END, BACK_END, DEV_OPS 3가지 타입으로
@@ -12,7 +12,8 @@ const resolvers: Resolvers = {
     GetSkills: async (_, args: GetSkillsQueryArgs) => {
       try {
         const { type } = args;
-        const skill = await Skill.find(type ? { type } : undefined);
+        // type null 체크
+        const skill = await Skill.findAll({ where: type ? { type } : undefined });
 
         return {
           ok: true,

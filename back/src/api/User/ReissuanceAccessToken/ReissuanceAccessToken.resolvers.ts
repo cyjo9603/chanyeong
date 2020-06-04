@@ -1,7 +1,7 @@
 import { ReissuanceAccessTokenMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import User from '../../../entities/User';
+import User from '../../../models/User';
 import { createAccessToken, REFRESH_TOKEN } from '../../../utils/createJWT';
 import decodeJWT from '../../../utils/decodeJWT';
 
@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
           };
         }
 
-        const user = await User.findOne({ id: decode.id });
+        const user = await User.findOne({ where: { id: decode.id! } });
 
         if (user && user.refreshToken === refreshToken) {
           const newAccessToken = createAccessToken(user.id);

@@ -5,5 +5,5 @@ type GetProjectsResponse {
 }
 
 type Query {
-    GetProjects(type: ProjectType!) : GetProjectsResponse!
+    GetProjects(type: ProjectType) : GetProjectsResponse!
 }

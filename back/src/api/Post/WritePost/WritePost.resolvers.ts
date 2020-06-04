@@ -1,7 +1,7 @@
 import { WritePostMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import Post from '../../../entities/Post';
+import Post from '../../../models/Post';
 import privateResolver from '../../../utils/privateResolver';
 
 /** WritePost
@@ -13,15 +13,14 @@ const resolvers: Resolvers = {
       try {
         const { category, title, content, titleImage, tagIds } = args;
 
-        const tags = tagIds?.map((v) => ({ id: v }));
-
-        await Post.create({
+        const post = await Post.create({
           category,
           title,
           content,
-          titleImage: titleImage || undefined,
-          tags,
-        }).save();
+          titleImage,
+        });
+
+        await post.addTag(tagIds);
 
         return {
           ok: true,

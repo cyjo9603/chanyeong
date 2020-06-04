@@ -1,7 +1,7 @@
 import { AddProjectMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
-import Project from '../../../entities/Project';
+import Project from '../../../models/Project';
 import privateResolver from '../../../utils/privateResolver';
 
 /** AddProject
@@ -26,21 +26,22 @@ const resolvers: Resolvers = {
           skillIds,
         } = args;
 
-        const skills = skillIds?.map((v) => ({ id: v }));
-
-        await Project.create({
+        const project = await Project.create({
           type,
-          groupName: groupName || undefined,
+          groupName,
           title,
           content,
           description,
           startDate,
-          endDate: endDate || undefined,
-          githubAddr: githubAddr || undefined,
-          titleImage: titleImage || undefined,
+          endDate,
+          githubAddr,
+          titleImage,
           contribution,
-          skills,
-        }).save();
+        });
+
+        if (skillIds) {
+          await project.addSkills(skillIds);
+        }
 
         return {
           ok: true,

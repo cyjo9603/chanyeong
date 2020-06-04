@@ -1,6 +1,6 @@
 import { Resolvers } from '../../../types/resolvers';
 
-import User from '../../../entities/User';
+import User from '../../../models/User';
 import privateResolver from '../../../utils/privateResolver';
 
 const resolvers: Resolvers = {
@@ -8,7 +8,7 @@ const resolvers: Resolvers = {
     LogOut: privateResolver(async (_, __, context) => {
       try {
         const { id } = context.req.user;
-        await User.update({ id }, { refreshToken: undefined });
+        await User.update({ refreshToken: null }, { where: { id } });
 
         return {
           ok: true,

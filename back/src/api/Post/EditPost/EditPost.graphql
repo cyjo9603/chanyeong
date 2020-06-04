@@ -10,6 +10,7 @@ type Mutation {
         title: String
         content: String
         titleImage: String
-        tagIds: [Int]
+        deleteTags: [Int]
+        addTags: [Int]
     ): EditPostResponse!
 }

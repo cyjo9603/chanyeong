@@ -1,7 +1,8 @@
 import { SignInMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
-import User from '../../../entities/User';
+import User from '../../../models/User';
 import { createRefreshToken, createAccessToken } from '../../../utils/createJWT';
+import { comparePassword } from '../../../utils/hashPassword';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우
@@ -13,7 +14,7 @@ const resolvers: Resolvers = {
     SignIn: async (_, args: SignInMutationArgs) => {
       try {
         const { userId, password } = args;
-        const user = await User.findOne({ userId });
+        const user = await User.findOne({ where: { userId } });
 
         if (!user) {
           return {
@@ -22,14 +23,13 @@ const resolvers: Resolvers = {
           };
         }
 
-        const checkPassword = await user.comparePassword(password);
+        const checkPassword = comparePassword(user.password, password);
 
         if (checkPassword) {
           const refreshToken = createRefreshToken(user.id);
           const accessToken = createAccessToken(user.id);
 
-          user.refreshToken = refreshToken;
-          user.save();
+          user.update({ refreshToken });
 
           return {
             ok: true,

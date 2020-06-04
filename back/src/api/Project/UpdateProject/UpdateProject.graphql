@@ -5,14 +5,15 @@ type UpdateProjectResponse {
 
 type Mutation {
     UpdateProject(
-        id: Int!,
-        groupName: String,
-        description: String,
-        content: String,
-        endDate: String,
-        githubAddr: String,
-        titleImage: String,
-        contribution: Int,
-        skillIds: [Int]
+        id: Int!
+        groupName: String
+        description: String
+        content: String
+        endDate: String
+        githubAddr: String
+        titleImage: String
+        contribution: Int
+        deleteSkills: [Int]
+        addSkills: [Int]
     ): UpdateProjectResponse!
 }

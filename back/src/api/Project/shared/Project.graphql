@@ -18,5 +18,5 @@ type Project {
     picked: Boolean!
     createdAt: String!
     updatedAt: String!
-    skills: [Skill]
+    Skills: [Skill]
 }
