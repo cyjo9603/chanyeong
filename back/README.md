@@ -28,6 +28,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  LogOut
 - [x]  Add Skill
 - [x]  Eidt Skill
+- [x]  Delete Skill
 - [x]  Add Project
 - [x]  Eidt Project
 - [x]  Delete Project

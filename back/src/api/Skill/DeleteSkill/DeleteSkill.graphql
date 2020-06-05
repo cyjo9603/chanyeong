@@ -1,0 +1,8 @@
+type DeleteSkillResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    DeleteSkill(id: Int!): DeleteSkillResponse!
+}
