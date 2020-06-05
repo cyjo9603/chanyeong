@@ -11,4 +11,5 @@ type Skill {
     level: Int!
     description: String!
     icon: String!
+    order: Int!
 }

@@ -10,5 +10,6 @@ type Mutation {
         level: Int!,
         description: String!
         icon: String!
+        order: Int!
     ): AddSkillResponse!
 }

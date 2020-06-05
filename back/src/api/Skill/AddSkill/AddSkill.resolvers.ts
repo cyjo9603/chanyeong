@@ -12,8 +12,8 @@ const resolvers: Resolvers = {
   Mutation: {
     AddSkill: privateResolver(async (_, args: AddSkillMutationArgs) => {
       try {
-        const { name, type, level, description, icon } = args;
-        await Skill.create({ name, type, level, description, icon });
+        const { name, type, level, description, icon, order } = args;
+        await Skill.create({ name, type, level, description, icon, order });
 
         return {
           ok: true,

@@ -15,6 +15,8 @@ class Skill extends Model {
   public description!: string;
 
   public icon!: string;
+
+  public order!: number;
 }
 
 Skill.init(
@@ -38,6 +40,10 @@ Skill.init(
     },
     icon: {
       type: DataTypes.STRING(200),
+      allowNull: false,
+    },
+    order: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

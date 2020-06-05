@@ -5,11 +5,12 @@ type UpdateSkillResponse {
 
 type Mutation {
     UpdateSkill(
-        id: Int!,
-        name: String,
-        type: SkillType,
-        level: Int,
-        description: String,
+        id: Int!
+        name: String
+        type: SkillType
+        level: Int
+        description: String
         icon: String
+        order: Int
     ): UpdateSkillResponse!
 }
