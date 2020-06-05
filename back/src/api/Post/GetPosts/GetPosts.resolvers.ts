@@ -14,10 +14,9 @@ const resolvers: Resolvers = {
   Query: {
     GetPosts: async (_, args: GetPostsQueryArgs) => {
       try {
-        const { lastId, category, tagId } = args;
+        const { lastId, category } = args;
         const lastIdWhere = lastId && { id: { [Op.lt]: lastId } };
         const categoryWhere = category && { category };
-        const tagIdWhere = tagId ? { id: tagId } : undefined;
 
         const posts = await Post.findAll({
           where: {
@@ -27,7 +26,6 @@ const resolvers: Resolvers = {
           include: [
             {
               model: Tag,
-              where: tagIdWhere,
             },
           ],
           order: [['id', 'DESC']],
