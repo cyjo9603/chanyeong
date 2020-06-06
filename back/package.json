@@ -13,7 +13,7 @@
   "author": "chanyeong",
   "license": "MIT",
   "dependencies": {
-    "apollo-server-express": "^2.14.1",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^4.0.1",
     "class-validator": "^0.12.2",
     "compression": "^1.7.4",
