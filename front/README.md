@@ -7,8 +7,9 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 ### Share:
 
 - [x] Header
-- [ ] Footer
+- [x] Footer
 - [ ] Dark Mode fix
+- [ ] Responsive
 
 ### Main:
 
