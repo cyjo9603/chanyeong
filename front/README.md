@@ -2,13 +2,13 @@
 
 Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Nextjs, Apollo Client
 
-## Page
+## Page View
 
 ### Share:
 
 - [x] Header
 - [x] Footer
-- [ ] Dark Mode fix
+- [x] Dark Mode fix
 - [ ] Responsive
 
 ### Main:
