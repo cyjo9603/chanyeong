@@ -22,6 +22,11 @@ const App = ({ Component, pageProps, apollo }: Props) => (
     <ApolloProvider client={apollo}>
       <Helmet>
         <title>chanyeong</title>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"
+        ></link>
       </Helmet>
       <AppLayout>
         <Component {...pageProps}>test</Component>

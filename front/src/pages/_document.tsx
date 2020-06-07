@@ -5,7 +5,6 @@ import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
   ${reset}
 
   * {
