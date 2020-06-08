@@ -22,3 +22,38 @@ export const IntroWrapper = styled.div`
     color: ${(props) => props.theme.PRIMARY_COLOR};
   }
 `;
+
+const SummaryWrapper = styled.article`
+  padding: 40px 0;
+  width: 100%;
+  border-bottom: 2px solid ${(props) => props.theme.BORDER_LINE_GREY};
+`;
+
+export const AboutSummaryWrapper = styled(SummaryWrapper)`
+  & > div {
+    & > section {
+      margin: 40px 0;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    & > div:last-child {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+`;
+
+export const ArticleHeader = styled.div`
+  & > h1 {
+    color: ${(props) => props.theme.PRIMARY_COLOR};
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  & > h2 {
+    color: ${(props) => props.theme.PRIMARY_COLOR};
+    font-size: 16px;
+    font-weight: 700;
+  }
+`;
