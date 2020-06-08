@@ -30,7 +30,7 @@ const AboutSmmary = () => (
         />
       </section>
       <div>
-        <DetailButton title="소개" />
+        <DetailButton title="소개" link="/about" />
       </div>
     </PageContainer>
   </AboutSummaryWrapper>
