@@ -13,7 +13,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 ### Main:
 
-- [ ] Banner
+- [x] Banner
 - [ ] About Summary
 - [ ] Project Summary
 - [ ] Post Summary
