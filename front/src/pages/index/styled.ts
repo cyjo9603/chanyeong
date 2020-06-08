@@ -27,20 +27,28 @@ const SummaryWrapper = styled.article`
   padding: 40px 0;
   width: 100%;
   border-bottom: 2px solid ${(props) => props.theme.BORDER_LINE_GREY};
+
+  & > div > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 export const AboutSummaryWrapper = styled(SummaryWrapper)`
-  & > div {
-    & > section {
-      margin: 40px 0;
-      display: flex;
-      justify-content: space-around;
-    }
+  & > div > section {
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-around;
+  }
+`;
 
-    & > div:last-child {
-      display: flex;
-      justify-content: flex-end;
-    }
+export const ProjectSummaryWrapper = styled(SummaryWrapper)`
+  & > div > section {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    grid-row-gap: 40px;
   }
 `;
 

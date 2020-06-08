@@ -26,6 +26,8 @@ module.exports = {
     'react/display-name': 0,
     'no-shadow': 0,
     'prettier/prettier': 0,
+    'import/no-unresolved': 0,
+    '@typescript-eslint/camelcase': 0,
   },
   settings: {
     'import/resolver': {
