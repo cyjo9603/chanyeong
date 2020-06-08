@@ -5,7 +5,8 @@ import withApolloClient from 'next-with-apollo';
 import { AppProps, AppContext } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import ApolloClient from 'apollo-client';
+import { getDataFromTree } from '@apollo/react-ssr';
 
 import apolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
@@ -46,9 +47,27 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 };
 
 App.getInitialProps = async (context) => {
-  const { ctx, Component } = context as AppContext;
-  const pageProps = {};
+  const { ctx, Component } = context;
+  const pageProps = Component.getInitialProps?.(ctx);
+  const apolloState = { data: {} };
+  const { AppTree } = ctx;
+
+  if (typeof window === 'undefined') {
+    if (ctx.res?.headersSent || ctx.res?.finished) {
+      return pageProps;
+    }
+
+    try {
+      const props = { ...pageProps, apolloState, apolloClient };
+      const appTreeProps = 'Component' in ctx ? props : { pageProps: props };
+      await getDataFromTree(<AppTree {...appTreeProps} />);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  apolloState.data = apolloClient.cache.extract();
   return { pageProps };
 };
 
-export default withApolloClient(apolloClient)(App);
+export default withApolloClient(() => apolloClient)(App);
