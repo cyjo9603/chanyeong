@@ -23,7 +23,7 @@ export const IntroWrapper = styled.div`
   }
 `;
 
-const SummaryWrapper = styled.article`
+export const SummaryWrapper = styled.article`
   padding: 40px 0;
   width: 100%;
   border-bottom: 2px solid ${(props) => props.theme.BORDER_LINE_GREY};
@@ -50,6 +50,11 @@ export const ProjectSummaryWrapper = styled(SummaryWrapper)`
     justify-items: center;
     grid-row-gap: 40px;
   }
+`;
+export const SliderWrapper = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px 0;
 `;
 
 export const ArticleHeader = styled.div`

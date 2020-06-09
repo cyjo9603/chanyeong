@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import withApolloClient from 'next-with-apollo';
-import { AppProps, AppContext } from 'next/app';
+import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
@@ -36,6 +36,16 @@ const App = ({ Component, pageProps, apollo }: Props) => {
             type="text/css"
             href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"
           ></link>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
         </Helmet>
         <AppLayout>
           <Component {...pageProps} />
