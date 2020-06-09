@@ -4,11 +4,16 @@ export const ProjectCardWrapper = styled.div`
   display: flex;
   width: 520px;
   height: 80px;
-  box-shadow: 5px 5px 5px ${(props) => props.theme.DARK_BACKGROUND_GREY};
+  border: 1px solid ${(props) => props.theme.DARK_BACKGROUND_GREY};
+  transition: box-shadow 0.3s, border-color 0.3s;
 
   & > img {
     width: 120px;
     height: 100%;
+  }
+
+  &:hover {
+    box-shadow: 5px 5px 5px ${(props) => props.theme.DARK_BACKGROUND_GREY};
   }
 `;
 

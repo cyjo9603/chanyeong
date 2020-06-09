@@ -13,7 +13,6 @@ const ProjectCard = ({
 }: Props) => (
   <Link href={`/project/${id}`}>
     <a>
-      {' '}
       <ProjectCardWrapper>
         {titleImage ? <img src={titleImage} alt="project title" /> : <NoImage>NO IMAGE</NoImage>}
         <ProjectContent>
