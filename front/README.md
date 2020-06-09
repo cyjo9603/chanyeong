@@ -36,9 +36,9 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 ### Portfolio:
 
-- [ ] Section Header
-- [ ] Group Project
-- [ ] Personal Project
+- [x] Section Header
+- [x] Group Project
+- [x] Personal Project
 - [ ] Edit Project Form
 - [ ] Responsive
 

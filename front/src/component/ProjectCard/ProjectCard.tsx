@@ -2,10 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 
 import { ProjectCardWrapper, NoImage, ProjectContent } from './styled';
-import { getPickedProjects_GetPickedProjects_project } from '../../types/api';
+import { getPickedProjects_GetPickedProjects_project, getProjects_GetProjects_project } from '../../types/api';
 
 interface Props {
-  projectInfo: getPickedProjects_GetPickedProjects_project;
+  projectInfo: getPickedProjects_GetPickedProjects_project | getProjects_GetProjects_project;
 }
 
 const ProjectCard = ({
