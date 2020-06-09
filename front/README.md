@@ -26,11 +26,11 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 ### About:
 
-- [ ] Section Header
-- [ ] Values
-- [ ] Problom Solving
-- [ ] Work Process
-- [ ] Skill Stack
+- [x] Section Header
+- [x] Values
+- [x] Problom Solving
+- [x] Work Process
+- [x] Skill Stack
 - [ ] Edit Skill Form
 - [ ] Responsive
 
