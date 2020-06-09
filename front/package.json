@@ -7,7 +7,9 @@
     "dev": "nodemon --exec node server.js",
     "build": "next build",
     "prestart": "npm run build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "precodegen": "apollo schema:download --endpoint=http://localhost:4000/graphql",
+    "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
   },
   "keywords": [],
   "author": "chanyeong",
