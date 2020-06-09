@@ -14,6 +14,8 @@ class Post extends Model {
 
   public titleImage?: string;
 
+  public picked?: boolean;
+
   public readonly createdAt!: Date;
 
   public readonly updatedAt!: Date;
@@ -36,6 +38,11 @@ Post.init(
     titleImage: {
       type: DataTypes.STRING(200),
       allowNull: true,
+    },
+    picked: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {
