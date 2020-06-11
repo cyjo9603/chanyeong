@@ -5,5 +5,5 @@ type GetPostsResponse {
 }
 
 type Query {
-    GetPosts(lastId: Int, category: PostCategory): GetPostsResponse!
+    GetPosts(lastId: Int, tagId: Int, category: PostCategory): GetPostsResponse!
 }
