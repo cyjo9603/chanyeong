@@ -33,7 +33,6 @@ export const GET_TAG_POSTS = gql`
         content
         titleImage
         createdAt
-        updatedAt
         Tags {
           id
           name

@@ -26,11 +26,27 @@ export const BlogContainer = styled.section`
 
 export const SideTagContainer = styled.aside`
   width: 22%;
+
+  & > section {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > div {
+      background-color: ${(props) => props.theme.TAG_BACKGROUND};
+      height: 20px;
+      border-radius: 8px;
+      padding: 0 8px;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+  }
 `;
 
 export const SubItem = styled.span`
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
 `;
 
 export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`

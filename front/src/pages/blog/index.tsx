@@ -5,10 +5,11 @@ import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import Search from '../../component/Search';
 import BlogPostCard from '../../component/BlogPostCard';
-import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem } from './styled';
+import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
 
 import { GET_POSTS } from './GetPosts.queries';
-import { getPosts } from '../../types/api';
+import { GET_TAGS } from './GetTags.queries';
+import { getPosts, getTags } from '../../types/api';
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -19,6 +20,7 @@ const Blog = () => {
   const [category, setCategory] = useState(null);
   const lastId = useRef(null);
   const { data, fetchMore } = useQuery<getPosts>(GET_POSTS, { variables: { category } });
+  const { data: tagData } = useQuery<getTags>(GET_TAGS);
 
   const onScroll = useCallback(() => {
     if (
@@ -81,7 +83,14 @@ const Blog = () => {
             ))}
           </section>
         </BlogContainer>
-        <SideTagContainer></SideTagContainer>
+        <SideTagContainer>
+          <SubItem>인기 태그</SubItem>
+          <section>
+            {tagData?.GetTags?.tags?.map((v) => (
+              <div key={`popularity_tag${v.id}`}>{v.name}</div>
+            ))}
+          </section>
+        </SideTagContainer>
       </BlogWrapper>
     </PageContainer>
   );
