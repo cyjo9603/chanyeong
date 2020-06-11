@@ -28,6 +28,7 @@ module.exports = {
     'prettier/prettier': 0,
     'import/no-unresolved': 0,
     '@typescript-eslint/camelcase': 0,
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {

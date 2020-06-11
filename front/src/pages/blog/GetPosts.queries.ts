@@ -1,6 +1,5 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
-// eslint-disable-next-line import/prefer-default-export
 export const GET_POSTS = gql`
   query getPosts($lastId: Int, $tagId: Int, $category: PostCategory) {
     GetPosts(lastId: $lastId, tagId: $tagId, category: $category) {

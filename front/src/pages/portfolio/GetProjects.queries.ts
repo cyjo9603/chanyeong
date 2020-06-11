@@ -1,6 +1,5 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
-// eslint-disable-next-line import/prefer-default-export
 export const GET_PROJECTS = gql`
   query getProjects($type: ProjectType) {
     GetProjects(type: $type) {
