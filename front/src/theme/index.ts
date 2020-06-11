@@ -4,6 +4,8 @@ export const lightTheme = {
   LIGHT_BACKGROUND_GREY: '#B5B5B5',
   DARK_BACKGROUND_GREY: '#eeeeee',
   BORDER_LINE_GREY: '#eeeeee',
+  BORDER_LINE_DARK_GREY: '#d9d9d9',
+  TAG_BACKGROUND: '#cccccc',
 
   SKILL_RED: '#E0613F',
   SKILL_YELLOW: '#FFF2A1',

@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "graphql": "^15.0.0",
     "less": "^3.11.3",
+    "moment": "^2.26.0",
     "morgan": "^1.10.0",
     "next": "^9.4.4",
     "next-with-apollo": "^5.0.1",
