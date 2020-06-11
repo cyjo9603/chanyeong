@@ -18,8 +18,9 @@ const path = [
 
 const Blog = () => {
   const [category, setCategory] = useState(null);
+  const [tagId, setTagId] = useState(null);
   const lastId = useRef(null);
-  const { data, fetchMore } = useQuery<getPosts>(GET_POSTS, { variables: { category } });
+  const { data, fetchMore } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
 
   const onScroll = useCallback(() => {
@@ -31,6 +32,7 @@ const Blog = () => {
       fetchMore({
         variables: {
           category,
+          tagId,
           lastId: lastId.current,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
@@ -43,10 +45,14 @@ const Blog = () => {
         },
       });
     }
-  }, [data, category, lastId.current]);
+  }, [data, category, lastId.current, tagId]);
 
   const onChangeCategory = useCallback((categoryName: string | null) => {
     setCategory(categoryName);
+    setTagId(null);
+  }, []);
+  const onChangeTagId = useCallback((tagId: number) => {
+    setTagId(tagId);
   }, []);
 
   useEffect(() => {
@@ -55,7 +61,7 @@ const Blog = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [data, category, lastId.current]);
+  }, [data, category, lastId.current, tagId]);
 
   return (
     <PageContainer>
@@ -87,7 +93,9 @@ const Blog = () => {
           <SubItem>인기 태그</SubItem>
           <section>
             {tagData?.GetTags?.tags?.map((v) => (
-              <div key={`popularity_tag${v.id}`}>{v.name}</div>
+              <div key={`popularity_tag${v.id}`} onClick={() => onChangeTagId(v.id)}>
+                {v.name}
+              </div>
             ))}
           </section>
         </SideTagContainer>

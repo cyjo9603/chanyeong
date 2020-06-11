@@ -59,6 +59,6 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 - [x] Section Header
 - [x] Category
-- [ ] Side Tag
+- [x] Side Tag
 - [x] Blog Lists
 - [ ] Responsive
