@@ -61,6 +61,11 @@ App.getInitialProps = async (context) => {
   const pageProps = Component.getInitialProps?.(ctx);
   const apolloState = { data: {} };
   const { AppTree } = ctx;
+  const cookies = ctx.req?.headers?.cookie;
+  if (cookies) {
+    const refreshToken = cookies.replace(/(?:(?:^|.*;\s*)crt\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    const accessToken = cookies.replace(/(?:(?:^|.*;\s*)cat\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+  }
 
   if (typeof window === 'undefined') {
     if (ctx.res?.headersSent || ctx.res?.finished) {

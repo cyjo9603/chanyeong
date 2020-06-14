@@ -33,6 +33,7 @@
     "next": "^9.4.4",
     "next-with-apollo": "^5.0.1",
     "react": "^16.13.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-slick": "^0.26.1",
