@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
-import withApolloClient from 'next-with-apollo';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { getDataFromTree } from '@apollo/react-ssr';
 
-import apolloClient from '../apollo';
+import withApolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
@@ -60,20 +59,15 @@ App.getInitialProps = async (context) => {
   const { ctx, Component } = context;
   const pageProps = Component.getInitialProps?.(ctx);
   const apolloState = { data: {} };
-  const { AppTree } = ctx;
-  const cookies = ctx.req?.headers?.cookie;
-  if (cookies) {
-    const refreshToken = cookies.replace(/(?:(?:^|.*;\s*)crt\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-    const accessToken = cookies.replace(/(?:(?:^|.*;\s*)cat\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-  }
+  const { AppTree, apolloClient } = ctx;
 
-  if (typeof window === 'undefined') {
+  if (ctx.isServer) {
     if (ctx.res?.headersSent || ctx.res?.finished) {
       return pageProps;
     }
 
     try {
-      const props = { ...pageProps, apolloState, apolloClient };
+      const props = { ...pageProps, apolloState };
       const appTreeProps = 'Component' in ctx ? props : { pageProps: props };
       await getDataFromTree(<AppTree {...appTreeProps} />);
     } catch (error) {
@@ -85,4 +79,4 @@ App.getInitialProps = async (context) => {
   return { pageProps };
 };
 
-export default withApolloClient(() => apolloClient)(App);
+export default withApolloClient(App);

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Cookies } from 'react-cookie';
+import Router from 'next/router';
 
 import PageContainer from '../../component/pageContainer';
 import Input from '../../component/Input';
@@ -23,14 +24,16 @@ const SignIn = () => {
     },
   });
 
-  const onSubmit = useCallback((e: React.FormEvent) => {
+  const onSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    signInMutation();
+    await signInMutation();
+    Router.push('/');
   }, []);
 
   const onChangeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value);
   }, []);
+
   const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }, []);
