@@ -7,9 +7,16 @@ import Container from '../pageContainer';
 import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper } from './styled';
 import { getUserInfo } from '../../types/api';
 import { GET_USER_INFO } from '../../sharedQueries.queries';
+import { getAccessToken } from '../../lib/cookie';
 
 const Header = () => {
-  const { data } = useQuery<getUserInfo>(GET_USER_INFO);
+  const { data } = useQuery<getUserInfo>(GET_USER_INFO, {
+    context: {
+      headers: {
+        'X-JWT': getAccessToken(),
+      },
+    },
+  });
   console.log(data);
 
   return (

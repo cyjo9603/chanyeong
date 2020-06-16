@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Cookies } from 'react-cookie';
 import Router from 'next/router';
 
 import PageContainer from '../../component/pageContainer';
@@ -8,6 +7,7 @@ import Input from '../../component/Input';
 import { SignInWrapper } from './styled';
 import { signIn } from '../../types/api';
 import { SIGNIN_REQUEST } from './SignIn.queries';
+import { setToken } from '../../lib/cookie';
 
 const SignIn = () => {
   const [userId, setUserId] = useState('');
@@ -16,10 +16,7 @@ const SignIn = () => {
     variables: { userId, password },
     onCompleted: ({ SignIn }) => {
       if (SignIn.token) {
-        const cookies = new Cookies();
-        const { refreshToken, accessToken } = SignIn.token;
-        cookies.set('crt', refreshToken);
-        cookies.set('cat', accessToken);
+        setToken(SignIn.token);
       }
     },
   });
