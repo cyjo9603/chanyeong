@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
-import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper } from './styled';
-import { GET_LOCAL_USER } from './getLocalUser.queries';
+import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
+import { GET_LOCAL_USER, LOG_OUT } from './Header.queries';
+import { clearCookie, getAccessToken } from '../../lib/cookie';
 
 const Header = () => {
   const { data } = useQuery(GET_LOCAL_USER);
+  const [logoutMutation] = useMutation(LOG_OUT);
+
+  const onClickLogout = useCallback(() => {
+    logoutMutation({
+      context: {
+        headers: {
+          'X-JWT': getAccessToken(),
+        },
+      },
+    });
+    clearCookie();
+  }, [getAccessToken()]);
 
   return (
     <HeaderWrapper>
@@ -16,8 +29,8 @@ const Header = () => {
         <StatusBar>
           {data?.isLoggedIn.userName ? (
             <>
-              <span>로그아웃</span>
               <span>{data.isLoggedIn.userName}님</span>
+              <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
             </>
           ) : (
             <span>

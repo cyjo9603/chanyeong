@@ -8,9 +8,10 @@ export const HeaderWrapper = styled.header`
 export const StatusBar = styled.div`
   width: 100%;
   height: 30px;
+  display: flex;
+  justify-content: flex-end;
 
-  & > span {
-    float: right;
+  & span {
     font-weight: 500px;
     margin-right: 20px;
     margin-top: 4px;
@@ -47,4 +48,8 @@ export const NavWrapper = styled.nav`
     font-weight: 600;
     font-size: 18px;
   }
+`;
+
+export const LogoutWrapper = styled.span`
+  cursor: pointer;
 `;

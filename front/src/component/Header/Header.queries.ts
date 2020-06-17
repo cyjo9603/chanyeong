@@ -7,3 +7,14 @@ export const GET_LOCAL_USER = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation LogOut {
+    LogOut {
+      ok
+      error
+    }
+
+    LocalLogOut @client
+  }
+`;

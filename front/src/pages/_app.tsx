@@ -26,7 +26,7 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   const apolloClient = useMemo(() => {
     apollo.restore(apolloData);
     return apollo;
-  }, [apolloData]);
+  }, [apollo, apolloData]);
 
   const onClickDarkMode = useCallback(() => {
     setIsDarkMode(!isDarkMode);
