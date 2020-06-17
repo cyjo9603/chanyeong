@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
@@ -11,15 +11,22 @@ import withApolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
+import { REGEXP_ACCESS_TOKEN } from '../secret';
+import { GET_USER_INFO } from '../sharedQueries.queries';
 
 import '../theme/antd_custom.less';
 
 interface Props extends AppProps {
   apollo: ApolloClient<any>;
+  apolloData: any;
 }
 
-const App = ({ Component, pageProps, apollo }: Props) => {
+const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const apolloClient = useMemo(() => {
+    apollo.restore(apolloData);
+    return apollo;
+  }, [apolloData]);
 
   const onClickDarkMode = useCallback(() => {
     setIsDarkMode(!isDarkMode);
@@ -27,7 +34,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
-      <ApolloProvider client={apollo}>
+      <ApolloProvider client={apolloClient}>
         <Helmet>
           <title>chanyeong</title>
           <link
@@ -55,28 +62,61 @@ const App = ({ Component, pageProps, apollo }: Props) => {
   );
 };
 
-App.getInitialProps = async (context) => {
-  const { ctx, Component } = context;
-  const pageProps = Component.getInitialProps?.(ctx);
+App.getInitialProps = async ({ ctx, Component }: any) => {
+  let appProps = {};
   const apolloState = { data: {} };
   const { AppTree, apolloClient } = ctx;
+  const pageProps = Component.getInitialProps?.(ctx);
 
-  if (ctx.isServer) {
+  const cookies = ctx.req?.headers?.cookie;
+
+  if (pageProps) {
+    appProps = { pageProps };
+  }
+
+  if (cookies) {
+    const accessToken = cookies.replace(REGEXP_ACCESS_TOKEN, '$1');
+    const { data } = await apolloClient.query({
+      query: GET_USER_INFO,
+      context: {
+        headers: {
+          'X-JWT': accessToken,
+        },
+      },
+    });
+    if (data?.GetUserInfo.user) {
+      const { familyName, givenName } = data.GetUserInfo.user;
+      apolloClient.cache.writeData({
+        data: {
+          isLoggedIn: {
+            __typename: 'IsLoggedIn',
+            userName: `${familyName}${givenName}`,
+          },
+        },
+      });
+    }
+  }
+
+  apolloState.data = apolloClient.cache.extract();
+  appProps = { ...appProps, apolloData: apolloState.data };
+
+  if (typeof window === 'undefined') {
     if (ctx.res?.headersSent || ctx.res?.finished) {
       return pageProps;
     }
 
     try {
       const props = { ...pageProps, apolloState };
-      const appTreeProps = 'Component' in ctx ? props : { pageProps: props };
+      const appTreeProps = Component ? props : { pageProps: props };
       await getDataFromTree(<AppTree {...appTreeProps} />);
     } catch (error) {
       console.error(error);
     }
   }
 
-  apolloState.data = apolloClient.cache.extract();
-  return { pageProps };
+  // console.log('appProps', appProps);
+
+  return appProps;
 };
 
 export default withApolloClient(App);

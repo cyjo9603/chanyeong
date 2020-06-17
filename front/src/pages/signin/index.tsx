@@ -8,23 +8,30 @@ import { SignInWrapper } from './styled';
 import { signIn } from '../../types/api';
 import { SIGNIN_REQUEST } from './SignIn.queries';
 import { setToken } from '../../lib/cookie';
+import { LOCAL_SIGN_IN } from '../../innerQueries.queries';
 
 const SignIn = () => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const [localSignIn] = useMutation(LOCAL_SIGN_IN);
   const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
     variables: { userId, password },
     onCompleted: ({ SignIn }) => {
-      if (SignIn.token) {
+      if (SignIn.token && SignIn.userName) {
         setToken(SignIn.token);
+        localSignIn({
+          variables: {
+            userName: SignIn.userName,
+          },
+        });
+        Router.push('/');
       }
     },
   });
 
-  const onSubmit = useCallback(async (e: React.FormEvent) => {
+  const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    await signInMutation();
-    Router.push('/');
+    signInMutation();
   }, []);
 
   const onChangeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

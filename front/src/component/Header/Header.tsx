@@ -5,31 +5,19 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
 import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper } from './styled';
-import { getUserInfo } from '../../types/api';
-import { GET_USER_INFO } from '../../sharedQueries.queries';
-import { getAccessToken } from '../../lib/cookie';
+import { GET_LOCAL_USER } from './getLocalUser.queries';
 
 const Header = () => {
-  const { data } = useQuery<getUserInfo>(GET_USER_INFO, {
-    context: {
-      headers: {
-        'X-JWT': getAccessToken(),
-      },
-    },
-  });
-  console.log(data);
+  const { data } = useQuery(GET_LOCAL_USER);
 
   return (
     <HeaderWrapper>
       <Container>
         <StatusBar>
-          {data ? (
+          {data?.isLoggedIn.userName ? (
             <>
               <span>로그아웃</span>
-              <span>
-                {data.GetUserInfo.user.familyName}
-                {data.GetUserInfo.user.givenName}님
-              </span>
+              <span>{data.isLoggedIn.userName}님</span>
             </>
           ) : (
             <span>

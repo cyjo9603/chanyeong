@@ -9,6 +9,7 @@ export const SIGNIN_REQUEST = gql`
         refreshToken
         accessToken
       }
+      userName
     }
   }
 `;

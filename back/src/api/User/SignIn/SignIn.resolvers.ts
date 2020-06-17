@@ -23,7 +23,7 @@ const resolvers: Resolvers = {
           };
         }
 
-        const checkPassword = comparePassword(user.password, password);
+        const checkPassword = await comparePassword(user.password, password);
 
         if (checkPassword) {
           const refreshToken = createRefreshToken(user.id);
@@ -37,6 +37,7 @@ const resolvers: Resolvers = {
               refreshToken,
               accessToken,
             },
+            userName: `${user.familyName}${user.givenName}`,
           };
         }
 
