@@ -2,16 +2,17 @@ import { WritePostMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 
 import Post from '../../../models/Post';
+import Tag from '../../../models/Tag';
 import privateResolver from '../../../utils/privateResolver';
 
 /** WritePost
- *  포스트 작성, tag값은 id 프로퍼티를 가진 객체로 변환
+ *  포스트 작성, tag값을 받아 포스트에 삽입
  */
 const resolvers: Resolvers = {
   Mutation: {
     WritePost: privateResolver(async (_, args: WritePostMutationArgs) => {
       try {
-        const { category, title, content, titleImage, tagIds } = args;
+        const { category, title, content, titleImage, tags } = args;
 
         const post = await Post.create({
           category,
@@ -20,7 +21,18 @@ const resolvers: Resolvers = {
           titleImage,
         });
 
-        await post.addTag(tagIds);
+        if (tags) {
+          const result = await Promise.all(
+            tags.map((tag) =>
+              Tag.findOrCreate({
+                where: {
+                  name: tag,
+                },
+              }),
+            ),
+          );
+          await post.addTag(result.map((r) => r[0]));
+        }
 
         return {
           ok: true,
