@@ -8,59 +8,40 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 - [x] Header
 - [x] Footer
-- [x] Dark Mode fix
+- [x] Dark Mode fix Button
+- [ ] Dark Mode
 - [ ] Responsive
 
-### Main:
+### Page:
 
-- [x] Banner
-- [x] About Summary
-- [x] Project Summary
-- [x] Post Summary
-- [ ] Responsive
+- [x] Index
+- [x] SignIn
+- [x] About
+- [x] Postfolio
+- [ ] View Project Contents
+- [x] Blog
+- [x] View Blog Posts
 
-### SignIn:
+## Function
 
-- [ ] SignIn Form
-- [ ] Responsive
+### For Admin
 
-### About:
-
-- [x] Section Header
-- [x] Values
-- [x] Problom Solving
-- [x] Work Process
-- [x] Skill Stack
-- [ ] Edit Skill Form
-- [ ] Responsive
-
-### Portfolio:
-
-- [x] Section Header
-- [x] Group Project
-- [x] Personal Project
-- [ ] Edit Project Form
-- [ ] Responsive
-
-### Write Project
-
+- [ ] Add Skill
+- [ ] Edit Skill
+- [ ] Remove Skill
 - [x] Add Project
-- [ ] Eidt Project
-- [ ] Responsive
+- [ ] Edit Project
+- [ ] Remove Project
+- [ ] Fix Project
+- [x] Add Post
+- [ ] Edit Post
+- [ ] Remove Post
+- [ ] Fix Post
 
-### View Project
+### Auth
 
-- [ ] Section Header
-- [ ] Project Info
-- [ ] Project Section
-- [ ] Responsive
+- [ ] Auto Reissuance Token
 
-### Blog:
 
-- [x] Section Header
-- [x] Category
-- [x] Side Tag
-- [x] Blog Lists
-- [x] Write Post
-- [x] View Post
-- [ ] Responsive
+
+
