@@ -66,7 +66,7 @@ App.getInitialProps = async ({ ctx, Component }: any) => {
   let appProps = {};
   const apolloState = { data: {} };
   const { AppTree, apolloClient } = ctx;
-  const pageProps = Component.getInitialProps?.(ctx);
+  const pageProps = await Component.getInitialProps?.(ctx);
 
   const cookies = ctx.req?.headers?.cookie;
 

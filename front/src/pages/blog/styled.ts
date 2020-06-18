@@ -19,7 +19,7 @@ export const BlogContainer = styled.section`
     margin-top: 20px;
   }
 
-  & > section > div {
+  & > section > a > div {
     margin-bottom: 40px;
   }
 `;

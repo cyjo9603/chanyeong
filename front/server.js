@@ -21,6 +21,8 @@ app.prepare().then(() => {
     server.use(logger('dev'));
   }
 
+  server.get('/blog/post/:id', (req, res) => app.render(req, res, '/blog/post', { id: req.params.id }));
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(PORT, () =>

@@ -43,6 +43,7 @@
     "react-helmet": "^6.0.0",
     "react-slick": "^0.26.1",
     "react-text-loop": "^2.3.0",
+    "remove-markdown": "0.3.0",
     "styled-components": "^5.1.1",
     "styled-reset": "^4.1.5"
   },
