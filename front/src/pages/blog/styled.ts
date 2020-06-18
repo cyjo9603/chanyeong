@@ -58,7 +58,25 @@ export const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
 
-  & > div > span {
+  & > div:first-child > span {
     margin-right: 30px;
+  }
+
+  & > div:last-child {
+    display: flex;
+
+    & > button {
+      margin-right: 10px;
+      background-color: ${(props) => props.theme.PRIMARY_COLOR};
+      color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 `;

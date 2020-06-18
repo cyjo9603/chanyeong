@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import Router from 'next/router';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
@@ -10,6 +11,7 @@ import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, Nav
 import { GET_POSTS } from './GetPosts.queries';
 import { GET_TAGS } from './GetTags.queries';
 import { getPosts, getTags } from '../../types/api';
+import { GET_LOCAL_USER } from '../../sharedQueries.queries';
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -17,11 +19,16 @@ const path = [
 ];
 
 const Blog = () => {
+  const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
   const lastId = useRef(null);
-  const { data, fetchMore } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
+  const { data, fetchMore, refetch } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const onScroll = useCallback(() => {
     if (
@@ -55,6 +62,10 @@ const Blog = () => {
     setTagId(tagId);
   }, []);
 
+  const onClickWritePost = useCallback(() => {
+    Router.push('/blog/write');
+  }, []);
+
   useEffect(() => {
     window.addEventListener('scroll', onScroll);
 
@@ -81,7 +92,10 @@ const Blog = () => {
                 dev
               </NavItem>
             </div>
-            <Search />
+            <div>
+              {userInfo?.isLoggedIn.userName && <button onClick={onClickWritePost}>포스트 작성</button>}
+              <Search />
+            </div>
           </NavWrapper>
           <section>
             {data?.GetPosts?.posts?.map((v) => (

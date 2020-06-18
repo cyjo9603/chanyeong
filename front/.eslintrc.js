@@ -29,6 +29,7 @@ module.exports = {
     'import/no-unresolved': 0,
     '@typescript-eslint/camelcase': 0,
     'import/prefer-default-export': 0,
+    'jsx-a11y/no-onchange': 0,
   },
   settings: {
     'import/resolver': {

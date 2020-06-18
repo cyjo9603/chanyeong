@@ -5,7 +5,8 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
 import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
-import { GET_LOCAL_USER, LOG_OUT } from './Header.queries';
+import { LOG_OUT } from './Header.queries';
+import { GET_LOCAL_USER } from '../../sharedQueries.queries';
 import { clearCookie, getAccessToken } from '../../lib/cookie';
 
 const Header = () => {

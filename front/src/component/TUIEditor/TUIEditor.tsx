@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import axios from 'axios';
@@ -16,17 +16,16 @@ const EditorWithForwardedRef = forwardRef<EditorType | undefined, EditorPropsWit
 
 interface Props extends EditorProps {
   onChange(value: string): void;
-  onClick(value: string): void;
-  registrationTitleImage(imgUrl: string): void;
+  setImage(imgUrl: string): void;
 
   valueType?: 'markdown' | 'html';
 }
 
 const TUIEditor = (props: Props) => {
-  const { initialValue, previewStyle, height, initialEditType, useCommandShortcut, registrationTitleImage } = props;
+  const { initialValue, previewStyle, height, initialEditType, useCommandShortcut, setImage } = props;
 
-  const editorRef = React.useRef<EditorType>();
-  const handleChange = React.useCallback(() => {
+  const editorRef = useRef<EditorType>();
+  const handleChange = useCallback(() => {
     if (!editorRef.current) {
       return;
     }
@@ -37,20 +36,20 @@ const TUIEditor = (props: Props) => {
     props.onChange(valueType === 'markdown' ? instance.getMarkdown() : instance.getHtml());
   }, [props, editorRef]);
 
-  const hooks = {
-    async addImageBlobHook(blob, callback) {
-      const formData = new FormData();
-      formData.append('file', blob);
-      formData.append('api_key', IMAGE_UPLOAD_API_KEY);
-      formData.append('upload_preset', 'xtaoaopp');
-      formData.append('timestamp', String(Date.now() / 1000));
-      const {
-        data: { secure_url },
-      } = await axios.post(IMAGE_UPLOAD_URL, formData);
-      registrationTitleImage(secure_url);
-      callback(secure_url, 'image');
-    },
-  };
+  const addImageBlobHook = useCallback(async (blob, callback) => {
+    const formData = new FormData();
+    formData.append('file', blob);
+    formData.append('api_key', IMAGE_UPLOAD_API_KEY);
+    formData.append('upload_preset', 'xtaoaopp');
+    formData.append('timestamp', String(Date.now() / 1000));
+    const {
+      data: { secure_url },
+    } = await axios.post(IMAGE_UPLOAD_URL, formData);
+    setImage(secure_url);
+    callback(secure_url, 'image');
+  }, []);
+
+  const hooks = { addImageBlobHook };
 
   return (
     <div>
