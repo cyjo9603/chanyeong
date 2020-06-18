@@ -44,7 +44,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 ### Write Project
 
-- [ ] Write Project
+- [x] Add Project
 - [ ] Eidt Project
 - [ ] Responsive
 

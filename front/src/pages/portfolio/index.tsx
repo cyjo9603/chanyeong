@@ -1,12 +1,14 @@
 import React from 'react';
+import Link from 'next/link';
 import { useQuery } from '@apollo/react-hooks';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import ProjectCard from '../../component/ProjectCard';
-import { SubTitle, Title, ProjectListWrapper } from './styled';
+import { SubTitleWrapper, Title, ProjectListWrapper } from './styled';
 import { getProjects } from '../../types/api';
 import { GET_PROJECTS } from './GetProjects.queries';
+import { GET_LOCAL_USER } from '../../sharedQueries.queries';
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -14,13 +16,23 @@ const path = [
 ];
 
 const Portfolio = () => {
+  const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data: groupData } = useQuery<getProjects>(GET_PROJECTS, { variables: { type: 'GROUP' } });
   const { data: personalData } = useQuery<getProjects>(GET_PROJECTS, { variables: { type: 'PERSONAL' } });
 
   return (
     <PageContainer>
       <PagePath data={path} />
-      <SubTitle>제가 지금까지 진행한 프로젝트들 입니다.</SubTitle>
+      <SubTitleWrapper>
+        <h2>제가 지금까지 진행한 프로젝트들 입니다.</h2>
+        {userInfo?.isLoggedIn.userName && (
+          <Link href="/portfolio/add">
+            <a>
+              <button>프로젝트 추가</button>
+            </a>
+          </Link>
+        )}
+      </SubTitleWrapper>
       {groupData?.GetProjects?.project && (
         <>
           <Title>그룹 프로젝트</Title>

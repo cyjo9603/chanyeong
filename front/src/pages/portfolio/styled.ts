@@ -1,9 +1,29 @@
 import styled from 'styled-components';
 
-export const SubTitle = styled.h2`
-  font-size: 18px;
-  font-weight: 400;
-  margin-top: 32px;
+export const SubTitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 12px;
+  }
+
+  & button {
+    margin-right: 10px;
+    background-color: ${(props) => props.theme.PRIMARY_COLOR};
+    color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
 export const Title = styled.h1`
