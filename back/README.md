@@ -22,6 +22,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  Get Group or Personal Projects
 - [x]  Get Picked Projects
 - [x]  Get Posts
+- [x]  Get Post
 - [x]  Get Picked Posts
 - [x]  Get Tag Posts
 
