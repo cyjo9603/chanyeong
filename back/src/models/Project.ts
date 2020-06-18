@@ -24,7 +24,7 @@ class Project extends Model {
 
   public titleImage?: string;
 
-  public contribution!: number;
+  public contribution?: number;
 
   public picked?: boolean;
 
@@ -73,7 +73,7 @@ Project.init(
     },
     contribution: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     picked: {
       type: DataTypes.BOOLEAN,
