@@ -10,10 +10,6 @@ const GlobalStyle = createGlobalStyle`
   html, body, #__next{
     height: 100%;
   }
-
-  * {
-    font-family: 'NanumSquare', sans-serif !important;
-  }
 `;
 
 interface Props {
