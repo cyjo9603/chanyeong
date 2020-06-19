@@ -28,15 +28,32 @@ export const AboutItemWrapper = styled.div`
   margin: 40px 0;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    & > div {
+      margin-bottom: 40px;
+
+      & :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 `;
 
-export const WorkProcessWrapper = styled(AboutItemWrapper)`
+export const WorkProcessWrapper = styled.div`
+  margin: 40px 0;
+  display: flex;
+  justify-content: space-around;
   align-items: flex-end;
+  flex-wrap: wrap;
 `;
 
 export const WorkProcessItemWrapper = styled.div`
+  width: 100px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   & > img {
     width: 100px;
@@ -48,6 +65,16 @@ export const WorkProcessItemWrapper = styled.div`
     font-size: 22px;
     font-weight: 800;
   }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    & > img {
+      width: 60px;
+    }
+
+    & > span {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const SkillListWrapper = styled.div`
@@ -56,4 +83,14 @@ export const SkillListWrapper = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   grid-row-gap: 30px;
+
+  @media (max-width: ${({ theme }) => theme.BP.PC}) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
