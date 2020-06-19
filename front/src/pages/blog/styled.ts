@@ -22,6 +22,13 @@ export const BlogContainer = styled.section`
   & > section > a > div {
     margin-bottom: 40px;
   }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    width: 82%;
+  }
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    width: 100%;
+  }
 `;
 
 export const SideTagContainer = styled.aside`
@@ -34,13 +41,20 @@ export const SideTagContainer = styled.aside`
     align-items: flex-start;
 
     & > div {
-      background-color: ${(props) => props.theme.TAG_BACKGROUND};
+      background-color: ${({ theme }) => theme.TAG_BACKGROUND};
       height: 20px;
       border-radius: 8px;
       padding: 0 8px;
       margin-top: 4px;
       cursor: pointer;
     }
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    width: 16%;
+  }
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    display: none;
   }
 `;
 
@@ -51,7 +65,7 @@ export const SubItem = styled.span`
 
 export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`
   cursor: pointer;
-  color: ${(props) => (props.currrentFocus ? props.theme.PRIMARY_COLOR : props.theme.LIGHT_BACKGROUND_GREY)};
+  color: ${({ theme, currrentFocus }) => (currrentFocus ? theme.PRIMARY_COLOR : theme.LIGHT_BACKGROUND_GREY)};
 `;
 
 export const NavWrapper = styled.nav`
@@ -67,8 +81,8 @@ export const NavWrapper = styled.nav`
 
     & > button {
       margin-right: 10px;
-      background-color: ${(props) => props.theme.PRIMARY_COLOR};
-      color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
+      background-color: ${({ theme }) => theme.PRIMARY_COLOR};
+      color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
       border: none;
       border-radius: 2px;
       cursor: pointer;
@@ -76,6 +90,11 @@ export const NavWrapper = styled.nav`
 
       &:focus {
         outline: none;
+      }
+    }
+    @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+      & > form {
+        display: none;
       }
     }
   }
