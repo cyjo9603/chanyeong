@@ -13,8 +13,8 @@ export const SubTitleWrapper = styled.div`
 
   & button {
     margin-right: 10px;
-    background-color: ${(props) => props.theme.PRIMARY_COLOR};
-    color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
+    background-color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -39,4 +39,9 @@ export const ProjectListWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   grid-row-gap: 30px;
+
+  @media (max-width: ${({ theme }) => theme.BP.HDPC}) {
+    grid-template-columns: 1fr;
+    justify-items: left;
+  }
 `;
