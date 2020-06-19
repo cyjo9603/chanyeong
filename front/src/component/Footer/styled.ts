@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FooterWrapper = styled.footer`
   position: absolute;
   bottom: 0;
-  background-color: ${(props) => props.theme.PRIMARY_COLOR};
+  background-color: ${({ theme }) => theme.PRIMARY_COLOR};
   width: 100%;
   height: 140px;
 
@@ -23,7 +23,7 @@ export const FooterLogoWrapper = styled.div`
 `;
 
 export const FooterInfoWrapper = styled.div`
-  color: ${(props) => props.theme.LIGHT_GREY};
+  color: ${({ theme }) => theme.LIGHT_GREY};
   font-size: 12px;
   margin-bottom: 6px;
 
@@ -33,5 +33,12 @@ export const FooterInfoWrapper = styled.div`
 
   & > div:first-child {
     margin-bottom: 6px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    & > div {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

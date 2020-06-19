@@ -5,12 +5,12 @@ export const PagePathWrapper = styled.div`
 
   & span {
     margin-right: 8px;
-    font-weight: 800;
+    font-weight: 500;
     font-size: 12px;
-    color: ${(props) => props.theme.LIGHT_BACKGROUND_GREY};
+    color: ${({ theme }) => theme.LIGHT_BACKGROUND_GREY};
   }
 `;
 
 export const LastItem = styled.span`
-  color: ${(props) => props.theme.PRIMARY_COLOR} !important;
+  color: ${({ theme }) => theme.PRIMARY_COLOR} !important;
 `;

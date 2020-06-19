@@ -35,27 +35,43 @@ function PrevArrow(props: any) {
   );
 }
 
+const settings = {
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  speed: 1000,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  responsive: [
+    {
+      breakpoint: 980,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 700,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
+
 const PostSummary = () => {
   const { data } = useQuery<getPickedPosts>(GET_PICKED_POSTS);
 
   return (
-    <SummaryWrapper>
-      <PageContainer>
+    <PageContainer>
+      <SummaryWrapper>
         <ArticleHeader>
           <h1>Blog</h1>
           <h2>개발을 진행하며 알게되거나 느긴 저의 이야기들을 적어놓았습니다.</h2>
         </ArticleHeader>
         <SliderWrapper>
-          <Slider
-            infinite={true}
-            slidesToShow={3}
-            slidesToScroll={1}
-            speed={1000}
-            nextArrow={<NextArrow />}
-            prevArrow={<PrevArrow />}
-            autoplay={true}
-            autoplaySpeed={3000}
-          >
+          <Slider {...settings}>
             {data?.GetPickedPosts?.posts?.map((v) => (
               <PostCard key={`main_post_${v.id}`} data={v} />
             ))}
@@ -65,8 +81,8 @@ const PostSummary = () => {
         <div>
           <DetailButton title="포스트" link="/blog" />
         </div>
-      </PageContainer>
-    </SummaryWrapper>
+      </SummaryWrapper>
+    </PageContainer>
   );
 };
 

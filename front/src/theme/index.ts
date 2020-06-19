@@ -1,3 +1,10 @@
+const breakPoint = {
+  HDPC: '1200px',
+  PC: '980px',
+  TABLET: '768px',
+  MOBILE: '480px',
+};
+
 export const lightTheme = {
   PRIMARY_COLOR: '#23374D',
   LIGHT_GREY: '#B5B5B5',
@@ -11,6 +18,8 @@ export const lightTheme = {
   SKILL_YELLOW: '#FFF2A1',
   SKILL_GREEN: '#02E08C',
   SKILL_GREY: '#bbbbbb',
+
+  BP: breakPoint,
 };
 
 export const darkTheme = {};

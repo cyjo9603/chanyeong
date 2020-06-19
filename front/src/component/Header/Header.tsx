@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
@@ -50,7 +51,7 @@ const Header = () => {
             </Link>{' '}
           </LogoWrapper>
           <NavWrapper>
-            <Menu mode="horizontal" selectable={false}>
+            <Menu mode="horizontal" selectable={false} overflowedIndicator={<MenuOutlined />}>
               <Menu.Item>
                 <Link href="/about">
                   <a>ABOUT</a>

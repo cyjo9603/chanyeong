@@ -12,8 +12,8 @@ const ProjectSummary = () => {
   const { data } = useQuery<getPickedProjects>(GET_PICKED_PROJECTS);
 
   return (
-    <ProjectSummaryWrapper>
-      <PageContainer>
+    <PageContainer>
+      <ProjectSummaryWrapper>
         <ArticleHeader>
           <h1>Project</h1>
           <h2>제가 개발을 진행하며 수행한 프로젝트입니다.</h2>
@@ -26,8 +26,8 @@ const ProjectSummary = () => {
         <div>
           <DetailButton title="프로젝트" link="/project" />
         </div>
-      </PageContainer>
-    </ProjectSummaryWrapper>
+      </ProjectSummaryWrapper>
+    </PageContainer>
   );
 };
 

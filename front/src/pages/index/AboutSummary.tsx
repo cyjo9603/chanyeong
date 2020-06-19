@@ -6,8 +6,8 @@ import AboutValue from '../../component/AboutValue';
 import DetailButton from '../../component/DetailButton';
 
 const AboutSmmary = () => (
-  <AboutSummaryWrapper>
-    <PageContainer>
+  <PageContainer>
+    <AboutSummaryWrapper>
       <ArticleHeader>
         <h1>About Me</h1>
         <h2>개발자 조찬영에 대해 소개합니다!</h2>
@@ -32,8 +32,8 @@ const AboutSmmary = () => (
       <div>
         <DetailButton title="소개" link="/about" />
       </div>
-    </PageContainer>
-  </AboutSummaryWrapper>
+    </AboutSummaryWrapper>
+  </PageContainer>
 );
 
 export default AboutSmmary;

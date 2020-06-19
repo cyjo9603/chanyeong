@@ -16,9 +16,20 @@ export const StatusBar = styled.div`
     margin-right: 20px;
     margin-top: 4px;
   }
+
+  & a {
+    @media (max-width: ${({ theme }) => theme.BP.HDPC}) {
+      margin-right: 20px;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    display: none;
+  }
 `;
 
 export const HeaderSection = styled.div`
+  position: relative;
   display: flex;
   flex-flow: nowrap;
   align-items: center;
@@ -29,10 +40,21 @@ export const HeaderSection = styled.div`
 
 export const LogoWrapper = styled.div`
   width: 250px;
+
+  @media (max-width: ${({ theme }) => theme.BP.PC}) {
+    position: absolute;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    width: 200px;
+  }
 `;
 
 export const NavWrapper = styled.nav`
-  width: 440px;
+  width: 460px;
 
   ul {
     border: none;
@@ -44,9 +66,15 @@ export const NavWrapper = styled.nav`
 
   & a {
     text-decoration: none;
-    color: ${(props) => props.theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_COLOR};
     font-weight: 600;
     font-size: 18px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.PC}) {
+    position: absolute;
+    width: 60px;
+    right: 0;
   }
 `;
 
