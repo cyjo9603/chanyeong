@@ -4,6 +4,12 @@ export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: ${(props) => props.theme.PRIMARY_COLOR};
+
+  & > span {
+    font-weight: 700;
+    font-size: 18px;
+  }
 
   & > img {
     width: 200px;
@@ -11,8 +17,7 @@ export const ProfileWrapper = styled.div`
     margin-bottom: 10px;
   }
 
-  & > span {
-    font-size: 26px;
-    color: ${(props) => props.theme.PRIMARY_COLOR};
+  & > div span {
+    font-size: 13px;
   }
 `;

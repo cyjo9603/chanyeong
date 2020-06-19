@@ -17,13 +17,15 @@ const Contact = () => (
       <span>조찬영</span>
       <div>
         <div>
-          <span>Mail : cyjo9603@naver.com</span>
+          <span>Mail : cyjo9603@gmail.com</span>
         </div>
         <div>
           <span>Kakaotalk : chnyng9603</span>
         </div>
         <div>
-          <span>GitHub : github.com/cyjo9603</span>
+          <a href="https://github.com/cyjo9603" target="_blank" rel="noopener noreferrer">
+            <span>GitHub : github.com/cyjo9603</span>
+          </a>
         </div>
       </div>
     </ProfileWrapper>

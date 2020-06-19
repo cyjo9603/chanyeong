@@ -10,7 +10,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 - [x] Footer
 - [x] Dark Mode fix Button
 - [ ] Dark Mode
-- [ ] Responsive
+- [x] Responsive
 
 ### Page:
 
