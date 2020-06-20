@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import moment from 'moment';
 import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
@@ -10,6 +9,7 @@ import Tag from '../../../component/Tag';
 import { getPost_GetPost } from '../../../types/api';
 import { GET_POST } from '../../../queries/post.queries';
 import { PostWrapper, PostHeader } from './styled';
+import dateFormat from '../../../lib/dateFormat';
 
 interface Props {
   GetPost: getPost_GetPost;
@@ -38,7 +38,7 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
           <section>
             <PostHeader>
               <h1>{post.title}</h1>
-              <div>{moment(+post.createdAt).format('YYYY / MM / DD')}</div>
+              <div>{dateFormat(+post.createdAt)}</div>
               {post.Tags.map((v) => (
                 <Tag key={`blog_post_${post.id}_${v.id}`} name={v.name} />
               ))}
