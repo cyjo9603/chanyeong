@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PostCard = ({ data: { id, title, content, titleImage } }: Props) => (
-  <Link href={`/blog/${id}`}>
+  <Link href={{ pathname: '/blog/post', query: { id } }} as={`/blog/post/${id}`}>
     <a>
       <PostCardWrapper>
         {titleImage ? <img src={titleImage} alt={`post ${title}`} /> : <NoImage />}

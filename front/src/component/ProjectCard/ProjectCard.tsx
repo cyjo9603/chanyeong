@@ -11,7 +11,7 @@ interface Props {
 const ProjectCard = ({
   projectInfo: { id, titleImage, title, type, groupName, startDate, endDate, description },
 }: Props) => (
-  <Link href={`/portfolio/project/${id}`}>
+  <Link href={{ pathname: '/portfolio/project', query: { id } }} as={`/portfolio/project/${id}`}>
     <a>
       <ProjectCardWrapper>
         {titleImage ? <img src={titleImage} alt="project title" /> : <NoImage>NO IMAGE</NoImage>}

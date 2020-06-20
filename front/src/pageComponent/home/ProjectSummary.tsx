@@ -24,7 +24,7 @@ const ProjectSummary = () => {
           ))}
         </section>
         <div>
-          <DetailButton title="프로젝트" link="/project" />
+          <DetailButton title="프로젝트" link="/portfolio" />
         </div>
       </ProjectSummaryWrapper>
     </PageContainer>
