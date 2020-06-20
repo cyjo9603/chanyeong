@@ -6,11 +6,12 @@ import LayOut from './styled';
 
 interface Props {
   children: React.ReactNode;
+  isDarkMode: boolean;
 }
 
-const AppLayout = ({ children }: Props) => (
+const AppLayout = ({ children, isDarkMode }: Props) => (
   <LayOut>
-    <Header />
+    <Header isDarkMode={isDarkMode} />
     {children}
     <Footer />
   </LayOut>

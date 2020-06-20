@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
 `;
 
 export const StatusBar = styled.div`
@@ -11,10 +11,12 @@ export const StatusBar = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  & span {
+  & span,
+  a {
     font-weight: 500px;
     margin-right: 20px;
     margin-top: 4px;
+    color: ${({ theme }) => theme.PRIMARY_FONT};
   }
 
   & a {
@@ -41,6 +43,10 @@ export const HeaderSection = styled.div`
 export const LogoWrapper = styled.div`
   width: 250px;
 
+  & img {
+    width: 100%;
+  }
+
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;
     margin: 0;
@@ -58,10 +64,15 @@ export const NavWrapper = styled.nav`
 
   ul {
     border: none;
+    background-color: ${({ theme }) => theme.BACKGROUND_COLOR};
   }
 
   li {
     border-bottom: 0px !important;
+
+    & > a {
+      color: ${({ theme }) => theme.PRIMARY_FONT} !important;
+    }
   }
 
   & a {

@@ -9,6 +9,7 @@ export const SubTitleWrapper = styled.div`
     font-size: 18px;
     font-weight: 400;
     margin-top: 12px;
+    color: ${({ theme }) => theme.PRIMARY_FONT};
   }
 
   & button {
@@ -27,6 +28,7 @@ export const SubTitleWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   font-size: 24px;
   font-weight: 700;
   margin-top: 20px;

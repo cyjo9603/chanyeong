@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
@@ -29,8 +29,14 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   }, [apollo, apolloData]);
 
   const onClickDarkMode = useCallback(() => {
+    localStorage.setItem('mode', String(!isDarkMode));
     setIsDarkMode(!isDarkMode);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const mode = localStorage.getItem('mode');
+    setIsDarkMode(mode === 'true');
+  }, []);
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
@@ -53,7 +59,7 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
         </Helmet>
-        <AppLayout>
+        <AppLayout isDarkMode={isDarkMode}>
           <Component {...pageProps} />
           <DarkModeButton onClickDarkMode={onClickDarkMode} isDarkMode={isDarkMode} />
         </AppLayout>

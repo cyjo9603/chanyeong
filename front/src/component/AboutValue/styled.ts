@@ -31,7 +31,7 @@ export default styled.div`
 
   & > span {
     margin-top: 20px;
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-weight: 400;
   }
 

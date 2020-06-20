@@ -12,5 +12,5 @@ export const PagePathWrapper = styled.div`
 `;
 
 export const LastItem = styled.span`
-  color: ${({ theme }) => theme.PRIMARY_COLOR} !important;
+  color: ${({ theme }) => theme.PRIMARY_FONT} !important;
 `;

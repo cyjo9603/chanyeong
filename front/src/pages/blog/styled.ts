@@ -10,6 +10,7 @@ export const SubTitle = styled.h2`
   font-size: 18px;
   font-weight: 400;
   margin-top: 32px;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 `;
 
 export const BlogContainer = styled.section`
@@ -59,13 +60,14 @@ export const SideTagContainer = styled.aside`
 `;
 
 export const SubItem = styled.span`
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   font-size: 16px;
   font-weight: 800;
 `;
 
 export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`
   cursor: pointer;
-  color: ${({ theme, currrentFocus }) => (currrentFocus ? theme.PRIMARY_COLOR : theme.LIGHT_BACKGROUND_GREY)};
+  color: ${({ theme, currrentFocus }) => (currrentFocus ? theme.FONT_FOCUS : theme.LIGHT_BACKGROUND_GREY)};
 `;
 
 export const NavWrapper = styled.nav`

@@ -40,15 +40,23 @@ export const IntroWrapper = styled.div`
 export const SummaryWrapper = styled.article`
   padding: 40px 0;
   width: 100%;
-  border-bottom: 2px solid ${({ theme }) => theme.BORDER_LINE_GREY};
 
   & > div:last-child {
     display: flex;
     justify-content: flex-end;
+
+    & span {
+      color: ${({ theme }) => theme.PRIMARY_FONT};
+    }
+    & svg {
+      padding-top: 2px;
+    }
   }
 `;
 
 export const AboutSummaryWrapper = styled(SummaryWrapper)`
+  border-bottom: 2px solid ${({ theme }) => theme.BORDER_LINE_GREY};
+
   & > section {
     width: 100%;
     margin: 40px 0;
@@ -69,6 +77,8 @@ export const AboutSummaryWrapper = styled(SummaryWrapper)`
 `;
 
 export const ProjectSummaryWrapper = styled(SummaryWrapper)`
+  border-bottom: 2px solid ${({ theme }) => theme.BORDER_LINE_GREY};
+
   & > section {
     margin: 40px 0;
     display: grid;
@@ -90,13 +100,13 @@ export const SliderWrapper = styled.div`
 
 export const ArticleHeader = styled.div`
   & > h1 {
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 28px;
     font-weight: 800;
   }
 
   & > h2 {
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 16px;
     font-weight: 700;
   }

@@ -11,6 +11,7 @@ export const AboutSkillWrapper = styled.div`
   }
 
   & > h1 {
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 18px;
     font-weight: 700;
     margin: 6px 0;

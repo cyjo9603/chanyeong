@@ -3,8 +3,9 @@ import styled from 'styled-components';
 // eslint-disable-next-line import/prefer-default-export
 export const SearchForm = styled.form`
   display: flex;
-  border: 1px solid ${(props) => props.theme.BORDER_LINE_DARK_GREY};
+  border: 1px solid ${({ theme }) => theme.CARD_BORDER};
   border-radius: 8px;
+  background-color: ${({ theme }) => theme.CARD_BORDER};
 
   & > input {
     border: none;

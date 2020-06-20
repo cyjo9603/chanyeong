@@ -5,11 +5,13 @@ export const PageHeader = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 14px 0;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 `;
 
 export const PageFooter = styled.div`
   margin-top: 10px;
   margin-bottom: 40px;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > div:first-child {
     display: flex;

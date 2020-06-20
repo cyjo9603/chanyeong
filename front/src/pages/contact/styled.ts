@@ -4,7 +4,7 @@ export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${(props) => props.theme.PRIMARY_COLOR};
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > span {
     font-weight: 700;
@@ -18,6 +18,7 @@ export const ProfileWrapper = styled.div`
   }
 
   & > div span {
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 13px;
   }
 `;

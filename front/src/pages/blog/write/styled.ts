@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const BlogWriteHeader = styled.div`
   margin: 10px 0;
   display: flex;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & input {
     border: 1px solid ${(props) => props.theme.BORDER_LINE_DARK_GREY};
@@ -19,6 +20,7 @@ export const BlogWriteHeader = styled.div`
 `;
 
 export const BlogWriteBottom = styled.div`
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   margin: 10px 0;
   display: flex;
   justify-content: space-between;

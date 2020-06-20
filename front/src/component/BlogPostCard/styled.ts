@@ -4,8 +4,9 @@ export const BlogPostCardWrapper = styled.div`
   width: 100%;
   height: 190px;
   display: flex;
-  border: 1px solid ${({ theme }) => theme.DARK_BACKGROUND_GREY};
+  border: 1px solid ${({ theme }) => theme.CARD_BORDER};
   transition: box-shadow 0.3s, border-color 0.3s;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > div {
     width: calc(100% - 250px);
@@ -17,7 +18,7 @@ export const BlogPostCardWrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 5px 5px 5px ${({ theme }) => theme.DARK_BACKGROUND_GREY};
+    box-shadow: 5px 5px 5px ${({ theme }) => theme.CARD_BORDER};
   }
 
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {

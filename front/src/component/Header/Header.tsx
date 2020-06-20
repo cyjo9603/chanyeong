@@ -10,7 +10,11 @@ import { LOG_OUT } from './Header.queries';
 import { GET_LOCAL_USER } from '../../sharedQueries.queries';
 import { clearCookie, getAccessToken } from '../../lib/cookie';
 
-const Header = () => {
+interface Props {
+  isDarkMode: boolean;
+}
+
+const Header = ({ isDarkMode }: Props) => {
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
 
@@ -46,7 +50,7 @@ const Header = () => {
           <LogoWrapper>
             <Link href="/">
               <a>
-                <img src="/main_logo.svg" alt="logo" />
+                <img src={isDarkMode ? '/dark_logo.svg' : '/main_logo.svg'} alt="logo" />
               </a>
             </Link>{' '}
           </LogoWrapper>

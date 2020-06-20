@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button } from 'antd';
-import { BulbFilled } from '@ant-design/icons';
 
-import { DarkModeWrapper } from './styled';
+import { DarkModeWrapper, LightImg, DarkImg } from './styled';
 
 interface Props {
   onClickDarkMode: () => void;
@@ -11,15 +9,11 @@ interface Props {
 
 const DarkMode = ({ onClickDarkMode, isDarkMode }: Props) => (
   <DarkModeWrapper>
-    <Button
-      shape="round"
-      size="large"
-      icon={<BulbFilled />}
-      onClick={onClickDarkMode}
-      type={isDarkMode ? 'primary' : 'default'}
-    >
-      {isDarkMode ? '라이트모드' : '다크모드'}
-    </Button>
+    <div onClick={onClickDarkMode}>
+      {isDarkMode ? <LightImg src="/sun.svg" alt="light mode" /> : <DarkImg src="/moon.svg" alt="dark mode" />}
+
+      <span>{isDarkMode ? '라이트모드' : '다크모드'}</span>
+    </div>
   </DarkModeWrapper>
 );
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FooterWrapper = styled.footer`
   position: absolute;
   bottom: 0;
-  background-color: ${({ theme }) => theme.PRIMARY_COLOR};
+  background-color: ${({ theme }) => theme.FOOTER_BACKGROUND};
   width: 100%;
   height: 140px;
 

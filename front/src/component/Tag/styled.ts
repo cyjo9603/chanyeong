@@ -7,4 +7,5 @@ export const TagWrapper = styled.span`
   border-radius: 8px;
   padding: 2px 8px;
   margin-right: 8px;
+  color: ${({ theme }) => theme.PRIMARY_COLOR};
 `;

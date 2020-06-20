@@ -16,7 +16,6 @@ const PostCard = ({ data: { id, title, content, titleImage } }: Props) => (
         <PostContent>
           <h1>{title}</h1>
           <h2>{content}</h2>
-          <div></div>
         </PostContent>
       </PostCardWrapper>
     </a>

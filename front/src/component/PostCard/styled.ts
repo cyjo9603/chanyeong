@@ -5,7 +5,7 @@ export const PostCardWrapper = styled.div`
   flex-direction: column;
   width: 250px;
   height: 230px;
-  border: 1px solid ${(props) => props.theme.DARK_BACKGROUND_GREY};
+  border: 1px solid ${(props) => props.theme.CARD_BORDER};
   transition: box-shadow 0.3s, border-color 0.3s;
   margin: 0 auto;
 
@@ -15,7 +15,7 @@ export const PostCardWrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 5px 5px 5px ${(props) => props.theme.DARK_BACKGROUND_GREY};
+    box-shadow: 3px 3px 3px ${(props) => props.theme.CARD_BORDER};
   }
 `;
 
@@ -36,22 +36,15 @@ export const PostContent = styled.div`
   padding: 6px 12px;
   overflow: hidden;
   & > h1 {
-    color: ${(props) => props.theme.PRIMARY_COLOR};
+    color: ${(props) => props.theme.PRIMARY_FONT};
     font-size: 16px;
     font-weight: 700;
     margin: 0;
   }
   & > h2 {
-    color: ${(props) => props.theme.PRIMARY_COLOR};
+    color: ${(props) => props.theme.PRIMARY_FONT};
     font-size: 12px;
     font-weight: 400;
     margin: 0;
-  }
-
-  & > div {
-    width: 190px;
-    color: ${(props) => props.theme.PRIMARY_COLOR};
-    display: flex;
-    align-items: center;
   }
 `;

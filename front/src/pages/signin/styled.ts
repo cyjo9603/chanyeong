@@ -20,7 +20,7 @@ export const SignInWrapper = styled.section`
       border: none;
       font-weight: 600;
       color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
-      background-color: ${(props) => props.theme.PRIMARY_COLOR};
+      background-color: ${(props) => props.theme.FOOTER_BACKGROUND};
       cursor: pointer;
     }
   }

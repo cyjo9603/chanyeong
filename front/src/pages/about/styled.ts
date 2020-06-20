@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const AboutWrapper = styled.section`
   padding: 20px 0;
-
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   & > span {
     font-size: 18px;
   }
@@ -15,12 +15,14 @@ export const MainTitle = styled.h1`
 `;
 
 export const Title = styled.h2`
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   margin-top: 40px;
   font-size: 28px;
   font-weight: 700;
 `;
 
 export const SubTitle = styled.h3`
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   font-size: 22px;
 `;
 

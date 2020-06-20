@@ -4,7 +4,7 @@ export const ProjectCardWrapper = styled.div`
   display: flex;
   width: 520px;
   height: 80px;
-  border: 1px solid ${({ theme }) => theme.DARK_BACKGROUND_GREY};
+  border: 1px solid ${({ theme }) => theme.CARD_BORDER};
   transition: box-shadow 0.3s, border-color 0.3s;
 
   & > img {
@@ -13,7 +13,7 @@ export const ProjectCardWrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 5px 5px 5px ${({ theme }) => theme.DARK_BACKGROUND_GREY};
+    box-shadow: 3px 3px 3px ${({ theme }) => theme.CARD_BORDER};
   }
 
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
@@ -38,26 +38,26 @@ export const ProjectContent = styled.div`
     width: 150px;
     margin: 4px 8px;
     & > h1 {
-      color: ${({ theme }) => theme.PRIMARY_COLOR};
+      color: ${({ theme }) => theme.PRIMARY_FONT};
       font-size: 20px;
       font-weight: 700;
       margin: 0;
     }
     & > h2 {
-      color: ${({ theme }) => theme.PRIMARY_COLOR};
+      color: ${({ theme }) => theme.PRIMARY_FONT};
       font-size: 14px;
       font-weight: 400;
       margin: 0;
     }
     & > span {
-      color: ${({ theme }) => theme.PRIMARY_COLOR};
+      color: ${({ theme }) => theme.PRIMARY_FONT};
       font-size: 10px;
     }
   }
 
   & > div:last-child {
     width: 190px;
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_FONT};
     display: flex;
     align-items: center;
   }

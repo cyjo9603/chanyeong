@@ -7,7 +7,7 @@ const Footer = () => (
   <FooterWrapper>
     <PageContainer>
       <FooterLogoWrapper>
-        <img src="/footer_logo.svg" alt="logo" />
+        <img src="/dark_logo.svg" alt="logo" />
       </FooterLogoWrapper>
       <FooterInfoWrapper>
         <div>
