@@ -11,6 +11,7 @@ import { InputWrapper, PageHeader, PageFooter } from './styled';
 import { GET_SKILLS } from '../../about/GetSkills.queries';
 import { ADD_PROJECT } from './AddProject.queries';
 import { getSkills, addProject } from '../../../types/api';
+import { GET_LOCAL_USER } from '../../../sharedQueries.queries';
 
 const useInput = (initValue: string): [string, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
   const [value, setValue] = useState(initValue);
@@ -33,6 +34,7 @@ const useSelect = (initValue: string): [string, (e: React.ChangeEvent<HTMLSelect
 };
 
 const AddProject = () => {
+  const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data } = useQuery<getSkills>(GET_SKILLS);
   const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
     onCompleted: ({ AddProject }) => {
@@ -54,6 +56,12 @@ const AddProject = () => {
   const [skills, setSkills] = useState([]);
   const [titleImage, setTitleImage] = useState('');
   const [image, setImage] = useState('');
+
+  useEffect(() => {
+    if (!userInfo.isLoggedIn.userName) {
+      Router.push('/');
+    }
+  }, [userInfo]);
 
   useEffect(() => {
     if (titleImage === '') {

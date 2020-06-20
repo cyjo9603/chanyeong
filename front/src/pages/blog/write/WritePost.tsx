@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
 import { Helmet } from 'react-helmet';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import PageContainer from '../../../component/pageContainer';
 import TUIEditor from '../../../component/TUIEditor';
@@ -10,8 +10,10 @@ import { BlogWriteHeader, BlogWriteBottom } from './styled';
 import { WRITE_POST } from './WritePost.queries';
 import { getAccessToken } from '../../../lib/cookie';
 import { writePost } from '../../../types/api';
+import { GET_LOCAL_USER } from '../../../sharedQueries.queries';
 
 const WritePost = () => {
+  const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
     context: {
       headers: {
@@ -45,6 +47,12 @@ const WritePost = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!userInfo.isLoggedIn.userName) {
+      Router.push('/');
+    }
+  }, [userInfo]);
 
   useEffect(() => {
     if (titleImage === '') {
