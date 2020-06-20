@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { SearchOutlined } from '@ant-design/icons';
 import { SearchForm } from './styled';
 
 const Search = () => (
   <SearchForm>
     <input type="text" />
-    <SearchOutlined />
+    <span>
+      <img src="/search.svg" alt="search" />
+    </span>
   </SearchForm>
 );
 

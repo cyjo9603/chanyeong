@@ -14,8 +14,6 @@ import DarkModeButton from '../component/DarkModeButton';
 import { REGEXP_ACCESS_TOKEN } from '../secret';
 import { GET_USER_INFO } from '../queries/user.queries';
 
-import '../theme/antd_custom.less';
-
 interface Props extends AppProps {
   apollo: ApolloClient<any>;
   apolloData: any;
@@ -48,6 +46,7 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
             type="text/css"
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           />
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.3.1/antd.css" />
           <link
             rel="stylesheet"
             type="text/css"

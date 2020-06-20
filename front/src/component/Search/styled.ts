@@ -23,7 +23,8 @@ export const SearchForm = styled.form`
     display: flex;
     justify-content: center;
     align-items: center;
-    & > svg {
+    & > img {
+      width: 14px;
     }
   }
 `;
