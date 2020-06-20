@@ -34,7 +34,7 @@ class App {
       this.app.use(logger('combined'));
       this.app.use(
         cors({
-          origin: /chanyeong\.me$/,
+          origin: /chanyeong\.com$/,
           credentials: true,
         }),
       );

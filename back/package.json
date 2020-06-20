@@ -2,12 +2,13 @@
   "name": "chanyeong_back",
   "version": "1.0.0",
   "description": "chanyeong web backend server",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "predev": "npm run types",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node ./src/index.ts",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
-    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts"
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
+    "start": "NODE_ENV=production PORT=80 pm2 start ./src.index.ts"
   },
   "keywords": [],
   "author": "chanyeong",
