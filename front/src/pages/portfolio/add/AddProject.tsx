@@ -8,7 +8,7 @@ import TUIEditor from '../../../component/TUIEditor';
 import SkillIcon from '../../../component/SkillIcon';
 import { getAccessToken } from '../../../lib/cookie';
 import { InputWrapper, PageHeader, PageFooter } from './styled';
-import { GET_SKILLS } from '../../about/GetSkills.queries';
+import { GET_SKILLS } from '../../about/aboutSKill.queries';
 import { ADD_PROJECT } from './AddProject.queries';
 import { getSkills, addProject } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../sharedQueries.queries';

@@ -1,14 +1,24 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useState, useCallback } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import AboutValue from '../../component/AboutValue';
 import AboutSkill from '../../component/AboutSkill';
+import UpdateSkillForm from '../../component/UpdateSkillForm';
 import WorkProcessItem from './WorkProcessItem';
-import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
-import { GET_SKILLS } from './GetSkills.queries';
+import {
+  AboutWrapper,
+  Title,
+  SubTitle,
+  AboutItemWrapper,
+  WorkProcessWrapper,
+  SkillListWrapper,
+  SkillTitleWrapper,
+} from './styled';
+import { GET_SKILLS, ADD_SKILL } from './aboutSKill.queries';
 import { getSkills } from '../../types/api';
+import { GET_LOCAL_USER } from '../../sharedQueries.queries';
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -16,12 +26,30 @@ const path = [
 ];
 
 const About = () => {
+  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const [openAddSkill, setOpenAddSkill] = useState(false);
   const { data: frontData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'FRONT_END' } });
   const { data: backData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'BACK_END' } });
   const { data: devopsData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'DEV_OPS' } });
+  const [addSkillMutation] = useMutation(ADD_SKILL, {
+    onCompleted: ({ AddSkill }) => {
+      if (AddSkill.ok) {
+        setOpenAddSkill(false);
+      }
+    },
+  });
+
+  const onClickAddSkill = useCallback(() => {
+    setOpenAddSkill(true);
+  }, []);
+
+  const closeUpdateSKill = useCallback(() => {
+    setOpenAddSkill(false);
+  }, []);
 
   return (
     <>
+      {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} onSubmitMutation={addSkillMutation} />}
       <PageContainer>
         <AboutWrapper>
           <PagePath data={path} />
@@ -62,7 +90,10 @@ const About = () => {
             <WorkProcessItem engName="debugging" korName="테스팅" />
             <WorkProcessItem engName="deploy" korName="배포" />
           </WorkProcessWrapper>
-          <Title>Skill Stak</Title>
+          <SkillTitleWrapper>
+            <Title>Skill Stak</Title>
+            {userInfo?.isLoggedIn.userName && <button onClick={onClickAddSkill}>스킬 추가</button>}
+          </SkillTitleWrapper>
           <SubTitle>Front-End</SubTitle>
           <SkillListWrapper>
             {frontData?.GetSkills?.skill?.map((v) => (
