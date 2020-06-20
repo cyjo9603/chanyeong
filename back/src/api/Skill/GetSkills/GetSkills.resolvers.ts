@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
       try {
         const { type } = args;
         // type null 체크
-        const skill = await Skill.findAll({ where: type ? { type } : undefined });
+        const skill = await Skill.findAll({ where: type ? { type } : undefined, order: [['order', 'ASC']] });
 
         return {
           ok: true,
