@@ -12,7 +12,7 @@ import { lightTheme, darkTheme } from '../theme';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
 import { REGEXP_ACCESS_TOKEN } from '../secret';
-import { GET_USER_INFO } from '../sharedQueries.queries';
+import { GET_USER_INFO } from '../queries/user.queries';
 
 import '../theme/antd_custom.less';
 
