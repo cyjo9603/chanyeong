@@ -2,8 +2,6 @@ const express = require('express');
 const next = require('next');
 const logger = require('morgan');
 
-const dotenv = require('dotenv');
-
 const prod = process.env.NODE_ENV === 'production';
 const dev = !prod;
 

@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import axios from 'axios';
 import { TUIEditorWithForwardedProps } from './TUIEditorWrapper';
-import { IMAGE_UPLOAD_API_KEY, IMAGE_UPLOAD_URL } from '../../secret';
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -37,16 +36,16 @@ const TUIEditor = (props: Props) => {
   }, [props, editorRef]);
 
   const addImageBlobHook = useCallback(async (blob, callback) => {
-    const formData = new FormData();
-    formData.append('file', blob);
-    formData.append('api_key', IMAGE_UPLOAD_API_KEY);
-    formData.append('upload_preset', 'xtaoaopp');
-    formData.append('timestamp', String(Date.now() / 1000));
-    const {
-      data: { secure_url },
-    } = await axios.post(IMAGE_UPLOAD_URL, formData);
-    setImage(secure_url);
-    callback(secure_url, 'image');
+    const name = `${+new Date()}${blob.name}`;
+    const res = await axios.put(`${process.env.IMAGE_UPLOAD_URL}post/${name}&overwrite=true`, blob, {
+      headers: {
+        Authorization: process.env.IMAGE_UPLOAD_SECRET_KEY,
+        'Content-Type': 'application/octet-stream',
+      },
+    });
+
+    setImage(res.data.file.url);
+    callback(res.data.file.url, 'image');
   }, []);
 
   const hooks = { addImageBlobHook };
