@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
+import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
 import PagePath from '../../../component/PagePath';
@@ -24,6 +25,11 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
   return (
     <>
       <Helmet>
+        <title>{post.title} :: chanyeong</title>
+        <meta name="description" content={removeMd(post.content, { useImgAltText: false })} />
+        <meta name="og:title" content={`${post.title} - chanyeong`} />
+        <meta name="og:description" content={removeMd(post.content, { useImgAltText: false })} />
+        <meta name="og:image" content={post.titleImage} />
         <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
       </Helmet>
       <PageContainer>

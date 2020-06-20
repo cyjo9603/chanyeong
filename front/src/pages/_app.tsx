@@ -41,6 +41,23 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
       <ApolloProvider client={apolloClient}>
         <Helmet>
           <title>chanyeong</title>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover"
+          />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta
+            name="description"
+            content="프론트엔드 개발자를 목표로 공부하고 있는 조찬영의 포트폴리오와 블로그 페이지입니다. 개발자가 되기 위해 노력한 제 이야기들을 기록해 놓았습니다."
+          />
+          <meta name="og:title" content="chanyeong" />
+          <meta name="og:image" content="http://image.toast.com/aaaabcy/main_image.png" />
+          <meta
+            name="og:description"
+            content="프론트엔드 개발자를 목표로 공부하고 있는 조찬영의 포트폴리오와 블로그 페이지입니다. 개발자가 되기 위해 노력한 제 이야기들을 기록해 놓았습니다."
+          />
+          <meta property="og:type" content="website" />
           <link
             rel="stylesheet"
             type="text/css"

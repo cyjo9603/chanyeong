@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
+import { Helmet } from 'react-helmet';
 
 import PageContainer from '../../component/pageContainer';
 import Input from '../../component/Input';
@@ -43,15 +44,20 @@ const SignIn = () => {
   }, []);
 
   return (
-    <PageContainer>
-      <SignInWrapper>
-        <form onSubmit={onSubmit}>
-          <Input placeholder="아이디" value={userId} onChange={onChangeUserId} />
-          <Input type="password" placeholder="비밀번호" value={password} onChange={onChangePassword} />
-          <button>로그인</button>
-        </form>
-      </SignInWrapper>
-    </PageContainer>
+    <>
+      <Helmet>
+        <title>로그인 :: chanyeong</title>
+      </Helmet>
+      <PageContainer>
+        <SignInWrapper>
+          <form onSubmit={onSubmit}>
+            <Input placeholder="아이디" value={userId} onChange={onChangeUserId} />
+            <Input type="password" placeholder="비밀번호" value={password} onChange={onChangePassword} />
+            <button>로그인</button>
+          </form>
+        </SignInWrapper>
+      </PageContainer>
+    </>
   );
 };
 

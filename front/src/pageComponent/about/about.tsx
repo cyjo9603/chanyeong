@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
@@ -50,6 +51,18 @@ const About = () => {
   return (
     <>
       {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} onSubmitMutation={addSkillMutation} />}
+      <Helmet>
+        <title>소개 :: chanyeong</title>
+        <meta
+          name="description"
+          content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하며, 사용할 수 있는 기술들을 나열해 놓았습니다."
+        />
+        <meta name="og:title" content="소개 :: chanyeong" />
+        <meta
+          name="og:description"
+          content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하며, 사용할 수 있는 기술들을 나열해 놓았습니다."
+        />
+      </Helmet>
       <PageContainer>
         <AboutWrapper>
           <PagePath data={path} />

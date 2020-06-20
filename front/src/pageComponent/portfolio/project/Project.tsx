@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
+import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
 import PagePath from '../../../component/PagePath';
@@ -23,6 +24,11 @@ const Project = ({ GetProject: { project } }: Props) => {
   return (
     <>
       <Helmet>
+        <title>{project.title} :: chanyeong</title>
+        <meta name="description" content={removeMd(project.content, { useImgAltText: false })} />
+        <meta name="og:title" content={`${project.title} - chanyeong`} />
+        <meta name="og:description" content={removeMd(project.content, { useImgAltText: false })} />
+        <meta name="og:image" content={project.titleImage} />
         <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
       </Helmet>
       <PageContainer>
