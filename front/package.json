@@ -5,11 +5,16 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --exec node server.js",
+    "wbuild": "next build",
+    "prewstart": "npm run wbuild",
+    "wstart": "cross-env NODE_ENV=production PORT=80 node server.js",
+
     "build": "next build",
     "prestart": "npm run build",
-    "start": "node server.js",
+    "start": "NODE_ENV=production PORT=80 node server.js",
+
     "precodegen": "apollo schema:download --endpoint=http://localhost:4000/graphql",
-    "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
+    "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
   },
   "keywords": [],
   "author": "chanyeong",
@@ -32,7 +37,6 @@
     "express": "^4.17.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
-    "moment": "^2.26.0",
     "morgan": "^1.10.0",
     "next": "^9.4.4",
     "next-with-apollo": "^5.0.1",

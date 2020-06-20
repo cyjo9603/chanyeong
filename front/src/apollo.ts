@@ -6,7 +6,6 @@ import { withApollo } from 'next-with-apollo';
 const prod = process.env.NODE_ENV === 'production';
 const link = createHttpLink({
   uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql',
-  credentials: 'same-origin',
 });
 
 const cache = new InMemoryCache();
@@ -49,6 +48,7 @@ const globalApolloClient = new ApolloClient({
   },
 });
 
-export default withApollo(() => {
+export default withApollo(({ initialState }) => {
+  globalApolloClient.cache.restore(initialState);
   return globalApolloClient;
 });
