@@ -18,6 +18,7 @@ export const AboutSkillWrapper = styled.div`
   }
 
   & > span {
+    width: 170px;
     text-align: center;
     font-size: 14px;
     margin-top: 8px;

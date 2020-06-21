@@ -47,7 +47,7 @@ const Portfolio = () => {
             </Link>
           )}
         </SubTitleWrapper>
-        {groupData?.GetProjects?.project && (
+        {groupData?.GetProjects?.project && groupData.GetProjects.project.length !== 0 && (
           <>
             <Title>그룹 프로젝트</Title>
             <ProjectListWrapper>

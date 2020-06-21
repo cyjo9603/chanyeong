@@ -83,7 +83,7 @@ const About = () => {
             <AboutValue
               engTitle="Communication"
               korTitle="소통"
-              content="현대의 소프트웨어는 크고 복잡해졌습니다. 때문에 개발자들과의 협업과정은 선택이 아니라 필수라고 생각됩니다. 협업을 진행하며 가장 중요한 가치는 협업 이라고 생각하기 때문에 소통하기위해 노력 하겠습니다."
+              content="현대의 소프트웨어는 크고 복잡해졌습니다. 때문에 개발자들과의 협업과정은 선택이 아니라 필수라고 생각됩니다. 협업을 진행하며 가장 중요한 가치는 소통 이라고 생각하기 때문에 소통하기위해 노력 하겠습니다."
             />
           </AboutItemWrapper>
           <Title>Problem Soving</Title>

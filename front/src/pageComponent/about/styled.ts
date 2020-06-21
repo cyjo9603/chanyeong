@@ -82,12 +82,12 @@ export const WorkProcessItemWrapper = styled.div`
 export const SkillListWrapper = styled.div`
   margin: 30px 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   grid-row-gap: 30px;
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
   @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
