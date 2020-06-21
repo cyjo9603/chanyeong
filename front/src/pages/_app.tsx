@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
@@ -21,10 +21,8 @@ interface Props extends AppProps {
 
 const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const apolloClient = useMemo(() => {
-    apollo.restore(apolloData);
-    return apollo;
-  }, [apollo, apolloData]);
+
+  apollo.restore(apolloData);
 
   const onClickDarkMode = useCallback(() => {
     localStorage.setItem('mode', String(!isDarkMode));
@@ -38,7 +36,7 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
-      <ApolloProvider client={apolloClient}>
+      <ApolloProvider client={apollo}>
         <Helmet>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
