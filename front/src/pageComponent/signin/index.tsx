@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 import { Helmet } from 'react-helmet';
+import crypto from 'crypto-js';
 
 import PageContainer from '../../component/pageContainer';
 import Input from '../../component/Input';
@@ -16,7 +17,6 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [localSignIn] = useMutation(LOCAL_SIGN_IN);
   const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
-    variables: { userId, password },
     onCompleted: ({ SignIn }) => {
       if (SignIn.token && SignIn.userName) {
         setToken(SignIn.token);
@@ -30,10 +30,27 @@ const SignIn = () => {
     },
   });
 
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    signInMutation();
+  useEffect(() => {
+    const loginKey = localStorage.getItem('LOGIN_KEY');
+    if (process.env.LOGIN_KEY !== loginKey) {
+      Router.push('/');
+    }
   }, []);
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      const cryptoUserId = crypto.AES.encrypt(userId, process.env.LOGIN_SECRET_KEY).toString();
+      const cryptoPassword = crypto.AES.encrypt(password, process.env.LOGIN_SECRET_KEY).toString();
+      signInMutation({
+        variables: {
+          userId: cryptoUserId,
+          password: cryptoPassword,
+        },
+      });
+    },
+    [userId, password],
+  );
 
   const onChangeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value);

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -15,8 +15,16 @@ interface Props {
 }
 
 const Header = ({ isDarkMode }: Props) => {
+  const [isAdmin, setIsAdmin] = useState(false);
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
+
+  useEffect(() => {
+    const loginKey = localStorage.getItem('LOGIN_KEY');
+    if (process.env.LOGIN_KEY === loginKey) {
+      setIsAdmin(true);
+    }
+  }, []);
 
   const onClickLogout = useCallback(() => {
     logoutMutation({
@@ -32,20 +40,24 @@ const Header = ({ isDarkMode }: Props) => {
   return (
     <HeaderWrapper>
       <Container>
-        <StatusBar>
-          {data?.isLoggedIn.userName ? (
-            <>
-              <span>{data.isLoggedIn.userName}님</span>
-              <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
-            </>
-          ) : (
-            <span>
-              <Link href="/signin">
-                <a>로그인</a>
-              </Link>
-            </span>
-          )}
-        </StatusBar>
+        {
+          <StatusBar>
+            {data?.isLoggedIn.userName ? (
+              <>
+                <span>{data.isLoggedIn.userName}님</span>
+                <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
+              </>
+            ) : (
+              isAdmin && (
+                <span>
+                  <Link href="/signin">
+                    <a>로그인</a>
+                  </Link>
+                </span>
+              )
+            )}
+          </StatusBar>
+        }
         <HeaderSection>
           <LogoWrapper>
             <Link href="/">

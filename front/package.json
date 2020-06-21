@@ -8,14 +8,11 @@
     "wbuild": "next build",
     "prewstart": "npm run wbuild",
     "wstart": "cross-env NODE_ENV=production PORT=80 node server.js",
-
     "build": "next build",
     "prestart": "npm run build",
     "start": "NODE_ENV=production PORT=80 pm2 start server.js",
-
     "precodegen": "apollo schema:download --endpoint=",
     "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
-   
     "prewcodegen": "apollo schema:download --endpoint=http://localhost:4000/graphql",
     "wcodegen": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
   },
@@ -36,6 +33,7 @@
     "apollo-link-http": "^1.5.17",
     "axios": "0.19.2",
     "compression-webpack-plugin": "4.0.0",
+    "crypto-js": "4.0.0",
     "dotenv-webpack": "1.8.0",
     "express": "^4.17.1",
     "graphql": "^15.0.0",
