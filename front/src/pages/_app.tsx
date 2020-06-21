@@ -13,16 +13,15 @@ import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
 import { REGEXP_ACCESS_TOKEN } from '../secret';
 import { GET_USER_INFO } from '../queries/user.queries';
+import { getAccessToken } from '../lib/cookie';
+import { getUserInfo } from '../types/api';
 
 interface Props extends AppProps {
   apollo: ApolloClient<any>;
-  apolloData: any;
 }
 
-const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
+const App = ({ Component, pageProps, apollo }: Props) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-
-  apollo.restore(apolloData);
 
   const onClickDarkMode = useCallback(() => {
     localStorage.setItem('mode', String(!isDarkMode));
@@ -30,8 +29,36 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   }, [isDarkMode]);
 
   useEffect(() => {
+    const accessToken = getAccessToken();
     const mode = localStorage.getItem('mode');
     setIsDarkMode(mode === 'true');
+
+    if (accessToken) {
+      apollo
+        .query({
+          query: GET_USER_INFO,
+          context: {
+            headers: {
+              'X-JWT': accessToken,
+            },
+          },
+        })
+        .then((result: any) => {
+          const { GetUserInfo } = result.data as getUserInfo;
+
+          if (GetUserInfo?.user) {
+            const { familyName, givenName } = GetUserInfo.user;
+            apollo.cache.writeData({
+              data: {
+                isLoggedIn: {
+                  __typename: 'IsLoggedIn',
+                  userName: `${familyName}${givenName}`,
+                },
+              },
+            });
+          }
+        });
+    }
   }, []);
 
   return (
@@ -40,6 +67,7 @@ const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
         <Helmet>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
+          <meta name="naver-site-verification" content="2b9008defffc3f461603f5498a43a990cd8b8b65" />
           <meta
             name="viewport"
             content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover"
@@ -88,37 +116,11 @@ App.getInitialProps = async ({ ctx, Component }: any) => {
   const { AppTree, apolloClient } = ctx;
   const pageProps = await Component.getInitialProps?.(ctx);
 
-  const cookies = ctx.req?.headers?.cookie;
-
   if (pageProps) {
     appProps = { pageProps };
   }
 
-  if (cookies) {
-    const accessToken = cookies.replace(REGEXP_ACCESS_TOKEN, '$1');
-    const { data } = await apolloClient.query({
-      query: GET_USER_INFO,
-      context: {
-        headers: {
-          'X-JWT': accessToken,
-        },
-      },
-    });
-    if (data?.GetUserInfo.user) {
-      const { familyName, givenName } = data.GetUserInfo.user;
-      apolloClient.cache.writeData({
-        data: {
-          isLoggedIn: {
-            __typename: 'IsLoggedIn',
-            userName: `${familyName}${givenName}`,
-          },
-        },
-      });
-    }
-  }
-
   apolloState.data = apolloClient.cache.extract();
-  appProps = { ...appProps, apolloData: apolloState.data };
 
   if (typeof window === 'undefined') {
     if (ctx.res?.headersSent || ctx.res?.finished) {

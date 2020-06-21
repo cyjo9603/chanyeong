@@ -6,8 +6,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
 import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
-import { LOG_OUT } from '../../queries/client';
-import { GET_LOCAL_USER } from '../../sharedQueries.queries';
+import { LOG_OUT, GET_LOCAL_USER } from '../../queries/client';
 import { clearCookie, getAccessToken } from '../../lib/cookie';
 
 interface Props {

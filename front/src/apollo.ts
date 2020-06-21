@@ -48,4 +48,7 @@ const globalApolloClient = new ApolloClient({
   },
 });
 
-export default withApollo(() => globalApolloClient);
+export default withApollo(({ initialState }) => {
+  globalApolloClient.restore(initialState);
+  return globalApolloClient;
+});
