@@ -1,13 +1,13 @@
-type EditUserInfoResponse {
-    ok: Boolean!
-    error: String
-}
+# type EditUserInfoResponse {
+#     ok: Boolean!
+#     error: String
+# }
 
-type Mutation {
-    EditUserInfo(
-        level: UserLevel
-        familyName: String
-        givenName: String
-        password: String
-    ): EditUserInfoResponse!
-}
+# type Mutation {
+#     EditUserInfo(
+#         level: UserLevel
+#         familyName: String
+#         givenName: String
+#         password: String
+#     ): EditUserInfoResponse!
+# }

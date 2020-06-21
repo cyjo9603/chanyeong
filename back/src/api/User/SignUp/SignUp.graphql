@@ -1,13 +1,13 @@
-type SignUpResponse {
-    ok: Boolean!
-    error: String
-}
+# type SignUpResponse {
+#     ok: Boolean!
+#     error: String
+# }
 
-type Mutation {
-    SignUp(
-        userId: String!,
-        password: String!,
-        familyName: String!,
-        givenName: String!,
-    ): SignUpResponse!
-}
+# type Mutation {
+#     SignUp(
+#         userId: String!,
+#         password: String!,
+#         familyName: String!,
+#         givenName: String!,
+#     ): SignUpResponse!
+# }
