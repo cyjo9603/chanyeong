@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
@@ -16,10 +16,15 @@ import { GET_USER_INFO } from '../queries/user.queries';
 
 interface Props extends AppProps {
   apollo: ApolloClient<any>;
+  apolloData: any;
 }
 
-const App = ({ Component, pageProps, apollo }: Props) => {
+const App = ({ Component, pageProps, apollo, apolloData }: Props) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const apolloClient = useMemo(() => {
+    apollo.restore(apolloData);
+    return apollo;
+  }, [apollo, apolloData]);
 
   const onClickDarkMode = useCallback(() => {
     localStorage.setItem('mode', String(!isDarkMode));
@@ -33,7 +38,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
-      <ApolloProvider client={apollo}>
+      <ApolloProvider client={apolloClient}>
         <Helmet>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
@@ -115,6 +120,7 @@ App.getInitialProps = async ({ ctx, Component }: any) => {
   }
 
   apolloState.data = apolloClient.cache.extract();
+  appProps = { ...appProps, apolloData: apolloState.data };
 
   if (typeof window === 'undefined') {
     if (ctx.res?.headersSent || ctx.res?.finished) {
