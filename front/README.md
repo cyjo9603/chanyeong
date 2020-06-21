@@ -21,12 +21,13 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 - [ ] View Project Contents
 - [x] Blog
 - [x] View Blog Posts
+- [ ] Search Posts
 
 ## Function
 
 ### For Admin
 
-- [ ] Add Skill
+- [x] Add Skill
 - [ ] Edit Skill
 - [ ] Remove Skill
 - [x] Add Project
