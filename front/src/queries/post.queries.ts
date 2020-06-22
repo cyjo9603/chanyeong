@@ -32,6 +32,7 @@ export const GET_POST = gql`
         titleImage
         createdAt
         updatedAt
+        picked
         Tags {
           id
           name
@@ -97,6 +98,24 @@ export const EDIT_POST = gql`
       deleteTags: $deleteTags
       addTags: $addTags
     ) {
+      ok
+      error
+    }
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation deletePost($id: Int!) {
+    DeletePost(id: $id) {
+      ok
+      error
+    }
+  }
+`;
+
+export const FIX_POST = gql`
+  mutation fixPost($id: Int!, $fix: Boolean!) {
+    FixPost(id: $id, fix: $fix) {
       ok
       error
     }

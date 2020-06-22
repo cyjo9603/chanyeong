@@ -1,19 +1,24 @@
-import React, { useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useState, useMemo, useCallback } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
+import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
 import PagePath from '../../../component/PagePath';
 import TUIViewer from '../../../component/TUIViewer';
 import Tag from '../../../component/Tag';
-import { getPost_GetPost } from '../../../types/api';
-import { GET_POST } from '../../../queries/post.queries';
+import { getPost_GetPost, deletePost, fixPost } from '../../../types/api';
+import { GET_POST, DELETE_POST, FIX_POST } from '../../../queries/post.queries';
 import { GET_LOCAL_USER } from '../../../queries/client';
 import { PostWrapper, PostHeader } from './styled';
 import dateFormat from '../../../lib/dateFormat';
 import Button from '../../../component/Button';
+import { getAccessToken } from '../../../lib/cookie';
+
+const FIX_POST_TRUE = '게시글 고정' as const;
+const FIX_POST_FALSE = '게시글 고정 해제' as const;
 
 interface Props {
   GetPost: getPost_GetPost;
@@ -25,8 +30,49 @@ const path = [
 ];
 
 const BlogPost = ({ GetPost: { post } }: Props) => {
+  const [isFixed, setIsFixed] = useState(post.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
   const { data } = useQuery(GET_LOCAL_USER);
+  const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
+    variables: { id: post.id },
+    onCompleted: ({ DeletePost }) => {
+      if (DeletePost.ok) {
+        Router.push('/blog');
+      }
+    },
+  });
+  const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
+    variables: { id: post.id, fix: isFixed === FIX_POST_TRUE },
+    onCompleted: ({ FixPost }) => {
+      if (FixPost.ok) {
+        setIsFixed(isFixed === FIX_POST_TRUE ? FIX_POST_FALSE : FIX_POST_TRUE);
+      }
+    },
+  });
+
   const postPath = useMemo(() => [...path, { path: `/blog/post/${post.id}`, name: post.title }], [post]);
+
+  const onClickFix = useCallback(() => {
+    fixPostMutation({
+      context: {
+        headers: {
+          'X-JWT': getAccessToken(),
+        },
+      },
+    });
+  }, []);
+
+  const onClickDelete = useCallback(() => {
+    const result = confirm('정말 게시글을 삭제하시겠습니까?');
+    if (result) {
+      deletePostMutation({
+        context: {
+          headers: {
+            'X-JWT': getAccessToken(),
+          },
+        },
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -47,11 +93,15 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
               <div>
                 {dateFormat(+post.createdAt)}
                 {data?.isLoggedIn.userName && (
-                  <Link href={{ pathname: '/blog/write', query: { id: post.id } }} as={`/blog/write/${post.id}`}>
-                    <a>
-                      <Button name="편집" align="right" />
-                    </a>
-                  </Link>
+                  <>
+                    <Button name="제거" align="right" onClick={onClickDelete} />
+                    <Link href={{ pathname: '/blog/write', query: { id: post.id } }} as={`/blog/write/${post.id}`}>
+                      <a>
+                        <Button name="편집" align="right" />
+                      </a>
+                    </Link>
+                    <Button name={isFixed} align="right" onClick={onClickFix} />
+                  </>
                 )}
               </div>
               {post.Tags.map((v) => (

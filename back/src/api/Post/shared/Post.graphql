@@ -12,4 +12,5 @@ type Post {
     createdAt: String!
     updatedAt: String
     Tags: [Tag]
+    picked: Boolean!
 }

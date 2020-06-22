@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint/camelcase': 0,
     'import/prefer-default-export': 0,
     'jsx-a11y/no-onchange': 0,
+    'no-restricted-globals': 0,
   },
   settings: {
     'import/resolver': {

@@ -29,15 +29,15 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 - [x] Add Skill
 - [ ] Edit Skill
-- [ ] Remove Skill
+- [ ] Delete Skill
 - [x] Add Project
 - [ ] Edit Project
-- [ ] Remove Project
+- [ ] Delete Project
 - [ ] Fix Project
 - [x] Add Post
 - [x] Edit Post
-- [ ] Remove Post
-- [ ] Fix Post
+- [x] Delete Post
+- [x] Fix Post
 
 ### Auth
 
