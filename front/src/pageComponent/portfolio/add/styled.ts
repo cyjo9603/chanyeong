@@ -34,3 +34,19 @@ export const InputWrapper = styled.div`
     }
   }
 `;
+
+export const SkillWrapper = styled.span`
+  position: relative;
+
+  & > span:last-child {
+    position: absolute;
+    right: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  &:hover > span > img {
+    -webkit-filter: grayscale(0%);
+    filter: none;
+  }
+`;

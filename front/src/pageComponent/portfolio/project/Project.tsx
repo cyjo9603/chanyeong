@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
+import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
 import PagePath from '../../../component/PagePath';
 import TUIViewer from '../../../component/TUIViewer';
 import SkillIcon from '../../../component/SkillIcon';
+import Button from '../../../component/Button';
 import { GET_PROJECT } from '../../../queries/project.queries';
 import { getProject_GetProject } from '../../../types/api';
+import { GET_LOCAL_USER } from '../../../queries/client';
 import { ProjectWrapper, ProjectHeader, SkillsWrapper } from './styled';
 
 interface Props {
@@ -20,6 +24,7 @@ const path = [
 ];
 
 const Project = ({ GetProject: { project } }: Props) => {
+  const { data } = useQuery(GET_LOCAL_USER);
   const projectPath = useMemo(() => [...path, { path: `/blog/post/${project.id}`, name: project.title }], [project]);
   return (
     <>
@@ -43,17 +48,29 @@ const Project = ({ GetProject: { project } }: Props) => {
                 </div>
               )}
               <div>
+                {data?.isLoggedIn.userName && (
+                  <Link
+                    href={{ pathname: '/portfolio/add', query: { id: project.id } }}
+                    as={`/portfolio/add/${project.id}`}
+                  >
+                    <a>
+                      <Button name="편집" align="right" />
+                    </a>
+                  </Link>
+                )}
                 <span>{project.startDate} ~ </span>
                 {project.endDate && <span>{project.endDate}</span>}
               </div>
-              <div>
-                <span>GitHub : </span>
-                <span>
-                  <a href={project.githubAddr} target="_blank" rel="noopener noreferrer">
-                    {project.githubAddr}
-                  </a>
-                </span>
-              </div>
+              {project.githubAddr && (
+                <div>
+                  <span>GitHub : </span>
+                  <span>
+                    <a href={project.githubAddr} target="_blank" rel="noopener noreferrer">
+                      {project.githubAddr}
+                    </a>
+                  </span>
+                </div>
+              )}
             </ProjectHeader>
             <TUIViewer content={project.content} />
             <SkillsWrapper>

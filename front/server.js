@@ -25,6 +25,8 @@ app.prepare().then(() => {
 
   server.get('/portfolio/project/:id', (req, res) => app.render(req, res, '/portfolio/project', { id: req.params.id }));
 
+  server.get('/portfolio/add/:id', (req, res) => app.render(req, res, '/portfolio/add', { id: req.params.id }));
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(PORT, () =>

@@ -23,9 +23,6 @@ export const GET_PROJECT = gql`
         Skills {
           id
           name
-          type
-          level
-          description
           icon
         }
       }
@@ -102,6 +99,37 @@ export const GET_PROJECTS = gql`
         titleImage
         contribution
       }
+    }
+  }
+`;
+
+export const UPDATE_PROJECT = gql`
+  mutation updateProject(
+    $id: Int!
+    $groupName: String!
+    $content: String
+    $description: String
+    $endDate: String
+    $githubAddr: String
+    $titleImage: String
+    $contribution: Int
+    $deleteSkills: [Int]
+    $addSkills: [Int]
+  ) {
+    UpdateProject(
+      id: $id
+      groupName: $groupName
+      content: $content
+      description: $description
+      endDate: $endDate
+      githubAddr: $githubAddr
+      titleImage: $titleImage
+      contribution: $contribution
+      deleteSkills: $deleteSkills
+      addSkills: $addSkills
+    ) {
+      ok
+      error
     }
   }
 `;

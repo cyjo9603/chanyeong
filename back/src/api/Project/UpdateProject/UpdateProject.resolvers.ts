@@ -19,14 +19,13 @@ const resolvers: Resolvers = {
         const { id, deleteSkills, addSkills } = args;
 
         const updateValue = Object.keys(args).reduce((value: UpdateValue, key) => {
-          if (args[key] && key !== 'id' && key !== 'deleteSkills' && key !== 'addSkills') {
+          if (key !== 'id' && key !== 'deleteSkills' && key !== 'addSkills') {
             // eslint-disable-next-line no-param-reassign
             value[key] = args[key];
           }
           return value;
         }, {});
 
-        // await Project.update({ ...updateValue, Skills: skillIds }, { where: { id } });
         const project = await Project.findOne({ where: { id }, include: [{ model: Skill }] });
         if (project) {
           const updateProject = Object.assign(project, updateValue);
