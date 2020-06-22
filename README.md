@@ -6,8 +6,6 @@
 
 Toast서비스에 배포하였으며 아직 개발중인 상태이다.
 
-기능 구현은 각 폴더(back, front)의 README파일에 구현된 기능이 To-do 양식으로 나타내진다.
-
 ## Skill
 
 ### Front-end
@@ -20,6 +18,8 @@ Toast서비스에 배포하였으며 아직 개발중인 상태이다.
 - Styled Components
 - TUIEditor ( WYSIWYG Editor )
 
+  [README](https://github.com/cyjo9603/chanyeong/tree/master/front)
+
 ### Back-end
 
 - Express.js
@@ -27,6 +27,8 @@ Toast서비스에 배포하였으며 아직 개발중인 상태이다.
 - Apollo Server
 - Graphql
 - Sequelize ( MySQL )
+
+  [README](https://github.com/cyjo9603/chanyeong/tree/master/back)
 
 ### Deploy
 
