@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import Slider from 'react-slick';
 
@@ -37,7 +37,6 @@ function PrevArrow(props: any) {
 
 const settings = {
   infinite: true,
-  slidesToShow: 3,
   slidesToScroll: 1,
   speed: 1000,
   nextArrow: <NextArrow />,
@@ -62,6 +61,12 @@ const settings = {
 
 const PostSummary = () => {
   const { data } = useQuery<getPickedPosts>(GET_PICKED_POSTS);
+  const showLength = useMemo(() => {
+    const postsLength = data?.GetPickedPosts?.posts?.length || 0;
+    return postsLength < 3 ? postsLength : 3;
+  }, [data]);
+
+  console.log('showLength', showLength);
 
   return (
     <PageContainer>
@@ -71,7 +76,7 @@ const PostSummary = () => {
           <h2>개발을 진행하며 알게되거나 느긴 저의 이야기들을 적어놓았습니다.</h2>
         </ArticleHeader>
         <SliderWrapper>
-          <Slider {...settings}>
+          <Slider {...settings} slidesToShow={showLength}>
             {data?.GetPickedPosts?.posts?.map((v) => (
               <PostCard key={`main_post_${v.id}`} data={v} />
             ))}
