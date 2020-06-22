@@ -8,15 +8,8 @@ import AboutValue from '../../component/AboutValue';
 import AboutSkill from '../../component/AboutSkill';
 import UpdateSkillForm from '../../component/UpdateSkillForm';
 import WorkProcessItem from './WorkProcessItem';
-import {
-  AboutWrapper,
-  Title,
-  SubTitle,
-  AboutItemWrapper,
-  WorkProcessWrapper,
-  SkillListWrapper,
-  SkillTitleWrapper,
-} from './styled';
+import Button from '../../component/Button';
+import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
 import { GET_SKILLS, ADD_SKILL } from '../../queries/skill.queries';
 import { getSkills } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
@@ -103,10 +96,10 @@ const About = () => {
             <WorkProcessItem engName="debugging" korName="테스팅" />
             <WorkProcessItem engName="deploy" korName="배포" />
           </WorkProcessWrapper>
-          <SkillTitleWrapper>
+          <div>
+            {userInfo?.isLoggedIn.userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
             <Title>Skill Stak</Title>
-            {userInfo?.isLoggedIn.userName && <button onClick={onClickAddSkill}>스킬 추가</button>}
-          </SkillTitleWrapper>
+          </div>
           <SubTitle>Front-End</SubTitle>
           <SkillListWrapper>
             {frontData?.GetSkills?.skill?.map((v) => (

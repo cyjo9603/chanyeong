@@ -81,19 +81,6 @@ export const NavWrapper = styled.nav`
   & > div:last-child {
     display: flex;
 
-    & > button {
-      margin-right: 10px;
-      background-color: ${({ theme }) => theme.PRIMARY_COLOR};
-      color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-      font-weight: 600;
-
-      &:focus {
-        outline: none;
-      }
-    }
     @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
       & > form {
         display: none;

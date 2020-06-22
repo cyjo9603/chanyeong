@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import PageContainer from '../../../component/pageContainer';
 import TUIEditor from '../../../component/TUIEditor';
 import SkillIcon from '../../../component/SkillIcon';
+import Button from '../../../component/Button';
 import { getAccessToken } from '../../../lib/cookie';
 import { InputWrapper, PageHeader, PageFooter } from './styled';
 import { GET_SKILLS } from '../../../queries/skill.queries';
@@ -171,6 +172,7 @@ const AddProject = () => {
         <TUIEditor onChange={setContent} setImage={setImage} />
         <PageFooter>
           <div>
+            <Button onClick={onSubmit} name="프로젝트 추가" align="right" />
             <div>
               <span>스킬 추가</span>
               <select onChange={setCurrentSkill}>
@@ -181,9 +183,8 @@ const AddProject = () => {
                   </option>
                 ))}
               </select>
-              <button onClick={onClickAddSkill}> 추가</button>
+              <Button onClick={onClickAddSkill} name="추가" />
             </div>
-            <button onClick={onSubmit}>프로젝트 추가</button>
           </div>
           <div>
             {skills.map((v) => (

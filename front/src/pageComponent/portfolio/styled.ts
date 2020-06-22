@@ -11,20 +11,6 @@ export const SubTitleWrapper = styled.div`
     margin-top: 12px;
     color: ${({ theme }) => theme.PRIMARY_FONT};
   }
-
-  & button {
-    margin-right: 10px;
-    background-color: ${({ theme }) => theme.PRIMARY_COLOR};
-    color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    font-weight: 600;
-
-    &:focus {
-      outline: none;
-    }
-  }
 `;
 
 export const Title = styled.h1`

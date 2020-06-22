@@ -96,23 +96,3 @@ export const SkillListWrapper = styled.div`
     grid-template-columns: 1fr 1fr;
   }
 `;
-
-export const SkillTitleWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  & button {
-    margin-right: 10px;
-    background-color: ${({ theme }) => theme.PRIMARY_COLOR};
-    color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    font-weight: 600;
-
-    &:focus {
-      outline: none;
-    }
-  }
-`;

@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import ProjectCard from '../../component/ProjectCard';
+import Button from '../../component/Button';
 import { SubTitleWrapper, Title, ProjectListWrapper } from './styled';
 import { getProjects } from '../../types/api';
 import { GET_PROJECTS } from '../../queries/project.queries';
@@ -42,7 +43,7 @@ const Portfolio = () => {
           {userInfo?.isLoggedIn.userName && (
             <Link href="/portfolio/add">
               <a>
-                <button>프로젝트 추가</button>
+                <Button name="프로젝트 추가" align="right" />
               </a>
             </Link>
           )}

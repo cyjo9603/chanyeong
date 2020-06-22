@@ -7,6 +7,7 @@ import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import Search from '../../component/Search';
 import BlogPostCard from '../../component/BlogPostCard';
+import Button from '../../component/Button';
 import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
 
 import { GET_POSTS } from '../../queries/post.queries';
@@ -107,7 +108,7 @@ const Blog = () => {
                 </NavItem>
               </div>
               <div>
-                {userInfo?.isLoggedIn.userName && <button onClick={onClickWritePost}>포스트 작성</button>}
+                {userInfo?.isLoggedIn.userName && <Button onClick={onClickWritePost} name="포스트 작성" />}
                 <Search />
               </div>
             </NavWrapper>

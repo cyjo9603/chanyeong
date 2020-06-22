@@ -14,27 +14,11 @@ export const PageFooter = styled.div`
   color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > div:first-child {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 20px;
   }
 
   & > div:last-child > span {
     margin-left: 8px;
-  }
-
-  & button {
-    margin-right: 10px;
-    background-color: ${(props) => props.theme.PRIMARY_COLOR};
-    color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    font-weight: 600;
-
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
