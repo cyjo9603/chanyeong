@@ -17,7 +17,6 @@ const resolvers: Resolvers = {
               model: Tag,
             },
           ],
-          order: [['id', 'DESC']],
         });
 
         return {

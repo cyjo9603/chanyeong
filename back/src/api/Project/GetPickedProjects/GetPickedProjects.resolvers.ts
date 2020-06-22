@@ -17,6 +17,7 @@ const resolvers: Resolvers = {
               model: Skill,
             },
           ],
+          order: [['id', 'DESC']],
         });
 
         return {
