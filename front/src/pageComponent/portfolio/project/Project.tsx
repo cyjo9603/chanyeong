@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useMemo, useCallback } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
+import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
@@ -9,10 +10,11 @@ import PagePath from '../../../component/PagePath';
 import TUIViewer from '../../../component/TUIViewer';
 import SkillIcon from '../../../component/SkillIcon';
 import Button from '../../../component/Button';
-import { GET_PROJECT } from '../../../queries/project.queries';
-import { getProject_GetProject } from '../../../types/api';
+import { GET_PROJECT, DELETE_PROJECT } from '../../../queries/project.queries';
+import { getProject_GetProject, deleteProject } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../queries/client';
 import { ProjectWrapper, ProjectHeader, SkillsWrapper } from './styled';
+import { getAccessToken } from '../../../lib/cookie';
 
 interface Props {
   GetProject: getProject_GetProject;
@@ -25,7 +27,31 @@ const path = [
 
 const Project = ({ GetProject: { project } }: Props) => {
   const { data } = useQuery(GET_LOCAL_USER);
-  const projectPath = useMemo(() => [...path, { path: `/blog/post/${project.id}`, name: project.title }], [project]);
+  const projectPath = useMemo(() => [...path, { path: `/portfolio/pproject/${project.id}`, name: project.title }], [
+    project,
+  ]);
+  const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
+    variables: { id: project.id },
+    onCompleted: ({ DeleteProject }) => {
+      if (DeleteProject.ok) {
+        Router.push('/portfolio');
+      }
+    },
+  });
+
+  const onClickDelete = useCallback(() => {
+    const result = confirm('정말 게시글을 삭제하시겠습니까?');
+    if (result) {
+      deleteProjectMutation({
+        context: {
+          headers: {
+            'X-JWT': getAccessToken(),
+          },
+        },
+      });
+    }
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -49,14 +75,17 @@ const Project = ({ GetProject: { project } }: Props) => {
               )}
               <div>
                 {data?.isLoggedIn.userName && (
-                  <Link
-                    href={{ pathname: '/portfolio/add', query: { id: project.id } }}
-                    as={`/portfolio/add/${project.id}`}
-                  >
-                    <a>
-                      <Button name="편집" align="right" />
-                    </a>
-                  </Link>
+                  <>
+                    <Button name="제거" align="right" onClick={onClickDelete} />
+                    <Link
+                      href={{ pathname: '/portfolio/add', query: { id: project.id } }}
+                      as={`/portfolio/add/${project.id}`}
+                    >
+                      <a>
+                        <Button name="편집" align="right" />
+                      </a>
+                    </Link>
+                  </>
                 )}
                 <span>{project.startDate} ~ </span>
                 {project.endDate && <span>{project.endDate}</span>}

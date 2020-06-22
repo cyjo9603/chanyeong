@@ -133,3 +133,12 @@ export const UPDATE_PROJECT = gql`
     }
   }
 `;
+
+export const DELETE_PROJECT = gql`
+  mutation deleteProject($id: Int!) {
+    DeleteProject(id: $id) {
+      ok
+      error
+    }
+  }
+`;
