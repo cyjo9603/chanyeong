@@ -78,9 +78,9 @@ const AddProject = () => {
         title,
         description,
         startDate,
-        endDate,
-        githubAddr,
-        titleImage,
+        endDate: endDate || null,
+        githubAddr: githubAddr || null,
+        titleImage: titleImage || null,
         contribution: contribution === '' ? 0 : parseInt(contribution, 10),
         skillIds: skills.map((v) => v.id),
       };
