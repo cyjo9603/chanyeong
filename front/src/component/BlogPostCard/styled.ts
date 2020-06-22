@@ -72,7 +72,7 @@ export const TitleWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   font-size: 14px;
-  height: 80px;
+  height: 70px;
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
@@ -81,7 +81,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const TagListWrapper = styled.div`
-  margin-top: 6px;
+  margin-top: 10px;
 
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     display: none;

@@ -66,8 +66,6 @@ const PostSummary = () => {
     return postsLength < 3 ? postsLength : 3;
   }, [data]);
 
-  console.log('showLength', showLength);
-
   return (
     <PageContainer>
       <SummaryWrapper>
