@@ -11,6 +11,6 @@ type Mutation {
         content: String
         titleImage: String
         deleteTags: [Int]
-        addTags: [Int]
+        addTags: [String]
     ): EditPostResponse!
 }

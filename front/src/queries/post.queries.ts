@@ -77,3 +77,28 @@ export const WRITE_POST = gql`
     }
   }
 `;
+
+export const EDIT_POST = gql`
+  mutation editPost(
+    $id: Int!
+    $category: PostCategory
+    $title: String
+    $content: String
+    $titleImage: String
+    $deleteTags: [Int]
+    $addTags: [String]
+  ) {
+    EditPost(
+      id: $id
+      category: $category
+      title: $title
+      content: $content
+      titleImage: $titleImage
+      deleteTags: $deleteTags
+      addTags: $addTags
+    ) {
+      ok
+      error
+    }
+  }
+`;

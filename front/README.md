@@ -18,7 +18,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 - [x] SignIn
 - [x] About
 - [x] Postfolio
-- [ ] View Project Contents
+- [x] View Project Contents
 - [x] Blog
 - [x] View Blog Posts
 - [ ] Search Posts
@@ -35,7 +35,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 - [ ] Remove Project
 - [ ] Fix Project
 - [x] Add Post
-- [ ] Edit Post
+- [x] Edit Post
 - [ ] Remove Post
 - [ ] Fix Post
 

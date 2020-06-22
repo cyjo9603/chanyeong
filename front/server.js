@@ -21,6 +21,8 @@ app.prepare().then(() => {
 
   server.get('/blog/post/:id', (req, res) => app.render(req, res, '/blog/post', { id: req.params.id }));
 
+  server.get('/blog/write/:id', (req, res) => app.render(req, res, '/blog/write', { id: req.params.id }));
+
   server.get('/portfolio/project/:id', (req, res) => app.render(req, res, '/portfolio/project', { id: req.params.id }));
 
   server.get('*', (req, res) => handle(req, res));

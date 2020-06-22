@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
+import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
 import PageContainer from '../../../component/pageContainer';
@@ -8,8 +10,10 @@ import TUIViewer from '../../../component/TUIViewer';
 import Tag from '../../../component/Tag';
 import { getPost_GetPost } from '../../../types/api';
 import { GET_POST } from '../../../queries/post.queries';
+import { GET_LOCAL_USER } from '../../../queries/client';
 import { PostWrapper, PostHeader } from './styled';
 import dateFormat from '../../../lib/dateFormat';
+import Button from '../../../component/Button';
 
 interface Props {
   GetPost: getPost_GetPost;
@@ -21,7 +25,9 @@ const path = [
 ];
 
 const BlogPost = ({ GetPost: { post } }: Props) => {
+  const { data } = useQuery(GET_LOCAL_USER);
   const postPath = useMemo(() => [...path, { path: `/blog/post/${post.id}`, name: post.title }], [post]);
+
   return (
     <>
       <Helmet>
@@ -38,7 +44,16 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
           <section>
             <PostHeader>
               <h1>{post.title}</h1>
-              <div>{dateFormat(+post.createdAt)}</div>
+              <div>
+                {dateFormat(+post.createdAt)}
+                {data?.isLoggedIn.userName && (
+                  <Link href={{ pathname: '/blog/write', query: { id: post.id } }} as={`/blog/write/${post.id}`}>
+                    <a>
+                      <Button name="편집" align="right" />
+                    </a>
+                  </Link>
+                )}
+              </div>
               {post.Tags.map((v) => (
                 <Tag key={`blog_post_${post.id}_${v.id}`} name={v.name} />
               ))}
