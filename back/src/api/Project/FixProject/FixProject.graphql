@@ -1,0 +1,8 @@
+type FixProjectResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    FixProject(id: Int!, fix: Boolean!): FixProjectResponse!
+}

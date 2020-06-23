@@ -33,7 +33,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 - [x] Add Project
 - [x] Update Project
 - [x] Delete Project
-- [ ] Fix Project
+- [x] Fix Project
 - [x] Add Post
 - [x] Edit Post
 - [x] Delete Post

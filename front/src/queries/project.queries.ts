@@ -142,3 +142,12 @@ export const DELETE_PROJECT = gql`
     }
   }
 `;
+
+export const FIX_PROJECT = gql`
+  mutation fixProject($id: Int!, $fix: Boolean!) {
+    FixProject(id: $id, fix: $fix) {
+      ok
+      error
+    }
+  }
+`;

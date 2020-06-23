@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
@@ -10,11 +10,14 @@ import PagePath from '../../../component/PagePath';
 import TUIViewer from '../../../component/TUIViewer';
 import SkillIcon from '../../../component/SkillIcon';
 import Button from '../../../component/Button';
-import { GET_PROJECT, DELETE_PROJECT } from '../../../queries/project.queries';
-import { getProject_GetProject, deleteProject } from '../../../types/api';
+import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '../../../queries/project.queries';
+import { getProject_GetProject, deleteProject, fixProject } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../queries/client';
 import { ProjectWrapper, ProjectHeader, SkillsWrapper } from './styled';
 import { getAccessToken } from '../../../lib/cookie';
+
+const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
+const FIX_PROJECT_FALSE = '프로젝트 고정 해제' as const;
 
 interface Props {
   GetProject: getProject_GetProject;
@@ -27,6 +30,7 @@ const path = [
 
 const Project = ({ GetProject: { project } }: Props) => {
   const { data } = useQuery(GET_LOCAL_USER);
+  const [isFixed, setIsFixed] = useState(project.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
   const projectPath = useMemo(() => [...path, { path: `/portfolio/pproject/${project.id}`, name: project.title }], [
     project,
   ]);
@@ -38,6 +42,24 @@ const Project = ({ GetProject: { project } }: Props) => {
       }
     },
   });
+  const [fixProjecttMutation] = useMutation<fixProject>(FIX_PROJECT, {
+    variables: { id: project.id, fix: isFixed === FIX_PROJECT_TRUE },
+    onCompleted: ({ FixProject }) => {
+      if (FixProject.ok) {
+        setIsFixed(isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
+      }
+    },
+  });
+
+  const onClickFix = useCallback(() => {
+    fixProjecttMutation({
+      context: {
+        headers: {
+          'X-JWT': getAccessToken(),
+        },
+      },
+    });
+  }, []);
 
   const onClickDelete = useCallback(() => {
     const result = confirm('정말 게시글을 삭제하시겠습니까?');
@@ -85,6 +107,7 @@ const Project = ({ GetProject: { project } }: Props) => {
                         <Button name="편집" align="right" />
                       </a>
                     </Link>
+                    <Button name={isFixed} align="right" onClick={onClickFix} />
                   </>
                 )}
                 <span>{project.startDate} ~ </span>
