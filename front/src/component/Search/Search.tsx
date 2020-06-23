@@ -4,7 +4,7 @@ import { SearchForm } from './styled';
 
 const Search = () => (
   <SearchForm>
-    <input type="text" />
+    <input type="text" disabled />
     <span>
       <img src="/search.svg" alt="search" />
     </span>

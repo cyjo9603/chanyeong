@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 export const PostWrapper = styled.div`
   margin-bottom: 80px;
-
-  & .tui-editor-contents > * {
-    color: ${({ theme }) => theme.PRIMARY_FONT};
-  }
 `;
 
 export const PostHeader = styled.div`

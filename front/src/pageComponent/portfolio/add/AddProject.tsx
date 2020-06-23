@@ -174,6 +174,10 @@ const AddProject = ({ GetProject }: Props) => {
         <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
         <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
+        />
       </Helmet>
       <PageContainer>
         <PageHeader>

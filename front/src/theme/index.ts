@@ -41,7 +41,7 @@ export const darkTheme = {
   PRIMARY_FONT: '#aaaaaa',
   CHANGE_PRIMARY: '#444444',
   FOOTER_BACKGROUND: '#141414',
-  FONT_FOCUS: '#FF9900',
+  FONT_FOCUS: '#1089FF',
 
   SKILL_RED: '#E0613F',
   SKILL_YELLOW: '#FFF2A1',

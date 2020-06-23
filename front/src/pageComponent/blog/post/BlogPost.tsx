@@ -83,6 +83,10 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
         <meta name="og:description" content={removeMd(post.content, { useImgAltText: false })} />
         <meta name="og:image" content={post.titleImage} />
         <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
+        />
       </Helmet>
       <PageContainer>
         <PostWrapper>
