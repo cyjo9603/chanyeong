@@ -31,20 +31,27 @@ export const NoImage = styled.div`
 export const PostContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100% - 16px);
-  height: 68px;
+  width: 100%;
+  height: 80px;
   padding: 6px 12px;
-  overflow: hidden;
+
   & > h1 {
     color: ${(props) => props.theme.PRIMARY_FONT};
     font-size: 16px;
     font-weight: 700;
     margin: 0;
+    width: 200px;
+    height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   & > h2 {
     color: ${(props) => props.theme.PRIMARY_FONT};
     font-size: 12px;
     font-weight: 400;
+    height: 36px;
     margin: 0;
+    overflow: hidden;
   }
 `;

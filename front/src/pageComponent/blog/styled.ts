@@ -43,7 +43,7 @@ export const SideTagContainer = styled.aside`
 
     & > div {
       background-color: ${({ theme }) => theme.TAG_BACKGROUND};
-      height: 20px;
+      height: 23px;
       border-radius: 8px;
       padding: 0 8px;
       margin-top: 4px;

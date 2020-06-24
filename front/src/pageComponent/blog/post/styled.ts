@@ -5,7 +5,7 @@ export const PostWrapper = styled.div`
 `;
 
 export const PostHeader = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > h1 {
@@ -27,5 +27,16 @@ export const PostHeader = styled.div`
 
   & > div {
     margin-bottom: 10px;
+  }
+`;
+
+export const TagWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  & > span {
+    height: 24px;
+    margin-bottom: 8px;
   }
 `;

@@ -12,7 +12,7 @@ import Tag from '../../../component/Tag';
 import { getPost_GetPost, deletePost, fixPost } from '../../../types/api';
 import { GET_POST, DELETE_POST, FIX_POST } from '../../../queries/post.queries';
 import { GET_LOCAL_USER } from '../../../queries/client';
-import { PostWrapper, PostHeader } from './styled';
+import { PostWrapper, PostHeader, TagWrapper } from './styled';
 import dateFormat from '../../../lib/dateFormat';
 import Button from '../../../component/Button';
 import { getAccessToken } from '../../../lib/cookie';
@@ -108,9 +108,11 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
                   </>
                 )}
               </div>
-              {post.Tags.map((v) => (
-                <Tag key={`blog_post_${post.id}_${v.id}`} name={v.name} />
-              ))}
+              <TagWrapper>
+                {post.Tags.map((v) => (
+                  <Tag key={`blog_post_${post.id}_${v.id}`} name={v.name} />
+                ))}
+              </TagWrapper>
             </PostHeader>
             <hr />
             <TUIViewer content={post.content} />

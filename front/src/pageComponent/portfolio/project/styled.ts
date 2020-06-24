@@ -38,7 +38,8 @@ export const SkillsWrapper = styled.div`
     font-size: 20px;
   }
 
-  & > span {
+  & img {
     margin-right: 20px;
+    margin-bottom: 8px;
   }
 `;
