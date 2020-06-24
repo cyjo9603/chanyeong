@@ -121,3 +121,25 @@ export const FIX_POST = gql`
     }
   }
 `;
+
+export const SEARCH_POSTS = gql`
+  query searchPosts($searchWord: String!, $lastId: Int) {
+    SearchPosts(searchWord: $searchWord, lastId: $lastId) {
+      ok
+      error
+      posts {
+        id
+        category
+        title
+        content
+        titleImage
+        createdAt
+        updatedAt
+        Tags {
+          id
+          name
+        }
+      }
+    }
+  }
+`;

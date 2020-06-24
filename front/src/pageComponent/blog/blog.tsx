@@ -24,6 +24,7 @@ const Blog = () => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
+  const [searchWord, setSearchWord] = useState('');
   const lastId = useRef(null);
   const { data, fetchMore, refetch } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
@@ -33,11 +34,12 @@ const Blog = () => {
   }, []);
 
   const onScroll = useCallback(() => {
+    const { posts } = data?.GetPosts;
     if (
-      lastId.current !== data?.GetPosts?.posts[data?.GetPosts?.posts.length - 1].id &&
+      lastId.current !== posts?.[posts.length - 1].id &&
       window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 400
     ) {
-      lastId.current = data?.GetPosts?.posts[data?.GetPosts?.posts.length - 1].id;
+      lastId.current = posts[posts.length - 1].id;
       fetchMore({
         variables: {
           category,
@@ -55,6 +57,20 @@ const Blog = () => {
       });
     }
   }, [data, category, lastId.current, tagId]);
+
+  const onChangeSearchWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchWord(e.target.value);
+  }, []);
+
+  const onSearch = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (searchWord.trim().length > 1) {
+        Router.push({ pathname: '/blog/search', query: { word: searchWord } }, `/blog/search/${searchWord}`);
+      }
+    },
+    [searchWord],
+  );
 
   const onChangeCategory = useCallback((categoryName: string | null) => {
     setCategory(categoryName);
@@ -109,7 +125,7 @@ const Blog = () => {
               </div>
               <div>
                 {userInfo?.isLoggedIn.userName && <Button onClick={onClickWritePost} name="포스트 작성" />}
-                <Search />
+                <Search onChange={onChangeSearchWord} value={searchWord} onClick={onSearch} />
               </div>
             </NavWrapper>
             <section>

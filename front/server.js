@@ -23,6 +23,8 @@ app.prepare().then(() => {
 
   server.get('/blog/write/:id', (req, res) => app.render(req, res, '/blog/write', { id: req.params.id }));
 
+  server.get('/blog/search/:word', (req, res) => app.render(req, res, '/blog/search', { id: req.params.word }));
+
   server.get('/portfolio/project/:id', (req, res) => app.render(req, res, '/portfolio/project', { id: req.params.id }));
 
   server.get('/portfolio/add/:id', (req, res) => app.render(req, res, '/portfolio/add', { id: req.params.id }));

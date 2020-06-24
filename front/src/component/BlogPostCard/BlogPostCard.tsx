@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
@@ -38,4 +38,4 @@ const BlogPostCard = ({ data: { id, category, title, createdAt, content, Tags, t
   );
 };
 
-export default BlogPostCard;
+export default memo(BlogPostCard);
