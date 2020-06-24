@@ -4,7 +4,7 @@ import { SearchForm } from './styled';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClick: () => void;
+  onClick: (e: React.FormEvent) => void;
   value: string;
 }
 
