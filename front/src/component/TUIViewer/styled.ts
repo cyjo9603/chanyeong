@@ -48,6 +48,11 @@ export const ViewerWrapper = styled.section`
       margin: 20px 0 15px;
     }
 
+    & img {
+      display: block;
+      margin: 0 auto;
+    }
+
     & h1 {
       font-size: 32px;
       border-bottom: 3px solid ${({ theme }) => theme.PRIMARY_FONT};
