@@ -9,6 +9,7 @@ import hpp from 'hpp';
 import schema from './schema';
 import { ACCESS_TOKEN } from './utils/createJWT';
 import decodeJWT from './utils/decodeJWT';
+import { decryptValue } from './utils/decrypt';
 
 const GRAPHQL_ENDPOINT = '/graphql' as const;
 const prod = process.env.NODE_ENV === 'production';
@@ -55,7 +56,8 @@ class App {
   private jwt: RequestHandler = async (req: any, res, next) => {
     const token = req.get('X-JWT');
     if (token) {
-      const user = await decodeJWT(ACCESS_TOKEN, token);
+      const decryptToken = decryptValue(token);
+      const user = await decodeJWT(ACCESS_TOKEN, decryptToken);
       req.user = user;
     }
     next();

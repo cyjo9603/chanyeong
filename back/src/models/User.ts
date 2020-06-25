@@ -44,7 +44,7 @@ User.init(
       allowNull: false,
     },
     refreshToken: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.STRING(400),
       allowNull: true,
     },
   },

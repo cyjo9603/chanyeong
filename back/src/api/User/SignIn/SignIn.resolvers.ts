@@ -1,12 +1,9 @@
-import crypto from 'crypto-js';
-
 import { SignInMutationArgs } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 import User from '../../../models/User';
 import { createRefreshToken, createAccessToken } from '../../../utils/createJWT';
 import { comparePassword } from '../../../utils/hashPassword';
-
-const { LOGIN_SECRET_KEY } = process.env;
+import { encryptValue, decryptValue } from '../../../utils/decrypt';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우
@@ -19,8 +16,8 @@ const resolvers: Resolvers = {
       try {
         const { userId, password } = args;
 
-        const decrypedUserId = crypto.AES.decrypt(userId, LOGIN_SECRET_KEY!).toString(crypto.enc.Utf8);
-        const decrypedPassword = crypto.AES.decrypt(password, LOGIN_SECRET_KEY!).toString(crypto.enc.Utf8);
+        const decrypedUserId = decryptValue(userId);
+        const decrypedPassword = decryptValue(password);
 
         const user = await User.findOne({ where: { userId: decrypedUserId } });
 
@@ -34,8 +31,8 @@ const resolvers: Resolvers = {
         const checkPassword = await comparePassword(user.password, decrypedPassword);
 
         if (checkPassword) {
-          const refreshToken = createRefreshToken(user.id);
-          const accessToken = createAccessToken(user.id);
+          const refreshToken = encryptValue(createRefreshToken(user.id)!);
+          const accessToken = encryptValue(createAccessToken(user.id)!);
 
           user.update({ refreshToken });
 

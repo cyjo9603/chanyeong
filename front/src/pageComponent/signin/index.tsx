@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 import { Helmet } from 'react-helmet';
-import crypto from 'crypto-js';
 
 import PageContainer from '../../component/pageContainer';
 import Input from '../../component/Input';
@@ -10,6 +9,7 @@ import { SignInWrapper } from './styled';
 import { signIn } from '../../types/api';
 import { SIGNIN_REQUEST } from '../../queries/user.queries';
 import { setToken } from '../../lib/cookie';
+import { encryptValue } from '../../lib/encrypt';
 import { LOCAL_SIGN_IN } from '../../queries/client';
 
 const SignIn = () => {
@@ -40,8 +40,8 @@ const SignIn = () => {
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const cryptoUserId = crypto.AES.encrypt(userId, process.env.LOGIN_SECRET_KEY).toString();
-      const cryptoPassword = crypto.AES.encrypt(password, process.env.LOGIN_SECRET_KEY).toString();
+      const cryptoUserId = encryptValue(userId);
+      const cryptoPassword = encryptValue(password);
       signInMutation({
         variables: {
           userId: cryptoUserId,

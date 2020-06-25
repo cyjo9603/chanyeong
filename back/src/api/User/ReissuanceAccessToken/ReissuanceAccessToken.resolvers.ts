@@ -4,6 +4,7 @@ import { Resolvers } from '../../../types/resolvers';
 import User from '../../../models/User';
 import { createAccessToken, REFRESH_TOKEN } from '../../../utils/createJWT';
 import decodeJWT from '../../../utils/decodeJWT';
+import { encryptValue } from '../../../utils/decrypt';
 
 /** ReissuanceAccessToken
  *  refreshToken을 받아 유효한 토큰일 경우
@@ -27,7 +28,7 @@ const resolvers: Resolvers = {
         const user = await User.findOne({ where: { id: decode.id! } });
 
         if (user && user.refreshToken === refreshToken) {
-          const newAccessToken = createAccessToken(user.id);
+          const newAccessToken = encryptValue(createAccessToken(user.id)!);
           return {
             ok: true,
             token: newAccessToken,
