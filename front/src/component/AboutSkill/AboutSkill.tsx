@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { AboutSkillWrapper, LevelBar } from './styled';
 import { getSkills_GetSkills_skill } from '../../types/api';
@@ -18,4 +18,4 @@ const AboutSkill = ({ data: { name, level, description, icon } }: Props) => (
   </AboutSkillWrapper>
 );
 
-export default AboutSkill;
+export default memo(AboutSkill);
