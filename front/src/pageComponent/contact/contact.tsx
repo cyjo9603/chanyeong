@@ -19,7 +19,7 @@ const Contact = () => (
       <meta name="og:description" content="개발자 조찬영의 연락처입니다." />
     </Helmet>
     <PageContainer>
-      <PagePath data={path} />
+      <PagePath data={path} page="contact" />
       <ProfileWrapper>
         <img src="/profile.jpg" alt="profile" />
         <span>조찬영</span>

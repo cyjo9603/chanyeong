@@ -8,17 +8,18 @@ interface Props {
     path: string;
     name: string;
   }[];
+  page: string;
 }
 
-const PagePath = ({ data }: Props) => (
+const PagePath = ({ data, page }: Props) => (
   <PagePathWrapper>
     {data.map((v, i) => (
-      <>
-        <Link href={v.path} key={`page_breadcrumb_${v.name}`}>
+      <span key={`page_breadcrumb_${page}_${v.name}`}>
+        <Link href={v.path}>
           <a>{i === data.length - 1 ? <LastItem>{v.name}</LastItem> : <span>{v.name}</span>}</a>
         </Link>
         {i !== data.length - 1 && <span>&gt;</span>}
-      </>
+      </span>
     ))}
   </PagePathWrapper>
 );

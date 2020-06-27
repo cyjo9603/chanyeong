@@ -90,7 +90,7 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
       </Helmet>
       <PageContainer>
         <PostWrapper>
-          <PagePath data={postPath} />
+          <PagePath data={postPath} page={`post_${post.title}`} />
           <section>
             <PostHeader>
               <h1>{post.title}</h1>

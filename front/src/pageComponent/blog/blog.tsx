@@ -107,7 +107,7 @@ const Blog = () => {
         />
       </Helmet>
       <PageContainer>
-        <PagePath data={path} />
+        <PagePath data={path} page="blog" />
         <SubTitle>개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다.</SubTitle>
         <BlogWrapper>
           <BlogContainer>

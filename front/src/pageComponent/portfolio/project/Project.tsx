@@ -86,7 +86,7 @@ const Project = ({ GetProject: { project } }: Props) => {
       </Helmet>
       <PageContainer>
         <ProjectWrapper>
-          <PagePath data={projectPath} />
+          <PagePath data={projectPath} page={`project_${project.title}`} />
           <section>
             <ProjectHeader>
               <h1>{project.title}</h1>

@@ -37,7 +37,7 @@ const Portfolio = () => {
         />
       </Helmet>
       <PageContainer>
-        <PagePath data={path} />
+        <PagePath data={path} page="project" />
         <SubTitleWrapper>
           <h2>제가 지금까지 진행한 프로젝트들 입니다.</h2>
           {userInfo?.isLoggedIn.userName && (

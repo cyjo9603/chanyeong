@@ -58,7 +58,7 @@ const About = () => {
       </Helmet>
       <PageContainer>
         <AboutWrapper>
-          <PagePath data={path} />
+          <PagePath data={path} page="about" />
           <SubTitle>안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다.</SubTitle>
           <Title>Values</Title>
           <SubTitle>제가 생각하는개발의 중요한 포인트 세 가지는 다음과 같습니다.</SubTitle>
