@@ -4,7 +4,7 @@ import { Resolvers } from '../../../types/resolvers';
 import User from '../../../models/User';
 import { createAccessToken, REFRESH_TOKEN } from '../../../utils/createJWT';
 import decodeJWT from '../../../utils/decodeJWT';
-import { encryptValue } from '../../../utils/decrypt';
+import { encryptValue, decryptValue } from '../../../utils/decrypt';
 
 /** ReissuanceAccessToken
  *  refreshToken을 받아 유효한 토큰일 경우
@@ -16,7 +16,8 @@ const resolvers: Resolvers = {
     ReissuanceAccessToken: async (_, args: ReissuanceAccessTokenMutationArgs) => {
       try {
         const { refreshToken } = args;
-        const decode = decodeJWT(REFRESH_TOKEN, refreshToken);
+        const token = decryptValue(refreshToken);
+        const decode = decodeJWT(REFRESH_TOKEN, token);
 
         if (decode.error) {
           return {
@@ -27,7 +28,7 @@ const resolvers: Resolvers = {
 
         const user = await User.findOne({ where: { id: decode.id! } });
 
-        if (user && user.refreshToken === refreshToken) {
+        if (user?.refreshToken === token) {
           const newAccessToken = encryptValue(createAccessToken(user.id)!);
           return {
             ok: true,

@@ -27,3 +27,13 @@ export const GET_USER_INFO = gql`
     }
   }
 `;
+
+export const REISSUANCE_ACCESS_TOKEN = gql`
+  mutation reissuanceAccessToken($refreshToken: String!) {
+    ReissuanceAccessToken(refreshToken: $refreshToken) {
+      ok
+      error
+      token
+    }
+  }
+`;

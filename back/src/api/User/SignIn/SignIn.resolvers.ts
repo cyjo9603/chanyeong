@@ -31,16 +31,16 @@ const resolvers: Resolvers = {
         const checkPassword = await comparePassword(user.password, decrypedPassword);
 
         if (checkPassword) {
-          const refreshToken = encryptValue(createRefreshToken(user.id)!);
-          const accessToken = encryptValue(createAccessToken(user.id)!);
+          const refreshToken = createRefreshToken(user.id);
+          const accessToken = createAccessToken(user.id);
 
           user.update({ refreshToken });
 
           return {
             ok: true,
             token: {
-              refreshToken,
-              accessToken,
+              refreshToken: encryptValue(refreshToken!),
+              accessToken: encryptValue(accessToken!),
             },
             userName: `${user.familyName}${user.givenName}`,
           };

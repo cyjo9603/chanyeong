@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
@@ -11,9 +10,8 @@ import withApolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
-import { REGEXP_ACCESS_TOKEN } from '../secret';
-import { GET_USER_INFO } from '../queries/user.queries';
-import { getAccessToken } from '../lib/cookie';
+import { GET_USER_INFO, REISSUANCE_ACCESS_TOKEN } from '../queries/user.queries';
+import { getAccessToken, getRefreshToken, setAccessToken } from '../lib/cookie';
 import { getUserInfo } from '../types/api';
 
 interface Props extends AppProps {
@@ -30,10 +28,11 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 
   useEffect(() => {
     const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
     const mode = localStorage.getItem('mode');
     setIsDarkMode(mode === 'true');
 
-    if (accessToken) {
+    if (accessToken && refreshToken) {
       apollo
         .query({
           query: GET_USER_INFO,
@@ -43,8 +42,26 @@ const App = ({ Component, pageProps, apollo }: Props) => {
             },
           },
         })
-        .then((result: any) => {
-          const { GetUserInfo } = result.data as getUserInfo;
+        .then(async (result: any) => {
+          let { GetUserInfo } = (result.data as getUserInfo) || {};
+
+          if (GetUserInfo?.error === 'ERROR_EXPIRATION') {
+            apollo.cache.reset();
+            const { data } = await apollo.mutate({
+              mutation: REISSUANCE_ACCESS_TOKEN,
+              variables: { refreshToken },
+            });
+            if (data?.ReissuanceAccessToken.ok) {
+              const { token } = data.ReissuanceAccessToken;
+              setAccessToken(token);
+              const { data: userInfo } = await apollo.query({
+                query: GET_USER_INFO,
+                context: { headers: { 'X-JWT': token } },
+                fetchResults: true,
+              });
+              GetUserInfo = userInfo.GetUserInfo;
+            }
+          }
 
           if (GetUserInfo?.user) {
             const { familyName, givenName } = GetUserInfo.user;
