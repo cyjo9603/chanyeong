@@ -27,6 +27,37 @@ export const ViewerWrapper = styled.section`
       border: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
     }
 
+    & code,
+    pre {
+      background-color: ${({ theme }) => theme.INLINE_CODE_BACKGROUND};
+    }
+
+    & pre {
+      color: ${({ theme }) => theme.PRIMARY_FONT};
+
+      & .hljs-keyword {
+        color: ${({ theme }) => theme.CODE_KEWORD};
+      }
+      & .hljs-string {
+        color: ${({ theme }) => theme.CODE_STRING};
+      }
+      & .hljs-number {
+        color: ${({ theme }) => theme.CODE_NUMBER};
+      }
+      & .hljs-variable {
+        color: ${({ theme }) => theme.CODE_VAR};
+      }
+      & .hljs-selector-tag {
+        color: ${({ theme }) => theme.CODE_TAG};
+      }
+      & .hljs-selector-id {
+        color: ${({ theme }) => theme.CODE_ID};
+      }
+      & .hljs-attribute {
+        color: ${({ theme }) => theme.CODE_ATTRIBUTE};
+      }
+    }
+
     & p,
     li,
     pre {
