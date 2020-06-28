@@ -117,6 +117,8 @@ const App = ({ Component, pageProps, apollo }: Props) => {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+          <link rel="shortcut icon" href="/favicon.png" />
+          <link rel="apple-touch-icon-precomposed" href="/favicon2.png" />
         </Helmet>
         <AppLayout isDarkMode={isDarkMode}>
           <Component {...pageProps} />
