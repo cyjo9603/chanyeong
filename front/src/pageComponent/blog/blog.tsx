@@ -34,8 +34,9 @@ const Blog = () => {
   }, []);
 
   const onScroll = useCallback(() => {
-    const { posts } = data?.GetPosts;
+    const posts = data?.GetPosts?.posts;
     if (
+      posts &&
       lastId.current !== posts?.[posts.length - 1].id &&
       window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 400
     ) {
