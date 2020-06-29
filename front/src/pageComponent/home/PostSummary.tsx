@@ -1,14 +1,11 @@
 import React, { useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
 import Slider from 'react-slick';
 
 import PageContainer from '../../component/pageContainer';
 import { SummaryWrapper, ArticleHeader, SliderWrapper } from './styled';
 import DetailButton from '../../component/DetailButton';
 import PostCard from '../../component/PostCard';
-
-import { GET_PICKED_POSTS } from '../../queries/post.queries';
-import { getPickedPosts } from '../../types/api';
+import { getPicked_GetPickedPosts } from '../../types/api';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -59,10 +56,13 @@ const settings = {
   ],
 };
 
-const PostSummary = () => {
-  const { data } = useQuery<getPickedPosts>(GET_PICKED_POSTS);
+interface Props {
+  data: getPicked_GetPickedPosts;
+}
+
+const PostSummary = ({ data }: Props) => {
   const showLength = useMemo(() => {
-    const postsLength = data?.GetPickedPosts?.posts?.length || 0;
+    const postsLength = data?.posts?.length || 0;
     return postsLength < 3 ? postsLength : 3;
   }, [data]);
 
@@ -75,7 +75,7 @@ const PostSummary = () => {
         </ArticleHeader>
         <SliderWrapper>
           <Slider {...settings} slidesToShow={showLength}>
-            {data?.GetPickedPosts?.posts?.map((v) => (
+            {data?.posts?.map((v) => (
               <PostCard key={`main_post_${v.id}`} data={v} />
             ))}
           </Slider>

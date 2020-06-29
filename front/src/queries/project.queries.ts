@@ -63,26 +63,6 @@ export const ADD_PROJECT = gql`
   }
 `;
 
-export const GET_PICKED_PROJECTS = gql`
-  query getPickedProjects {
-    GetPickedProjects {
-      ok
-      error
-      project {
-        id
-        type
-        groupName
-        title
-        description
-        startDate
-        endDate
-        titleImage
-        contribution
-      }
-    }
-  }
-`;
-
 export const GET_PROJECTS = gql`
   query getProjects($type: ProjectType) {
     GetProjects(type: $type) {

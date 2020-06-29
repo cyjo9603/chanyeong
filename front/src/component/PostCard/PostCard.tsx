@@ -3,10 +3,10 @@ import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
 import { PostCardWrapper, NoImage, PostContent } from './styled';
-import { getPickedPosts_GetPickedPosts_posts } from '../../types/api';
+import { getPicked_GetPickedPosts_posts } from '../../types/api';
 
 interface Props {
-  data: getPickedPosts_GetPickedPosts_posts;
+  data: getPicked_GetPickedPosts_posts;
 }
 
 const PostCard = ({ data: { id, title, content, titleImage } }: Props) => {
