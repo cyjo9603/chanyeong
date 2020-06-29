@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
 import { Helmet } from 'react-helmet';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import PageContainer from '../../../component/pageContainer';
 import TUIEditor from '../../../component/TUIEditor';
@@ -9,6 +9,7 @@ import Tag from '../../../component/Tag';
 import { BlogWriteHeader, BlogWriteBottom } from './styled';
 import { WRITE_POST, GET_POST, EDIT_POST } from '../../../queries/post.queries';
 import { getAccessToken } from '../../../lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../../lib/reissuanceAccessToken';
 import { writePost, getPost_GetPost, editPost } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../queries/client';
 
@@ -17,14 +18,37 @@ interface Props {
 }
 
 const WritePost = ({ GetPost }: Props) => {
+  const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
+  const [titleImage, setTitleImage] = useState('');
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('DEV');
+  const [tags, setTags] = useState<string[]>([]);
+  const [insertTag, setInsertTag] = useState('');
+  const [deleteTags, setDeleteTags] = useState<number[]>([]);
+  const insertTagRef = useRef<HTMLInputElement>();
   const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
     context: {
       headers: {
         'X-JWT': getAccessToken(),
       },
     },
-    onCompleted: ({ WritePost }) => {
+    onCompleted: async ({ WritePost }) => {
+      if (WritePost.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            category,
+            title,
+            content,
+            titleImage: titleImage || undefined,
+            tags,
+          };
+          writePostMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
       if (WritePost.ok) {
         Router.push('/blog');
       }
@@ -36,21 +60,27 @@ const WritePost = ({ GetPost }: Props) => {
         'X-JWT': getAccessToken(),
       },
     },
-    onCompleted: ({ EditPost }) => {
+    onCompleted: async ({ EditPost }) => {
+      if (EditPost.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            id: GetPost.post.id,
+            category,
+            title,
+            content,
+            titleImage: titleImage || undefined,
+            deleteTags,
+            addTags: tags,
+          };
+          editPostMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
       if (EditPost.ok) {
         Router.push('/blog');
       }
     },
   });
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState('');
-  const [titleImage, setTitleImage] = useState('');
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('DEV');
-  const [tags, setTags] = useState<string[]>([]);
-  const [insertTag, setInsertTag] = useState('');
-  const [deleteTags, setDeleteTags] = useState<number[]>([]);
-  const insertTagRef = useRef<HTMLInputElement>();
 
   const onSubmit = useCallback(() => {
     if (content.trim() && title.trim()) {

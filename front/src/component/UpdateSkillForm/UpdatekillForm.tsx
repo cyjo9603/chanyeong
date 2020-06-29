@@ -1,9 +1,12 @@
 import React, { useState, useCallback } from 'react';
-import { MutationHookOptions } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import axios from 'axios';
 
 import { UpdateSkillFormWrapper } from './styled';
 import { getAccessToken } from '../../lib/cookie';
+import { ADD_SKILL } from '../../queries/skill.queries';
+import { AddSkill } from '../../types/api';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
 
 const useInput = (initValue: string): [string, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
   const [value, setValue] = useState(initValue);
@@ -17,16 +20,37 @@ const useInput = (initValue: string): [string, (e: React.ChangeEvent<HTMLInputEl
 
 interface Props {
   closeUpdateSkill: () => void;
-  onSubmitMutation: (options: MutationHookOptions) => Promise<any>;
 }
 
-const UpdateSkillForm = ({ closeUpdateSkill, onSubmitMutation }: Props) => {
+const UpdateSkillForm = ({ closeUpdateSkill }: Props) => {
+  const apollo = useApolloClient();
   const [skillType, setSkillType] = useState('');
   const [name, setName] = useInput('');
   const [level, setLevel] = useInput('');
   const [description, setDescription] = useInput('');
   const [order, setOrder] = useInput('');
   const [image, setImage] = useState('');
+  const [addSkillMutation] = useMutation<AddSkill>(ADD_SKILL, {
+    onCompleted: async ({ AddSkill }) => {
+      if (AddSkill.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            name,
+            type: skillType,
+            level: parseInt(level, 10),
+            description,
+            icon: image,
+            order: parseInt(order, 10),
+          };
+          addSkillMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
+      if (AddSkill.ok) {
+        closeUpdateSkill();
+      }
+    },
+  });
 
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -39,7 +63,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, onSubmitMutation }: Props) => {
         icon: image,
         order: parseInt(order, 10),
       };
-      onSubmitMutation({
+      addSkillMutation({
         variables,
         context: {
           headers: {

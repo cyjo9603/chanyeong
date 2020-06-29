@@ -1,13 +1,14 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import Router from 'next/router';
 import { Helmet } from 'react-helmet';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import PageContainer from '../../../component/pageContainer';
 import TUIEditor from '../../../component/TUIEditor';
 import SkillIcon from '../../../component/SkillIcon';
 import Button from '../../../component/Button';
 import { getAccessToken } from '../../../lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../../lib/reissuanceAccessToken';
 import { InputWrapper, PageHeader, PageFooter, SkillWrapper } from './styled';
 import { GET_SKILLS } from '../../../queries/skill.queries';
 import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '../../../queries/project.queries';
@@ -39,22 +40,9 @@ const useSelect = (initValue: string): [string, (e: React.ChangeEvent<HTMLSelect
 };
 
 const AddProject = ({ GetProject }: Props) => {
+  const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data } = useQuery<getSkills>(GET_SKILLS);
-  const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
-    onCompleted: ({ AddProject }) => {
-      if (AddProject.ok) {
-        Router.push('/portfolio');
-      }
-    },
-  });
-  const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
-    onCompleted: ({ UpdateProject }) => {
-      if (UpdateProject.ok) {
-        Router.push('/portfolio');
-      }
-    },
-  });
   const [content, setContent] = useState(GetProject?.project.content || '');
   const [projectType, setProjectType] = useSelect(GetProject?.project.type || 'PERSONAL');
   const [currentSkill, setCurrentSkill] = useSelect('');
@@ -69,6 +57,57 @@ const AddProject = ({ GetProject }: Props) => {
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(GetProject?.project.titleImage || '');
   const [image, setImage] = useState('');
+  const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
+    onCompleted: async ({ AddProject }) => {
+      if (AddProject.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            content,
+            type: projectType,
+            groupName,
+            title,
+            description,
+            startDate,
+            endDate: endDate || null,
+            githubAddr: githubAddr || null,
+            titleImage: titleImage || null,
+            contribution: contribution === '' ? 0 : parseInt(contribution, 10),
+            skillIds: skills.map((v) => v.id),
+          };
+          addProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
+      if (AddProject.ok) {
+        Router.push('/portfolio');
+      }
+    },
+  });
+  const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
+    onCompleted: async ({ UpdateProject }) => {
+      if (UpdateProject.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            id: GetProject.project.id,
+            content,
+            groupName,
+            description,
+            endDate: endDate || null,
+            githubAddr,
+            titleImage,
+            contribution: contribution === '' ? 0 : parseInt(contribution, 10),
+            deleteSkills,
+            addSkills: skills.map((v) => v.id),
+          };
+          updateProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
+      if (UpdateProject.ok) {
+        Router.push('/portfolio');
+      }
+    },
+  });
 
   useEffect(() => {
     if (GetProject?.project.Skills.length) {

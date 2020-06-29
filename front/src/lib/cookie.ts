@@ -19,11 +19,11 @@ export const getRefreshToken = () => {
   return token ? encryptValue(token) : '';
 };
 
-export const setAccessToken = (token) => cookies.set(ACCESS_TOKEN, decryptValue(token));
+export const setAccessToken = (token) => cookies.set(ACCESS_TOKEN, decryptValue(token), { path: '/' });
 
 export const setToken = ({ accessToken, refreshToken }: SetTokenProps) => {
-  cookies.set(ACCESS_TOKEN, decryptValue(accessToken));
-  cookies.set(REFRESH_TOKEN, decryptValue(refreshToken));
+  cookies.set(ACCESS_TOKEN, decryptValue(accessToken), { path: '/' });
+  cookies.set(REFRESH_TOKEN, decryptValue(refreshToken), { path: '/' });
 };
 
 export const clearCookie = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
 
 import PageContainer from '../../component/pageContainer';
@@ -10,7 +10,7 @@ import UpdateSkillForm from '../../component/UpdateSkillForm';
 import WorkProcessItem from './WorkProcessItem';
 import Button from '../../component/Button';
 import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
-import { GET_SKILLS, ADD_SKILL } from '../../queries/skill.queries';
+import { GET_SKILLS } from '../../queries/skill.queries';
 import { getSkills } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
 
@@ -25,13 +25,6 @@ const About = () => {
   const { data: frontData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'FRONT_END' } });
   const { data: backData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'BACK_END' } });
   const { data: devopsData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'DEV_OPS' } });
-  const [addSkillMutation] = useMutation(ADD_SKILL, {
-    onCompleted: ({ AddSkill }) => {
-      if (AddSkill.ok) {
-        setOpenAddSkill(false);
-      }
-    },
-  });
 
   const onClickAddSkill = useCallback(() => {
     setOpenAddSkill(true);
@@ -43,7 +36,7 @@ const About = () => {
 
   return (
     <>
-      {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} onSubmitMutation={addSkillMutation} />}
+      {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} />}
       <Helmet>
         <title>소개 :: chanyeong</title>
         <meta

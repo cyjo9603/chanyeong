@@ -41,7 +41,7 @@ Front-End Server for the chanyeong webpage on chanyeong. React, Typescript, Next
 
 ### Auth
 
-- [ ] Auto Reissuance Token
+- [x] Auto Reissuance Token
 
 
 

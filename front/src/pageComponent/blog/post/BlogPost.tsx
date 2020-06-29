@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -14,6 +14,7 @@ import { GET_POST, DELETE_POST, FIX_POST } from '../../../queries/post.queries';
 import { GET_LOCAL_USER } from '../../../queries/client';
 import { PostWrapper, PostHeader, TagWrapper } from './styled';
 import dateFormat from '../../../lib/dateFormat';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../../lib/reissuanceAccessToken';
 import Button from '../../../component/Button';
 import { getAccessToken } from '../../../lib/cookie';
 
@@ -30,11 +31,18 @@ const path = [
 ];
 
 const BlogPost = ({ GetPost: { post } }: Props) => {
+  const apollo = useApolloClient();
   const [isFixed, setIsFixed] = useState(post.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
   const { data } = useQuery(GET_LOCAL_USER);
   const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
     variables: { id: post.id },
-    onCompleted: ({ DeletePost }) => {
+    onCompleted: async ({ DeletePost }) => {
+      if (DeletePost.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          deletePostMutation({ context: { headers: { 'X-JWT': token } } });
+        }
+      }
       if (DeletePost.ok) {
         Router.push('/blog');
       }
@@ -42,7 +50,13 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
   });
   const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
     variables: { id: post.id, fix: isFixed === FIX_POST_TRUE },
-    onCompleted: ({ FixPost }) => {
+    onCompleted: async ({ FixPost }) => {
+      if (FixPost.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          fixPostMutation({ context: { headers: { 'X-JWT': token } } });
+        }
+      }
       if (FixPost.ok) {
         setIsFixed(isFixed === FIX_POST_TRUE ? FIX_POST_FALSE : FIX_POST_TRUE);
       }

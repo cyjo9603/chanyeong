@@ -10,8 +10,9 @@ import withApolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
-import { GET_USER_INFO, REISSUANCE_ACCESS_TOKEN } from '../queries/user.queries';
-import { getAccessToken, getRefreshToken, setAccessToken } from '../lib/cookie';
+import { GET_USER_INFO } from '../queries/user.queries';
+import { getAccessToken, getRefreshToken } from '../lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '../lib/reissuanceAccessToken';
 import { getUserInfo } from '../types/api';
 
 interface Props extends AppProps {
@@ -45,15 +46,11 @@ const App = ({ Component, pageProps, apollo }: Props) => {
         .then(async (result: any) => {
           let { GetUserInfo } = (result.data as getUserInfo) || {};
 
-          if (GetUserInfo?.error === 'ERROR_EXPIRATION') {
+          if (GetUserInfo?.error === ERROR_EXPIRATION) {
             apollo.cache.reset();
-            const { data } = await apollo.mutate({
-              mutation: REISSUANCE_ACCESS_TOKEN,
-              variables: { refreshToken },
-            });
-            if (data?.ReissuanceAccessToken.ok) {
-              const { token } = data.ReissuanceAccessToken;
-              setAccessToken(token);
+            const token = await reissuanceAccessToken(apollo);
+
+            if (token) {
               const { data: userInfo } = await apollo.query({
                 query: GET_USER_INFO,
                 context: { headers: { 'X-JWT': token } },
