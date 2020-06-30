@@ -9,12 +9,12 @@ export const BlogPostCardWrapper = styled.div`
   color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > div {
-    width: calc(100% - 250px);
+    width: calc(100% - 290px);
     padding: 12px 18px;
   }
 
   & > img {
-    width: 250px;
+    width: 290px;
   }
 
   &:hover {

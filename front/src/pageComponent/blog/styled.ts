@@ -14,7 +14,7 @@ export const SubTitle = styled.h2`
 `;
 
 export const BlogContainer = styled.section`
-  width: 75%;
+  width: 80%;
 
   & > section {
     margin-top: 20px;
@@ -33,7 +33,7 @@ export const BlogContainer = styled.section`
 `;
 
 export const SideTagContainer = styled.aside`
-  width: 22%;
+  width: 17%;
 
   & > section {
     margin-top: 24px;
