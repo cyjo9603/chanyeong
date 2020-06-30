@@ -63,7 +63,7 @@ const BlogPost = ({ GetPost: { post } }: Props) => {
     },
   });
 
-  const postPath = useMemo(() => [...path, { path: `/blog/post/${post.id}`, name: post.title }], [post]);
+  const postPath = useMemo(() => [...path, { name: post.title }], [post.title]);
 
   const onClickFix = useCallback(() => {
     fixPostMutation({

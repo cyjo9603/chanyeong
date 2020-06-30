@@ -33,9 +33,7 @@ const Project = ({ GetProject: { project } }: Props) => {
   const apollo = useApolloClient();
   const { data } = useQuery(GET_LOCAL_USER);
   const [isFixed, setIsFixed] = useState(project.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
-  const projectPath = useMemo(() => [...path, { path: `/portfolio/pproject/${project.id}`, name: project.title }], [
-    project,
-  ]);
+  const projectPath = useMemo(() => [...path, { name: project.title }], [project.title]);
   const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
     variables: { id: project.id },
     onCompleted: async ({ DeleteProject }) => {
