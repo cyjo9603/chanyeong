@@ -21,6 +21,7 @@ export const lightTheme = {
   FONT_FOCUS: '#23374D',
 
   INLINE_CODE_BACKGROUND: '#f9f2f4',
+  CODE_BACKGROUND: '#f5f7f8',
   CODE_KEWORD: '#95C76F',
   CODE_STRING: '#f76767',
   CODE_VAR: '#008080',
@@ -53,6 +54,7 @@ export const darkTheme = {
   FONT_FOCUS: '#1089FF',
 
   INLINE_CODE_BACKGROUND: '#444444',
+  CODE_BACKGROUND: '#444444',
   CODE_KEWORD: '#95C76F',
   CODE_STRING: '#f76767',
   CODE_VAR: '#74e6ff',
