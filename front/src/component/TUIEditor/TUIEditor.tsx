@@ -1,4 +1,5 @@
 import React, { forwardRef, useCallback, useRef } from 'react';
+import { Helmet } from 'react-helmet';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import axios from 'axios';
@@ -52,19 +53,30 @@ const TUIEditor = (props: Props) => {
   const hooks = { addImageBlobHook };
 
   return (
-    <EditorWrapper>
-      <EditorWithForwardedRef
-        {...props}
-        initialValue={initialValue || 'hello react editor world!'}
-        previewStyle={previewStyle || 'vertical'}
-        height={height || '700px'}
-        initialEditType={initialEditType || 'markdown'}
-        useCommandShortcut={useCommandShortcut || true}
-        ref={editorRef}
-        onChange={handleChange}
-        hooks={hooks}
-      />
-    </EditorWrapper>
+    <>
+      <Helmet>
+        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
+        <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
+        />
+      </Helmet>
+      <EditorWrapper>
+        <EditorWithForwardedRef
+          {...props}
+          initialValue={initialValue || 'hello react editor world!'}
+          previewStyle={previewStyle || 'vertical'}
+          height={height || '700px'}
+          initialEditType={initialEditType || 'markdown'}
+          useCommandShortcut={useCommandShortcut || true}
+          ref={editorRef}
+          onChange={handleChange}
+          hooks={hooks}
+        />
+      </EditorWrapper>
+    </>
   );
 };
 

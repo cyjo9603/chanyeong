@@ -35,6 +35,10 @@ export const FooterInfoWrapper = styled.div`
     margin-bottom: 6px;
   }
 
+  & span > a {
+    color: ${({ theme }) => theme.LIGHT_GREY};
+  }
+
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     & > div {
       display: flex;

@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
-import { Helmet } from 'react-helmet';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import PageContainer from '../../../component/pageContainer';
@@ -12,69 +11,96 @@ import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../../lib/reissuance
 import { InputWrapper, PageHeader, PageFooter, SkillWrapper } from './styled';
 import { GET_SKILLS } from '../../../queries/skill.queries';
 import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '../../../queries/project.queries';
-import { getSkills, addProject, getProject_GetProject, updateProject } from '../../../types/api';
+import { getSkills, addProject, getProject_GetProject_project, updateProject } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../queries/client';
 
+const MUTATION_ADD = 'ADD' as const;
+const MUTATION_UPDATE = 'UPDATE' as const;
+
 interface Props {
-  GetProject?: getProject_GetProject;
+  project?: getProject_GetProject_project;
 }
 
-const useInput = (initValue: string): [string, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
+const useInput = <T extends { value: string }>(initValue: string): [string, (e: React.ChangeEvent<T>) => void] => {
   const [value, setValue] = useState(initValue);
 
-  const onChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeValue = useCallback((e: React.ChangeEvent<T>) => {
     setValue(e.target.value);
   }, []);
 
-  return [value, onChangeInput];
+  return [value, onChangeValue];
 };
 
-const useSelect = (initValue: string): [string, (e: React.ChangeEvent<HTMLSelectElement>) => void] => {
-  const [value, setValue] = useState(initValue);
-
-  const onChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value);
-  }, []);
-
-  return [value, onChangeSelect];
-};
-
-const AddProject = ({ GetProject }: Props) => {
+const AddProject = ({ project }: Props) => {
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data } = useQuery<getSkills>(GET_SKILLS);
-  const [content, setContent] = useState(GetProject?.project.content || '');
-  const [projectType, setProjectType] = useSelect(GetProject?.project.type || 'PERSONAL');
-  const [currentSkill, setCurrentSkill] = useSelect('');
-  const [groupName, setGroupName] = useInput(GetProject?.project.groupName || '');
-  const [title, setTitle] = useInput(GetProject?.project.title || '');
-  const [description, setDescription] = useInput(GetProject?.project.description || '');
-  const [startDate, setStartDate] = useInput(GetProject?.project.startDate || '');
-  const [endDate, setEndDate] = useInput(GetProject?.project.endDate || '');
-  const [githubAddr, setGithubAddr] = useInput(GetProject?.project.githubAddr || '');
-  const [contribution, setContribution] = useInput(String(GetProject?.project.contribution || ''));
+  const [content, setContent] = useState(project?.content || '');
+  const [projectType, setProjectType] = useInput<HTMLSelectElement>(project?.type || 'PERSONAL');
+  const [currentSkill, setCurrentSkill] = useInput<HTMLSelectElement>('');
+  const [groupName, setGroupName] = useInput<HTMLInputElement>(project?.groupName || '');
+  const [title, setTitle] = useInput<HTMLInputElement>(project?.title || '');
+  const [description, setDescription] = useInput<HTMLInputElement>(project?.description || '');
+  const [startDate, setStartDate] = useInput<HTMLInputElement>(project?.startDate || '');
+  const [endDate, setEndDate] = useInput<HTMLInputElement>(project?.endDate || '');
+  const [githubAddr, setGithubAddr] = useInput<HTMLInputElement>(project?.githubAddr || '');
+  const [contribution, setContribution] = useInput<HTMLInputElement>(String(project?.contribution || ''));
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
-  const [titleImage, setTitleImage] = useState(GetProject?.project.titleImage || '');
+  const [titleImage, setTitleImage] = useState(project?.titleImage || '');
   const [image, setImage] = useState('');
+
+  const getVariables = useCallback(
+    (type: typeof MUTATION_UPDATE | typeof MUTATION_ADD) => {
+      const variables = {
+        content,
+        groupName,
+        description,
+        endDate: endDate || null,
+        contribution: contribution === '' ? 0 : parseInt(contribution, 10),
+      };
+      if (type === MUTATION_ADD) {
+        return {
+          ...variables,
+          type: projectType,
+          title,
+          startDate,
+          githubAddr: githubAddr || null,
+          titleImage: titleImage || null,
+          skillIds: skills.map((v) => v.id),
+        };
+      }
+      return {
+        ...variables,
+        id: project?.id,
+        githubAddr,
+        titleImage,
+        deleteSkills,
+        addSkills: skills.map((v) => v.id),
+      };
+    },
+    [
+      content,
+      projectType,
+      groupName,
+      title,
+      description,
+      startDate,
+      endDate,
+      githubAddr,
+      titleImage,
+      contribution,
+      skills,
+      project,
+    ],
+  );
+
   const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
     onCompleted: async ({ AddProject }) => {
       if (AddProject.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
         if (token) {
-          const variables = {
-            content,
-            type: projectType,
-            groupName,
-            title,
-            description,
-            startDate,
-            endDate: endDate || null,
-            githubAddr: githubAddr || null,
-            titleImage: titleImage || null,
-            contribution: contribution === '' ? 0 : parseInt(contribution, 10),
-            skillIds: skills.map((v) => v.id),
-          };
+          const variables = getVariables(MUTATION_ADD);
           addProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
         }
       }
@@ -88,18 +114,7 @@ const AddProject = ({ GetProject }: Props) => {
       if (UpdateProject.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
         if (token) {
-          const variables = {
-            id: GetProject.project.id,
-            content,
-            groupName,
-            description,
-            endDate: endDate || null,
-            githubAddr,
-            titleImage,
-            contribution: contribution === '' ? 0 : parseInt(contribution, 10),
-            deleteSkills,
-            addSkills: skills.map((v) => v.id),
-          };
+          const variables = getVariables(MUTATION_UPDATE);
           updateProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
         }
       }
@@ -110,8 +125,8 @@ const AddProject = ({ GetProject }: Props) => {
   });
 
   useEffect(() => {
-    if (GetProject?.project.Skills.length) {
-      const saveSkills = [...GetProject?.project.Skills];
+    if (project?.Skills.length) {
+      const saveSkills = [...project.Skills];
       setSkills(saveSkills);
     }
   }, []);
@@ -131,37 +146,14 @@ const AddProject = ({ GetProject }: Props) => {
   const onSubmit = useCallback(() => {
     if (projectType && title && content && description && startDate) {
       const context = { headers: { 'X-JWT': getAccessToken() } };
-      if (GetProject) {
-        const variables = {
-          id: GetProject.project.id,
-          content,
-          groupName,
-          description,
-          endDate: endDate || null,
-          githubAddr,
-          titleImage,
-          contribution: contribution === '' ? 0 : parseInt(contribution, 10),
-          deleteSkills,
-          addSkills: skills.map((v) => v.id),
-        };
+      if (project) {
+        const variables = getVariables(MUTATION_UPDATE);
         updateProjectMutation({
           variables,
           context,
         });
       } else {
-        const variables = {
-          content,
-          type: projectType,
-          groupName,
-          title,
-          description,
-          startDate,
-          endDate: endDate || null,
-          githubAddr: githubAddr || null,
-          titleImage: titleImage || null,
-          contribution: contribution === '' ? 0 : parseInt(contribution, 10),
-          skillIds: skills.map((v) => v.id),
-        };
+        const variables = getVariables(MUTATION_ADD);
         addProjectMutation({
           variables,
           context,
@@ -180,7 +172,7 @@ const AddProject = ({ GetProject }: Props) => {
     titleImage,
     contribution,
     skills,
-    GetProject,
+    project,
   ]);
 
   const onClickAddSkill = useCallback(() => {
@@ -208,96 +200,81 @@ const AddProject = ({ GetProject }: Props) => {
   );
 
   return (
-    <>
-      <Helmet>
-        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
-        <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
-        />
-      </Helmet>
-      <PageContainer>
-        <PageHeader>
-          <InputWrapper>
-            <span>프로젝트 명 : </span>
-            <input type="text" onChange={setTitle} value={title} readOnly={Boolean(GetProject)} />
-          </InputWrapper>
-          <InputWrapper>
-            <span>프로젝트 타입 : </span>
-            <select onChange={setProjectType} disabled={Boolean(GetProject)}>
-              <option value="PERSONAL" selected={Boolean(!GetProject || GetProject?.project.type === 'PERSONAL')}>
-                개인 프로젝트
-              </option>
-              <option value="GROUP" selected={GetProject?.project.type === 'GROUP'}>
-                그룹 프로젝트
-              </option>
+    <PageContainer>
+      <PageHeader>
+        <InputWrapper>
+          <span>프로젝트 명 : </span>
+          <input type="text" onChange={setTitle} value={title} readOnly={Boolean(project)} />
+        </InputWrapper>
+        <InputWrapper>
+          <span>프로젝트 타입 : </span>
+          <select onChange={setProjectType} disabled={Boolean(project)} value={projectType}>
+            <option value="PERSONAL">개인 프로젝트</option>
+            <option value="GROUP">그룹 프로젝트</option>
+          </select>
+        </InputWrapper>
+        {projectType === 'GROUP' && (
+          <>
+            <InputWrapper>
+              <span>그룹이름 : </span>
+              <input type="text" onChange={setGroupName} value={groupName} />
+            </InputWrapper>
+            <InputWrapper>
+              <span>기여도 : </span>
+              <input type="text" onChange={setContribution} value={contribution} />
+            </InputWrapper>
+          </>
+        )}
+        <InputWrapper>
+          <span>프로젝트 설명 : </span>
+          <input type="text" onChange={setDescription} value={description} />
+        </InputWrapper>
+        <InputWrapper>
+          <span>깃허브 주소 : </span>
+          <input type="text" onChange={setGithubAddr} value={githubAddr} />
+        </InputWrapper>
+        <InputWrapper>
+          <span>프로젝트 시작 날짜 : </span>
+          <input
+            type="text"
+            onChange={setStartDate}
+            placeholder="YYYY-MM-DD"
+            value={startDate}
+            readOnly={Boolean(project)}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <span>프로젝트 종료 날짜 : </span>
+          <input type="text" onChange={setEndDate} placeholder="YYYY-MM-DD" value={endDate} />
+        </InputWrapper>
+      </PageHeader>
+      <TUIEditor onChange={setContent} setImage={setImage} initialValue={content} />
+      <PageFooter>
+        <div>
+          <Button onClick={onSubmit} name="작성" align="right" />
+          <div>
+            <span>스킬 추가</span>
+            <select onChange={setCurrentSkill}>
+              <option value="">선택</option>
+              {data?.GetSkills?.skill.map((v) => (
+                <option key={`add_project_skill_${v.id}`} value={v.id}>
+                  {v.name}
+                </option>
+              ))}
             </select>
-          </InputWrapper>
-          {projectType === 'GROUP' && (
-            <>
-              <InputWrapper>
-                <span>그룹이름 : </span>
-                <input type="text" onChange={setGroupName} value={groupName} />
-              </InputWrapper>
-              <InputWrapper>
-                <span>기여도 : </span>
-                <input type="text" onChange={setContribution} value={contribution} />
-              </InputWrapper>
-            </>
-          )}
-          <InputWrapper>
-            <span>프로젝트 설명 : </span>
-            <input type="text" onChange={setDescription} value={description} />
-          </InputWrapper>
-          <InputWrapper>
-            <span>깃허브 주소 : </span>
-            <input type="text" onChange={setGithubAddr} value={githubAddr} />
-          </InputWrapper>
-          <InputWrapper>
-            <span>프로젝트 시작 날짜 : </span>
-            <input
-              type="text"
-              onChange={setStartDate}
-              placeholder="YYYY-MM-DD"
-              value={startDate}
-              readOnly={Boolean(GetProject)}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <span>프로젝트 종료 날짜 : </span>
-            <input type="text" onChange={setEndDate} placeholder="YYYY-MM-DD" value={endDate} />
-          </InputWrapper>
-        </PageHeader>
-        <TUIEditor onChange={setContent} setImage={setImage} initialValue={content} />
-        <PageFooter>
-          <div>
-            <Button onClick={onSubmit} name="작성" align="right" />
-            <div>
-              <span>스킬 추가</span>
-              <select onChange={setCurrentSkill}>
-                <option value="">선택</option>
-                {data?.GetSkills?.skill.map((v) => (
-                  <option key={`add_project_skill_${v.id}`} value={v.id}>
-                    {v.name}
-                  </option>
-                ))}
-              </select>
-              <Button onClick={onClickAddSkill} name="추가" />
-            </div>
+            <Button onClick={onClickAddSkill} name="추가" />
           </div>
-          <div>
-            {skills.map((v) => (
-              <SkillWrapper key={`add_project_skill_icon_${v.id}`}>
-                <SkillIcon icon={v.icon} name={v.name} />
-                <span onClick={() => onClickRemoveSkill(v.id)}>x</span>
-              </SkillWrapper>
-            ))}
-          </div>
-        </PageFooter>
-      </PageContainer>
-    </>
+        </div>
+        <div>
+          {skills.map((v) => (
+            <SkillWrapper key={`add_project_skill_icon_${v.id}`}>
+              <SkillIcon icon={v.icon} name={v.name} />
+              <span onClick={() => onClickRemoveSkill(v.id)}>x</span>
+            </SkillWrapper>
+          ))}
+        </div>
+      </PageFooter>
+    </PageContainer>
   );
 };
 
@@ -309,7 +286,7 @@ AddProject.getInitialProps = async (context) => {
       query: GET_PROJECT,
       variables: { id: parseInt(id, 10) },
     });
-    return projectData.data;
+    return projectData.data?.GetProject;
   }
 };
 

@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
-import { Helmet } from 'react-helmet';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import PageContainer from '../../../component/pageContainer';
@@ -10,23 +9,33 @@ import { BlogWriteHeader, BlogWriteBottom } from './styled';
 import { WRITE_POST, GET_POST, EDIT_POST } from '../../../queries/post.queries';
 import { getAccessToken } from '../../../lib/cookie';
 import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../../lib/reissuanceAccessToken';
-import { writePost, getPost_GetPost, editPost } from '../../../types/api';
+import { writePost, getPost_GetPost_post, editPost } from '../../../types/api';
 import { GET_LOCAL_USER } from '../../../queries/client';
 
 interface Props {
-  GetPost?: getPost_GetPost;
+  post?: getPost_GetPost_post;
 }
 
-const WritePost = ({ GetPost }: Props) => {
+const useInput = <T extends { value: string }>(initValue: string): [string, (e: React.ChangeEvent<T>) => void] => {
+  const [value, setValue] = useState(initValue);
+
+  const onChangeValue = useCallback((e: React.ChangeEvent<T>) => {
+    setValue(e.target.value);
+  }, []);
+
+  return [value, onChangeValue];
+};
+
+const WritePost = ({ post }: Props) => {
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
-  const [titleImage, setTitleImage] = useState('');
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('DEV');
+  const [titleImage, setTitleImage] = useState(post?.titleImage || '');
+  const [title, setTitle] = useInput<HTMLInputElement>(post?.title || '');
+  const [category, setCategory] = useInput<HTMLSelectElement>(post?.category || 'DEV');
   const [tags, setTags] = useState<string[]>([]);
-  const [insertTag, setInsertTag] = useState('');
+  const [insertTag, setInsertTag] = useInput<HTMLInputElement>('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
   const insertTagRef = useRef<HTMLInputElement>();
   const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
@@ -65,7 +74,7 @@ const WritePost = ({ GetPost }: Props) => {
         const token = await reissuanceAccessToken(apollo);
         if (token) {
           const variables = {
-            id: GetPost.post.id,
+            id: post?.id,
             category,
             title,
             content,
@@ -92,8 +101,8 @@ const WritePost = ({ GetPost }: Props) => {
         deleteTags,
         addTags: tags,
       };
-      if (GetPost?.post) {
-        editPostMutation({ variables: { ...variables, id: GetPost.post.id } });
+      if (post) {
+        editPostMutation({ variables: { ...variables, id: post.id } });
       } else {
         writePostMutation({ variables: { ...variables, tags } });
       }
@@ -101,12 +110,8 @@ const WritePost = ({ GetPost }: Props) => {
   }, [content, titleImage, title, category, tags, deleteTags, tags]);
 
   useEffect(() => {
-    if (GetPost?.post) {
-      const { content, title, titleImage, category, Tags } = GetPost.post;
-      setContent(content);
-      setTitleImage(titleImage);
-      setTitle(title);
-      setCategory(category);
+    if (post) {
+      const { Tags } = post;
 
       if (Tags.length !== 0) {
         const saveTags = Tags.map((v) => v.name);
@@ -127,17 +132,6 @@ const WritePost = ({ GetPost }: Props) => {
     }
   }, [image]);
 
-  const onChangeCategory = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-  }, []);
-
-  const onChangeInsertTag = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInsertTag(e.target.value);
-  }, []);
-  const onChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  }, []);
-
   const addTag = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -157,7 +151,7 @@ const WritePost = ({ GetPost }: Props) => {
 
   const removeTag = useCallback(
     (tag) => {
-      const deleteId = GetPost?.post.Tags.find((v) => v.name === tag).id;
+      const deleteId = post?.Tags.find((v) => v.name === tag).id;
       if (deleteId) {
         const newDeleteTags = [...deleteTags, deleteId];
         setDeleteTags(newDeleteTags);
@@ -171,52 +165,39 @@ const WritePost = ({ GetPost }: Props) => {
   );
 
   return (
-    <>
-      <Helmet>
-        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
-        <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
-        />
-      </Helmet>
-      <PageContainer>
-        <BlogWriteHeader>
+    <PageContainer>
+      <BlogWriteHeader>
+        <div>
+          <span>제목 : </span> <input type="text" onChange={setTitle} value={title} />
+        </div>
+        <div>
+          <span>카테고리 : </span>
+          <select onChange={setCategory}>
+            <option value="DEV">개발</option>
+            <option value="DIARY">일기</option>
+          </select>
+        </div>
+      </BlogWriteHeader>
+      <TUIEditor onChange={setContent} setImage={setImage} initialValue={post?.content || ''} />
+      <BlogWriteBottom>
+        <div>
+          <span>태그</span>
+          <form onSubmit={addTag}>
+            <input type="text" onChange={setInsertTag} ref={insertTagRef} />
+            <button type="submit">추가</button>
+          </form>
           <div>
-            <span>제목 : </span> <input type="text" onChange={onChangeTitle} value={title} />
+            {tags.map((v, i) => (
+              <span key={`${v}_${i}`}>
+                <Tag name={v} />
+                <span onClick={() => removeTag(v)}>X</span>
+              </span>
+            ))}
           </div>
-          <div>
-            <span>카테고리 : </span>
-            <select onChange={onChangeCategory}>
-              <option value="DEV" selected>
-                개발
-              </option>
-              <option value="DIARY">일기</option>
-            </select>
-          </div>
-        </BlogWriteHeader>
-        <TUIEditor onChange={setContent} setImage={setImage} initialValue={GetPost?.post?.content || ''} />
-        <BlogWriteBottom>
-          <div>
-            <span>태그</span>
-            <form onSubmit={addTag}>
-              <input type="text" onChange={onChangeInsertTag} ref={insertTagRef} />
-              <button type="submit">추가</button>
-            </form>
-            <div>
-              {tags.map((v, i) => (
-                <span key={`${v}_${i}`}>
-                  <Tag name={v} />
-                  <span onClick={() => removeTag(v)}>X</span>
-                </span>
-              ))}
-            </div>
-          </div>
-          <button onClick={onSubmit}>작성</button>
-        </BlogWriteBottom>
-      </PageContainer>
-    </>
+        </div>
+        <button onClick={onSubmit}>작성</button>
+      </BlogWriteBottom>
+    </PageContainer>
   );
 };
 
@@ -228,7 +209,7 @@ WritePost.getInitialProps = async (context) => {
       query: GET_POST,
       variables: { id: parseInt(id, 10) },
     });
-    return postData.data;
+    return postData.data?.GetPost;
   }
 };
 
