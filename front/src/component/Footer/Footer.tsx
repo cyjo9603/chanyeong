@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import PageContainer from '../pageContainer';
 import { FooterWrapper, FooterLogoWrapper, FooterInfoWrapper } from './styled';
@@ -25,4 +25,4 @@ const Footer = () => (
   </FooterWrapper>
 );
 
-export default Footer;
+export default memo(Footer);

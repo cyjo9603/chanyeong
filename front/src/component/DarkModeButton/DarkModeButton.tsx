@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { DarkModeWrapper, LightImg, DarkImg } from './styled';
 
@@ -17,4 +17,4 @@ const DarkMode = ({ onClickDarkMode, isDarkMode }: Props) => (
   </DarkModeWrapper>
 );
 
-export default DarkMode;
+export default memo(DarkMode);

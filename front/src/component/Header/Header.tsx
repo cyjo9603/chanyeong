@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -95,4 +95,4 @@ const Header = ({ isDarkMode }: Props) => {
   );
 };
 
-export default Header;
+export default memo(Header);
