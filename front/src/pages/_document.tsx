@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  body {
+    overflow-y: scroll;
+  }
+
   & * {
     font-family: 'Noto Sans KR', sans-serif !important;
   }

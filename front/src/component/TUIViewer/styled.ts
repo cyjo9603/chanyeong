@@ -27,10 +27,8 @@ export const ViewerWrapper = styled.section`
       border: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
     }
 
-    & code {
-      background-color: ${({ theme }) => theme.INLINE_CODE_BACKGROUND};
-    }
-    & pre {
+    & code,
+    pre {
       background-color: ${({ theme }) => theme.CODE_BACKGROUND};
     }
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AboutWrapper = styled.section`
-  padding: 20px 0;
+  padding-bottom: 20px 0;
   color: ${({ theme }) => theme.PRIMARY_FONT};
   & > span {
     font-size: 18px;
