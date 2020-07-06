@@ -103,7 +103,6 @@ const App = ({ Component, pageProps, apollo }: Props) => {
             type="text/css"
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           />
-          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.3.1/antd.css" />
           <link
             rel="stylesheet"
             type="text/css"

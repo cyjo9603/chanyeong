@@ -1,10 +1,9 @@
 import React, { useState, useCallback, useEffect, memo } from 'react';
 import Link from 'next/link';
-import { Menu } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
+import NavBar from '../NavBar';
 import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
 import { LOG_OUT, GET_LOCAL_USER } from '../../queries/client';
 import { clearCookie, getAccessToken } from '../../lib/cookie';
@@ -63,31 +62,10 @@ const Header = ({ isDarkMode }: Props) => {
               <a>
                 <img src={isDarkMode ? '/dark_logo.svg' : '/main_logo.svg'} alt="logo" />
               </a>
-            </Link>{' '}
+            </Link>
           </LogoWrapper>
           <NavWrapper>
-            <Menu mode="horizontal" selectable={false} overflowedIndicator={<MenuOutlined />}>
-              <Menu.Item>
-                <Link href="/about">
-                  <a>ABOUT</a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/portfolio">
-                  <a>PORTFOILO</a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/blog">
-                  <a>BLOG</a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/contact">
-                  <a>CONTACT</a>
-                </Link>
-              </Menu.Item>
-            </Menu>
+            <NavBar />
           </NavWrapper>
         </HeaderSection>
       </Container>

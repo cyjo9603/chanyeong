@@ -1,24 +1,9 @@
 import React from 'react';
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document';
 import { Helmet, HelmetData } from 'react-helmet';
-import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { ServerStyleSheet } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-
-  html, body, #__next{
-    height: 100%;
-  }
-
-  body {
-    overflow-y: scroll;
-  }
-
-  & * {
-    font-family: 'Noto Sans KR', sans-serif !important;
-  }
-`;
+import GlobalStyle from '../theme/globalStyle';
 
 interface Props {
   helmet: HelmetData;

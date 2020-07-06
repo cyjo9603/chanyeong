@@ -31,9 +31,9 @@ export const NoImage = styled.div`
 export const PostContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 80px;
   padding: 6px 12px;
+  overflow: hidden;
 
   & > h1 {
     color: ${(props) => props.theme.PRIMARY_FONT};

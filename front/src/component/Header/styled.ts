@@ -31,9 +31,7 @@ export const StatusBar = styled.div`
 `;
 
 export const HeaderSection = styled.div`
-  position: relative;
   display: flex;
-  flex-flow: nowrap;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -42,10 +40,6 @@ export const HeaderSection = styled.div`
 
 export const LogoWrapper = styled.div`
   width: 250px;
-
-  & img {
-    width: 100%;
-  }
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;
@@ -60,27 +54,7 @@ export const LogoWrapper = styled.div`
 `;
 
 export const NavWrapper = styled.nav`
-  width: 460px;
-
-  ul {
-    border: none;
-    background-color: ${({ theme }) => theme.BACKGROUND_COLOR};
-  }
-
-  li {
-    border-bottom: 0px !important;
-
-    & > a {
-      color: ${({ theme }) => theme.PRIMARY_FONT} !important;
-    }
-  }
-
-  & a {
-    text-decoration: none;
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
-    font-weight: 600;
-    font-size: 18px;
-  }
+  width: 440px;
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;

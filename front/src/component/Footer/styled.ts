@@ -17,7 +17,7 @@ export const FooterWrapper = styled.footer`
 
 export const FooterLogoWrapper = styled.div`
   & > img {
-    margin-top: 10px;
+    margin-top: 20px;
     width: 140px;
   }
 `;

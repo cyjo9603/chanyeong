@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export default styled.div`
   width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 
   @media (max-width: ${({ theme }) => theme.BP.HDPC}) {
     width: 100%;
