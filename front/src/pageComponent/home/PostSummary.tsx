@@ -71,7 +71,7 @@ const PostSummary = ({ data }: Props) => {
       <SummaryWrapper>
         <ArticleHeader>
           <h1>Blog</h1>
-          <h2>개발을 진행하며 알게되거나 느긴 저의 이야기들을 적어놓았습니다.</h2>
+          <h2>개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다.</h2>
         </ArticleHeader>
         <SliderWrapper>
           <Slider {...settings} slidesToShow={showLength}>
