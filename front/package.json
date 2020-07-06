@@ -47,7 +47,7 @@
     "react-slick": "^0.26.1",
     "react-text-loop": "^2.3.0",
     "remove-markdown": "0.3.0",
-    "styled-components": "^5.1.1",
+    "styled-components": "4.0.0",
     "styled-reset": "^4.1.5"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
-    "@types/styled-components": "^5.1.0",
+    "@types/styled-components": "4.0.0",
     "@typescript-eslint/eslint-plugin": "2.21.0",
     "@typescript-eslint/parser": "2.21.0",
     "babel-plugin-styled-components": "^1.10.7",
