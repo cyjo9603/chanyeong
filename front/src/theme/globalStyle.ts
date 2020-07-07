@@ -1,7 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export default createGlobalStyle`
+import { ThemeType } from './index';
+
+export default createGlobalStyle<{ theme: ThemeType }>`
   ${reset}
 
   html, body, #__next{
@@ -16,7 +18,7 @@ export default createGlobalStyle`
   }
 
   body {
-    overflow-y: scroll;
+    overflow-y: overlay;
     margin: 0;
     font-size: 14px;
     line-height: 1.5715;
@@ -34,5 +36,14 @@ export default createGlobalStyle`
 
   & * {
     font-family: 'Noto Sans KR', sans-serif !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    background: ${({ theme }) => theme.BACKGROUND_COLOR};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.PRIMARY_FONT};
   }
 `;

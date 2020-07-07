@@ -68,3 +68,5 @@ export const darkTheme = {
 
   BP: breakPoint,
 };
+
+export type ThemeType = typeof lightTheme;

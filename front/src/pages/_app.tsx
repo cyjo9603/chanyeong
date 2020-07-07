@@ -8,6 +8,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 
 import withApolloClient from '../apollo';
 import { lightTheme, darkTheme } from '../theme';
+import GlobalStyle from '../theme/globalStyle';
 import AppLayout from '../component/AppLayout';
 import DarkModeButton from '../component/DarkModeButton';
 import { GET_USER_INFO } from '../queries/user.queries';
@@ -116,6 +117,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="apple-touch-icon-precomposed" href="/favicon2.png" />
         </Helmet>
+        <GlobalStyle theme={!isDarkMode ? lightTheme : darkTheme} />
         <AppLayout isDarkMode={isDarkMode}>
           <Component {...pageProps} />
           <DarkModeButton onClickDarkMode={onClickDarkMode} isDarkMode={isDarkMode} />
