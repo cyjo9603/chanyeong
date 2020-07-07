@@ -5,7 +5,7 @@ export const InputWrapper = styled.div`
   transition: border 1s;
 
   & > input {
-    width: 100%;
+    width: calc(100% - 32px);
     padding: 8px 16px;
     border: none;
     cursor: pointer;
