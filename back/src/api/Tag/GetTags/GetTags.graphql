@@ -1,7 +1,13 @@
+type TagInfo {
+    id: Int!
+    name: String!
+    count: Int!
+}
+
 type GetTagsResponse {
     ok: Boolean!
     error: String
-    tags: [Tag]
+    tags: [TagInfo]
 }
 
 type Query {

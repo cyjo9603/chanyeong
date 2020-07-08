@@ -5,7 +5,7 @@ import { Tag } from '../../../types/graph';
 import { sequelize } from '../../../models';
 import TagModel from '../../../models/Tag';
 
-const query = `SELECT TagId AS id FROM PostTag GROUP BY TagId ORDER BY COUNT(PostId) DESC`;
+const query = `SELECT TagId AS id, COUNT(TagId) AS count FROM PostTag GROUP BY TagId ORDER BY COUNT(PostId) DESC, PostId DESC`;
 
 /** GetTags
  *  사용 빈도가 높은 순으로 태그 반환

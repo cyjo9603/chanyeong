@@ -8,6 +8,7 @@ import PagePath from '../../component/PagePath';
 import Search from '../../component/Search';
 import BlogPostCard from '../../component/BlogPostCard';
 import Button from '../../component/Button';
+import TagCount from '../../component/TagCount';
 import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
 
 import { GET_POSTS } from '../../queries/post.queries';
@@ -139,9 +140,7 @@ const Blog = () => {
             <SubItem>인기 태그</SubItem>
             <section>
               {tagData?.GetTags?.tags?.map((v) => (
-                <div key={`popularity_tag${v.id}`} onClick={() => onChangeTagId(v.id)}>
-                  {v.name}
-                </div>
+                <TagCount key={`popularity_tag${v.id}`} data={v} onClick={onChangeTagId} />
               ))}
             </section>
           </SideTagContainer>
