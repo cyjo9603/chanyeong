@@ -15,7 +15,7 @@ type Project {
     githubAddr: String
     titleImage: String
     contribution: Int!
-    picked: Boolean!
+    picked: String
     createdAt: String!
     updatedAt: String!
     Skills: [Skill]

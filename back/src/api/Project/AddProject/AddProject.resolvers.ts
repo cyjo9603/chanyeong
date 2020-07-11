@@ -37,6 +37,7 @@ const resolvers: Resolvers = {
           githubAddr,
           titleImage,
           contribution,
+          picked: null,
         });
 
         if (skillIds) {

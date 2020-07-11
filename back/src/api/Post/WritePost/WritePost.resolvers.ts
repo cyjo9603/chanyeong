@@ -19,6 +19,7 @@ const resolvers: Resolvers = {
           title,
           content,
           titleImage,
+          picked: null,
         });
 
         if (tags) {

@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import { Resolvers } from '../../../types/resolvers';
 
 import Project from '../../../models/Project';
@@ -11,13 +13,17 @@ const resolvers: Resolvers = {
     GetPickedProjects: async () => {
       try {
         const project = await Project.findAll({
-          where: { picked: true },
+          where: {
+            [Op.not]: {
+              picked: null,
+            },
+          },
           include: [
             {
               model: Skill,
             },
           ],
-          order: [['id', 'DESC']],
+          order: [['picked', 'DESC']],
         });
 
         return {

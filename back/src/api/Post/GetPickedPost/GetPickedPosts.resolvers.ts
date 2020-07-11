@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import { Resolvers } from '../../../types/resolvers';
 
 import Post from '../../../models/Post';
@@ -11,12 +13,17 @@ const resolvers: Resolvers = {
     GetPickedPosts: async () => {
       try {
         const posts = await Post.findAll({
-          where: { picked: true },
+          where: {
+            [Op.not]: {
+              picked: null,
+            },
+          },
           include: [
             {
               model: Tag,
             },
           ],
+          order: [['picked', 'DESC']],
         });
 
         return {

@@ -26,7 +26,7 @@ class Project extends Model {
 
   public contribution?: number;
 
-  public picked?: boolean;
+  public picked?: Date;
 
   public readonly createdAt!: Date;
 
@@ -76,8 +76,8 @@ Project.init(
       allowNull: true,
     },
     picked: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: true,
       defaultValue: false,
     },
   },

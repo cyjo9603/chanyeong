@@ -12,8 +12,9 @@ const resolvers: Resolvers = {
     FixProject: privateResolver(async (_, args: FixProjectMutationArgs) => {
       try {
         const { id, fix } = args;
+        const picked = fix ? new Date() : null;
 
-        await Project.update({ picked: fix }, { where: { id } });
+        await Project.update({ picked }, { where: { id } });
 
         return {
           ok: true,
