@@ -39,7 +39,7 @@ const Blog = () => {
     if (
       posts &&
       lastId.current !== posts?.[posts.length - 1].id &&
-      window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 400
+      document.body.scrollTop + document.body.clientHeight > document.body.scrollHeight - 400
     ) {
       lastId.current = posts[posts.length - 1].id;
       fetchMore({
@@ -87,10 +87,10 @@ const Blog = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', onScroll);
+    document.body.addEventListener('scroll', onScroll);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      document.body.removeEventListener('scroll', onScroll);
     };
   }, [data, category, lastId.current, tagId]);
 
