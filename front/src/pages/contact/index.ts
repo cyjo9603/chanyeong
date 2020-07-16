@@ -1,1 +1,1 @@
-export { default } from '../../pageComponent/contact/contact';
+export { default } from '../../routes/Contact';

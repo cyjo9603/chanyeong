@@ -1,1 +1,1 @@
-export { default } from '../../pageComponent/portfolio/add/AddProject';
+export { default } from '../../routes/AddProject';

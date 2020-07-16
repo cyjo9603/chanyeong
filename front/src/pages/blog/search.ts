@@ -1,1 +1,1 @@
-export { default } from '../../pageComponent/blog/search';
+export { default } from '../../routes/SeachBlogPost';

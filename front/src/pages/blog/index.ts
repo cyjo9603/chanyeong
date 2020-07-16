@@ -1,1 +1,1 @@
-export { default } from '../../pageComponent/blog/blog';
+export { default } from '../../routes/Blog';

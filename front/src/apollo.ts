@@ -10,6 +10,13 @@ const link = createHttpLink({
 
 const cache = new InMemoryCache();
 
+export interface LocalSignIn {
+  isLoggedIn: {
+    __typename: 'IsLoggedIn';
+    userName: string | null;
+  };
+}
+
 cache.writeData({
   data: {
     isLoggedIn: {

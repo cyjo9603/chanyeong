@@ -1,1 +1,1 @@
-export { default } from '../../pageComponent/signin';
+export { default } from '../../routes/SignIn';
