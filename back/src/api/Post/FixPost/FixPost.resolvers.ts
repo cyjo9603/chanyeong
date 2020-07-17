@@ -12,11 +12,9 @@ const resolvers: Resolvers = {
     FixPost: privateResolver(async (_, args: FixPostMutationArgs) => {
       try {
         const { id, fix } = args;
-        const picked = fix && new Date();
+        const picked = fix ? new Date() : null;
 
-        if (fix) {
-          await Post.update({ picked }, { where: { id } });
-        }
+        await Post.update({ picked }, { where: { id } });
 
         return {
           ok: true,
