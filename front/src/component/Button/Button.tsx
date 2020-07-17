@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { ButtonWrapper } from './styled';
 
@@ -14,4 +14,4 @@ const Button = ({ name, onClick, align = 'none' }: Props) => (
   </ButtonWrapper>
 );
 
-export default Button;
+export default memo(Button);

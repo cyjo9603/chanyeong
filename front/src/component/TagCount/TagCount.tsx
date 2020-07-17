@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { TagWrapper } from './styled';
 
@@ -16,4 +16,4 @@ const TagCount = ({ data, onClick }: Props) => (
   </TagWrapper>
 );
 
-export default TagCount;
+export default memo(TagCount);

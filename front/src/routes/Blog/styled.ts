@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 export const BlogWrapper = styled.div`
@@ -6,12 +7,12 @@ export const BlogWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const SubTitle = styled.h2`
+export const SubTitle = memo(styled.h2`
   font-size: 18px;
   font-weight: 400;
   margin-top: 32px;
   color: ${({ theme }) => theme.PRIMARY_FONT};
-`;
+`);
 
 export const BlogContainer = styled.section`
   width: 80%;
@@ -32,7 +33,7 @@ export const BlogContainer = styled.section`
   }
 `;
 
-export const SideTagContainer = styled.aside`
+export const SideTagContainer = memo(styled.aside`
   width: 17%;
 
   & > section {
@@ -48,13 +49,13 @@ export const SideTagContainer = styled.aside`
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     display: none;
   }
-`;
+`);
 
-export const SubItem = styled.span`
+export const SubItem = memo(styled.span`
   color: ${({ theme }) => theme.PRIMARY_FONT};
   font-size: 16px;
   font-weight: 800;
-`;
+`);
 
 export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`
   cursor: pointer;
