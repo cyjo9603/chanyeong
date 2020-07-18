@@ -57,15 +57,12 @@ const PortfolioPresenter = ({ userInfo, groupProjects, personalProjects }: Props
           </ProjectListWrapper>
         </>
       )}
-      <>
-        <Title>개인 프로젝트</Title>
-        <ProjectListWrapper>
-          {personalProjects.map((v) => (
-            <ProjectCard key={`personal_project${v.id}`} projectInfo={v} />
-          ))}
-        </ProjectListWrapper>
-      </>
-      )
+      <Title>개인 프로젝트</Title>
+      <ProjectListWrapper>
+        {personalProjects.map((v) => (
+          <ProjectCard key={`personal_project${v.id}`} projectInfo={v} />
+        ))}
+      </ProjectListWrapper>
     </PageContainer>
   </>
 );
