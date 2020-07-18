@@ -8,12 +8,13 @@ import { GET_POSTS } from '../../queries/post.queries';
 import { GET_TAGS } from '../../queries/tag.queries';
 import { getPosts, getTags } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
+import useChangeEvent from '../../lib/useChangeEvent';
 
 const BlogContainer = () => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
-  const [searchWord, setSearchWord] = useState('');
+  const [searchWord, , onChangeSearchWord] = useChangeEvent<HTMLInputElement>('');
   const lastId = useRef(null);
   const { data: postData, fetchMore, refetch } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
@@ -47,10 +48,6 @@ const BlogContainer = () => {
       });
     }
   }, [postData, category, lastId.current, tagId]);
-
-  const onChangeSearchWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchWord(e.target.value);
-  }, []);
 
   const onSearch = useCallback(
     (e: React.FormEvent) => {

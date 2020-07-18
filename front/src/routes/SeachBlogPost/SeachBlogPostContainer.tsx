@@ -45,7 +45,7 @@ const SearchPageContainer = ({ word }: Props) => {
     };
   }, [data, lastId.current]);
 
-  return <SearchBlogPostPresenter searchWord={word} posts={data?.SearchPosts.posts} />;
+  return <SearchBlogPostPresenter searchWord={word} posts={data?.SearchPosts.posts || []} />;
 };
 
 SearchPageContainer.getInitialProps = (context: NextPageContext) => {

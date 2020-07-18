@@ -5,6 +5,7 @@ import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 import WritePostPresenter from './WritePostPresenter';
 import { WRITE_POST, GET_POST, EDIT_POST } from '../../queries/post.queries';
 import { getAccessToken } from '../../lib/cookie';
+import useChangeEvent from '../../lib/useChangeEvent';
 import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
 import { writePost, getPost_GetPost_post, editPost } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
@@ -13,26 +14,16 @@ interface Props {
   post?: getPost_GetPost_post;
 }
 
-const useInput = <T extends { value: string }>(initValue: string): [string, (e: React.ChangeEvent<T>) => void] => {
-  const [value, setValue] = useState(initValue);
-
-  const onChangeValue = useCallback((e: React.ChangeEvent<T>) => {
-    setValue(e.target.value);
-  }, []);
-
-  return [value, onChangeValue];
-};
-
 const WritePostContainer = ({ post }: Props) => {
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
-  const [title, setTitle] = useInput<HTMLInputElement>(post?.title || '');
-  const [category, setCategory] = useInput<HTMLSelectElement>(post?.category || 'DEV');
+  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(post?.title || '');
+  const [category, , onChangeCategory] = useChangeEvent<HTMLSelectElement>(post?.category || 'DEV');
   const [tags, setTags] = useState<string[]>([]);
-  const [insertTag, setInsertTag] = useInput<HTMLInputElement>('');
+  const [insertTag, , onChangeInsertTag] = useChangeEvent<HTMLInputElement>('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
   const insertTagRef = useRef<HTMLInputElement>();
   const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
@@ -171,9 +162,9 @@ const WritePostContainer = ({ post }: Props) => {
       setImage={setImage}
       addTag={addTag}
       removeTag={removeTag}
-      setTitle={setTitle}
-      setCategory={setCategory}
-      setInsertTag={setInsertTag}
+      onChangeTitle={onChangeTitle}
+      onChangeCategory={onChangeCategory}
+      onChangeInsertTag={onChangeInsertTag}
       onSubmit={onSubmit}
     />
   );

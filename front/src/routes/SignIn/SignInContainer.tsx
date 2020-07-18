@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 
@@ -7,11 +7,12 @@ import { signIn } from '../../types/api';
 import { SIGNIN_REQUEST } from '../../queries/user.queries';
 import { setToken } from '../../lib/cookie';
 import { encryptValue } from '../../lib/encrypt';
+import useChangeEvent from '../../lib/useChangeEvent';
 import { LOCAL_SIGN_IN } from '../../queries/client';
 
 const SignInContainer = () => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+  const [userId, , onChangeUserId] = useChangeEvent<HTMLInputElement>('');
+  const [password, , onChangePassword] = useChangeEvent<HTMLInputElement>('');
   const [localSignIn] = useMutation(LOCAL_SIGN_IN);
   const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
     onCompleted: ({ SignIn }) => {
@@ -48,14 +49,6 @@ const SignInContainer = () => {
     },
     [userId, password],
   );
-
-  const onChangeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.target.value);
-  }, []);
-
-  const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  }, []);
 
   return (
     <SignInPresenter

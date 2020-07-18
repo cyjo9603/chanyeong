@@ -9,6 +9,7 @@ import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '../../queries/project.
 import { getSkills, addProject, getProject_GetProject_project, updateProject } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
 import AddProjectPresenter from './AddProjectPresenter';
+import useChangeEvent from '../../lib/useChangeEvent';
 
 const MUTATION_ADD = 'ADD' as const;
 const MUTATION_UPDATE = 'UPDATE' as const;
@@ -17,30 +18,20 @@ interface Props {
   project?: getProject_GetProject_project;
 }
 
-const useInput = <T extends { value: string }>(initValue: string): [string, (e: React.ChangeEvent<T>) => void] => {
-  const [value, setValue] = useState(initValue);
-
-  const onChangeValue = useCallback((e: React.ChangeEvent<T>) => {
-    setValue(e.target.value);
-  }, []);
-
-  return [value, onChangeValue];
-};
-
 const AddProjectContainer = ({ project }: Props) => {
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
-  const [projectType, setProjectType] = useInput<HTMLSelectElement>(project?.type || 'PERSONAL');
-  const [currentSkill, setCurrentSkill] = useInput<HTMLSelectElement>('');
-  const [groupName, setGroupName] = useInput<HTMLInputElement>(project?.groupName || '');
-  const [title, setTitle] = useInput<HTMLInputElement>(project?.title || '');
-  const [description, setDescription] = useInput<HTMLInputElement>(project?.description || '');
-  const [startDate, setStartDate] = useInput<HTMLInputElement>(project?.startDate || '');
-  const [endDate, setEndDate] = useInput<HTMLInputElement>(project?.endDate || '');
-  const [githubAddr, setGithubAddr] = useInput<HTMLInputElement>(project?.githubAddr || '');
-  const [contribution, setContribution] = useInput<HTMLInputElement>(String(project?.contribution || ''));
+  const [projectType, , onChangeProjectType] = useChangeEvent<HTMLSelectElement>(project?.type || 'PERSONAL');
+  const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
+  const [groupName, , onChangeGroupName] = useChangeEvent<HTMLInputElement>(project?.groupName || '');
+  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(project?.title || '');
+  const [description, , onChangeDescription] = useChangeEvent<HTMLInputElement>(project?.description || '');
+  const [startDate, , onChangeStartDate] = useChangeEvent<HTMLInputElement>(project?.startDate || '');
+  const [endDate, , onChangeEndDate] = useChangeEvent<HTMLInputElement>(project?.endDate || '');
+  const [githubAddr, , onChangeGithubAddr] = useChangeEvent<HTMLInputElement>(project?.githubAddr || '');
+  const [contribution, , onChangeContribution] = useChangeEvent<HTMLInputElement>(String(project?.contribution || ''));
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
@@ -209,18 +200,18 @@ const AddProjectContainer = ({ project }: Props) => {
       content={content}
       skills={skillsData?.GetSkills.skill || []}
       currentSkills={skills}
-      onChangeTitle={setTitle}
-      onChangeProjectType={setProjectType}
-      onChangeGroupName={setGroupName}
-      onChangeContribution={setContribution}
-      onChangeDescription={setDescription}
-      onChangeGithubAddr={setGithubAddr}
-      onChangeStartDate={setStartDate}
-      onChangeEndDate={setEndDate}
+      onChangeTitle={onChangeTitle}
+      onChangeProjectType={onChangeProjectType}
+      onChangeGroupName={onChangeGroupName}
+      onChangeContribution={onChangeContribution}
+      onChangeDescription={onChangeDescription}
+      onChangeGithubAddr={onChangeGithubAddr}
+      onChangeStartDate={onChangeStartDate}
+      onChangeEndDate={onChangeEndDate}
       onChangeContent={setContent}
       setImage={setImage}
       onSubmit={onSubmit}
-      onChangeCurrentSkill={setCurrentSkill}
+      onChangeCurrentSkill={onChangeCurrentSkill}
       onClickAddSkill={onClickAddSkill}
       onClickRemoveSkill={onClickRemoveSkill}
     />

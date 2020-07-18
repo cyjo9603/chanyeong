@@ -4,19 +4,10 @@ import axios from 'axios';
 
 import { UpdateSkillFormWrapper } from './styled';
 import { getAccessToken } from '../../lib/cookie';
+import useChangeEvent from '../../lib/useChangeEvent';
 import { ADD_SKILL } from '../../queries/skill.queries';
 import { AddSkill } from '../../types/api';
 import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
-
-const useInput = (initValue: string): [string, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
-  const [value, setValue] = useState(initValue);
-
-  const onChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, []);
-
-  return [value, onChangeInput];
-};
 
 interface Props {
   closeUpdateSkill: () => void;
@@ -24,11 +15,11 @@ interface Props {
 
 const UpdateSkillForm = ({ closeUpdateSkill }: Props) => {
   const apollo = useApolloClient();
-  const [skillType, setSkillType] = useState('');
-  const [name, setName] = useInput('');
-  const [level, setLevel] = useInput('');
-  const [description, setDescription] = useInput('');
-  const [order, setOrder] = useInput('');
+  const [skillType, , onChangeType] = useChangeEvent('');
+  const [name, , onChangeName] = useChangeEvent('');
+  const [level, , onChangeLevel] = useChangeEvent('');
+  const [description, , onChangeDescription] = useChangeEvent('');
+  const [order, , onChangeOrder] = useChangeEvent('');
   const [image, setImage] = useState('');
   const [addSkillMutation] = useMutation<AddSkill>(ADD_SKILL, {
     onCompleted: async ({ AddSkill }) => {
@@ -75,10 +66,6 @@ const UpdateSkillForm = ({ closeUpdateSkill }: Props) => {
     [name, skillType, level, description, image, order],
   );
 
-  const onChangeType = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSkillType(e.target.value);
-  }, []);
-
   const onChangeImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = `${+new Date()}${e.target.files[0].name}`;
     const res = await axios.put(`${process.env.IMAGE_UPLOAD_URL}skill/${name}&overwrite=true`, e.target.files[0], {
@@ -106,19 +93,19 @@ const UpdateSkillForm = ({ closeUpdateSkill }: Props) => {
         </div>
         <div>
           <span>이름</span>
-          <input type="text" onChange={setName} />
+          <input type="text" onChange={onChangeName} />
         </div>
         <div>
           <span>설명</span>
-          <input type="text" onChange={setDescription} />
+          <input type="text" onChange={onChangeDescription} />
         </div>
         <div>
           <span>숙련도</span>
-          <input type="number" onChange={setLevel} />
+          <input type="number" onChange={onChangeLevel} />
         </div>
         <div>
           <span>순서</span>
-          <input type="number" onChange={setOrder} />
+          <input type="number" onChange={onChangeOrder} />
         </div>
         <div>
           <span>이미지</span>

@@ -15,9 +15,9 @@ interface Props {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   addTag: (e: React.FormEvent) => void;
   removeTag: (tag: string) => void;
-  setTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  setInsertTag: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeInsertTag: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
 }
 
@@ -30,19 +30,19 @@ const WritePostPresenter = ({
   setImage,
   addTag,
   removeTag,
-  setTitle,
-  setCategory,
-  setInsertTag,
+  onChangeTitle,
+  onChangeCategory,
+  onChangeInsertTag,
   onSubmit,
 }: Props) => (
   <PageContainer>
     <BlogWriteHeader>
       <div>
-        <span>제목 : </span> <input type="text" onChange={setTitle} value={title} />
+        <span>제목 : </span> <input type="text" onChange={onChangeTitle} value={title} />
       </div>
       <div>
         <span>카테고리 : </span>
-        <select onChange={setCategory}>
+        <select onChange={onChangeCategory}>
           <option value="DEV">개발</option>
           <option value="DIARY">일기</option>
         </select>
@@ -53,7 +53,7 @@ const WritePostPresenter = ({
       <div>
         <span>태그</span>
         <form onSubmit={addTag}>
-          <input type="text" onChange={setInsertTag} ref={insertTagRef} />
+          <input type="text" onChange={onChangeInsertTag} ref={insertTagRef} />
           <button type="submit">추가</button>
         </form>
         <div>
