@@ -36,6 +36,55 @@ export const HeaderSection = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 80px;
+  transition: height 0.5s;
+
+  &.sticky-header {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 8px;
+    padding-left: calc(50% - 600px);
+    padding-right: calc(50% - 608px);
+    width: 1200px;
+    background-color: ${({ theme }) => theme.BACKGROUND_COLOR_RGBA};
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
+    height: 50px;
+
+    & > div {
+      width: 180px;
+    }
+
+    & > nav {
+      width: 300px;
+
+      & a {
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    @media (max-width: ${({ theme }) => theme.BP.HDPC}) {
+      width: calc(100% - 32px);
+      padding: 0 16px;
+    }
+
+    @media (max-width: ${({ theme }) => theme.BP.PC}) {
+      & > nav {
+        width: 60px;
+      }
+    }
+    @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+      & > div:first-child {
+        width: 150px;
+
+        & img {
+          width: 100%;
+        }
+      }
+    }
+  }
 `;
 
 export const LogoWrapper = styled.div`
@@ -43,7 +92,6 @@ export const LogoWrapper = styled.div`
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;
-    margin: 0;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -54,7 +102,9 @@ export const LogoWrapper = styled.div`
 `;
 
 export const NavWrapper = styled.nav`
-  width: 440px;
+  & > nav > svg {
+    height: 100%;
+  }
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;

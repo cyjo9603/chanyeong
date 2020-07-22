@@ -14,8 +14,18 @@ interface Props {
 
 const Header = ({ isDarkMode }: Props) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSmallHeader, setIsSmallHeader] = useState(false);
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
+
+  const onScroll = useCallback(() => {
+    const { scrollTop } = document.body;
+    if (scrollTop >= 30 && !isSmallHeader) {
+      setIsSmallHeader(true);
+    } else if (scrollTop < 30 && isSmallHeader) {
+      setIsSmallHeader(false);
+    }
+  }, [isSmallHeader]);
 
   useEffect(() => {
     const loginKey = localStorage.getItem('LOGIN_KEY');
@@ -23,6 +33,12 @@ const Header = ({ isDarkMode }: Props) => {
       setIsAdmin(true);
     }
   }, []);
+
+  useEffect(() => {
+    document.body.addEventListener('scroll', onScroll);
+
+    return () => document.body.removeEventListener('scroll', onScroll);
+  }, [onScroll]);
 
   const onClickLogout = useCallback(() => {
     logoutMutation({
@@ -56,7 +72,7 @@ const Header = ({ isDarkMode }: Props) => {
             )}
           </StatusBar>
         }
-        <HeaderSection>
+        <HeaderSection className={isSmallHeader && 'sticky-header'}>
           <LogoWrapper>
             <Link href="/">
               <a>

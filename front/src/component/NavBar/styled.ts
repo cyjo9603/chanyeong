@@ -26,10 +26,6 @@ export const NavBarWrapper = styled.nav`
     font-weight: 600;
     font-size: 18px;
     padding: 10px 0;
-
-    &:hover {
-      font-weight: 800;
-    }
   }
 
   .menu-hover {

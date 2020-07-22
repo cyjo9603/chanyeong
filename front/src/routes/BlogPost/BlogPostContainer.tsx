@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Router from 'next/router';
 
@@ -57,6 +57,10 @@ const BlogPostContainer = ({ GetPost: { post } }: Props) => {
   });
 
   const postPath = useMemo(() => [...path, { name: post.title }], [post.title]);
+
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
 
   const onClickFix = useCallback(() => {
     fixPostMutation({

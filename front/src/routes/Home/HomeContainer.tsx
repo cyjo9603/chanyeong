@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import Banner from './Banner';
@@ -10,6 +10,10 @@ import { getPicked } from '../../types/api';
 
 const HomeContainer = () => {
   const { data } = useQuery<getPicked>(GET_PICKED);
+
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

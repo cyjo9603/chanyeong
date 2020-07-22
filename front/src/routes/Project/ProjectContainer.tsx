@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Router from 'next/router';
 
@@ -56,6 +56,10 @@ const ProjectContainer = ({ GetProject: { project } }: Props) => {
       }
     },
   });
+
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
 
   const onClickFix = useCallback(() => {
     fixProjecttMutation({

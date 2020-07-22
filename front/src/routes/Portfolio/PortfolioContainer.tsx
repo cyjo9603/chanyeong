@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { getProjects } from '../../types/api';
@@ -10,6 +10,10 @@ const PortfolioContainer = () => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data: groupData } = useQuery<getProjects>(GET_PROJECTS, { variables: { type: 'GROUP' } });
   const { data: personalData } = useQuery<getProjects>(GET_PROJECTS, { variables: { type: 'PERSONAL' } });
+
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
 
   return (
     <PortfolioPresenter

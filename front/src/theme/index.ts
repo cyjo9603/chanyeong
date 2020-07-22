@@ -7,6 +7,7 @@ const breakPoint = {
 
 export const lightTheme = {
   BACKGROUND_COLOR: '#ffffff',
+  BACKGROUND_COLOR_RGBA: 'rgba(255, 255, 255, 0.4)',
   PRIMARY_COLOR: '#23374D',
   LIGHT_GREY: '#B5B5B5',
   DARK_GREY: '#777777',
@@ -40,6 +41,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   BACKGROUND_COLOR: '#242424',
+  BACKGROUND_COLOR_RGBA: 'rgba(36, 36, 36, 0.5)',
   PRIMARY_COLOR: '#23374D',
   LIGHT_GREY: '#B5B5B5',
   DARK_GREY: '#777777',

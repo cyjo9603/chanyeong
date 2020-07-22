@@ -20,6 +20,7 @@ const BlogContainer = () => {
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
 
   useEffect(() => {
+    document.body.scrollTo(0, 0);
     refetch();
   }, []);
 

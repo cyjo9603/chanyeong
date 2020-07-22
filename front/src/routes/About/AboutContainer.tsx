@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_SKILLS } from '../../queries/skill.queries';
@@ -12,6 +12,10 @@ const AboutContainer = () => {
   const { data: frontData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'FRONT_END' } });
   const { data: backData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'BACK_END' } });
   const { data: devopsData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'DEV_OPS' } });
+
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
 
   const onClickAddSkill = useCallback(() => {
     setOpenAddSkill(true);
