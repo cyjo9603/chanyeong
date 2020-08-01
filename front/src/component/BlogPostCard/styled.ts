@@ -87,3 +87,12 @@ export const TagListWrapper = styled.div`
     display: none;
   }
 `;
+
+export const NewPost = styled.span`
+  margin-left: 8px;
+  padding: 0 4px;
+  font-size: 10px;
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.NEW_COLOR};
+  color: ${({ theme }) => theme.DARK_BACKGROUND_GREY};
+`;
