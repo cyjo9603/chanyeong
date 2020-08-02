@@ -5,8 +5,8 @@ import axios from 'axios';
 import { UpdateSkillFormWrapper } from './styled';
 import { getAccessToken } from '../../lib/cookie';
 import useChangeEvent from '../../lib/useChangeEvent';
-import { ADD_SKILL, UPDATE_SKILL } from '../../queries/skill.queries';
-import { AddSkill, UpdateSkill, getSkills_GetSkills_skill } from '../../types/api';
+import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '../../queries/skill.queries';
+import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '../../types/api';
 import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
 
 interface Props {
@@ -64,6 +64,33 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
       }
     },
   });
+  const [deleteSkillMutation] = useMutation<DeleteSkill>(DELETE_SKILL, {
+    onCompleted: async ({ DeleteSkill }) => {
+      if (DeleteSkill.error === ERROR_EXPIRATION) {
+        const token = await reissuanceAccessToken(apollo);
+        if (token) {
+          const variables = {
+            id: editSkillData.id,
+          };
+          addSkillMutation({ variables, context: { headers: { 'X-JWT': token } } });
+        }
+      }
+      if (DeleteSkill.ok) {
+        closeUpdateSkill();
+      }
+    },
+  });
+
+  const onClickDelete = useCallback(() => {
+    deleteSkillMutation({
+      variables: { id: editSkillData.id },
+      context: {
+        headers: {
+          'X-JWT': getAccessToken(),
+        },
+      },
+    });
+  }, []);
 
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -153,6 +180,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
           <span>이미지</span>
           <input type="file" onChange={onChangeImageUpload} />
         </div>
+        {editSkillData && <button onClick={onClickDelete}>제거</button>}
         <button type="submit">업데이트</button>
       </form>
     </UpdateSkillFormWrapper>

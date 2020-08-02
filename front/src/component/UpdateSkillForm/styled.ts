@@ -37,6 +37,7 @@ export const UpdateSkillFormWrapper = styled.div`
       height: 50px;
       font-size: 20px;
       font-weight: 700;
+      margin-bottom: 4px;
     }
   }
 `;
