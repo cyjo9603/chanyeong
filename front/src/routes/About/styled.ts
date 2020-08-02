@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const AboutWrapper = styled.section`
   padding-bottom: 20px 0;
+  margin-bottom: 40px;
   color: ${({ theme }) => theme.PRIMARY_FONT};
   & > span {
     font-size: 18px;

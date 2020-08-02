@@ -25,11 +25,6 @@ const NavBar = () => {
           </Link>
         </li>
         <li onClick={onMove}>
-          <Link href="/skill">
-            <a>SKILL</a>
-          </Link>
-        </li>
-        <li onClick={onMove}>
           <Link href="/portfolio">
             <a>PORTFOLIO</a>
           </Link>

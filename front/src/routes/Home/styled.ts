@@ -14,7 +14,6 @@ export const BannerWrapper = styled.section`
 `;
 
 export const IntroWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.3);
   width: 40%;
   height: 100px;
   margin-bottom: 60px;
