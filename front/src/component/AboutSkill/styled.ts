@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AboutSkillWrapper = styled.div`
+export const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,7 @@ export const AboutSkillWrapper = styled.div`
   & > img {
     width: 74px;
     height: 74px;
+    cursor: ${({ isAdmin }) => (isAdmin ? 'pointer' : 'default')};
   }
 
   & > h1 {

@@ -2,13 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_SKILLS } from '../../queries/skill.queries';
-import { getSkills } from '../../types/api';
+import { getSkills, getSkills_GetSkills_skill } from '../../types/api';
 import { GET_LOCAL_USER } from '../../queries/client';
 import SkillPresenter from './SkillPresenter';
 
 const SkillContainer = () => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [openAddSkill, setOpenAddSkill] = useState(false);
+  const [editSkillData, setEditSkillData] = useState<getSkills_GetSkills_skill | null>(null);
   const { data: frontData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'FRONT_END' } });
   const { data: backData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'BACK_END' } });
   const { data: devopsData } = useQuery<getSkills>(GET_SKILLS, { variables: { type: 'DEV_OPS' } });
@@ -18,6 +19,12 @@ const SkillContainer = () => {
   }, []);
 
   const onClickAddSkill = useCallback(() => {
+    setEditSkillData(null);
+    setOpenAddSkill(true);
+  }, []);
+
+  const onClickEditSkill = useCallback((data: getSkills_GetSkills_skill) => {
+    setEditSkillData(data);
     setOpenAddSkill(true);
   }, []);
 
@@ -31,7 +38,9 @@ const SkillContainer = () => {
       frontSkills={frontData?.GetSkills.skill}
       backSkills={backData?.GetSkills.skill}
       devopsSkills={devopsData?.GetSkills.skill}
+      editSkillData={editSkillData}
       onClickAddSkill={onClickAddSkill}
+      onClickEditSkill={onClickEditSkill}
       closeUpdateSKill={closeUpdateSKill}
     />
   );

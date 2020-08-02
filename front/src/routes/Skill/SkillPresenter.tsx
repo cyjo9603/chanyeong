@@ -16,7 +16,9 @@ interface Props {
   frontSkills: getSkills_GetSkills_skill[];
   backSkills: getSkills_GetSkills_skill[];
   devopsSkills: getSkills_GetSkills_skill[];
+  editSkillData: getSkills_GetSkills_skill;
   onClickAddSkill: () => void;
+  onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
   closeUpdateSKill: () => void;
 }
 
@@ -29,13 +31,15 @@ const SkillPresenter = ({
   closeUpdateSKill,
   openAddSkill,
   onClickAddSkill,
+  onClickEditSkill,
   userInfo,
   frontSkills,
   backSkills,
   devopsSkills,
+  editSkillData,
 }: Props) => (
   <>
-    {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} />}
+    {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} editSkillData={editSkillData} />}
     <Helmet>
       <title>기술 :: chanyeong</title>
       <meta
@@ -58,19 +62,31 @@ const SkillPresenter = ({
       <SubTitle>Front-End</SubTitle>
       <SkillListWrapper>
         {frontSkills?.map((v) => (
-          <AboutSkill key={`about_front_skill${v.id}`} data={v} />
+          <AboutSkill
+            key={`about_front_skill${v.id}`}
+            data={v}
+            onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
+          />
         ))}
       </SkillListWrapper>
       <SubTitle>Back-End</SubTitle>
       <SkillListWrapper>
         {backSkills?.map((v) => (
-          <AboutSkill key={`about_back_skill${v.id}`} data={v} />
+          <AboutSkill
+            key={`about_back_skill${v.id}`}
+            data={v}
+            onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
+          />
         ))}
       </SkillListWrapper>
       <SubTitle>DevOps</SubTitle>
       <SkillListWrapper>
         {devopsSkills?.map((v) => (
-          <AboutSkill key={`about_devops_skill${v.id}`} data={v} />
+          <AboutSkill
+            key={`about_devops_skill${v.id}`}
+            data={v}
+            onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
+          />
         ))}
       </SkillListWrapper>
     </PageContainer>
