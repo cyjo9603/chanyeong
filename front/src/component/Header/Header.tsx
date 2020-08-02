@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Container from '../pageContainer';
 import NavBar from '../NavBar';
-import { HeaderWrapper, StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
+import { StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
 import { LOG_OUT, GET_LOCAL_USER } from '../../queries/client';
 import { clearCookie, getAccessToken } from '../../lib/cookie';
 
@@ -14,18 +14,8 @@ interface Props {
 
 const Header = ({ isDarkMode }: Props) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isSmallHeader, setIsSmallHeader] = useState(false);
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
-
-  const onScroll = useCallback(() => {
-    const { scrollTop } = document.body;
-    if (scrollTop >= 30 && !isSmallHeader) {
-      setIsSmallHeader(true);
-    } else if (scrollTop < 30 && isSmallHeader) {
-      setIsSmallHeader(false);
-    }
-  }, [isSmallHeader]);
 
   useEffect(() => {
     const loginKey = localStorage.getItem('LOGIN_KEY');
@@ -33,12 +23,6 @@ const Header = ({ isDarkMode }: Props) => {
       setIsAdmin(true);
     }
   }, []);
-
-  useEffect(() => {
-    document.body.addEventListener('scroll', onScroll);
-
-    return () => document.body.removeEventListener('scroll', onScroll);
-  }, [onScroll]);
 
   const onClickLogout = useCallback(() => {
     logoutMutation({
@@ -52,27 +36,28 @@ const Header = ({ isDarkMode }: Props) => {
   }, [getAccessToken()]);
 
   return (
-    <HeaderWrapper>
-      <Container>
-        {
-          <StatusBar>
-            {data?.isLoggedIn.userName ? (
-              <>
-                <span>{data.isLoggedIn.userName}님</span>
-                <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
-              </>
-            ) : (
-              isAdmin && (
-                <span>
-                  <Link href="/signin">
-                    <a>로그인</a>
-                  </Link>
-                </span>
-              )
-            )}
-          </StatusBar>
-        }
-        <HeaderSection className={isSmallHeader && 'sticky-header'}>
+    <>
+      <StatusBar>
+        <Container>
+          {data?.isLoggedIn.userName ? (
+            <>
+              <span>{data.isLoggedIn.userName}님</span>
+              <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
+            </>
+          ) : (
+            isAdmin && (
+              <span>
+                <Link href="/signin">
+                  <a>로그인</a>
+                </Link>
+              </span>
+            )
+          )}
+        </Container>
+      </StatusBar>
+
+      <HeaderSection>
+        <Container>
           <LogoWrapper>
             <Link href="/">
               <a>
@@ -83,9 +68,9 @@ const Header = ({ isDarkMode }: Props) => {
           <NavWrapper>
             <NavBar />
           </NavWrapper>
-        </HeaderSection>
-      </Container>
-    </HeaderWrapper>
+        </Container>
+      </HeaderSection>
+    </>
   );
 };
 
