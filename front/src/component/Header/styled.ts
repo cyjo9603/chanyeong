@@ -26,7 +26,7 @@ export const StatusBar = styled.div`
   }
 `;
 
-export const HeaderSection = styled.div`
+export const HeaderSection = styled.div<{ scrollRatio: number }>`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.BACKGROUND_COLOR_RGBA};
@@ -38,12 +38,12 @@ export const HeaderSection = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 50px;
+    height: ${({ scrollRatio }) => 80 - 30 * scrollRatio}px;
   }
 `;
 
-export const LogoWrapper = styled.div`
-  width: 180px;
+export const LogoWrapper = styled.div<{ scrollRatio: number }>`
+  width: ${({ scrollRatio }) => 250 - 70 * scrollRatio}px;
 
   @media (max-width: ${({ theme }) => theme.BP.PC}) {
     position: absolute;

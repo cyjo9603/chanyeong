@@ -14,8 +14,20 @@ interface Props {
 
 const Header = ({ isDarkMode }: Props) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [scrollRatio, setScrollRatio] = useState(0);
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
+
+  const onScroll = useCallback(() => {
+    const { scrollTop } = document.body;
+
+    if (scrollTop <= 100 && scrollTop >= 0) {
+      const currentScrollRatio = scrollTop / 100;
+      setScrollRatio(currentScrollRatio);
+    } else if (scrollTop > 100 && scrollRatio !== 1) {
+      setScrollRatio(1);
+    }
+  }, [scrollRatio]);
 
   useEffect(() => {
     const loginKey = localStorage.getItem('LOGIN_KEY');
@@ -23,6 +35,12 @@ const Header = ({ isDarkMode }: Props) => {
       setIsAdmin(true);
     }
   }, []);
+
+  useEffect(() => {
+    document.body.addEventListener('scroll', onScroll);
+
+    return () => document.body.removeEventListener('scroll', onScroll);
+  }, [onScroll]);
 
   const onClickLogout = useCallback(() => {
     logoutMutation({
@@ -56,9 +74,9 @@ const Header = ({ isDarkMode }: Props) => {
         </Container>
       </StatusBar>
 
-      <HeaderSection>
+      <HeaderSection scrollRatio={scrollRatio}>
         <Container>
-          <LogoWrapper>
+          <LogoWrapper scrollRatio={scrollRatio}>
             <Link href="/">
               <a>
                 <img src={isDarkMode ? '/dark_logo.svg' : '/main_logo.svg'} alt="logo" />
