@@ -23,8 +23,8 @@ export const NavBarWrapper = styled.nav`
     display: block;
     text-decoration: none;
     color: ${({ theme }) => theme.PRIMARY_COLOR};
-    font-weight: 600;
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: 500;
     padding: 10px 0;
   }
 
@@ -41,11 +41,6 @@ export const NavBarWrapper = styled.nav`
       width: 110px;
       display: block;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    & a {
-      font-size: 14px;
-      font-weight: 400;
     }
   }
 

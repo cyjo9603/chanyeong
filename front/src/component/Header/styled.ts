@@ -56,15 +56,6 @@ export const HeaderSection = styled.div`
       width: 180px;
     }
 
-    & > nav {
-      width: 300px;
-
-      & a {
-        font-size: 14px;
-        font-weight: 400;
-      }
-    }
-
     @media (max-width: ${({ theme }) => theme.BP.HDPC}) {
       width: calc(100% - 32px);
       padding: 0 16px;

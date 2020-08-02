@@ -4,50 +4,26 @@ import { Helmet } from 'react-helmet';
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import AboutValue from '../../component/AboutValue';
-import AboutSkill from '../../component/AboutSkill';
-import UpdateSkillForm from '../../component/UpdateSkillForm';
 import WorkProcessItem from './WorkProcessItem';
-import Button from '../../component/Button';
-import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
-import { getSkills_GetSkills_skill } from '../../types/api';
-import { LocalSignIn } from '../../apollo';
-
-interface Props {
-  openAddSkill: boolean;
-  userInfo?: LocalSignIn;
-  frontSkills: getSkills_GetSkills_skill[];
-  backSkills: getSkills_GetSkills_skill[];
-  devopsSkills: getSkills_GetSkills_skill[];
-  onClickAddSkill: () => void;
-  closeUpdateSKill: () => void;
-}
+import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper } from './styled';
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
   { path: '/about', name: 'ABOUT' },
 ];
 
-const AboutPresenter = ({
-  openAddSkill,
-  userInfo,
-  frontSkills,
-  backSkills,
-  devopsSkills,
-  onClickAddSkill,
-  closeUpdateSKill,
-}: Props) => (
+const AboutPresenter = () => (
   <>
-    {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} />}
     <Helmet>
       <title>소개 :: chanyeong</title>
       <meta
         name="description"
-        content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하며, 사용할 수 있는 기술들을 나열해 놓았습니다."
+        content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하는지 적어 놓았습니다."
       />
       <meta name="og:title" content="소개 :: chanyeong" />
       <meta
         name="og:description"
-        content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하며, 사용할 수 있는 기술들을 나열해 놓았습니다."
+        content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하는지 적어 놓았습니다."
       />
     </Helmet>
     <PageContainer>
@@ -90,28 +66,6 @@ const AboutPresenter = ({
           <WorkProcessItem engName="debugging" korName="테스팅" />
           <WorkProcessItem engName="deploy" korName="배포" />
         </WorkProcessWrapper>
-        <div>
-          {userInfo?.isLoggedIn.userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
-          <Title>Skill Stak</Title>
-        </div>
-        <SubTitle>Front-End</SubTitle>
-        <SkillListWrapper>
-          {frontSkills?.map((v) => (
-            <AboutSkill key={`about_front_skill${v.id}`} data={v} />
-          ))}
-        </SkillListWrapper>
-        <SubTitle>Back-End</SubTitle>
-        <SkillListWrapper>
-          {backSkills?.map((v) => (
-            <AboutSkill key={`about_back_skill${v.id}`} data={v} />
-          ))}
-        </SkillListWrapper>
-        <SubTitle>DevOps</SubTitle>
-        <SkillListWrapper>
-          {devopsSkills?.map((v) => (
-            <AboutSkill key={`about_devops_skill${v.id}`} data={v} />
-          ))}
-        </SkillListWrapper>
       </AboutWrapper>
     </PageContainer>
   </>
