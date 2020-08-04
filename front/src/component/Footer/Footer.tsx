@@ -12,7 +12,7 @@ const Footer = () => (
       <FooterInfoWrapper>
         <div>
           <span>조찬영</span>
-          <span>cyjo9603@gamil.com</span>
+          <span>cyjo9603@gmail.com</span>
           <span>
             <a href="https://github.com/cyjo9603" target="_blank" rel="noopener noreferrer">
               github.com/cyjo9603
