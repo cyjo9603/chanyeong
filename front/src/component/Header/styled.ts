@@ -33,6 +33,7 @@ export const HeaderSection = styled.div<{ scrollRatio: number }>`
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
   z-index: 100;
+  transition: background 0.3s;
 
   & > div {
     display: flex;
