@@ -3,7 +3,7 @@ import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
 import { BlogPostCardWrapper, Type, TitleWrapper, ContentWrapper, TagListWrapper, NewPost } from './styled';
-import Tag from '../Tag';
+import Tag from '../../commons/Tag';
 import { getPosts_GetPosts_posts } from '../../types/api';
 import dateFormat from '../../lib/dateFormat';
 

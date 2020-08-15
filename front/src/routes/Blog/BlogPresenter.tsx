@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
-import Search from '../../component/Search';
+import Search from '../../commons/Search';
 import BlogPostCard from '../../component/BlogPostCard';
-import Button from '../../component/Button';
+import Button from '../../commons/Button';
 import TagCount from '../../component/TagCount';
 import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
 import { LocalSignIn } from '../../apollo';

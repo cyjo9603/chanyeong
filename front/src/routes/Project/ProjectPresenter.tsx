@@ -7,7 +7,7 @@ import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import TUIViewer from '../../component/TUIViewer';
 import SkillIcon from '../../component/SkillIcon';
-import Button from '../../component/Button';
+import Button from '../../commons/Button';
 import { ProjectWrapper, ProjectHeader, SkillsWrapper } from './styled';
 import { getProject_GetProject_project } from '../../types/api';
 import { LocalSignIn } from '../../apollo';

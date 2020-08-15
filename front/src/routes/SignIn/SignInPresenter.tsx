@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import PageContainer from '../../component/pageContainer';
-import Input from '../../component/Input';
+import Input from '../../commons/Input';
 import { SignInWrapper } from './styled';
 
 interface Props {

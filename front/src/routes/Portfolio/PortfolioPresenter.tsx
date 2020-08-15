@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import ProjectCard from '../../component/ProjectCard';
-import Button from '../../component/Button';
+import Button from '../../commons/Button';
 import { SubTitleWrapper, Title, ProjectListWrapper } from './styled';
 import { LocalSignIn } from '../../apollo';
 import { getProjects_GetProjects_project } from '../../types/api';

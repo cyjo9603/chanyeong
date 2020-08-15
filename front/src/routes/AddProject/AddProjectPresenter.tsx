@@ -3,7 +3,7 @@ import React from 'react';
 import PageContainer from '../../component/pageContainer';
 import TUIEditor from '../../component/TUIEditor';
 import SkillIcon from '../../component/SkillIcon';
-import Button from '../../component/Button';
+import Button from '../../commons/Button';
 import { InputWrapper, PageHeader, PageFooter, SkillWrapper } from './styled';
 import { getSkills_GetSkills_skill, getProject_GetProject_project } from '../../types/api';
 
