@@ -42,7 +42,6 @@ Post.init(
     picked: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: false,
     },
   },
   {
