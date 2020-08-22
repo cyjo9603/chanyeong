@@ -1,0 +1,15 @@
+*/node_modules/*
+
+back/src/types/graph.d.ts
+back/src/schema.graphql
+back/.env
+
+front/.next/*
+front/next-env.d.ts
+front/schema.json
+front/src/types/api.d.ts
+front/src/secret.ts
+front/.env
+chanyeong-page.pem
+front/src/lib/encrypt.ts
+back/src/utils/decrypt.ts
