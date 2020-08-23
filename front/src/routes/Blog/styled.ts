@@ -7,13 +7,6 @@ export const BlogWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const SubTitle = memo(styled.h2`
-  font-size: 18px;
-  font-weight: 400;
-  margin-top: 32px;
-  color: ${({ theme }) => theme.PRIMARY_FONT};
-`);
-
 export const BlogContainer = styled.section`
   width: 80%;
 

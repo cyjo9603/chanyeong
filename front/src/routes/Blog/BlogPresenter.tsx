@@ -6,8 +6,9 @@ import PagePath from '../../component/PagePath';
 import Search from '../../commons/Search';
 import BlogPostCard from '../../component/BlogPostCard';
 import Button from '../../commons/Button';
+import Text from '../../commons/Text';
 import TagCount from '../../component/TagCount';
-import { BlogWrapper, SubTitle, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
+import { BlogWrapper, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
 import { LocalSignIn } from '../../apollo';
 import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '../../types/api';
 
@@ -56,7 +57,7 @@ const BlogPresenter = ({
     </Helmet>
     <PageContainer>
       <PagePath data={path} page="blog" />
-      <SubTitle>개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다.</SubTitle>
+      <Text content="개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다." />
       <BlogWrapper>
         <BlogContainer>
           <NavWrapper>

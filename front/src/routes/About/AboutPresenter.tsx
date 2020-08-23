@@ -6,11 +6,12 @@ import PagePath from '../../component/PagePath';
 import AboutValue from '../../component/AboutValue';
 import AboutSkill from '../../component/AboutSkill';
 import Button from '../../commons/Button';
+import Text, { TITLE } from '../../commons/Text';
 import { getSkills_GetSkills_skill } from '../../types/api';
 import { LocalSignIn } from '../../apollo';
 import UpdateSkillForm from '../../component/UpdateSkillForm';
 import WorkProcessItem from './WorkProcessItem';
-import { AboutWrapper, Title, SubTitle, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
+import { AboutWrapper, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
 
 interface Props {
   openAddSkill: boolean;
@@ -57,9 +58,9 @@ const AboutPresenter = ({
     <PageContainer>
       <AboutWrapper>
         <PagePath data={path} page="about" />
-        <SubTitle>안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다.</SubTitle>
-        <Title>Values</Title>
-        <SubTitle>제가 생각하는개발의 중요한 포인트 세 가지는 다음과 같습니다.</SubTitle>
+        <Text content="안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다." />
+        <Text content="Values" weight={700} size={TITLE} />
+        <Text content="제가 생각하는 개발의 중요한 포인트 세 가지는 다음과 같습니다." />
         <AboutItemWrapper>
           <AboutValue
             engTitle="Fun"
@@ -77,7 +78,7 @@ const AboutPresenter = ({
             content="현대의 소프트웨어는 크고 복잡해졌습니다. 때문에 개발자들과의 협업과정은 선택이 아니라 필수라고 생각됩니다. 협업을 진행하며 가장 중요한 가치는 소통 이라고 생각하기 때문에 소통하기위해 노력 하겠습니다."
           />
         </AboutItemWrapper>
-        <Title>Work Process</Title>
+        <Text content="Work Process" weight={700} size={TITLE} />
         <WorkProcessWrapper>
           <WorkProcessItem engName="planning" korName="기획" />
           <WorkProcessItem engName="design" korName="디자인" />
@@ -87,9 +88,9 @@ const AboutPresenter = ({
         </WorkProcessWrapper>
         <div>
           {userInfo?.isLoggedIn.userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
-          <Title>Skill Stak</Title>
+          <Text content="Skill Stak" weight={700} size={TITLE} />
         </div>
-        <SubTitle>Front-End</SubTitle>
+        <Text content="Front-End" weight={700} />
         <SkillListWrapper>
           {frontSkills?.map((v) => (
             <AboutSkill
@@ -99,7 +100,7 @@ const AboutPresenter = ({
             />
           ))}
         </SkillListWrapper>
-        <SubTitle>Back-End</SubTitle>
+        <Text content="Back-End" weight={700} />
         <SkillListWrapper>
           {backSkills?.map((v) => (
             <AboutSkill
@@ -109,7 +110,7 @@ const AboutPresenter = ({
             />
           ))}
         </SkillListWrapper>
-        <SubTitle>DevOps</SubTitle>
+        <Text content="DevOps" weight={700} />
         <SkillListWrapper>
           {devopsSkills?.map((v) => (
             <AboutSkill

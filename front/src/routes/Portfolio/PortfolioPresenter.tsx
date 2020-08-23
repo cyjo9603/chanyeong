@@ -6,7 +6,8 @@ import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
 import ProjectCard from '../../component/ProjectCard';
 import Button from '../../commons/Button';
-import { SubTitleWrapper, Title, ProjectListWrapper } from './styled';
+import Text, { MIN_TITLE } from '../../commons/Text';
+import { SubTitleWrapper, ProjectListWrapper } from './styled';
 import { LocalSignIn } from '../../apollo';
 import { getProjects_GetProjects_project } from '../../types/api';
 
@@ -38,7 +39,7 @@ const PortfolioPresenter = ({ userInfo, groupProjects, personalProjects }: Props
     <PageContainer>
       <PagePath data={path} page="project" />
       <SubTitleWrapper>
-        <h2>제가 지금까지 진행한 프로젝트들 입니다.</h2>
+        <Text content="제가 지금까지 진행한 프로젝트들 입니다." />
         {userInfo?.isLoggedIn.userName && (
           <Link href="/portfolio/add">
             <a>
@@ -49,7 +50,7 @@ const PortfolioPresenter = ({ userInfo, groupProjects, personalProjects }: Props
       </SubTitleWrapper>
       {groupProjects.length !== 0 && (
         <>
-          <Title>그룹 프로젝트</Title>
+          <Text content="그룹 프로젝트" weight={700} size={MIN_TITLE} />
           <ProjectListWrapper>
             {groupProjects.map((v) => (
               <ProjectCard key={`group_project${v.id}`} projectInfo={v} />
@@ -57,7 +58,7 @@ const PortfolioPresenter = ({ userInfo, groupProjects, personalProjects }: Props
           </ProjectListWrapper>
         </>
       )}
-      <Title>개인 프로젝트</Title>
+      <Text content="개인 프로젝트" weight={700} size={MIN_TITLE} />
       <ProjectListWrapper>
         {personalProjects.map((v) => (
           <ProjectCard key={`personal_project${v.id}`} projectInfo={v} />
