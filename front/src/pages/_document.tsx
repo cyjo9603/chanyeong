@@ -25,6 +25,17 @@ class MyDocument extends Document<Props> {
     return (
       <html {...htmlAttrs} lang="ko">
         <Head>
+          {/* Global site tag (gtag.js) - Google Analytics */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'UA-176037246-1');`,
+            }}
+          />
           {this.props.styleTags}
           {Object.values(helmet).map((el) => el.toComponent())}
         </Head>
