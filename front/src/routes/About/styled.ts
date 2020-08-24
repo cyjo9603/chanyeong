@@ -9,24 +9,6 @@ export const AboutWrapper = styled.section`
   }
 `;
 
-export const MainTitle = styled.h1`
-  margin-top: 40px;
-  font-size: 30px;
-  font-weight: 800;
-`;
-
-export const Title = styled.h2`
-  color: ${({ theme }) => theme.PRIMARY_FONT};
-  margin-top: 40px;
-  font-size: 28px;
-  font-weight: 700;
-`;
-
-export const SubTitle = styled.h3`
-  color: ${({ theme }) => theme.PRIMARY_FONT};
-  font-size: 22px;
-`;
-
 export const AboutItemWrapper = styled.div`
   margin: 40px 0;
   display: flex;
