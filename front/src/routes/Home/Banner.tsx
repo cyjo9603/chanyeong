@@ -8,19 +8,28 @@ const Banner = () => (
   <BannerWrapper>
     <PageContainer>
       <IntroWrapper>
-        <span>저는 </span>
-        <TextLoop interval={4000}>
-          <span>프론트엔드 개발자를 꿈꾸는</span>
-          <span>소통을 중요하게 생각하는</span>
-          <span>끊임없이 노력하는</span>
+        <TextLoop interval={3000}>
+          <span>
+            프론트엔드 개발자를 꿈꾸는
+            <br />
+            조찬영입니다
+          </span>
+          <span>
+            소통을 중요하게
+            <br />
+            생각합니다
+          </span>
+          <span>
+            끊임없이 노력하는 열정과
+            <br />
+            개발에 대한 애정을 가지고 있습니다
+          </span>
+          <span>
+            새로운 기술에 대해
+            <br />
+            배우는 것을 좋아합니다
+          </span>
         </TextLoop>
-        <br />
-        <TextLoop interval={4000}>
-          <span>조찬영</span>
-          <span>개발자</span>
-          <span>열정을 가진 사람</span>
-        </TextLoop>
-        <span> 입니다.</span>
       </IntroWrapper>
     </PageContainer>
   </BannerWrapper>

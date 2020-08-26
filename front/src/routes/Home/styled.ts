@@ -1,28 +1,36 @@
 import styled from 'styled-components';
 
 export const BannerWrapper = styled.section`
+  position: relative;
+  top: -111px;
   width: 100%;
-  height: 440px;
-  background: url('/main_banner.jpg') 0 0/ 100% 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  height: 100vh;
+  background-image: url(${({ theme }) => theme.BACKGROUND_URL});
+  background-size: cover;
+  background-attachment: fixed;
+  background-position-x: center;
+  transition: background 0.5s;
 
-  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
-    height: 300px;
+  & > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
 export const IntroWrapper = styled.div`
-  width: 40%;
-  height: 100px;
-  margin-bottom: 60px;
+  margin-top: 40px;
+  width: 100%;
 
   & div,
   span {
+    width: 100%;
+    text-align: center;
     font-size: 30px;
     font-weight: 800;
-    color: ${({ theme }) => theme.PRIMARY_COLOR};
+    color: ${({ theme }) => theme.PRIMARY_FONT};
   }
 
   @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
@@ -98,14 +106,14 @@ export const SliderWrapper = styled.div`
 `;
 
 export const ArticleHeader = styled.div`
+  text-align: center;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
   & > h1 {
-    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 28px;
     font-weight: 800;
   }
 
   & > h2 {
-    color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 16px;
     font-weight: 700;
   }
