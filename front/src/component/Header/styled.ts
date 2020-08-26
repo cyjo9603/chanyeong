@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StatusBar = styled.div`
+  position: relative;
+  z-index: 1;
   & > div {
     height: 30px;
     display: flex;
@@ -29,8 +31,11 @@ export const StatusBar = styled.div`
 export const HeaderSection = styled.div<{ scrollRatio: number }>`
   position: sticky;
   top: 0;
-  background-color: ${({ theme }) => theme.BACKGROUND_COLOR_RGBA};
-  backdrop-filter: saturate(180%) blur(20px);
+  ${({ theme, scrollRatio }) =>
+    scrollRatio === 1 &&
+    `
+  background-color: ${theme.BACKGROUND_COLOR_RGBA};
+  backdrop-filter: saturate(180%) blur(20px);`}
   border-bottom: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
   z-index: 100;
   transition: background 0.3s;
