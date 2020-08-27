@@ -18,6 +18,10 @@ export const BannerWrapper = styled.section`
     justify-content: center;
     align-items: center;
   }
+
+  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+    background-attachment: scroll;
+  }
 `;
 
 export const IntroWrapper = styled.div`
