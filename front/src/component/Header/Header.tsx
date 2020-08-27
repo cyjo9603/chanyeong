@@ -55,7 +55,7 @@ const Header = ({ isDarkMode }: Props) => {
 
   return (
     <>
-      <StatusBar>
+      <StatusBar isScrollTop={scrollRatio === 0}>
         <Container>
           {data?.isLoggedIn.userName ? (
             <>
