@@ -10,7 +10,7 @@
     "wstart": "cross-env NODE_ENV=production PORT=80 node server.js",
     "build": "next build",
     "prestart": "npm run build",
-    "start": "NODE_ENV=production PORT=80 pm2 start server.js",
+    "start": "NODE_ENV=production PORT=3333 pm2 start server.js",
     "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
     "prewcodegen": "apollo schema:download --endpoint=http://localhost:4000/graphql",
     "wcodegen": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"

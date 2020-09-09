@@ -9,7 +9,7 @@
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
     "wstart": "cross-env NODE_ENV=production ./node_modules/.bin/ts-node ./src/index.ts",
-    "start": "NODE_ENV=production PORT=3000 pm2 start ./src/index.ts"
+    "start": "NODE_ENV=production PORT=6666 pm2 start ./src/index.ts"
   },
   "keywords": [],
   "author": "chanyeong",
