@@ -23,12 +23,13 @@ const path = [
   { path: '/blog', name: 'BLOG' },
 ];
 
-const BlogPostContainer = ({ GetPost: { post } }: Props) => {
+const BlogPostContainer = ({ GetPost }: Props) => {
+  const { post } = useMemo(() => GetPost || { post: null }, []);
   const apollo = useApolloClient();
-  const [isFixed, setIsFixed] = useState(post.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
+  const [isFixed, setIsFixed] = useState(post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
-    variables: { id: post.id },
+    variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
       if (DeletePost.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
@@ -42,7 +43,7 @@ const BlogPostContainer = ({ GetPost: { post } }: Props) => {
     },
   });
   const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
-    variables: { id: post.id, fix: isFixed === FIX_POST_TRUE },
+    variables: { id: post?.id, fix: isFixed === FIX_POST_TRUE },
     onCompleted: async ({ FixPost }) => {
       if (FixPost.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
@@ -55,13 +56,10 @@ const BlogPostContainer = ({ GetPost: { post } }: Props) => {
       }
     },
   });
-
-  const postPath = useMemo(() => [...path, { name: post.title }], [post.title]);
-
+  const postPath = useMemo(() => [...path, { name: post?.title }], []);
   useEffect(() => {
     document.body.scrollTo(0, 0);
   }, []);
-
   const onClickFix = useCallback(() => {
     fixPostMutation({
       context: {
@@ -71,7 +69,6 @@ const BlogPostContainer = ({ GetPost: { post } }: Props) => {
       },
     });
   }, []);
-
   const onClickDelete = useCallback(() => {
     const result = confirm('정말 게시글을 삭제하시겠습니까?');
     if (result) {
@@ -84,16 +81,17 @@ const BlogPostContainer = ({ GetPost: { post } }: Props) => {
       });
     }
   }, []);
-
   return (
-    <BlogPostPresenter
-      isFixed={isFixed}
-      post={post}
-      userInfo={userInfo}
-      postPath={postPath}
-      onClickDelete={onClickDelete}
-      onClickFix={onClickFix}
-    />
+    post && (
+      <BlogPostPresenter
+        isFixed={isFixed}
+        post={post}
+        userInfo={userInfo}
+        postPath={postPath}
+        onClickDelete={onClickDelete}
+        onClickFix={onClickFix}
+      />
+    )
   );
 };
 
