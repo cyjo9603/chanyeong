@@ -16,6 +16,7 @@ export const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
     font-size: 18px;
     font-weight: 700;
     margin: 6px 0;
+    text-align: center;
   }
 
   & > span {
@@ -23,6 +24,7 @@ export const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
     text-align: center;
     font-size: 14px;
     margin-top: 8px;
+    word-break: keep-all;
   }
 `;
 
