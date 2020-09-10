@@ -3,7 +3,7 @@ import { Resolvers } from '../../../types/resolvers';
 import User from '../../../models/User';
 import { createRefreshToken, createAccessToken } from '../../../utils/createJWT';
 import { comparePassword } from '../../../utils/hashPassword';
-import { encryptValue, decryptValue } from '../../../utils/decrypt';
+import { encryptValue, decryptValue } from '../../../utils/crypto';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우
