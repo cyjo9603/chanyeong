@@ -27,6 +27,7 @@ export const lightTheme = {
   FOOTER_BACKGROUND: '#23374D',
   FONT_FOCUS: '#23374D',
   NEW_COLOR: '#E65F55',
+  DISABLED: '#5E6267',
 
   CODE_BACKGROUND: '#f5f7f8',
   CODE_KEWORD: '#95C76F',
@@ -63,6 +64,7 @@ export const darkTheme = {
   FOOTER_BACKGROUND: '#141414',
   FONT_FOCUS: '#1089FF',
   NEW_COLOR: '#E65F55',
+  DISABLED: '#000000',
 
   CODE_BACKGROUND: '#444444',
   CODE_KEWORD: '#95C76F',
