@@ -11,5 +11,4 @@ front/src/types/api.d.ts
 front/src/secret.ts
 front/.env
 chanyeong-page.pem
-front/src/lib/encrypt.ts
-back/src/utils/decrypt.ts
+
