@@ -6,8 +6,8 @@ export const SignInWrapper = styled.section`
   justify-content: center;
 
   & > form {
-    width: 600px;
-    padding: 40px 50px;
+    width: 500px;
+    padding: 100px 80px;
     border: 1px solid ${(props) => props.theme.BORDER_LINE_GREY};
 
     & > div {
@@ -22,6 +22,11 @@ export const SignInWrapper = styled.section`
       color: ${(props) => props.theme.DARK_BACKGROUND_GREY};
       background-color: ${(props) => props.theme.FOOTER_BACKGROUND};
       cursor: pointer;
+      transition: opacity 0.5s;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
   }
 `;

@@ -6,7 +6,7 @@ import SignInPresenter from './SignInPresenter';
 import { signIn } from '../../types/api';
 import { SIGNIN_REQUEST } from '../../queries/user.queries';
 import { setToken } from '../../lib/cookie';
-import { encryptValue } from '../../lib/encrypt';
+import { encryptValue } from '../../lib/crypto';
 import useChangeEvent from '../../lib/useChangeEvent';
 import { LOCAL_SIGN_IN } from '../../queries/client';
 

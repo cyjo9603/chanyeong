@@ -23,13 +23,14 @@ const path = [
   { path: '/portfolio', name: 'PORTFOLIO' },
 ];
 
-const ProjectContainer = ({ GetProject: { project } }: Props) => {
+const ProjectContainer = ({ GetProject }: Props) => {
+  const { project } = useMemo(() => GetProject || { project: null }, []);
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
-  const [isFixed, setIsFixed] = useState(project.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
-  const projectPath = useMemo(() => [...path, { name: project.title }], [project.title]);
+  const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
+  const projectPath = useMemo(() => [...path, { name: project?.title }], []);
   const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
-    variables: { id: project.id },
+    variables: { id: project?.id },
     onCompleted: async ({ DeleteProject }) => {
       if (DeleteProject.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
@@ -43,7 +44,7 @@ const ProjectContainer = ({ GetProject: { project } }: Props) => {
     },
   });
   const [fixProjecttMutation] = useMutation<fixProject>(FIX_PROJECT, {
-    variables: { id: project.id, fix: isFixed === FIX_PROJECT_TRUE },
+    variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
     onCompleted: async ({ FixProject }) => {
       if (FixProject.error === ERROR_EXPIRATION) {
         const token = await reissuanceAccessToken(apollo);
@@ -85,14 +86,16 @@ const ProjectContainer = ({ GetProject: { project } }: Props) => {
   }, []);
 
   return (
-    <ProjectPresenter
-      isFixed={isFixed}
-      project={project}
-      userInfo={userInfo}
-      projectPath={projectPath}
-      onClickDelete={onClickDelete}
-      onClickFix={onClickFix}
-    />
+    project && (
+      <ProjectPresenter
+        isFixed={isFixed}
+        project={project}
+        userInfo={userInfo}
+        projectPath={projectPath}
+        onClickDelete={onClickDelete}
+        onClickFix={onClickFix}
+      />
+    )
   );
 };
 

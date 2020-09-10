@@ -17,7 +17,7 @@ export const StatusBar = styled.div<{ isScrollTop: boolean }>`
 
     & span,
     a {
-      font-weight: 500px;
+      font-weight: 700;
       margin-right: 20px;
       margin-top: 4px;
       color: ${({ theme }) => theme.PRIMARY_FONT};

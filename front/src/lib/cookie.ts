@@ -1,6 +1,6 @@
 import { Cookies } from 'react-cookie';
 
-import { encryptValue, decryptValue } from './encrypt';
+import { encryptValue, decryptValue } from './crypto';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../secret';
 
 interface SetTokenProps {

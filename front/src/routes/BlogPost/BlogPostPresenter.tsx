@@ -26,11 +26,6 @@ interface Props {
   onClickFix: () => void;
 }
 
-const path = [
-  { path: '/', name: 'CHANYEONG' },
-  { path: '/blog', name: 'BLOG' },
-];
-
 const BlogPostPresenter = ({ isFixed, post, userInfo, postPath, onClickDelete, onClickFix }: Props) => (
   <>
     <Helmet>

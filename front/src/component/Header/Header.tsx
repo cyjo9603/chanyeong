@@ -13,7 +13,6 @@ interface Props {
 }
 
 const Header = ({ isDarkMode }: Props) => {
-  const [isAdmin, setIsAdmin] = useState(false);
   const [scrollRatio, setScrollRatio] = useState(0);
   const { data } = useQuery(GET_LOCAL_USER);
   const [logoutMutation] = useMutation(LOG_OUT);
@@ -28,13 +27,6 @@ const Header = ({ isDarkMode }: Props) => {
       setScrollRatio(1);
     }
   }, [scrollRatio]);
-
-  useEffect(() => {
-    const loginKey = localStorage.getItem('LOGIN_KEY');
-    if (process.env.LOGIN_KEY === loginKey) {
-      setIsAdmin(true);
-    }
-  }, []);
 
   useEffect(() => {
     document.body.addEventListener('scroll', onScroll);
@@ -63,13 +55,11 @@ const Header = ({ isDarkMode }: Props) => {
               <LogoutWrapper onClick={onClickLogout}>로그아웃</LogoutWrapper>
             </>
           ) : (
-            isAdmin && (
-              <span>
-                <Link href="/signin">
-                  <a>로그인</a>
-                </Link>
-              </span>
-            )
+            <span>
+              <Link href="/signin">
+                <a>로그인</a>
+              </Link>
+            </span>
           )}
         </Container>
       </StatusBar>
