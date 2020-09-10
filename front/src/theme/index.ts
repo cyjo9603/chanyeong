@@ -1,3 +1,7 @@
+import { prod } from '../apollo';
+
+const URL = prod ? 'https://chanyeong.com/' : 'http://localhost:3060/';
+
 const breakPoint = {
   HDPC: '1200px',
   PC: '980px',
@@ -6,7 +10,7 @@ const breakPoint = {
 };
 
 export const lightTheme = {
-  BACKGROUND_URL: 'banner_light.jpg',
+  BACKGROUND_URL: `${URL}banner_light.jpg`,
   BACKGROUND_COLOR: '#ffffff',
   BACKGROUND_COLOR_RGBA: 'rgba(255, 255, 255, 0.4)',
   PRIMARY_COLOR: '#23374D',
@@ -42,7 +46,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  BACKGROUND_URL: 'banner_dark.jpg',
+  BACKGROUND_URL: `${URL}banner_dark.jpg`,
   BACKGROUND_COLOR: '#242424',
   BACKGROUND_COLOR_RGBA: 'rgba(36, 36, 36, 0.5)',
   PRIMARY_COLOR: '#23374D',
