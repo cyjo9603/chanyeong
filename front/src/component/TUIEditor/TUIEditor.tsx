@@ -2,9 +2,10 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
-import axios from 'axios';
 import styled from 'styled-components';
+
 import { TUIEditorWithForwardedProps } from './TUIEditorWrapper';
+import { getUploadImageUrl, TYPE_FOLDER_POST } from '../../lib/uploadImage';
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -38,16 +39,10 @@ const TUIEditor = (props: Props) => {
   }, [props, editorRef]);
 
   const addImageBlobHook = useCallback(async (blob, callback) => {
-    const name = `${+new Date()}${blob.name}`;
-    const res = await axios.put(`${process.env.IMAGE_UPLOAD_URL}post/${name}&overwrite=true`, blob, {
-      headers: {
-        Authorization: process.env.IMAGE_UPLOAD_SECRET_KEY,
-        'Content-Type': 'application/octet-stream',
-      },
-    });
+    const url = await getUploadImageUrl(blob, TYPE_FOLDER_POST);
 
-    setImage(res.data.file.url);
-    callback(res.data.file.url, 'image');
+    setImage(url);
+    callback(url, blob.name);
   }, []);
 
   const hooks = { addImageBlobHook };
