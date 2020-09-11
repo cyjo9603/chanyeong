@@ -32,13 +32,6 @@ const SignInContainer = () => {
   });
 
   useEffect(() => {
-    const loginKey = localStorage.getItem('LOGIN_KEY');
-    if (process.env.LOGIN_KEY !== loginKey) {
-      Router.push('/');
-    }
-  }, []);
-
-  useEffect(() => {
     if (!hasIdAndPassword && userId && password) {
       setHasIdAndPassword(true);
     } else if (hasIdAndPassword && (!userId || !password)) {
