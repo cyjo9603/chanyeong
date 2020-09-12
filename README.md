@@ -8,7 +8,13 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 이 프로젝트는 지속적으로 리팩토링되며 발전시킬 예정입니다.
 
+## Architecture
+
+![architecture1](https://user-images.githubusercontent.com/49899406/92999517-634cdf00-f55c-11ea-8a80-b89cb1ce4b11.jpg)
+
 ## Skill
+
+![architecture2](https://user-images.githubusercontent.com/49899406/92999519-647e0c00-f55c-11ea-9e10-76cf4acac1d5.png)
 
 ### Front-end
 
@@ -43,7 +49,11 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 ##### Index Page
 
+<<<<<<< Updated upstream
 ![index](https://user-images.githubusercontent.com/49899406/85942252-27de4380-b963-11ea-8e1f-aded427f8f35.jpg)
+=======
+![index](https://user-images.githubusercontent.com/49899406/92999547-a1e29980-f55c-11ea-8dd6-75b115e5c409.png)
+>>>>>>> Stashed changes
 
 ##### About Page
 
