@@ -27,6 +27,12 @@ export const SignInWrapper = styled.section`
       &:hover {
         opacity: 0.9;
       }
+
+      &:disabled {
+        background-color: ${({ theme }) => theme.DISABLED};
+        opacity: 1;
+        cursor: not-allowed;
+      }
     }
   }
 `;

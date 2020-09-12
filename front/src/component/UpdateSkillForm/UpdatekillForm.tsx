@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
-import axios from 'axios';
 
 import { UpdateSkillFormWrapper } from './styled';
 import { getAccessToken } from '../../lib/cookie';
+import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '../../lib/uploadImage';
 import useChangeEvent from '../../lib/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '../../queries/skill.queries';
 import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '../../types/api';
@@ -117,14 +117,9 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   );
 
   const onChangeImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = `${+new Date()}${e.target.files[0].name}`;
-    const res = await axios.put(`${process.env.IMAGE_UPLOAD_URL}skill/${name}&overwrite=true`, e.target.files[0], {
-      headers: {
-        Authorization: process.env.IMAGE_UPLOAD_SECRET_KEY,
-        'Content-Type': 'application/octet-stream',
-      },
-    });
-    setImage(res.data.file.url);
+    const url = await getUploadImageUrl(e.target.files[0], TYPE_FOLDER_SKILL);
+
+    setImage(url);
   }, []);
 
   useEffect(() => {
