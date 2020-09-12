@@ -49,11 +49,7 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 ##### Index Page
 
-<<<<<<< Updated upstream
-![index](https://user-images.githubusercontent.com/49899406/85942252-27de4380-b963-11ea-8e1f-aded427f8f35.jpg)
-=======
 ![index](https://user-images.githubusercontent.com/49899406/92999547-a1e29980-f55c-11ea-8dd6-75b115e5c409.png)
->>>>>>> Stashed changes
 
 ##### About Page
 
