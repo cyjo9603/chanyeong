@@ -20,7 +20,7 @@ const BlogPostCard = ({ data: { id, category, title, createdAt, content, Tags, t
   return (
     <Link href={{ pathname: '/blog/post', query: { id } }} as={`/blog/post/${id}`}>
       <a>
-        <BlogPostCardWrapper>
+        <BlogPostCardWrapper hasImage={Boolean(titleImage)}>
           <div>
             <Type>{category}</Type>
             <TitleWrapper>
@@ -37,7 +37,7 @@ const BlogPostCard = ({ data: { id, category, title, createdAt, content, Tags, t
               ))}
             </TagListWrapper>
           </div>
-          <img src={titleImage} alt="post_card" />
+          {titleImage && <img src={titleImage} alt="post_card" />}
         </BlogPostCardWrapper>
       </a>
     </Link>

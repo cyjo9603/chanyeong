@@ -88,7 +88,7 @@ const AboutPresenter = ({
         </WorkProcessWrapper>
         <div>
           {userInfo?.isLoggedIn.userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
-          <Text content="Skill Stak" weight={700} size={TITLE} />
+          <Text content="Skill Stack" weight={700} size={TITLE} />
         </div>
         <Text content="Front-End" weight={700} />
         <SkillListWrapper>

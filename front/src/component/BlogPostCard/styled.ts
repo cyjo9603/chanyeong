@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BlogPostCardWrapper = styled.div`
+export const BlogPostCardWrapper = styled.div<{ hasImage: boolean }>`
   width: 100%;
   height: 190px;
   display: flex;
@@ -9,7 +9,7 @@ export const BlogPostCardWrapper = styled.div`
   color: ${({ theme }) => theme.PRIMARY_FONT};
 
   & > div {
-    width: calc(100% - 290px);
+    width: calc(100% - ${({ hasImage }) => (hasImage ? 290 : 0)}px);
     padding: 12px 18px;
   }
 
@@ -24,7 +24,7 @@ export const BlogPostCardWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     height: 130px;
     & > div {
-      width: calc(100% - 170px);
+      width: calc(100% - ${({ hasImage }) => (hasImage ? 170 : 0)}px);
       padding: 12px 18px;
     }
     & > img {
