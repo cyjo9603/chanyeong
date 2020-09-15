@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 import removeMd from 'remove-markdown';
+import { DiscussionEmbed } from 'disqus-react';
 
 import PageContainer from '../../component/pageContainer';
 import PagePath from '../../component/PagePath';
@@ -66,6 +67,14 @@ const BlogPostPresenter = ({ isFixed, post, userInfo, postPath, onClickDelete, o
           <hr />
           <TUIViewer content={post.content} />
         </section>
+        <DiscussionEmbed
+          shortname="canyeongyi-beulrogeu"
+          config={{
+            url: `https://chanyeong.com/blog/post/${post.id}`,
+            identifier: `chanyeong-blog-${post.id}`,
+            title: post.title,
+          }}
+        />
       </PostWrapper>
     </PageContainer>
   </>
