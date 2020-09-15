@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 export const PostWrapper = styled.div`
   margin-bottom: 80px;
+
+  & > section {
+    margin-bottom: 56px;
+  }
+
+  & #disqus_thread a {
+    color: ${({ theme }) => theme.PRIMARY_COLOR} !important;
+  }
 `;
 
 export const PostHeader = styled.div`
