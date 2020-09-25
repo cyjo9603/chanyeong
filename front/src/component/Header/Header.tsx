@@ -12,6 +12,8 @@ interface Props {
   isDarkMode: boolean;
 }
 
+const HIDDEN_STATUSBAR = 0.3 as const;
+
 const Header = ({ isDarkMode }: Props) => {
   const [scrollRatio, setScrollRatio] = useState(0);
   const { data } = useQuery(GET_LOCAL_USER);
@@ -47,7 +49,7 @@ const Header = ({ isDarkMode }: Props) => {
 
   return (
     <>
-      <StatusBar isScrollTop={scrollRatio === 0}>
+      <StatusBar isHidden={scrollRatio > HIDDEN_STATUSBAR}>
         <Container>
           {data?.isLoggedIn.userName ? (
             <>
