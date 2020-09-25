@@ -2,15 +2,17 @@ import React, { useState, useCallback, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import Container from '../pageContainer';
-import NavBar from '../NavBar';
+import Container from '@component/pageContainer';
+import NavBar from '@component/NavBar';
+import { LOG_OUT, GET_LOCAL_USER } from '@queries/client';
+import { clearCookie, getAccessToken } from '@lib/cookie';
 import { StatusBar, HeaderSection, LogoWrapper, NavWrapper, LogoutWrapper } from './styled';
-import { LOG_OUT, GET_LOCAL_USER } from '../../queries/client';
-import { clearCookie, getAccessToken } from '../../lib/cookie';
 
 interface Props {
   isDarkMode: boolean;
 }
+
+const HIDDEN_STATUSBAR = 0.3 as const;
 
 const Header = ({ isDarkMode }: Props) => {
   const [scrollRatio, setScrollRatio] = useState(0);
@@ -47,7 +49,7 @@ const Header = ({ isDarkMode }: Props) => {
 
   return (
     <>
-      <StatusBar isScrollTop={scrollRatio === 0}>
+      <StatusBar isHidden={scrollRatio > HIDDEN_STATUSBAR}>
         <Container>
           {data?.isLoggedIn.userName ? (
             <>

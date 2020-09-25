@@ -2,14 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
-import { getAccessToken } from '../../lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
-import { GET_SKILLS } from '../../queries/skill.queries';
-import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '../../queries/project.queries';
-import { getSkills, addProject, getProject_GetProject_project, updateProject } from '../../types/api';
-import { GET_LOCAL_USER } from '../../queries/client';
+import useChangeEvent from '@lib/useChangeEvent';
+import { getAccessToken } from '@lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import { GET_SKILLS } from '@queries/skill.queries';
+import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
+import { GET_LOCAL_USER } from '@queries/client';
+import { getSkills, addProject, getProject_GetProject_project, updateProject } from '@gql-types/api';
 import AddProjectPresenter from './AddProjectPresenter';
-import useChangeEvent from '../../lib/useChangeEvent';
 
 const MUTATION_ADD = 'ADD' as const;
 const MUTATION_UPDATE = 'UPDATE' as const;

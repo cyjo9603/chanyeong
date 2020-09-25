@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 
+import { getTags_GetTags_tags } from '@gql-types/api';
 import { TagWrapper } from './styled';
-
-import { getTags_GetTags_tags } from '../../types/api';
 
 interface Props {
   data: getTags_GetTags_tags;

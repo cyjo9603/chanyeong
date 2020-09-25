@@ -1,10 +1,10 @@
 import React from 'react';
 
-import PageContainer from '../../component/pageContainer';
-import TUIEditor from '../../component/TUIEditor';
-import Tag from '../../commons/Tag';
+import PageContainer from '@component/pageContainer';
+import TUIEditor from '@component/TUIEditor';
+import Tag from '@commons/Tag';
+import { getPost_GetPost_post } from '@gql-types/api';
 import { BlogWriteHeader, BlogWriteBottom } from './styled';
-import { getPost_GetPost_post } from '../../types/api';
 
 interface Props {
   title: string;

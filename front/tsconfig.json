@@ -12,7 +12,18 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@commons/*": ["src/commons/*"],
+      "@component/*": ["src/component/*"],
+      "@lib/*": ["src/lib/*"],
+      "@routes/*": ["src/routes/*"],
+      "@theme/*": ["src/theme/*"],
+      "@queries/*": ["src/queries/*"],
+      "@gql-types/*": ["src/types/*"],
+    }
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]

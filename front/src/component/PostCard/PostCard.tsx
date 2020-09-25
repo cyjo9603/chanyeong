@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
+import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
 import { PostCardWrapper, NoImage, PostContent } from './styled';
-import { getPicked_GetPickedPosts_posts } from '../../types/api';
 
 interface Props {
   data: getPicked_GetPickedPosts_posts;

@@ -2,11 +2,11 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Router from 'next/router';
 
-import { getPost_GetPost, deletePost, fixPost } from '../../types/api';
-import { GET_POST, DELETE_POST, FIX_POST } from '../../queries/post.queries';
-import { GET_LOCAL_USER } from '../../queries/client';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
-import { getAccessToken } from '../../lib/cookie';
+import { getAccessToken } from '@lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
+import { GET_LOCAL_USER } from '@queries/client';
+import { getPost_GetPost, deletePost, fixPost } from '@gql-types/api';
 import BlogPostPresenter from './BlogPostPresenter';
 
 const FIX_POST_TRUE = '게시글 고정' as const;

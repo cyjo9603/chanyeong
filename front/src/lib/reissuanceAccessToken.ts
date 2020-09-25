@@ -1,5 +1,5 @@
+import { REISSUANCE_ACCESS_TOKEN } from '@queries/user.queries';
 import { getRefreshToken, setAccessToken } from './cookie';
-import { REISSUANCE_ACCESS_TOKEN } from '../queries/user.queries';
 
 export const ERROR_EXPIRATION = 'ERROR_EXPIRATION' as const;
 

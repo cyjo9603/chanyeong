@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import { GET_PICKED } from '@queries/picked.queries';
+import { getPicked } from '@gql-types/api';
 import Banner from './Banner';
 import AboutSummary from './AboutSummary';
 import ProjectSummary from './ProjectSummary';
 import PostSummary from './PostSummary';
-import { GET_PICKED } from '../../queries/picked.queries';
-import { getPicked } from '../../types/api';
 
 const HomeContainer = () => {
   const { data } = useQuery<getPicked>(GET_PICKED);

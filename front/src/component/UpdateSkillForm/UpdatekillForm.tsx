@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 
+import { getAccessToken } from '@lib/cookie';
+import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
+import useChangeEvent from '@lib/useChangeEvent';
+import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
+import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
 import { UpdateSkillFormWrapper } from './styled';
-import { getAccessToken } from '../../lib/cookie';
-import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '../../lib/uploadImage';
-import useChangeEvent from '../../lib/useChangeEvent';
-import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '../../queries/skill.queries';
-import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '../../types/api';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
 
 interface Props {
   closeUpdateSkill: () => void;

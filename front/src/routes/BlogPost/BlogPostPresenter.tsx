@@ -4,15 +4,15 @@ import { Helmet } from 'react-helmet';
 import removeMd from 'remove-markdown';
 import { DiscussionEmbed } from 'disqus-react';
 
-import PageContainer from '../../component/pageContainer';
-import PagePath from '../../component/PagePath';
-import TUIViewer from '../../component/TUIViewer';
-import Tag from '../../commons/Tag';
-import Button from '../../commons/Button';
+import PageContainer from '@component/pageContainer';
+import PagePath from '@component/PagePath';
+import TUIViewer from '@component/TUIViewer';
+import Tag from '@commons/Tag';
+import Button from '@commons/Button';
+import dateFormat from '@lib/dateFormat';
+import { getPost_GetPost_post } from '@gql-types/api';
+import { LocalSignIn } from '@src/apollo';
 import { PostWrapper, PostHeader, TagWrapper } from './styled';
-import { getPost_GetPost_post } from '../../types/api';
-import dateFormat from '../../lib/dateFormat';
-import { LocalSignIn } from '../../apollo';
 import { FixPost } from './BlogPostContainer';
 
 interface Props {

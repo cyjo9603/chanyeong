@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import { getSkills, getSkills_GetSkills_skill } from '@gql-types/api';
+import { GET_SKILLS } from '@queries/skill.queries';
+import { GET_LOCAL_USER } from '@queries/client';
 import AboutPresenter from './AboutPresenter';
-import { GET_SKILLS } from '../../queries/skill.queries';
-import { getSkills, getSkills_GetSkills_skill } from '../../types/api';
-import { GET_LOCAL_USER } from '../../queries/client';
 
 const AboutContainer = () => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);

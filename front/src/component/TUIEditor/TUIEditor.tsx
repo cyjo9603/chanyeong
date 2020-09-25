@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import styled from 'styled-components';
 
+import { getUploadImageUrl, TYPE_FOLDER_POST } from '@lib/uploadImage';
 import { TUIEditorWithForwardedProps } from './TUIEditorWrapper';
-import { getUploadImageUrl, TYPE_FOLDER_POST } from '../../lib/uploadImage';
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;

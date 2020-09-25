@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-export const StatusBar = styled.div<{ isScrollTop: boolean }>`
+export const StatusBar = styled.div<{ isHidden: boolean }>`
   position: relative;
   z-index: 1;
   transition: background 0.3s;
-  ${({ isScrollTop, theme }) =>
-    !isScrollTop &&
-    `
-  background-color: ${theme.BACKGROUND_COLOR_RGBA};
-  backdrop-filter: saturate(180%) blur(20px);
-  `};
+  ${({ isHidden, theme }) => isHidden && ` background-color: ${theme.BACKGROUND_COLOR_RGBA};`}
+
   & > div {
     height: 30px;
     display: flex;
@@ -39,7 +35,7 @@ export const HeaderSection = styled.div<{ scrollRatio: number }>`
   position: sticky;
   top: 0;
   ${({ theme, scrollRatio }) =>
-    scrollRatio !== 0 &&
+    scrollRatio > 0.3 &&
     `
   background-color: ${theme.BACKGROUND_COLOR_RGBA};
   backdrop-filter: saturate(180%) blur(20px);

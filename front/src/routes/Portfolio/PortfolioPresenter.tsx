@@ -2,14 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '../../component/pageContainer';
-import PagePath from '../../component/PagePath';
-import ProjectCard from '../../component/ProjectCard';
-import Button from '../../commons/Button';
-import Text, { MIN_TITLE } from '../../commons/Text';
+import PageContainer from '@component/pageContainer';
+import PagePath from '@component/PagePath';
+import ProjectCard from '@component/ProjectCard';
+import Button from '@commons/Button';
+import Text, { MIN_TITLE } from '@commons/Text';
+import { getProjects_GetProjects_project } from '@gql-types/api';
+import { LocalSignIn } from '@src/apollo';
 import { SubTitleWrapper, ProjectListWrapper } from './styled';
-import { LocalSignIn } from '../../apollo';
-import { getProjects_GetProjects_project } from '../../types/api';
 
 interface Props {
   userInfo: LocalSignIn;

@@ -2,9 +2,9 @@ import React, { useCallback, useRef, useEffect } from 'react';
 import { NextPageContext } from 'next';
 import { useQuery } from '@apollo/react-hooks';
 
+import { SEARCH_POSTS } from '@queries/post.queries';
+import { searchPosts } from '@gql-types/api';
 import SearchBlogPostPresenter from './SearchBlogPostPresenter';
-import { SEARCH_POSTS } from '../../queries/post.queries';
-import { searchPosts } from '../../types/api';
 
 interface Props {
   word: string;

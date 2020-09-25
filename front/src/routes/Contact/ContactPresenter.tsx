@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '../../component/pageContainer';
-import PagePath from '../../component/PagePath';
+import PageContainer from '@component/pageContainer';
+import PagePath from '@component/PagePath';
 import { ProfileWrapper } from './styled';
 
 const path = [
