@@ -1,1 +1,1 @@
-export { default } from '../../routes/SeachBlogPost';
+export { default } from '@routes/SeachBlogPost';

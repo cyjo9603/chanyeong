@@ -1,15 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '../../component/pageContainer';
-import PagePath from '../../component/PagePath';
-import AboutValue from '../../component/AboutValue';
-import AboutSkill from '../../component/AboutSkill';
-import Button from '../../commons/Button';
-import Text, { TITLE } from '../../commons/Text';
-import { getSkills_GetSkills_skill } from '../../types/api';
-import { LocalSignIn } from '../../apollo';
-import UpdateSkillForm from '../../component/UpdateSkillForm';
+import PageContainer from '@component/pageContainer';
+import PagePath from '@component/PagePath';
+import AboutValue from '@component/AboutValue';
+import AboutSkill from '@component/AboutSkill';
+import Button from '@commons/Button';
+import Text, { TITLE } from '@commons/Text';
+import { getSkills_GetSkills_skill } from '@gql-types/api';
+import UpdateSkillForm from '@component/UpdateSkillForm';
+import { LocalSignIn } from '@src/apollo';
 import WorkProcessItem from './WorkProcessItem';
 import { AboutWrapper, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
 

@@ -1,1 +1,1 @@
-export { default } from '../../routes/AddProject';
+export { default } from '@routes/AddProject';

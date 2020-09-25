@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { getPicked_GetPickedProjects_project, getProjects_GetProjects_project } from '@gql-types/api';
 import { ProjectCardWrapper, NoImage, ProjectContent } from './styled';
-import { getPicked_GetPickedProjects_project, getProjects_GetProjects_project } from '../../types/api';
 
 interface Props {
   projectInfo: getPicked_GetPickedProjects_project | getProjects_GetProjects_project;

@@ -1,7 +1,7 @@
 import React from 'react';
 import TextLoop from 'react-text-loop';
 
-import PageContainer from '../../component/pageContainer';
+import PageContainer from '@component/pageContainer';
 import { BannerWrapper, IntroWrapper } from './styled';
 
 const Banner = () => (

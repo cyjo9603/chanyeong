@@ -2,13 +2,13 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
+import { getAccessToken } from '@lib/cookie';
+import useChangeEvent from '@lib/useChangeEvent';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import { GET_LOCAL_USER } from '@queries/client';
+import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
+import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
-import { WRITE_POST, GET_POST, EDIT_POST } from '../../queries/post.queries';
-import { getAccessToken } from '../../lib/cookie';
-import useChangeEvent from '../../lib/useChangeEvent';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
-import { writePost, getPost_GetPost_post, editPost } from '../../types/api';
-import { GET_LOCAL_USER } from '../../queries/client';
 
 interface Props {
   post?: getPost_GetPost_post;

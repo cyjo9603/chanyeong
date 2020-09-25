@@ -1,9 +1,9 @@
 import React from 'react';
 
-import PageContainer from '../../component/pageContainer';
-import BlogPostCard from '../../component/BlogPostCard';
+import PageContainer from '@component/pageContainer';
+import BlogPostCard from '@component/BlogPostCard';
+import { searchPosts_SearchPosts_posts } from '@gql-types/api';
 import { SearchPageWrapper, NoPost } from './styled';
-import { searchPosts_SearchPosts_posts } from '../../types/api';
 
 interface Props {
   searchWord: string;

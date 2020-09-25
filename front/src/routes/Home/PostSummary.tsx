@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import Slider from 'react-slick';
 
-import PageContainer from '../../component/pageContainer';
+import PageContainer from '@component/pageContainer';
+import DetailButton from '@component/DetailButton';
+import PostCard from '@component/PostCard';
+import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
 import { SummaryWrapper, ArticleHeader, SliderWrapper } from './styled';
-import DetailButton from '../../component/DetailButton';
-import PostCard from '../../component/PostCard';
-import { getPicked_GetPickedPosts_posts } from '../../types/api';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;

@@ -2,10 +2,10 @@ import React, { useMemo, memo } from 'react';
 import Link from 'next/link';
 import removeMd from 'remove-markdown';
 
+import Tag from '@commons/Tag';
+import dateFormat from '@lib/dateFormat';
+import { getPosts_GetPosts_posts } from '@gql-types/api';
 import { BlogPostCardWrapper, Type, TitleWrapper, ContentWrapper, TagListWrapper, NewPost } from './styled';
-import Tag from '../../commons/Tag';
-import { getPosts_GetPosts_posts } from '../../types/api';
-import dateFormat from '../../lib/dateFormat';
 
 interface Props {
   data: getPosts_GetPosts_posts;

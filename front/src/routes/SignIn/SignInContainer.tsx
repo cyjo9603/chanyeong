@@ -2,13 +2,13 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 
+import useChangeEvent from '@lib/useChangeEvent';
+import { setToken } from '@lib/cookie';
+import { encryptValue } from '@lib/crypto';
+import { LOCAL_SIGN_IN } from '@queries/client';
+import { SIGNIN_REQUEST } from '@queries/user.queries';
+import { signIn } from '@gql-types/api';
 import SignInPresenter from './SignInPresenter';
-import { signIn } from '../../types/api';
-import { SIGNIN_REQUEST } from '../../queries/user.queries';
-import { setToken } from '../../lib/cookie';
-import { encryptValue } from '../../lib/crypto';
-import useChangeEvent from '../../lib/useChangeEvent';
-import { LOCAL_SIGN_IN } from '../../queries/client';
 
 const SignInContainer = () => {
   const [userId, , onChangeUserId] = useChangeEvent<HTMLInputElement>('');

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '../../component/pageContainer';
-import PagePath from '../../component/PagePath';
-import Search from '../../commons/Search';
-import BlogPostCard from '../../component/BlogPostCard';
-import Button from '../../commons/Button';
-import Text from '../../commons/Text';
-import TagCount from '../../component/TagCount';
+import PageContainer from '@component/pageContainer';
+import PagePath from '@component/PagePath';
+import Search from '@commons/Search';
+import BlogPostCard from '@component/BlogPostCard';
+import Button from '@commons/Button';
+import Text from '@commons/Text';
+import TagCount from '@component/TagCount';
+import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '@gql-types/api';
+import { LocalSignIn } from '@src/apollo';
 import { BlogWrapper, BlogContainer, SideTagContainer, NavWrapper, NavItem, SubItem } from './styled';
-import { LocalSignIn } from '../../apollo';
-import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '../../types/api';
 
 interface Props {
   userInfo?: LocalSignIn;

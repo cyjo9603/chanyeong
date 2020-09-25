@@ -6,15 +6,15 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { getDataFromTree } from '@apollo/react-ssr';
 
-import withApolloClient from '../apollo';
-import { lightTheme, darkTheme } from '../theme';
-import GlobalStyle from '../theme/globalStyle';
-import AppLayout from '../component/AppLayout';
-import DarkModeButton from '../component/DarkModeButton';
-import { GET_USER_INFO } from '../queries/user.queries';
-import { getAccessToken, getRefreshToken } from '../lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../lib/reissuanceAccessToken';
-import { getUserInfo } from '../types/api';
+import { lightTheme, darkTheme } from '@theme/.';
+import GlobalStyle from '@theme/globalStyle';
+import AppLayout from '@component/AppLayout';
+import DarkModeButton from '@component/DarkModeButton';
+import { GET_USER_INFO } from '@queries/user.queries';
+import { getAccessToken, getRefreshToken } from '@lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import { getUserInfo } from '@gql-types/api';
+import withApolloClient from '@src/apollo';
 
 interface Props extends AppProps {
   apollo: ApolloClient<any>;

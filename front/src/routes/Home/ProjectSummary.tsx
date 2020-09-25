@@ -1,10 +1,10 @@
 import React from 'react';
 
-import PageContainer from '../../component/pageContainer';
+import PageContainer from '@component/pageContainer';
+import DetailButton from '@component/DetailButton';
+import ProjectCard from '@component/ProjectCard';
+import { getPicked_GetPickedProjects_project } from '@gql-types/api';
 import { ProjectSummaryWrapper, ArticleHeader } from './styled';
-import DetailButton from '../../component/DetailButton';
-import ProjectCard from '../../component/ProjectCard';
-import { getPicked_GetPickedProjects_project } from '../../types/api';
 
 interface Props {
   data: getPicked_GetPickedProjects_project[];

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import PageContainer from '../../component/pageContainer';
-import TUIEditor from '../../component/TUIEditor';
-import SkillIcon from '../../component/SkillIcon';
-import Button from '../../commons/Button';
+import PageContainer from '@component/pageContainer';
+import TUIEditor from '@component/TUIEditor';
+import SkillIcon from '@component/SkillIcon';
+import Button from '@commons/Button';
+import { getSkills_GetSkills_skill, getProject_GetProject_project } from '@gql-types/api';
 import { InputWrapper, PageHeader, PageFooter, SkillWrapper } from './styled';
-import { getSkills_GetSkills_skill, getProject_GetProject_project } from '../../types/api';
 
 interface Props {
   title: string;

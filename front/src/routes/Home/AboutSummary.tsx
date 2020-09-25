@@ -1,9 +1,9 @@
 import React from 'react';
-import PageContainer from '../../component/pageContainer';
 
+import PageContainer from '@component/pageContainer';
+import AboutValue from '@component/AboutValue';
+import DetailButton from '@component/DetailButton';
 import { AboutSummaryWrapper, ArticleHeader } from './styled';
-import AboutValue from '../../component/AboutValue';
-import DetailButton from '../../component/DetailButton';
 
 const AboutSmmary = () => (
   <PageContainer>

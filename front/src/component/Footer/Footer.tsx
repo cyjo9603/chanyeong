@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import PageContainer from '../pageContainer';
+import PageContainer from '@component/pageContainer';
 import { FooterWrapper, FooterLogoWrapper, FooterInfoWrapper } from './styled';
 
 const Footer = () => (

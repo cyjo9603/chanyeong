@@ -1,7 +1,7 @@
 import React, { useMemo, memo } from 'react';
 
+import { getSkills_GetSkills_skill } from '@gql-types/api';
 import { AboutSkillWrapper, LevelBar } from './styled';
-import { getSkills_GetSkills_skill } from '../../types/api';
 
 interface Props {
   data: getSkills_GetSkills_skill;

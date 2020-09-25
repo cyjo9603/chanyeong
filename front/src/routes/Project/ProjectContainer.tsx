@@ -2,12 +2,12 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Router from 'next/router';
 
+import { getAccessToken } from '@lib/cookie';
+import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import { GET_LOCAL_USER } from '@queries/client';
+import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
+import { getProject_GetProject, deleteProject, fixProject } from '@gql-types/api';
 import ProjectPresenter from './ProjectPresenter';
-import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '../../queries/project.queries';
-import { getProject_GetProject, deleteProject, fixProject } from '../../types/api';
-import { GET_LOCAL_USER } from '../../queries/client';
-import { getAccessToken } from '../../lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '../../lib/reissuanceAccessToken';
 
 const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
 const FIX_PROJECT_FALSE = '프로젝트 고정 해제' as const;

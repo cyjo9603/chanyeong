@@ -1,1 +1,1 @@
-export { default } from '../../routes/Portfolio';
+export { default } from '@routes/Portfolio';

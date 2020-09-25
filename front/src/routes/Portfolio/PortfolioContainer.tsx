@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
-import { getProjects } from '../../types/api';
-import { GET_PROJECTS } from '../../queries/project.queries';
-import { GET_LOCAL_USER } from '../../queries/client';
+import { GET_LOCAL_USER } from '@queries/client';
+import { GET_PROJECTS } from '@queries/project.queries';
+import { getProjects } from '@gql-types/api';
 import PortfolioPresenter from './PortfolioPresenter';
 
 const PortfolioContainer = () => {

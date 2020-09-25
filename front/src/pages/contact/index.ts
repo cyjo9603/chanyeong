@@ -1,1 +1,1 @@
-export { default } from '../../routes/Contact';
+export { default } from '@routes/Contact';
