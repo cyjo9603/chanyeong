@@ -30,6 +30,9 @@ const path = [
   { path: '/blog', name: 'BLOG' },
 ];
 
+const CATEGORY_DIARY = 'DIARY';
+const CATEGORY_DEV = 'DEV';
+
 const BlogPresenter = ({
   userInfo,
   category,
@@ -65,10 +68,10 @@ const BlogPresenter = ({
               <NavItem onClick={() => onChangeCategory(null)} currrentFocus={category === null}>
                 All
               </NavItem>
-              <NavItem onClick={() => onChangeCategory('DIARY')} currrentFocus={category === 'DIARY'}>
+              <NavItem onClick={() => onChangeCategory(CATEGORY_DIARY)} currrentFocus={category === CATEGORY_DIARY}>
                 diary
               </NavItem>
-              <NavItem onClick={() => onChangeCategory('DEV')} currrentFocus={category === 'DEV'}>
+              <NavItem onClick={() => onChangeCategory(CATEGORY_DEV)} currrentFocus={category === CATEGORY_DEV}>
                 dev
               </NavItem>
             </div>

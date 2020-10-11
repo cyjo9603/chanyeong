@@ -14,7 +14,7 @@ const BlogContainer = () => {
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
   const [searchWord, , onChangeSearchWord] = useChangeEvent<HTMLInputElement>('');
-  const lastId = useRef(null);
+  const lastId = useRef({});
   const { data: postData, fetchMore, refetch } = useQuery<getPosts>(GET_POSTS, { variables: { category, tagId } });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
 
@@ -27,15 +27,16 @@ const BlogContainer = () => {
     const posts = postData?.GetPosts?.posts;
     if (
       posts &&
-      lastId.current !== posts?.[posts.length - 1].id &&
+      lastId.current[category] !== posts?.[posts.length - 1].id &&
       document.body.scrollTop + document.body.clientHeight > document.body.scrollHeight - 400
     ) {
-      lastId.current = posts[posts.length - 1].id;
+      console.log('req');
+      lastId.current[category] = posts[posts.length - 1].id;
       fetchMore({
         variables: {
           category,
           tagId,
-          lastId: lastId.current,
+          lastId: lastId.current[category],
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
