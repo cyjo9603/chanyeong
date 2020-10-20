@@ -30,7 +30,6 @@ const BlogContainer = () => {
       lastId.current[category] !== posts?.[posts.length - 1].id &&
       document.body.scrollTop + document.body.clientHeight > document.body.scrollHeight - 400
     ) {
-      console.log('req');
       lastId.current[category] = posts[posts.length - 1].id;
       fetchMore({
         variables: {
