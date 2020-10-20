@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
-import docco from 'react-syntax-highlighter/dist/esm/styles/hljs/docco';
+import docco from 'react-syntax-highlighter/dist/esm/styles/prism/cb';
+
+import { SyntaxWrapper } from './styled';
 
 interface Props {
   content: string;
@@ -15,9 +17,9 @@ interface RenderersProps {
 const renderers = {
   code: ({ language, value }: RenderersProps) => {
     return (
-      <SyntaxHighlighter style={docco} language={language}>
+      <SyntaxWrapper style={docco} language={language}>
         {value}
-      </SyntaxHighlighter>
+      </SyntaxWrapper>
     );
   },
 };
