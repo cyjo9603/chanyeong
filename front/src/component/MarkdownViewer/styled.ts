@@ -13,23 +13,30 @@ export const MarkdownWrapper = styled(ReactMarkdown)`
     font-weight: 700;
   }
 
-  ol,
+  a {
+    color: ${({ theme }) => theme.A_LINK};
+  }
+
   ul {
     margin-left: 12px;
   }
 
-  ol > li {
-    counter-increment: li;
+  ol {
+    margin-left: 36px;
 
-    &::before {
-      margin-right: 8px;
-      content: counter(li) '.';
-      font-weight: 700;
-    }
+    & > li {
+      counter-increment: li;
 
-    & p {
-      display: inline-block;
-      margin: 8px 0;
+      &::before {
+        position: absolute;
+        margin-left: -24px;
+        content: counter(li) '.';
+        font-weight: 700;
+      }
+
+      & p {
+        margin: 8px 0;
+      }
     }
   }
 
