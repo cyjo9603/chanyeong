@@ -10,7 +10,8 @@ const inlineCode = ({ value }: InlineCodeProps) => <InlineCode>{value}</InlineCo
 const InlineCode = styled.code`
   background-color: ${({ theme }) => theme.CODE_BACKGROUND};
   color: ${({ theme }) => theme.CODE_INLINE};
-  padding: 2px 3px;
+  padding: 2px 4px;
+  border-radius: 4px;
 `;
 
 export default inlineCode;

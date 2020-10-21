@@ -33,6 +33,7 @@ const code = ({ language, value }: CodeProps) => (
 
 const SyntaxWrapper = styled(SyntaxHighlighter)`
   background-color: ${({ theme }) => theme.CODE_BACKGROUND} !important;
+  font-size: 0.9em;
 
   & code {
     color: ${({ theme }) => theme.PRIMARY_FONT} !important;

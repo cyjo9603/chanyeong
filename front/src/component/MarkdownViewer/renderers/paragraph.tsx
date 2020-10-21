@@ -8,7 +8,7 @@ interface ParahraphProps {
 const paragraph = ({ children }: ParahraphProps) => <Paragraph>{children}</Paragraph>;
 
 const Paragraph = styled.p`
-  font-size: 14px;
+  font-size: 1em;
   line-height: 2;
   margin: 18px 0;
 `;
