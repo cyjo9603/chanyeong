@@ -8,7 +8,6 @@ import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript';
 import bash from 'react-syntax-highlighter/dist/esm/languages/hljs/bash';
 import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
-import scss from 'react-syntax-highlighter/dist/esm/languages/hljs/scss';
 import html from 'react-syntax-highlighter/dist/esm/languages/hljs/htmlbars';
 import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json';
 
@@ -16,7 +15,6 @@ SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
 SyntaxHighlighter.registerLanguage('bash', bash);
 SyntaxHighlighter.registerLanguage('css', css);
-SyntaxHighlighter.registerLanguage('css', scss);
 SyntaxHighlighter.registerLanguage('html', html);
 SyntaxHighlighter.registerLanguage('json', json);
 
