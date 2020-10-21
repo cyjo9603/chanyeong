@@ -1,11 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
-import removeMd from 'remove-markdown';
 
 import PageContainer from '@component/pageContainer';
 import PagePath from '@component/PagePath';
-import TUIViewer from '@component/TUIViewer';
+import MarkdownViewer from '@component/MarkdownViewer';
 import SkillIcon from '@component/SkillIcon';
 import Button from '@commons/Button';
 import { getProject_GetProject_project } from '@gql-types/api';
@@ -17,6 +16,7 @@ interface Props {
   isFixed: FixProject;
   project?: getProject_GetProject_project;
   userInfo?: LocalSignIn;
+  projectDescription: string;
   projectPath: {
     path?: string;
     name: string;
@@ -25,13 +25,21 @@ interface Props {
   onClickFix: () => void;
 }
 
-const ProjectPresenter = ({ isFixed, project, userInfo, projectPath, onClickDelete, onClickFix }: Props) => (
+const ProjectPresenter = ({
+  isFixed,
+  project,
+  userInfo,
+  projectDescription,
+  projectPath,
+  onClickDelete,
+  onClickFix,
+}: Props) => (
   <>
     <Helmet>
       <title>{project.title} :: chanyeong</title>
-      <meta name="description" content={removeMd(project.content, { useImgAltText: false })} />
+      <meta name="description" content={`${projectDescription}...`} />
       <meta name="og:title" content={`${project.title} - chanyeong`} />
-      <meta name="og:description" content={removeMd(project.content, { useImgAltText: false })} />
+      <meta name="og:description" content={`${projectDescription}...`} />
       <meta name="og:image" content={project.titleImage} />
       <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
     </Helmet>
@@ -75,7 +83,7 @@ const ProjectPresenter = ({ isFixed, project, userInfo, projectPath, onClickDele
               </div>
             )}
           </ProjectHeader>
-          <TUIViewer content={project.content} />
+          <MarkdownViewer content={project.content} />
           <SkillsWrapper>
             <h3>적용 기술</h3>
             {project?.Skills.map((v) => (
