@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import ReactMarkdown from 'react-markdown';
 
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript';
@@ -49,4 +50,60 @@ export const SyntaxWrapper = styled(SyntaxHighlighter)`
   & .hljs-tag {
     color: ${({ theme }) => theme.CODE_HTML};
   }
+`;
+
+export const MarkdownWrapper = styled(ReactMarkdown)`
+  & p,
+  :link,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  td {
+    color: ${({ theme }) => theme.PRIMARY_FONT};
+  }
+
+  & blockquote {
+    border-left: 4px solid #20c997;
+    padding: 0 16px;
+    vertical-align: baseline;
+
+    & > p {
+      font-size: 18px;
+    }
+  }
+  & td {
+    border: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
+  }
+
+  & p,
+  li {
+    font-size: 14px;
+    line-height: 2;
+  }
+  & p {
+    margin: 18px 0;
+  }
+  & h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 20px 0 15px;
+  }
+  & img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+`;
+
+export const InlineCode = styled.code`
+  background-color: ${({ theme }) => theme.CODE_BACKGROUND};
+  color: ${({ theme }) => theme.CODE_INLINE};
+  padding: 2px 3px;
 `;

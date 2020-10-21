@@ -38,6 +38,7 @@ export const lightTheme = {
   CODE_ID: '#990000',
   CODE_NUMBER: '#008080',
   CODE_HTML: '#A626A4',
+  CODE_INLINE: '#c1798b',
 
   SKILL_RED: '#E0613F',
   SKILL_YELLOW: '#FFF2A1',
@@ -76,6 +77,7 @@ export const darkTheme = {
   CODE_ID: '#f76767',
   CODE_NUMBER: '#64878F',
   CODE_HTML: '#f8bbd0',
+  CODE_INLINE: '#c1798b',
 
   SKILL_RED: '#E0613F',
   SKILL_YELLOW: '#FFF2A1',
