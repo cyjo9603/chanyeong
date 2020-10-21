@@ -1,15 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
-import removeMd from 'remove-markdown';
 import { DiscussionEmbed } from 'disqus-react';
 
 import PageContainer from '@component/pageContainer';
 import PagePath from '@component/PagePath';
-import TUIViewer from '@component/TUIViewer';
 import Tag from '@commons/Tag';
 import Button from '@commons/Button';
 import dateFormat from '@lib/dateFormat';
+import MarkdownViewer from '@src/component/MarkdownViewer';
 import { getPost_GetPost_post } from '@gql-types/api';
 import { LocalSignIn } from '@src/apollo';
 import { PostWrapper, PostHeader, TagWrapper } from './styled';
@@ -23,17 +22,26 @@ interface Props {
     path?: string;
     name: string;
   }[];
+  postDescription: string;
   onClickDelete: () => void;
   onClickFix: () => void;
 }
 
-const BlogPostPresenter = ({ isFixed, post, userInfo, postPath, onClickDelete, onClickFix }: Props) => (
+const BlogPostPresenter = ({
+  isFixed,
+  post,
+  userInfo,
+  postPath,
+  postDescription,
+  onClickDelete,
+  onClickFix,
+}: Props) => (
   <>
     <Helmet>
       <title>{post.title} :: chanyeong</title>
-      <meta name="description" content={removeMd(post.content, { useImgAltText: false })} />
+      <meta name="description" content={`${postDescription}...`} />
       <meta name="og:title" content={`${post.title} - chanyeong`} />
-      <meta name="og:description" content={removeMd(post.content, { useImgAltText: false })} />
+      <meta name="og:description" content={`${postDescription}...`} />
       <meta name="og:image" content={post.titleImage} />
       <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" />
@@ -65,7 +73,7 @@ const BlogPostPresenter = ({ isFixed, post, userInfo, postPath, onClickDelete, o
             </TagWrapper>
           </PostHeader>
           <hr />
-          <TUIViewer content={post.content} />
+          <MarkdownViewer content={post.content} />
         </section>
         <DiscussionEmbed
           shortname="canyeongyi-beulrogeu"
