@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Router from 'next/router';
+import removeMd from 'remove-markdown';
 
 import { getAccessToken } from '@lib/cookie';
 import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
@@ -13,6 +14,8 @@ const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
 const FIX_PROJECT_FALSE = '프로젝트 고정 해제' as const;
 
 export type FixProject = typeof FIX_PROJECT_TRUE | typeof FIX_PROJECT_FALSE;
+
+const MAX_DESCRIPTION = 200 as const;
 
 interface Props {
   GetProject: getProject_GetProject;
@@ -29,6 +32,10 @@ const ProjectContainer = ({ GetProject }: Props) => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
   const projectPath = useMemo(() => [...path, { name: project?.title }], []);
+  const projectDescription = useMemo(
+    () => removeMd(project.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
+    [],
+  );
   const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
     variables: { id: project?.id },
     onCompleted: async ({ DeleteProject }) => {
@@ -91,6 +98,7 @@ const ProjectContainer = ({ GetProject }: Props) => {
         isFixed={isFixed}
         project={project}
         userInfo={userInfo}
+        projectDescription={projectDescription}
         projectPath={projectPath}
         onClickDelete={onClickDelete}
         onClickFix={onClickFix}
