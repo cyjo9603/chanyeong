@@ -9,6 +9,42 @@ export const MarkdownWrapper = styled(ReactMarkdown)`
     border: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};
   }
 
+  & strong {
+    font-weight: 700;
+  }
+
+  ol,
+  ul {
+    margin-left: 12px;
+  }
+
+  ol > li {
+    counter-increment: li;
+
+    &::before {
+      margin-right: 8px;
+      content: counter(li) '.';
+      font-weight: 700;
+    }
+
+    & p {
+      display: inline-block;
+      margin: 8px 0;
+    }
+  }
+
+  ul > li::before {
+    display: inline-block;
+    position: relative;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    margin-right: 8px;
+    background-color: ${({ theme }) => theme.PRIMARY_FONT};
+  }
+
   & li {
     font-size: 1em;
     line-height: 2;
