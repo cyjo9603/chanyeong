@@ -1,0 +1,7 @@
+type Experience {
+    id: Int!
+    startDate: String!
+    endDate: String
+    title: String!
+    content: String!
+}
