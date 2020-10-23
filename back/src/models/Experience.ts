@@ -21,7 +21,7 @@ Experience.init(
     },
     endDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     title: {
       type: DataTypes.STRING(50),

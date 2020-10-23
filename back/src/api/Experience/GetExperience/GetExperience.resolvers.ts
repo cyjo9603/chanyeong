@@ -2,8 +2,8 @@ import { Resolvers } from '../../../types/resolvers';
 
 import Experience from '../../../models/Experience';
 
-/** GetPickedPosts
- *  picked 포스트 조회
+/** GetExperiences
+ *  경험 목록 조회
  */
 const resolvers: Resolvers = {
   Query: {
