@@ -42,3 +42,4 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  Delete Post
 - [x]  Fix Post
 - [x]  Add Experience
+- [x]  Delete Experience
