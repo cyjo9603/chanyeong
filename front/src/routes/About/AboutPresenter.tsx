@@ -5,13 +5,14 @@ import PageContainer from '@component/pageContainer';
 import PagePath from '@component/PagePath';
 import AboutValue from '@component/AboutValue';
 import AboutSkill from '@component/AboutSkill';
+import ExperienceCard from '@component/ExperienceCard';
 import Button from '@commons/Button';
 import Text, { TITLE } from '@commons/Text';
-import { getSkills_GetSkills_skill } from '@gql-types/api';
+import { getSkills_GetSkills_skill, getAbouts_GetExperiences_experiences } from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
 import WorkProcessItem from './WorkProcessItem';
-import { AboutWrapper, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper } from './styled';
+import { AboutWrapper, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper, ExperienceWrapper } from './styled';
 
 interface Props {
   openAddSkill: boolean;
@@ -19,6 +20,7 @@ interface Props {
   frontSkills: getSkills_GetSkills_skill[];
   backSkills: getSkills_GetSkills_skill[];
   devopsSkills: getSkills_GetSkills_skill[];
+  experiences: getAbouts_GetExperiences_experiences[];
   editSkillData: getSkills_GetSkills_skill;
   onClickAddSkill: () => void;
   onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
@@ -39,6 +41,7 @@ const AboutPresenter = ({
   frontSkills,
   backSkills,
   devopsSkills,
+  experiences,
   editSkillData,
 }: Props) => (
   <>
@@ -120,6 +123,12 @@ const AboutPresenter = ({
             />
           ))}
         </SkillListWrapper>
+        <ExperienceWrapper>
+          <Text content="Experience" weight={700} size={TITLE} />
+          {experiences.map((experience) => (
+            <ExperienceCard key={`about_experience_${experience.id}`} experience={experience} />
+          ))}
+        </ExperienceWrapper>
       </AboutWrapper>
     </PageContainer>
   </>

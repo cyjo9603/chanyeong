@@ -1,0 +1,14 @@
+type EditExperienceResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    EditExperience(
+        id: Int!
+        startDate: String
+        endDate: String
+        title: String
+        content: String
+    ): EditExperienceResponse!
+}

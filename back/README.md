@@ -26,6 +26,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  Get Post
 - [x]  Get Picked Posts
 - [x]  Get Tag Posts
+- [x]  Get Experiences
 
 ### Private Resolvers:
 
@@ -40,3 +41,6 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nod
 - [x]  Edit Post
 - [x]  Delete Post
 - [x]  Fix Post
+- [x]  Add Experience
+- [x]  Edit Experience
+- [x]  Delete Experience

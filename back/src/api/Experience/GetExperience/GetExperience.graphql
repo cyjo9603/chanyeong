@@ -1,0 +1,9 @@
+type GetExperiencesResponse {
+    ok: Boolean!
+    error: String
+    experiences: [Experience]
+}
+
+type Query {
+    GetExperiences: GetExperiencesResponse!
+}

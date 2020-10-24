@@ -1,0 +1,13 @@
+type AddExperienceResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    AddExperience(
+        startDate: String!
+        endDate: String
+        title: String!
+        content: String!
+    ): AddExperienceResponse!
+}

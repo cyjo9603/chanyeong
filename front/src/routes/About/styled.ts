@@ -79,3 +79,7 @@ export const SkillListWrapper = styled.div`
     grid-template-columns: 1fr 1fr;
   }
 `;
+
+export const ExperienceWrapper = styled.div`
+  margin: 90px 0 30px;
+`;

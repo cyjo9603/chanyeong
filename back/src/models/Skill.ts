@@ -3,6 +3,12 @@ import { sequelize } from './sequelize';
 import { dbType } from './index';
 import { SkillType } from '../types/graph';
 
+export const enum SKILL_TYPE {
+  FRONT_END = 'FRONT_END',
+  BACK_END = 'BACK_END',
+  DEV_OPS = 'DEV_OPS',
+}
+
 class Skill extends Model {
   public readonly id!: number;
 
@@ -27,7 +33,7 @@ Skill.init(
       unique: true,
     },
     type: {
-      type: DataTypes.ENUM('FRONT_END', 'BACK_END', 'DEV_OPS'),
+      type: DataTypes.ENUM(SKILL_TYPE.FRONT_END, SKILL_TYPE.BACK_END, SKILL_TYPE.DEV_OPS),
       allowNull: false,
     },
     level: {
