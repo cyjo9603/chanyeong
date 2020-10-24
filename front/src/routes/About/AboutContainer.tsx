@@ -41,6 +41,7 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
       frontSkills={GetGroupedSkills?.skills.front || []}
       backSkills={GetGroupedSkills?.skills.back || []}
       devopsSkills={GetGroupedSkills?.skills.devops || []}
+      experiences={GetExperiences?.experiences || []}
       editSkillData={editSkillData}
       onClickAddSkill={onClickAddSkill}
       onClickEditSkill={onClickEditSkill}
