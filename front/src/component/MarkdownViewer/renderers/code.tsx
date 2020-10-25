@@ -13,6 +13,8 @@ import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json';
 
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
+SyntaxHighlighter.registerLanguage('jsx', javascript);
+SyntaxHighlighter.registerLanguage('tsx', typescript);
 SyntaxHighlighter.registerLanguage('bash', bash);
 SyntaxHighlighter.registerLanguage('css', css);
 SyntaxHighlighter.registerLanguage('html', html);
