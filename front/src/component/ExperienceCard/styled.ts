@@ -4,6 +4,11 @@ export const ExperienceCardWrapper = styled.div`
   display: flex;
   margin-top: 8px;
   margin-left: 16px;
+
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    margin-left: 4px;
+    flex-direction: column;
+  }
 `;
 
 export const ExperienceDate = styled.div`
@@ -15,6 +20,16 @@ export const ExperienceDate = styled.div`
   font-size: 16px;
   font-weight: 700;
   width: 200px;
+
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+
+    & > span {
+      margin-right: 8px;
+    }
+  }
 `;
 
 export const ExperienceContent = styled.div`
