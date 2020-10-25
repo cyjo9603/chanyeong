@@ -18,11 +18,28 @@ export const MarkdownWrapper = styled(ReactMarkdown)`
   }
 
   ul {
-    margin-left: 12px;
+    margin-left: 32px;
+    margin-bottom: 18px;
+
+    & > li::before {
+      position: absolute;
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      transform: translateY(230%);
+      margin-left: -18px;
+      background-color: ${({ theme }) => theme.PRIMARY_FONT};
+    }
+
+    & p {
+      margin: 0;
+    }
   }
 
   ol {
     margin-left: 36px;
+    margin-bottom: 18px;
 
     & > li {
       counter-increment: li;
@@ -38,18 +55,6 @@ export const MarkdownWrapper = styled(ReactMarkdown)`
         margin: 8px 0;
       }
     }
-  }
-
-  ul > li::before {
-    display: inline-block;
-    position: relative;
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    margin-right: 8px;
-    background-color: ${({ theme }) => theme.PRIMARY_FONT};
   }
 
   & li {
