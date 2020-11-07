@@ -13,6 +13,7 @@ module.exports = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '../src'),
       '@pages': path.resolve(__dirname, '../src/components/pages'),
+      '@svg-icons': path.resolve(__dirname, '../src/components/icons'),
       '@atoms': path.resolve(__dirname, '../src/components/UI/atoms'),
       '@molecules': path.resolve(__dirname, '../src/components/UI/molecules'),
       '@organisms': path.resolve(__dirname, '../src/components/UI/organisms'),
