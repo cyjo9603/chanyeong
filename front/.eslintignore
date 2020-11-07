@@ -1,3 +1,4 @@
 /node_modules
 next.config.js
 server.js
+src/**/*.stories.tsx
