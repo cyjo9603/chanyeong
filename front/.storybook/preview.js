@@ -1,14 +1,14 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'emotion-theming';
 
-import theme from '../src/theme';
-import GlobalStyle from '../src/theme/globalStyle';
+import GlobalStyle from '@theme/globalStyle';
+import { lightTheme } from '@theme';
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightTheme}>
       <Story />
-      <GlobalStyle />
+      <GlobalStyle theme={lightTheme} />
     </ThemeProvider>
   ),
 ];

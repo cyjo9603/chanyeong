@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'emotion-theming';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { getDataFromTree } from '@apollo/react-ssr';

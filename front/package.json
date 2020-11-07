@@ -22,6 +22,8 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
+    "@emotion/core": "^10.1.1",
+    "@emotion/styled": "^10.0.27",
     "@next/bundle-analyzer": "9.4.4",
     "@toast-ui/editor-plugin-code-syntax-highlight": "1.0.0",
     "@toast-ui/editor-plugin-color-syntax": "1.0.0",
@@ -35,6 +37,10 @@
     "crypto-js": "4.0.0",
     "disqus-react": "1.0.10",
     "dotenv-webpack": "1.8.0",
+    "emotion": "^10.0.27",
+    "emotion-reset": "^2.0.7",
+    "emotion-server": "^10.0.27",
+    "emotion-theming": "^10.0.27",
     "express": "^4.17.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
@@ -50,9 +56,7 @@
     "react-slick": "^0.26.1",
     "react-syntax-highlighter": "^15.2.1",
     "react-text-loop": "^2.3.0",
-    "remove-markdown": "0.3.0",
-    "styled-components": "4.0.0",
-    "styled-reset": "^4.1.5"
+    "remove-markdown": "0.3.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.0.28",
