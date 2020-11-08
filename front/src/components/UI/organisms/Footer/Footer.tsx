@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import RowFrame from '@frames/RowFrame';
-import DarkLogoIcon from '@svg-icons/DarkLogoIcon';
+import LogoIcon, { LOGO_TYPE_DARK } from '@svg-icons/LogoIcon';
 import FooterContent from '@molecules/FooterContent';
 import styled from '@theme/styled';
 
@@ -28,7 +28,7 @@ const FooterWrapper = styled.footer`
 const Footer: FC = () => (
   <FooterWrapper>
     <RowFrame>
-      <DarkLogoIcon />
+      <LogoIcon type={LOGO_TYPE_DARK} />
       <FooterContent />
     </RowFrame>
   </FooterWrapper>

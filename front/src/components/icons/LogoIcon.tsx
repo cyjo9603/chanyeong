@@ -2,17 +2,30 @@ import React, { FC } from 'react';
 
 import styled from '@theme/styled';
 
-const StyledDarkLogo = styled.svg`
+export const LOGO_TYPE_LIGHT = '#23374D';
+export const LOGO_TYPE_DARK = '#c7c7c7';
+
+type LogoType = typeof LOGO_TYPE_LIGHT | typeof LOGO_TYPE_DARK;
+
+interface Props {
+  type?: LogoType;
+}
+
+interface StyledProps {
+  themeType: false | LogoType;
+}
+
+const StyledLogo = styled.svg<StyledProps>`
   & .fill-blue {
     fill: #1089ff;
   }
   & .fill-grey {
-    fill: #c7c7c7;
+    fill: ${({ theme, themeType }) => themeType || theme.LOGO_COLOR};
   }
 `;
 
-const DarkLogoIcon: FC = () => (
-  <StyledDarkLogo viewBox="0 0 326 42">
+const LogoIcon: FC<Props> = ({ type }) => (
+  <StyledLogo viewBox="0 0 326 42" themeType={type || false}>
     <rect d="M49.73-15.37H216V83H49.73z" />
     <g>
       <path
@@ -52,7 +65,7 @@ const DarkLogoIcon: FC = () => (
         d="M321.09 22.59h-9.42c-.62.0-1.12-.5-1.12-1.12v-.11c0-.62.5-1.12 1.12-1.12h12.2c.62.0 1.12.5 1.12 1.12v16.47c0 .39-.2.75-.53.95-.41.26-.92.53-1.52.81-.89.41-1.95.79-3.21 1.12-1.25.34-2.68.62-4.28.84-1.6.22-3.35.34-5.25.34-3.28.0-6.1-.46-8.45-1.38-2.36-.92-4.29-2.22-5.8-3.9-1.51-1.68-2.62-3.71-3.34-6.09-.71-2.38-1.07-5-1.07-7.88v-4.32c0-2.77.39-5.27 1.17-7.52.78-2.24 1.92-4.15 3.43-5.72 1.51-1.57 3.38-2.78 5.6-3.62 2.22-.84 4.78-1.26 7.68-1.26 3.02.0 5.78.36 8.26 1.07 1.93.55 3.64 1.22 5.12 2 .64.34.82 1.16.37 1.72l-.13.15c-.34.42-.94.52-1.41.26-1.64-.89-3.32-1.57-5.04-2.03-2.01-.54-4.39-.81-7.16-.81-2.33.0-4.43.36-6.28 1.07-1.86.71-3.43 1.72-4.73 3.03-1.3 1.31-2.28 2.9-2.95 4.77-.67 1.87-1 3.95-1 6.23v5.61c0 5.35 1.37 9.4 4.11 12.15 2.74 2.75 6.66 4.13 11.76 4.13 2.24.0 4.45-.21 6.61-.65 1.87-.37 3.43-.89 4.68-1.56.36-.19.57-.58.57-.98V23.72C322.21 23.1 321.71 22.59 321.09 22.59z"
       />
     </g>
-  </StyledDarkLogo>
+  </StyledLogo>
 );
 
-export default DarkLogoIcon;
+export default LogoIcon;
