@@ -16,7 +16,6 @@ export const Default = () => {
 
   const startDate = new Date(start).toLocaleDateString().slice(0, -1);
   const endDate = new Date(end).toLocaleDateString().slice(0, -1);
-  console.log(startDate);
 
   return (
     <ExperienceCard
