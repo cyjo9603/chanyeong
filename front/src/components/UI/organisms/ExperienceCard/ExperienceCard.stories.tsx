@@ -8,7 +8,7 @@ export default {
   component: ExperienceCard,
 };
 
-export const LightMode = () => {
+export const Default = () => {
   const title = text('title', 'title');
   const content = text('content', 'title');
   const start = date('startDate');
