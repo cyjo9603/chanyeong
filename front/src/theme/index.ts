@@ -29,6 +29,7 @@ export const lightTheme = {
   NEW_COLOR: '#E65F55',
   DISABLED: '#5E6267',
   A_LINK: '#0ca678',
+  LOGO_COLOR: '#242424',
 
   CODE_BACKGROUND: '#f5f7f8',
   CODE_KEWORD: '#95C76F',
@@ -69,6 +70,7 @@ export const darkTheme = {
   NEW_COLOR: '#E65F55',
   DISABLED: '#000000',
   A_LINK: '#0ca678',
+  LOGO_COLOR: '#c7c7c7',
 
   CODE_BACKGROUND: '#444444',
   CODE_KEWORD: '#95C76F',
