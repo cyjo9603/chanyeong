@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@theme/styled';
 
 export const UpdateSkillFormWrapper = styled.div`
   position: fixed;

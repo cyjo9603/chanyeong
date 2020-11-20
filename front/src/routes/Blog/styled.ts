@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import styled from 'styled-components';
+import styled from '@theme/styled';
 
 export const BlogWrapper = styled.div`
   margin-top: 30px;
@@ -52,7 +52,8 @@ export const SubItem = memo(styled.span`
 
 export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`
   cursor: pointer;
-  color: ${({ theme, currrentFocus }) => (currrentFocus ? theme.FONT_FOCUS : theme.LIGHT_BACKGROUND_GREY)};
+  color: ${({ theme, currrentFocus }) =>
+    currrentFocus ? theme.FONT_FOCUS : theme.LIGHT_BACKGROUND_GREY};
 `;
 
 export const NavWrapper = styled.nav`

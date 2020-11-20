@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@theme/styled';
 
 export const BlogWriteHeader = styled.div`
   margin: 10px 0;

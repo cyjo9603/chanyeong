@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@theme/styled';
 
 export const SearchPageWrapper = styled.section`
   margin: 0 auto;

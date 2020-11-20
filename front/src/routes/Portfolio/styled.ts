@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@theme/styled';
 
 export const SubTitleWrapper = styled.div`
   display: flex;
