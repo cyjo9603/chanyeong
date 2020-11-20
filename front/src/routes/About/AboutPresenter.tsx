@@ -1,18 +1,28 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '@component/pageContainer';
-import PagePath from '@component/PagePath';
-import AboutValue from '@component/AboutValue';
-import AboutSkill from '@component/AboutSkill';
-import ExperienceCard from '@component/ExperienceCard';
-import Button from '@commons/Button';
-import Text, { TITLE } from '@commons/Text';
-import { getSkills_GetSkills_skill, getAbouts_GetExperiences_experiences } from '@gql-types/api';
+import RowFrame from '@frames/RowFrame';
+import BreadCrumbs from '@molecules/BreadCrumbs';
+import AboutValue from '@organisms/AboutValue';
+import AboutSkill from '@organisms/AboutSKill';
+import ExperienceCard from '@organisms/ExperienceCard';
+import Button from '@atoms/Button';
+import Title from '@atoms/Title';
+import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
+import {
+  getSkills_GetSkills_skill,
+  getAbouts_GetExperiences_experiences,
+} from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
 import WorkProcessItem from './WorkProcessItem';
-import { AboutWrapper, AboutItemWrapper, WorkProcessWrapper, SkillListWrapper, ExperienceWrapper } from './styled';
+import {
+  AboutWrapper,
+  AboutItemWrapper,
+  WorkProcessWrapper,
+  SkillListWrapper,
+  ExperienceWrapper,
+} from './styled';
 
 interface Props {
   openAddSkill: boolean;
@@ -45,7 +55,12 @@ const AboutPresenter = ({
   editSkillData,
 }: Props) => (
   <>
-    {openAddSkill && <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} editSkillData={editSkillData} />}
+    {openAddSkill && (
+      <UpdateSkillForm
+        closeUpdateSkill={closeUpdateSKill}
+        editSkillData={editSkillData}
+      />
+    )}
     <Helmet>
       <title>소개 :: chanyeong</title>
       <meta
@@ -58,12 +73,12 @@ const AboutPresenter = ({
         content="개발자 조찬영에 대해 소개하는 페이지 입니다. 제가 개발에 대해 어떤 가치관을 가지고 있고, 어떤 식으로 문제를 해결하며, 사용할 수 있는 기술들을 나열해 놓았습니다."
       />
     </Helmet>
-    <PageContainer>
+    <RowFrame>
       <AboutWrapper>
-        <PagePath data={path} page="about" />
-        <Text content="안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다." />
-        <Text content="Values" weight={700} size={TITLE} />
-        <Text content="제가 생각하는 개발의 중요한 포인트 세 가지는 다음과 같습니다." />
+        <BreadCrumbs data={path} page="about" />
+        <SubTitle text="안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다." />
+        <Title text="Values" />
+        <SubTitle text="제가 생각하는 개발의 중요한 포인트 세 가지는 다음과 같습니다." />
         <AboutItemWrapper>
           <AboutValue
             engTitle="Fun"
@@ -81,7 +96,7 @@ const AboutPresenter = ({
             content="현대의 소프트웨어는 크고 복잡해졌습니다. 때문에 개발자들과의 협업과정은 선택이 아니라 필수라고 생각됩니다. 협업을 진행하며 가장 중요한 가치는 소통 이라고 생각하기 때문에 소통하기위해 노력 하겠습니다."
           />
         </AboutItemWrapper>
-        <Text content="Work Process" weight={700} size={TITLE} />
+        <Title text="Work Process" />
         <WorkProcessWrapper>
           <WorkProcessItem engName="planning" korName="기획" />
           <WorkProcessItem engName="design" korName="디자인" />
@@ -90,10 +105,12 @@ const AboutPresenter = ({
           <WorkProcessItem engName="deploy" korName="배포" />
         </WorkProcessWrapper>
         <div>
-          {userInfo?.isLoggedIn.userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
-          <Text content="Skill Stack" weight={700} size={TITLE} />
+          {userInfo?.isLoggedIn.userName && (
+            <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />
+          )}
+          <Title text="Skill Stack" />
         </div>
-        <Text content="Front-End" weight={700} />
+        <SubTitle text="Front-End" weight={SUBTITLE_WEIGHT_BOLD} />
         <SkillListWrapper>
           {frontSkills?.map((v) => (
             <AboutSkill
@@ -103,7 +120,7 @@ const AboutPresenter = ({
             />
           ))}
         </SkillListWrapper>
-        <Text content="Back-End" weight={700} />
+        <SubTitle text="Back-End" weight={SUBTITLE_WEIGHT_BOLD} />
         <SkillListWrapper>
           {backSkills?.map((v) => (
             <AboutSkill
@@ -113,7 +130,7 @@ const AboutPresenter = ({
             />
           ))}
         </SkillListWrapper>
-        <Text content="DevOps" weight={700} />
+        <SubTitle text="DevOps" weight={SUBTITLE_WEIGHT_BOLD} />
         <SkillListWrapper>
           {devopsSkills?.map((v) => (
             <AboutSkill
@@ -124,13 +141,16 @@ const AboutPresenter = ({
           ))}
         </SkillListWrapper>
         <ExperienceWrapper>
-          <Text content="Experience" weight={700} size={TITLE} />
+          <Title text="Experience" />
           {experiences.map((experience) => (
-            <ExperienceCard key={`about_experience_${experience.id}`} experience={experience} />
+            <ExperienceCard
+              key={`about_experience_${experience.id}`}
+              experience={experience}
+            />
           ))}
         </ExperienceWrapper>
       </AboutWrapper>
-    </PageContainer>
+    </RowFrame>
   </>
 );
 
