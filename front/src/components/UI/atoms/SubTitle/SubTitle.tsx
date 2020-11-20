@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 
 import styled from '@theme/styled';
 
-import { SUBTITLE_WEIGHT_DEFAULT, SUBTITLE_WEIGHT_BOLD } from '.';
+export const SUBTITLE_WEIGHT_DEFAULT = 500;
+export const SUBTITLE_WEIGHT_BOLD = 700;
 
 type SubTitleAlign = 'left' | 'right' | 'center';
 type SubTitleWeight =

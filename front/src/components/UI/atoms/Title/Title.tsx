@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 
 import styled from '@theme/styled';
 
-import { DEFAULT_SIZE, SMALL_SIZE } from '.';
+export const DEFAULT_SIZE = 1.8 as const;
+export const SMALL_SIZE = 1.5 as const;
 
 type TitleAlign = 'left' | 'right' | 'center';
 type TitleSize = typeof DEFAULT_SIZE | typeof SMALL_SIZE;
@@ -26,7 +27,7 @@ const StyledTitle = styled.h1<StyledProps>`
   text-align: ${({ align }) => align};
 `;
 
-const Title: FC<Props> = ({ text, size, align }) => (
+const Title: FC<Props> = ({ text, size = DEFAULT_SIZE, align }) => (
   <StyledTitle size={size} align={align}>
     {text}
   </StyledTitle>
