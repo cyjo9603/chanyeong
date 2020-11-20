@@ -6,6 +6,7 @@ import BreadCrumbs from '@molecules/BreadCrumbs';
 import AboutValue from '@organisms/AboutValue';
 import AboutSkill from '@organisms/AboutSKill';
 import ExperienceCard from '@organisms/ExperienceCard';
+import WorkProcess from '@organisms/WorkProcess';
 import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
@@ -15,11 +16,9 @@ import {
 } from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
-import WorkProcessItem from './WorkProcessItem';
 import {
   AboutWrapper,
   AboutItemWrapper,
-  WorkProcessWrapper,
   SkillListWrapper,
   ExperienceWrapper,
 } from './styled';
@@ -97,13 +96,7 @@ const AboutPresenter = ({
           />
         </AboutItemWrapper>
         <Title text="Work Process" />
-        <WorkProcessWrapper>
-          <WorkProcessItem engName="planning" korName="기획" />
-          <WorkProcessItem engName="design" korName="디자인" />
-          <WorkProcessItem engName="development" korName="개발" />
-          <WorkProcessItem engName="debugging" korName="테스팅" />
-          <WorkProcessItem engName="deploy" korName="배포" />
-        </WorkProcessWrapper>
+        <WorkProcess />
         <div>
           {userInfo?.isLoggedIn.userName && (
             <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />
