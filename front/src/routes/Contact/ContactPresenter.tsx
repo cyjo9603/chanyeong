@@ -1,9 +1,32 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import PageContainer from '@component/pageContainer';
-import PagePath from '@component/PagePath';
-import { ProfileWrapper } from './styled';
+import styled from '@theme/styled';
+import RowFrame from '@frames/RowFrame';
+import BreadCrumbs from '@molecules/BreadCrumbs';
+
+const StyledContact = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
+
+  & > span {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  & > img {
+    width: 200px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+
+  & > div span {
+    color: ${({ theme }) => theme.PRIMARY_FONT};
+    font-size: 13px;
+  }
+`;
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -18,9 +41,9 @@ const Contact = () => (
       <meta name="og:title" content="연락처 :: chanyeong" />
       <meta name="og:description" content="개발자 조찬영의 연락처입니다." />
     </Helmet>
-    <PageContainer>
-      <PagePath data={path} page="contact" />
-      <ProfileWrapper>
+    <RowFrame>
+      <BreadCrumbs data={path} page="contact" />
+      <StyledContact>
         <img src="/profile.jpg" alt="profile" />
         <span>조찬영</span>
         <div>
@@ -31,13 +54,17 @@ const Contact = () => (
             <span>Kakaotalk : chnyng9603</span>
           </div>
           <div>
-            <a href="https://github.com/cyjo9603" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/cyjo9603"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>GitHub : github.com/cyjo9603</span>
             </a>
           </div>
         </div>
-      </ProfileWrapper>
-    </PageContainer>
+      </StyledContact>
+    </RowFrame>
   </>
 );
 
