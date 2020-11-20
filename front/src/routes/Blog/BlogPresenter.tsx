@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import BreadCrumbs from '@molecules/BreadCrumbs';
@@ -8,9 +9,9 @@ import Button from '@atoms/Button';
 import SubTitle from '@atoms/SubTitle';
 import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '@gql-types/api';
 import { LocalSignIn } from '@src/apollo';
-import { BlogWrapper, BlogContainer, NavWrapper, NavItem } from './styled';
 import BlogPostSearch from './BlogPostSearch';
 import TagWithTextList from './TagWithTextList';
+import CategoryNav from './CategoryNav';
 
 interface Props {
   userInfo?: LocalSignIn;
@@ -22,13 +23,50 @@ interface Props {
   onChangeTagId: (tagId: number) => void;
 }
 
+const StyledBlog = styled.div`
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+
+  & > section {
+    width: 80%;
+
+    & > section {
+      margin-top: 20px;
+    }
+
+    & > section > a > div {
+      margin-bottom: 40px;
+    }
+
+    & > nav {
+      display: flex;
+      justify-content: space-between;
+
+      & .auth-write {
+        display: flex;
+
+        @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+          & > form {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
+      width: 82%;
+    }
+    @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+      width: 100%;
+    }
+  }
+`;
+
 const path = [
   { path: '/', name: 'CHANYEONG' },
   { path: '/blog', name: 'BLOG' },
 ];
-
-const CATEGORY_DIARY = 'DIARY';
-const CATEGORY_DEV = 'DEV';
 
 const BlogPresenter = ({
   userInfo,
@@ -55,44 +93,28 @@ const BlogPresenter = ({
     <RowFrame>
       <BreadCrumbs data={path} page="blog" />
       <SubTitle text="개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다." />
-      <BlogWrapper>
-        <BlogContainer>
-          <NavWrapper>
-            <div>
-              <NavItem
-                onClick={() => onChangeCategory(null)}
-                currrentFocus={category === null}
-              >
-                All
-              </NavItem>
-              <NavItem
-                onClick={() => onChangeCategory(CATEGORY_DIARY)}
-                currrentFocus={category === CATEGORY_DIARY}
-              >
-                diary
-              </NavItem>
-              <NavItem
-                onClick={() => onChangeCategory(CATEGORY_DEV)}
-                currrentFocus={category === CATEGORY_DEV}
-              >
-                dev
-              </NavItem>
-            </div>
-            <div>
+      <StyledBlog>
+        <section>
+          <nav>
+            <CategoryNav
+              category={category}
+              onChangeCategory={onChangeCategory}
+            />
+            <div className="auth-write">
               {userInfo?.isLoggedIn.userName && (
                 <Button onClick={onClickWritePost} name="포스트 작성" />
               )}
               <BlogPostSearch />
             </div>
-          </NavWrapper>
+          </nav>
           <section>
             {postData.map((v) => (
               <BlogPostCard key={`blog_post${v.id}`} data={v} />
             ))}
           </section>
-        </BlogContainer>
+        </section>
         <TagWithTextList tags={tagData} onCLick={onChangeTagId} />
-      </BlogWrapper>
+      </StyledBlog>
     </RowFrame>
   </>
 );
