@@ -1,9 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import BreadCrumbs from '@molecules/BreadCrumbs';
-import AboutValue from '@organisms/AboutValue';
 import AboutSkillList from '@organisms/AboutSKillList';
 import ExperienceCard from '@organisms/ExperienceCard';
 import WorkProcess from '@organisms/WorkProcess';
@@ -16,7 +16,7 @@ import {
 } from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
-import { AboutWrapper, AboutItemWrapper, ExperienceWrapper } from './styled';
+import AboutValueList from './AboutValueList';
 
 interface Props {
   openAddSkill: boolean;
@@ -30,6 +30,19 @@ interface Props {
   onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
   closeUpdateSKill: () => void;
 }
+
+const StyledAbout = styled.section`
+  padding-bottom: 20px 0;
+  margin-bottom: 40px;
+  color: ${({ theme }) => theme.PRIMARY_FONT};
+  & > span {
+    font-size: 18px;
+  }
+
+  & .expreience-wrapper {
+    margin: 90px 0 30px;
+  }
+`;
 
 const path = [
   { path: '/', name: 'CHANYEONG' },
@@ -68,28 +81,12 @@ const AboutPresenter = ({
       />
     </Helmet>
     <RowFrame>
-      <AboutWrapper>
+      <StyledAbout>
         <BreadCrumbs data={path} page="about" />
         <SubTitle text="안녕하세요! 저는 프론트엔드 개발자를 꿈꾸고 있는 조찬영입니다." />
         <Title text="Values" />
         <SubTitle text="제가 생각하는 개발의 중요한 포인트 세 가지는 다음과 같습니다." />
-        <AboutItemWrapper>
-          <AboutValue
-            engTitle="Fun"
-            korTitle="재미"
-            content="저는 개발을 좋아합니다. 누군가 가장 좋아하는 취미를 물어본다면 고민없이 개발이라고 얘기할 것입니다. 이 마음가짐을 꾸준히 가지고 항상 즐기며 개발을 하겠습니다."
-          />
-          <AboutValue
-            engTitle="Change"
-            korTitle="변화"
-            content="기술의 발전으로 인해 개발 분야의 기술 또한 빠른 속도로 변화하고 있습니다. 저는 이 변화를 놓치지 않고 항상 변화에 적응하며 새로운 기술에 적응하겠습니다."
-          />
-          <AboutValue
-            engTitle="Communication"
-            korTitle="소통"
-            content="현대의 소프트웨어는 크고 복잡해졌습니다. 때문에 개발자들과의 협업과정은 선택이 아니라 필수라고 생각됩니다. 협업을 진행하며 가장 중요한 가치는 소통 이라고 생각하기 때문에 소통하기위해 노력 하겠습니다."
-          />
-        </AboutItemWrapper>
+        <AboutValueList />
         <Title text="Work Process" />
         <WorkProcess />
         <div>
@@ -104,7 +101,7 @@ const AboutPresenter = ({
         <AboutSkillList skills={backSkills} onClick={onClickEditSkill} />
         <SubTitle text="DevOps" weight={SUBTITLE_WEIGHT_BOLD} />
         <AboutSkillList skills={devopsSkills} onClick={onClickEditSkill} />
-        <ExperienceWrapper>
+        <div className="expreience-wrapper">
           <Title text="Experience" />
           {experiences.map((experience) => (
             <ExperienceCard
@@ -112,8 +109,8 @@ const AboutPresenter = ({
               experience={experience}
             />
           ))}
-        </ExperienceWrapper>
-      </AboutWrapper>
+        </div>
+      </StyledAbout>
     </RowFrame>
   </>
 );
