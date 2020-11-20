@@ -4,21 +4,13 @@ import { Helmet } from 'react-helmet';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import BreadCrumbs from '@molecules/BreadCrumbs';
-import Search from '@molecules/Search';
 import Button from '@atoms/Button';
 import SubTitle from '@atoms/SubTitle';
-import TagWithNumber from '@molecules/TagWithNumber';
 import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '@gql-types/api';
 import { LocalSignIn } from '@src/apollo';
-import {
-  BlogWrapper,
-  BlogContainer,
-  SideTagContainer,
-  NavWrapper,
-  NavItem,
-  SubItem,
-} from './styled';
+import { BlogWrapper, BlogContainer, NavWrapper, NavItem } from './styled';
 import BlogPostSearch from './BlogPostSearch';
+import TagWithTextList from './TagWithTextList';
 
 interface Props {
   userInfo?: LocalSignIn;
@@ -99,18 +91,7 @@ const BlogPresenter = ({
             ))}
           </section>
         </BlogContainer>
-        <SideTagContainer>
-          <SubItem>인기 태그</SubItem>
-          <section>
-            {tagData.map((v) => (
-              <TagWithNumber
-                key={`popularity_tag${v.id}`}
-                data={v}
-                onClick={onChangeTagId}
-              />
-            ))}
-          </section>
-        </SideTagContainer>
+        <TagWithTextList tags={tagData} onCLick={onChangeTagId} />
       </BlogWrapper>
     </RowFrame>
   </>

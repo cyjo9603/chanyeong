@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import styled from '@theme/styled';
 
 export const BlogWrapper = styled.div`
@@ -26,31 +25,9 @@ export const BlogContainer = styled.section`
   }
 `;
 
-export const SideTagContainer = memo(styled.aside`
-  width: 17%;
-
-  & > section {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
-    width: 16%;
-  }
-  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
-    display: none;
-  }
-`);
-
-export const SubItem = memo(styled.span`
-  color: ${({ theme }) => theme.PRIMARY_FONT};
+export const NavItem = styled.span<{ currrentFocus: boolean }>`
   font-size: 16px;
   font-weight: 800;
-`);
-
-export const NavItem = styled(SubItem)<{ currrentFocus: boolean }>`
   cursor: pointer;
   color: ${({ theme, currrentFocus }) =>
     currrentFocus ? theme.FONT_FOCUS : theme.LIGHT_BACKGROUND_GREY};
