@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import RowFrame from '@frames/RowFrame';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 import AboutValue from '@organisms/AboutValue';
-import AboutSkill from '@organisms/AboutSKill';
+import AboutSkillList from '@organisms/AboutSKillList';
 import ExperienceCard from '@organisms/ExperienceCard';
 import WorkProcess from '@organisms/WorkProcess';
 import Button from '@atoms/Button';
@@ -16,12 +16,7 @@ import {
 } from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
-import {
-  AboutWrapper,
-  AboutItemWrapper,
-  SkillListWrapper,
-  ExperienceWrapper,
-} from './styled';
+import { AboutWrapper, AboutItemWrapper, ExperienceWrapper } from './styled';
 
 interface Props {
   openAddSkill: boolean;
@@ -104,35 +99,11 @@ const AboutPresenter = ({
           <Title text="Skill Stack" />
         </div>
         <SubTitle text="Front-End" weight={SUBTITLE_WEIGHT_BOLD} />
-        <SkillListWrapper>
-          {frontSkills?.map((v) => (
-            <AboutSkill
-              key={`about_front_skill${v.id}`}
-              data={v}
-              onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
-            />
-          ))}
-        </SkillListWrapper>
+        <AboutSkillList skills={frontSkills} onClick={onClickEditSkill} />
         <SubTitle text="Back-End" weight={SUBTITLE_WEIGHT_BOLD} />
-        <SkillListWrapper>
-          {backSkills?.map((v) => (
-            <AboutSkill
-              key={`about_back_skill${v.id}`}
-              data={v}
-              onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
-            />
-          ))}
-        </SkillListWrapper>
+        <AboutSkillList skills={backSkills} onClick={onClickEditSkill} />
         <SubTitle text="DevOps" weight={SUBTITLE_WEIGHT_BOLD} />
-        <SkillListWrapper>
-          {devopsSkills?.map((v) => (
-            <AboutSkill
-              key={`about_devops_skill${v.id}`}
-              data={v}
-              onClick={userInfo?.isLoggedIn.userName && onClickEditSkill}
-            />
-          ))}
-        </SkillListWrapper>
+        <AboutSkillList skills={devopsSkills} onClick={onClickEditSkill} />
         <ExperienceWrapper>
           <Title text="Experience" />
           {experiences.map((experience) => (
