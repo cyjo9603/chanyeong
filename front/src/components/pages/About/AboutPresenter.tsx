@@ -7,6 +7,7 @@ import BreadCrumbs from '@molecules/BreadCrumbs';
 import AboutSkillList from '@organisms/AboutSKillList';
 import ExperienceCard from '@organisms/ExperienceCard';
 import WorkProcess from '@organisms/WorkProcess';
+import AboutValueList from '@organisms/AboutValueList';
 import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
@@ -16,7 +17,6 @@ import {
 } from '@gql-types/api';
 import UpdateSkillForm from '@component/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
-import AboutValueList from './AboutValueList';
 
 interface Props {
   openAddSkill: boolean;

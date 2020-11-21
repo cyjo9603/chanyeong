@@ -1,11 +1,24 @@
 import React, { useMemo } from 'react';
 import Slider from 'react-slick';
 
-import PageContainer from '@component/pageContainer';
-import DetailButton from '@component/DetailButton';
-import PostCard from '@component/PostCard';
+import styled from '@theme/styled';
+import RowFrame from '@frames/RowFrame';
+import DetailButton from '@molecules/DetailButton';
+import MiniPostCard from '@organisms/MiniPostCard';
+import Title, { SMALL_SIZE } from '@atoms/Title';
+import SubTitle from '@atoms/SubTitle';
 import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
-import { SummaryWrapper, ArticleHeader, SliderWrapper } from './styled';
+
+const StyledPostSummary = styled.article`
+  padding: 40px 0;
+  width: 100%;
+
+  & .post-slide {
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px 0;
+  }
+`;
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -67,25 +80,23 @@ const PostSummary = ({ data }: Props) => {
   }, [data]);
 
   return (
-    <PageContainer>
-      <SummaryWrapper>
-        <ArticleHeader>
-          <h1>Blog</h1>
-          <h2>개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다.</h2>
-        </ArticleHeader>
-        <SliderWrapper>
+    <RowFrame>
+      <StyledPostSummary>
+        <Title size={SMALL_SIZE} text="Blog" align="center" />
+        <SubTitle
+          text="개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다."
+          align="center"
+        />
+        <div className="post-slide">
           <Slider {...settings} slidesToShow={showLength}>
             {data.map((v) => (
-              <PostCard key={`main_post_${v.id}`} data={v} />
+              <MiniPostCard key={`main_post_${v.id}`} data={v} />
             ))}
           </Slider>
-        </SliderWrapper>
-
-        <div>
-          <DetailButton title="포스트" link="/blog" />
         </div>
-      </SummaryWrapper>
-    </PageContainer>
+        <DetailButton title="포스트" link="/blog" />
+      </StyledPostSummary>
+    </RowFrame>
   );
 };
 
