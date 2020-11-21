@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { getSkills_GetSkills_skill } from '@gql-types/api';
 import ProgressBar from '@molecules/ProgressBar';
@@ -37,14 +37,14 @@ const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
   }
 `;
 
-const AboutSkill = ({ data, onClick }: Props) => {
+const AboutSkill: FC<Props> = ({ data, onClick }) => {
   const isAdmin = useMemo(() => Boolean(onClick), [onClick]);
   return (
     <AboutSkillWrapper isAdmin={isAdmin}>
       <img
         src={data.icon}
         alt={data.name}
-        onClick={isAdmin && (() => onClick(data))}
+        onClick={isAdmin ? () => onClick(data) : () => undefined}
       />
       <h1>{data.name}</h1>
       <ProgressBar ratio={data.level} />
@@ -53,4 +53,4 @@ const AboutSkill = ({ data, onClick }: Props) => {
   );
 };
 
-export default memo(AboutSkill);
+export default AboutSkill;
