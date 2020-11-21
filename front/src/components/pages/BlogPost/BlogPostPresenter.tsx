@@ -41,6 +41,10 @@ const StyledBlogPost = styled.div`
 
   & .post-header {
     margin-bottom: 12px;
+
+    & button {
+      margin-left: 8px;
+    }
   }
 `;
 
