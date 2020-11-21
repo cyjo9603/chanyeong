@@ -1,7 +1,12 @@
 import React from 'react';
-import Document, { DocumentContext, Head, Main, NextScript } from 'next/document';
+import Document, {
+  DocumentContext,
+  Head,
+  Main,
+  NextScript,
+} from 'next/document';
 import { Helmet, HelmetData } from 'react-helmet';
-import { ServerStyleSheet } from 'styled-components';
+import { extractCritical } from 'emotion-server';
 
 interface Props {
   helmet: HelmetData;
@@ -11,10 +16,20 @@ interface Props {
 class MyDocument extends Document<Props> {
   static async getInitialProps(context: DocumentContext) {
     const initialProps = await Document.getInitialProps(context);
-    const sheet = new ServerStyleSheet();
-    const page = context.renderPage((App) => (props) => sheet.collectStyles(<App {...props} />));
-    const styleTags = sheet.getStyleElement();
-    return { ...initialProps, ...page, helmet: Helmet.renderStatic(), styleTags };
+    const styles = extractCritical(initialProps.html);
+    return {
+      ...initialProps,
+      helmet: Helmet.renderStatic(),
+      styles: (
+        <>
+          {initialProps.styles}
+          <style
+            data-emotion-css={styles.ids.join('')}
+            dangerouslySetInnerHTML={{ __html: styles.css }}
+          />
+        </>
+      ),
+    };
   }
 
   render() {
@@ -26,7 +41,10 @@ class MyDocument extends Document<Props> {
       <html {...htmlAttrs} lang="ko">
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1" />
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1"
+          />
           <script
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
@@ -36,7 +54,6 @@ class MyDocument extends Document<Props> {
               gtag('config', 'UA-176037246-1');`,
             }}
           />
-          {this.props.styleTags}
           {Object.values(helmet).map((el) => el.toComponent())}
         </Head>
         <body {...bodyAttrs}>

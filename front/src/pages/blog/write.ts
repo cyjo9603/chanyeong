@@ -1,1 +1,1 @@
-export { default } from '@routes/WriteBlogPost';
+export { default } from '@pages/WriteBlogPost';
