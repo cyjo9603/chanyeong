@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import styled from '@theme/styled';
 import TagWithNumber from '@molecules/TagWithNumber';
@@ -47,4 +47,4 @@ const TagWithNumberList: FC<Props> = ({ tags, onCLick }) => (
   </StyledTagWithNumberList>
 );
 
-export default TagWithNumberList;
+export default memo(TagWithNumberList);

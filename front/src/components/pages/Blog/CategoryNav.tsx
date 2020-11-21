@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import styled from '@theme/styled';
 
@@ -47,4 +47,7 @@ const CategoryNav: FC<Props> = ({ category, onChangeCategory }) => (
   </StyledCategoryNav>
 );
 
-export default CategoryNav;
+export default memo(
+  CategoryNav,
+  (prev, next) => prev.category === next.category,
+);
