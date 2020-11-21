@@ -3,15 +3,16 @@ import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 import { DiscussionEmbed } from 'disqus-react';
 
-import PageContainer from '@component/pageContainer';
-import PagePath from '@component/PagePath';
-import Tag from '@commons/Tag';
-import Button from '@commons/Button';
+import RowFrame from '@frames/RowFrame';
+import MarkdownViewer from '@organisms/MarkDownViewer';
+import BreadCrumbs from '@molecules/BreadCrumbs';
+import TagList from '@molecules/TagList';
+import Button from '@atoms/Button';
+import HugeText from '@atoms/HugeText';
 import dateFormat from '@lib/dateFormat';
-import MarkdownViewer from '@src/component/MarkdownViewer';
 import { getPost_GetPost_post } from '@gql-types/api';
 import { LocalSignIn } from '@src/apollo';
-import { PostWrapper, PostHeader, TagWrapper } from './styled';
+import styled from '@theme/styled';
 import { FixPost } from './BlogPostContainer';
 
 interface Props {
@@ -26,6 +27,22 @@ interface Props {
   onClickDelete: () => void;
   onClickFix: () => void;
 }
+
+const StyledBlogPost = styled.div`
+  margin-bottom: 80px;
+
+  & > section {
+    margin-bottom: 56px;
+  }
+
+  & #disqus_thread a {
+    color: ${({ theme }) => theme.PRIMARY_COLOR} !important;
+  }
+
+  & .post-header {
+    margin-bottom: 12px;
+  }
+`;
 
 const BlogPostPresenter = ({
   isFixed,
@@ -43,21 +60,30 @@ const BlogPostPresenter = ({
       <meta name="og:title" content={`${post.title} - chanyeong`} />
       <meta name="og:description" content={`${postDescription}...`} />
       <meta name="og:image" content={post.titleImage} />
-      <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" />
+      <link
+        rel="stylesheet"
+        href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
+      />
     </Helmet>
-    <PageContainer>
-      <PostWrapper>
-        <PagePath data={postPath} page={`post_${post.title}`} />
+    <RowFrame>
+      <StyledBlogPost>
+        <BreadCrumbs data={postPath} page={`post_${post.title}`} />
         <section>
-          <PostHeader>
-            <h1>{post.title}</h1>
+          <header className="post-header">
+            <HugeText text={post.title} />
             <div>
               {dateFormat(+post.createdAt)}
               {userInfo?.isLoggedIn.userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
-                  <Link href={{ pathname: '/blog/write', query: { id: post.id } }} as={`/blog/write/${post.id}`}>
+                  <Link
+                    href={{ pathname: '/blog/write', query: { id: post.id } }}
+                    as={`/blog/write/${post.id}`}
+                  >
                     <a>
                       <Button name="편집" align="right" />
                     </a>
@@ -66,12 +92,8 @@ const BlogPostPresenter = ({
                 </>
               )}
             </div>
-            <TagWrapper>
-              {post.Tags.map((v) => (
-                <Tag key={`blog_post_${post.id}_${v.id}`} name={v.name} />
-              ))}
-            </TagWrapper>
-          </PostHeader>
+            <TagList postId={post.id} tags={post.Tags} />
+          </header>
           <hr />
           <MarkdownViewer content={post.content} />
         </section>
@@ -83,8 +105,8 @@ const BlogPostPresenter = ({
             title: post.title,
           }}
         />
-      </PostWrapper>
-    </PageContainer>
+      </StyledBlogPost>
+    </RowFrame>
   </>
 );
 
