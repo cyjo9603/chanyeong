@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Link from 'next/link';
 
 import styled from '@theme/styled';
@@ -51,4 +51,7 @@ const BlogPostCard = ({ data }: Props) => {
   );
 };
 
-export default BlogPostCard;
+export default memo(
+  BlogPostCard,
+  (prev, next) => prev.data.id === next.data.id,
+);

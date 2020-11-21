@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styled from '@theme/styled';
 
@@ -11,6 +11,8 @@ interface Props {
   onSearch: (e: React.FormEvent) => void;
   value: string;
 }
+
+const MemoTransparentButton = memo(TransparentButton, () => true);
 
 export const SearchForm = styled.form`
   display: flex;
@@ -38,9 +40,9 @@ export const SearchForm = styled.form`
 const Search = ({ onChange, onSearch, value }: Props) => (
   <SearchForm onSubmit={onSearch}>
     <TransparentInput type="text" onChange={onChange} value={value} />
-    <TransparentButton type="submit">
+    <MemoTransparentButton type="submit">
       <SearchIcon />
-    </TransparentButton>
+    </MemoTransparentButton>
   </SearchForm>
 );
 
