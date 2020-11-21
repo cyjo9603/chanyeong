@@ -4,10 +4,21 @@ import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { getAccessToken } from '@lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import {
+  reissuanceAccessToken,
+  ERROR_EXPIRATION,
+} from '@lib/reissuanceAccessToken';
 import { GET_LOCAL_USER } from '@queries/client';
-import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
-import { getProject_GetProject, deleteProject, fixProject } from '@gql-types/api';
+import {
+  GET_PROJECT,
+  DELETE_PROJECT,
+  FIX_PROJECT,
+} from '@queries/project.queries';
+import {
+  getProject_GetProject,
+  deleteProject,
+  fixProject,
+} from '@gql-types/api';
 import ProjectPresenter from './ProjectPresenter';
 
 const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
@@ -30,10 +41,16 @@ const ProjectContainer = ({ GetProject }: Props) => {
   const { project } = useMemo(() => GetProject || { project: null }, []);
   const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
-  const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
+  const [isFixed, setIsFixed] = useState(
+    project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
+  );
   const projectPath = useMemo(() => [...path, { name: project?.title }], []);
   const projectDescription = useMemo(
-    () => removeMd(project.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
+    () =>
+      removeMd(project?.content, { useImgAltText: false }).slice(
+        0,
+        MAX_DESCRIPTION,
+      ),
     [],
   );
   const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
@@ -60,7 +77,9 @@ const ProjectContainer = ({ GetProject }: Props) => {
         }
       }
       if (FixProject.ok) {
-        setIsFixed(isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
+        setIsFixed(
+          isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
+        );
       }
     },
   });
@@ -92,18 +111,18 @@ const ProjectContainer = ({ GetProject }: Props) => {
     }
   }, []);
 
-  return (
-    project && (
-      <ProjectPresenter
-        isFixed={isFixed}
-        project={project}
-        userInfo={userInfo}
-        projectDescription={projectDescription}
-        projectPath={projectPath}
-        onClickDelete={onClickDelete}
-        onClickFix={onClickFix}
-      />
-    )
+  return project ? (
+    <ProjectPresenter
+      isFixed={isFixed}
+      project={project}
+      userInfo={userInfo}
+      projectDescription={projectDescription}
+      projectPath={projectPath}
+      onClickDelete={onClickDelete}
+      onClickFix={onClickFix}
+    />
+  ) : (
+    <></>
   );
 };
 

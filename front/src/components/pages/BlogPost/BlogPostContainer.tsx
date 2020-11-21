@@ -4,7 +4,10 @@ import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { getAccessToken } from '@lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import {
+  reissuanceAccessToken,
+  ERROR_EXPIRATION,
+} from '@lib/reissuanceAccessToken';
 import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
 import { GET_LOCAL_USER } from '@queries/client';
 import { getPost_GetPost, deletePost, fixPost } from '@gql-types/api';
@@ -29,9 +32,18 @@ const path = [
 const BlogPostContainer = ({ GetPost }: Props) => {
   const { post } = useMemo(() => GetPost || { post: null }, []);
   const apollo = useApolloClient();
-  const [isFixed, setIsFixed] = useState(post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
+  const [isFixed, setIsFixed] = useState(
+    post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE,
+  );
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
-  const postDescription = useMemo(() => removeMd(post.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION), []);
+  const postDescription = useMemo(
+    () =>
+      removeMd(post?.content, { useImgAltText: false }).slice(
+        0,
+        MAX_DESCRIPTION,
+      ),
+    [],
+  );
   const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
     variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
@@ -85,18 +97,18 @@ const BlogPostContainer = ({ GetPost }: Props) => {
       });
     }
   }, []);
-  return (
-    post && (
-      <BlogPostPresenter
-        isFixed={isFixed}
-        post={post}
-        postDescription={postDescription}
-        userInfo={userInfo}
-        postPath={postPath}
-        onClickDelete={onClickDelete}
-        onClickFix={onClickFix}
-      />
-    )
+  return post ? (
+    <BlogPostPresenter
+      isFixed={isFixed}
+      post={post}
+      postDescription={postDescription}
+      userInfo={userInfo}
+      postPath={postPath}
+      onClickDelete={onClickDelete}
+      onClickFix={onClickFix}
+    />
+  ) : (
+    <></>
   );
 };
 
