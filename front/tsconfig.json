@@ -16,10 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
-      "@commons/*": ["src/commons/*"],
-      "@component/*": ["src/component/*"],
       "@pages/*": ["src/components/pages/*"],
       "@svg-icons/*": ["src/components/icons/*"],
+      "@modals/*": ["src/components/modals/*"],
       "@atoms/*": ["src/components/UI/atoms/*"],
       "@molecules/*": ["src/components/UI/molecules/*"],
       "@organisms/*": ["src/components/UI/organisms/*"],

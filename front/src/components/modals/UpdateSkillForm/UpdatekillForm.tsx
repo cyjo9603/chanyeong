@@ -1,3 +1,4 @@
+// TODO: 추후 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 
@@ -5,8 +6,16 @@ import { getAccessToken } from '@lib/cookie';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import useChangeEvent from '@lib/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
-import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import {
+  AddSkill,
+  UpdateSkill,
+  DeleteSkill,
+  getSkills_GetSkills_skill,
+} from '@gql-types/api';
+import {
+  reissuanceAccessToken,
+  ERROR_EXPIRATION,
+} from '@lib/reissuanceAccessToken';
 import { UpdateSkillFormWrapper } from './styled';
 
 interface Props {
@@ -35,7 +44,10 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
             icon: image,
             order: parseInt(order, 10),
           };
-          addSkillMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          addSkillMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (AddSkill.ok) {
@@ -56,7 +68,10 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
             icon: image,
             order: parseInt(order, 10),
           };
-          addSkillMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          addSkillMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (UpdateSkill.ok) {
@@ -72,7 +87,10 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
           const variables = {
             id: editSkillData.id,
           };
-          addSkillMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          addSkillMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (DeleteSkill.ok) {
@@ -95,7 +113,9 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const updateMutation = editSkillData ? updateSkillMutation : addSkillMutation;
+      const updateMutation = editSkillData
+        ? updateSkillMutation
+        : addSkillMutation;
       const variables = {
         name,
         type: skillType,
@@ -105,7 +125,9 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
         order: parseInt(order, 10),
       };
       updateMutation({
-        variables: editSkillData ? { ...variables, id: editSkillData.id } : variables,
+        variables: editSkillData
+          ? { ...variables, id: editSkillData.id }
+          : variables,
         context: {
           headers: {
             'X-JWT': getAccessToken(),
@@ -116,11 +138,14 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
     [name, skillType, level, description, image, order],
   );
 
-  const onChangeImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = await getUploadImageUrl(e.target.files[0], TYPE_FOLDER_SKILL);
+  const onChangeImageUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const url = await getUploadImageUrl(e.target.files[0], TYPE_FOLDER_SKILL);
 
-    setImage(url);
-  }, []);
+      setImage(url);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (editSkillData) {
@@ -161,7 +186,11 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
         </div>
         <div>
           <span>설명</span>
-          <input type="text" value={description} onChange={onChangeDescription} />
+          <input
+            type="text"
+            value={description}
+            onChange={onChangeDescription}
+          />
         </div>
         <div>
           <span>숙련도</span>

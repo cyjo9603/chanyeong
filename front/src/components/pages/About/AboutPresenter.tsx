@@ -15,7 +15,7 @@ import {
   getSkills_GetSkills_skill,
   getAbouts_GetExperiences_experiences,
 } from '@gql-types/api';
-import UpdateSkillForm from '@component/UpdateSkillForm';
+import UpdateSkillForm from '@modals/UpdateSkillForm';
 import { LocalSignIn } from '@src/apollo';
 
 interface Props {
