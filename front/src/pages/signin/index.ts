@@ -1,1 +1,1 @@
-export { default } from '@routes/SignIn';
+export { default } from '@pages/SignIn';
