@@ -1,15 +1,29 @@
+// TODO: 코드 분리 및 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import useChangeEvent from '@lib/useChangeEvent';
 import { getAccessToken } from '@lib/cookie';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import {
+  reissuanceAccessToken,
+  ERROR_EXPIRATION,
+} from '@lib/reissuanceAccessToken';
 import { GET_SKILLS } from '@queries/skill.queries';
-import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
+import {
+  ADD_PROJECT,
+  GET_PROJECT,
+  UPDATE_PROJECT,
+} from '@queries/project.queries';
 import { GET_LOCAL_USER } from '@queries/client';
-import { getSkills, addProject, getProject_GetProject_project, updateProject } from '@gql-types/api';
-import AddProjectPresenter from './AddProjectPresenter';
+import {
+  getSkills,
+  addProject,
+  getProject_GetProject_project,
+  updateProject,
+} from '@gql-types/api';
+import AddProjectSection from './AddProjectSection';
+import AddProjectHeader from './AddProjectHeader';
 
 const MUTATION_ADD = 'ADD' as const;
 const MUTATION_UPDATE = 'UPDATE' as const;
@@ -23,15 +37,33 @@ const AddProjectContainer = ({ project }: Props) => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
-  const [projectType, , onChangeProjectType] = useChangeEvent<HTMLSelectElement>(project?.type || 'PERSONAL');
-  const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
-  const [groupName, , onChangeGroupName] = useChangeEvent<HTMLInputElement>(project?.groupName || '');
-  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(project?.title || '');
-  const [description, , onChangeDescription] = useChangeEvent<HTMLInputElement>(project?.description || '');
-  const [startDate, , onChangeStartDate] = useChangeEvent<HTMLInputElement>(project?.startDate || '');
-  const [endDate, , onChangeEndDate] = useChangeEvent<HTMLInputElement>(project?.endDate || '');
-  const [githubAddr, , onChangeGithubAddr] = useChangeEvent<HTMLInputElement>(project?.githubAddr || '');
-  const [contribution, , onChangeContribution] = useChangeEvent<HTMLInputElement>(String(project?.contribution || ''));
+  const [projectType, , onChangeProjectType] = useChangeEvent<
+    HTMLSelectElement
+  >(project?.type || 'PERSONAL');
+  const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<
+    HTMLSelectElement
+  >('');
+  const [groupName, , onChangeGroupName] = useChangeEvent<HTMLInputElement>(
+    project?.groupName || '',
+  );
+  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(
+    project?.title || '',
+  );
+  const [description, , onChangeDescription] = useChangeEvent<HTMLInputElement>(
+    project?.description || '',
+  );
+  const [startDate, , onChangeStartDate] = useChangeEvent<HTMLInputElement>(
+    project?.startDate || '',
+  );
+  const [endDate, , onChangeEndDate] = useChangeEvent<HTMLInputElement>(
+    project?.endDate || '',
+  );
+  const [githubAddr, , onChangeGithubAddr] = useChangeEvent<HTMLInputElement>(
+    project?.githubAddr || '',
+  );
+  const [contribution, , onChangeContribution] = useChangeEvent<
+    HTMLInputElement
+  >(String(project?.contribution || ''));
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
@@ -88,7 +120,10 @@ const AddProjectContainer = ({ project }: Props) => {
         const token = await reissuanceAccessToken(apollo);
         if (token) {
           const variables = getVariables(MUTATION_ADD);
-          addProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          addProjectMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (AddProject.ok) {
@@ -102,7 +137,10 @@ const AddProjectContainer = ({ project }: Props) => {
         const token = await reissuanceAccessToken(apollo);
         if (token) {
           const variables = getVariables(MUTATION_UPDATE);
-          updateProjectMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          updateProjectMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (UpdateProject.ok) {
@@ -187,34 +225,38 @@ const AddProjectContainer = ({ project }: Props) => {
   );
 
   return (
-    <AddProjectPresenter
-      title={title}
-      project={project}
-      projectType={projectType}
-      groupName={groupName}
-      contribution={contribution}
-      description={description}
-      githubAddr={githubAddr}
-      startDate={startDate}
-      endDate={endDate}
-      content={content}
-      skills={skillsData?.GetSkills.skill || []}
-      currentSkills={skills}
-      onChangeTitle={onChangeTitle}
-      onChangeProjectType={onChangeProjectType}
-      onChangeGroupName={onChangeGroupName}
-      onChangeContribution={onChangeContribution}
-      onChangeDescription={onChangeDescription}
-      onChangeGithubAddr={onChangeGithubAddr}
-      onChangeStartDate={onChangeStartDate}
-      onChangeEndDate={onChangeEndDate}
-      onChangeContent={setContent}
-      setImage={setImage}
-      onSubmit={onSubmit}
-      onChangeCurrentSkill={onChangeCurrentSkill}
-      onClickAddSkill={onClickAddSkill}
-      onClickRemoveSkill={onClickRemoveSkill}
-    />
+    <>
+      <AddProjectHeader
+        title={title}
+        project={project}
+        projectType={projectType}
+        groupName={groupName}
+        contribution={contribution}
+        description={description}
+        githubAddr={githubAddr}
+        startDate={startDate}
+        endDate={endDate}
+        onChangeTitle={onChangeTitle}
+        onChangeProjectType={onChangeProjectType}
+        onChangeGroupName={onChangeGroupName}
+        onChangeContribution={onChangeContribution}
+        onChangeDescription={onChangeDescription}
+        onChangeGithubAddr={onChangeGithubAddr}
+        onChangeStartDate={onChangeStartDate}
+        onChangeEndDate={onChangeEndDate}
+      />
+      <AddProjectSection
+        content={content}
+        skills={skillsData?.GetSkills.skill || []}
+        currentSkills={skills}
+        onChangeContent={setContent}
+        setImage={setImage}
+        onSubmit={onSubmit}
+        onChangeCurrentSkill={onChangeCurrentSkill}
+        onClickAddSkill={onClickAddSkill}
+        onClickRemoveSkill={onClickRemoveSkill}
+      />
+    </>
   );
 };
 
