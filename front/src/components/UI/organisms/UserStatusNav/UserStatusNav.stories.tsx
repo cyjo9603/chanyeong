@@ -10,18 +10,23 @@ export default {
 };
 
 export const UnSignedIn = () => {
-  const hidden = boolean('hidden', false);
+  const statusHidden = boolean('hidden', false);
 
-  return <UserStatusNav hidden={hidden} onClickLogout={action('logout')} />;
+  return (
+    <UserStatusNav
+      statusHidden={statusHidden}
+      onClickLogout={action('logout')}
+    />
+  );
 };
 
 export const SignedIn = () => {
   const name = text('name', '조찬영');
-  const hidden = boolean('hidden', false);
+  const statusHidden = boolean('hidden', false);
 
   return (
     <UserStatusNav
-      hidden={hidden}
+      statusHidden={statusHidden}
       userName={name}
       onClickLogout={action('logout')}
     />
