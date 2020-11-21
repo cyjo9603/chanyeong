@@ -2,16 +2,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Link from 'next/link';
 
+import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import MarkdownViewer from '@organisms/MarkDownViewer';
 import SkillIconList from '@organisms/SkillIconList';
 import BreadCrumbs from '@molecules/BreadCrumbs';
-import SkillIcon from '@atoms/SkillIcon';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import { getProject_GetProject_project } from '@gql-types/api';
 import { LocalSignIn } from '@src/apollo';
-import { ProjectWrapper, ProjectHeader } from './styled';
 import { FixProject } from './ProjectContainer';
 
 interface Props {
@@ -26,6 +25,27 @@ interface Props {
   onClickDelete: () => void;
   onClickFix: () => void;
 }
+
+const StyledProject = styled.div`
+  margin-bottom: 80px;
+
+  & > header {
+    margin-bottom: 20px;
+    color: ${({ theme }) => theme.PRIMARY_FONT};
+
+    & > div {
+      margin-bottom: 10px;
+    }
+
+    & a {
+      color: ${({ theme }) => theme.PRIMARY_FONT};
+    }
+
+    & button {
+      margin-left: 8px;
+    }
+  }
+`;
 
 const ProjectPresenter = ({
   isFixed,
@@ -49,10 +69,10 @@ const ProjectPresenter = ({
       />
     </Helmet>
     <RowFrame>
-      <ProjectWrapper>
+      <StyledProject>
         <BreadCrumbs data={projectPath} page={`project_${project.title}`} />
         <section>
-          <ProjectHeader>
+          <header>
             <HugeText text={project.title} />
             {project.groupName && (
               <div>
@@ -94,11 +114,11 @@ const ProjectPresenter = ({
                 </span>
               </div>
             )}
-          </ProjectHeader>
+          </header>
           <MarkdownViewer content={project.content} />
           <SkillIconList title="적용 기술" skills={project?.Skills || []} />
         </section>
-      </ProjectWrapper>
+      </StyledProject>
     </RowFrame>
   </>
 );
