@@ -27,7 +27,7 @@ const Header: FC<Props> = ({ statusHidden }) => {
   return (
     <UserStatusNavPresenter
       userName={data?.isLoggedIn.userName}
-      hidden={statusHidden}
+      statusHidden={statusHidden}
       onClickLogout={onClickLogout}
     />
   );

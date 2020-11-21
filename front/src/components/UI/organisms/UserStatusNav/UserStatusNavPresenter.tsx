@@ -6,20 +6,20 @@ import styled from '@theme/styled';
 
 interface Props {
   userName?: string;
-  hidden: boolean;
+  statusHidden: boolean;
   onClickLogout: () => void;
 }
 
 interface StyledProps {
-  hidden: boolean;
+  statusHidden: boolean;
 }
 
 const StatusBar = styled.div<StyledProps>`
   position: relative;
   z-index: 1;
   transition: background 0.3s;
-  ${({ hidden, theme }) =>
-    hidden && ` background-color: ${theme.BACKGROUND_COLOR_RGBA};`}
+  ${({ statusHidden, theme }) =>
+    statusHidden && ` background-color: ${theme.BACKGROUND_COLOR_RGBA};`}
 
   & > div {
     height: 30px;
@@ -52,10 +52,10 @@ const StatusBar = styled.div<StyledProps>`
 
 const UserStatusNavePresenter: FC<Props> = ({
   userName,
-  hidden,
+  statusHidden,
   onClickLogout,
 }) => (
-  <StatusBar hidden={hidden}>
+  <StatusBar statusHidden={statusHidden}>
     <RowFrame>
       {userName ? (
         <>

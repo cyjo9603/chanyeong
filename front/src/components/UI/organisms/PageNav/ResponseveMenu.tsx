@@ -10,16 +10,17 @@ interface Props {
 }
 
 const StyledResonsiveButton = styled.span`
+  display: none;
+
   & svg {
-    display: none;
     fill: ${({ theme }) => theme.PRIMARY_FONT};
     width: 14px;
     cursor: pointer;
     padding: 0 20px;
+  }
 
-    @media (max-width: ${({ theme }) => theme.BP.PC}) {
-      display: block;
-    }
+  @media (max-width: ${({ theme }) => theme.BP.PC}) {
+    display: block;
   }
 `;
 
