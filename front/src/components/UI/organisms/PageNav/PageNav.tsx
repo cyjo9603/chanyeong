@@ -47,7 +47,7 @@ const PageNav = () => {
   return (
     <StyledPageNav>
       <ResponsiveMenu onClick={onClickNav} />
-      <ul className={hoverNav && 'menu-hover'}>
+      <ul className={hoverNav ? 'menu-hover' : ''}>
         <PageLinkBox link="/about" text="ABOUT" onClick={onMove} />
         <PageLinkBox link="/portfolio" text="PORTFOLIO" onClick={onMove} />
         <PageLinkBox link="/blog" text="BLOG" onClick={onMove} />
