@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import Link from 'next/link';
 
 import RowFrame from '@frames/RowFrame';
@@ -75,4 +75,4 @@ const UserStatusNavePresenter: FC<Props> = ({
   </StatusBar>
 );
 
-export default UserStatusNavePresenter;
+export default memo(UserStatusNavePresenter);

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 
 import styled from '@theme/styled';
 import PageLinkBox from '@molecules/PageLinkBox';
@@ -57,4 +57,4 @@ const PageNav = () => {
   );
 };
 
-export default PageNav;
+export default memo(PageNav);
