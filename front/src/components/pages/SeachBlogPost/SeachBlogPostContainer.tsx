@@ -12,13 +12,16 @@ interface Props {
 
 const SearchPageContainer = ({ word }: Props) => {
   const lastId = useRef(null);
-  const { data, fetchMore } = useQuery<searchPosts>(SEARCH_POSTS, { variables: { searchWord: word } });
+  const { data, fetchMore } = useQuery<searchPosts>(SEARCH_POSTS, {
+    variables: { searchWord: word },
+  });
 
   const onScroll = useCallback(() => {
     const { posts } = data?.SearchPosts;
     if (
       lastId.current !== posts?.[posts.length - 1].id &&
-      window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 400
+      document.body.scrollTop + document.body.clientHeight >
+        document.body.scrollHeight - 400
     ) {
       lastId.current = posts[posts.length - 1].id;
       fetchMore({
@@ -29,8 +32,14 @@ const SearchPageContainer = ({ word }: Props) => {
           if (!fetchMoreResult) {
             return prev;
           }
-          const newPosts = [...prev.SearchPosts.posts, ...fetchMoreResult.SearchPosts.posts];
-          const fetchData: searchPosts = { ...prev, SearchPosts: { ...fetchMoreResult.SearchPosts, posts: newPosts } };
+          const newPosts = [
+            ...prev.SearchPosts.posts,
+            ...fetchMoreResult.SearchPosts.posts,
+          ];
+          const fetchData: searchPosts = {
+            ...prev,
+            SearchPosts: { ...fetchMoreResult.SearchPosts, posts: newPosts },
+          };
           return fetchData;
         },
       });
@@ -38,14 +47,19 @@ const SearchPageContainer = ({ word }: Props) => {
   }, [data, lastId.current]);
 
   useEffect(() => {
-    window.addEventListener('scroll', onScroll);
+    document.body.addEventListener('scroll', onScroll);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      document.body.removeEventListener('scroll', onScroll);
     };
   }, [data, lastId.current]);
 
-  return <SearchBlogPostPresenter searchWord={word} posts={data?.SearchPosts.posts || []} />;
+  return (
+    <SearchBlogPostPresenter
+      searchWord={word}
+      posts={data?.SearchPosts.posts || []}
+    />
+  );
 };
 
 SearchPageContainer.getInitialProps = (context: NextPageContext) => {
