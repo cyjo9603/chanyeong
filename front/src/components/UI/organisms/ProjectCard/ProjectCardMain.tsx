@@ -15,21 +15,21 @@ const StyledProjectCardMain = styled.div`
   width: 150px;
   margin: 4px 8px;
 
-  & > h1 {
+  & h1 {
     color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 20px;
     font-weight: 700;
     margin: 0;
   }
 
-  & > h2 {
+  & h2 {
     color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 14px;
     font-weight: 400;
     margin: 0;
   }
 
-  & > span {
+  & span {
     color: ${({ theme }) => theme.PRIMARY_FONT};
     font-size: 10px;
   }
