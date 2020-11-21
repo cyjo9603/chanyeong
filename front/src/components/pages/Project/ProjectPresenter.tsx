@@ -29,7 +29,7 @@ interface Props {
 const StyledProject = styled.div`
   margin-bottom: 80px;
 
-  & > header {
+  & header {
     margin-bottom: 20px;
     color: ${({ theme }) => theme.PRIMARY_FONT};
 
