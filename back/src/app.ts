@@ -23,7 +23,7 @@ class App {
     this.app = express();
     this.server = new ApolloServer({
       schema,
-      context: ({ req }) => ({ req }),
+      context: ({ req, res }) => ({ req, res }),
     });
     this.middlewares();
   }
