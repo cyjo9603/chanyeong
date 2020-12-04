@@ -2,14 +2,13 @@ import { Resolvers } from '@gql-types';
 
 import Post from '@models/Post';
 import Tag from '@models/Tag';
-import privateResolver from '@utils/privateResolver';
 
 /** WritePost
  *  포스트 작성, tag값을 받아 포스트에 삽입
  */
 const resolvers: Resolvers = {
   Mutation: {
-    WritePost: privateResolver(async (_, args) => {
+    WritePost: async (_, args) => {
       try {
         const { category, title, content, titleImage, tags } = args;
 
@@ -23,7 +22,7 @@ const resolvers: Resolvers = {
 
         if (tags) {
           const result = (await Promise.all(
-            tags.map((tag: string[]) =>
+            tags.map((tag) =>
               Tag.findOrCreate({
                 where: {
                   name: tag,
@@ -43,7 +42,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

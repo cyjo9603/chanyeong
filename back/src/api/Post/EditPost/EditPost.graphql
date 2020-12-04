@@ -1,16 +1,16 @@
 type EditPostResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    EditPost(
-        id: Int!
-        category: PostCategory
-        title: String
-        content: String
-        titleImage: String
-        deleteTags: [Int]
-        addTags: [String]
-    ): EditPostResponse!
+  EditPost(
+    id: Int!
+    category: PostCategory
+    title: String
+    content: String
+    titleImage: String
+    deleteTags: [Int]
+    addTags: [String]
+  ): EditPostResponse! @auth
 }

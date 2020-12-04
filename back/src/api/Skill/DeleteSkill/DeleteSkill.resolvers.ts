@@ -1,14 +1,13 @@
 import { Resolvers } from '@gql-types';
 
 import Skill from '@models/Skill';
-import privateResolver from '@utils/privateResolver';
 
 /** DeleteSkill
  *  스킬 id값을 받아 삭제
  */
 const resolvers: Resolvers = {
   Mutation: {
-    DeleteSkill: privateResolver(async (_, args) => {
+    DeleteSkill: async (_, args) => {
       try {
         const { id } = args;
 
@@ -23,7 +22,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

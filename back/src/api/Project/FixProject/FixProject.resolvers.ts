@@ -1,14 +1,13 @@
 import { Resolvers } from '@gql-types';
 
 import Project from '@models/Project';
-import privateResolver from '@utils/privateResolver';
 
 /** FixProject
  *  프로젝트 메인 페이지에 고정
  */
 const resolvers: Resolvers = {
   Mutation: {
-    FixProject: privateResolver(async (_, args) => {
+    FixProject: async (_, args) => {
       try {
         const { id, fix } = args;
         const picked = fix ? new Date() : null;
@@ -24,7 +23,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

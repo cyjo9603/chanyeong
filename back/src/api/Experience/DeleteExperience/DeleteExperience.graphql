@@ -1,8 +1,8 @@
 type DeleteExperienceResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    DeleteExperience(id: Int!): DeleteExperienceResponse!
+  DeleteExperience(id: Int!): DeleteExperienceResponse! @auth
 }

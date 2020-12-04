@@ -1,15 +1,15 @@
 type AddSkillResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    AddSkill(
-        name: String!,
-        type: SkillType!,
-        level: Int!,
-        description: String!
-        icon: String!
-        order: Int!
-    ): AddSkillResponse!
+  AddSkill(
+    name: String!
+    type: SkillType!
+    level: Int!
+    description: String!
+    icon: String!
+    order: Int!
+  ): AddSkillResponse! @auth
 }

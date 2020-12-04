@@ -1,16 +1,16 @@
 type UpdateSkillResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    UpdateSkill(
-        id: Int!
-        name: String
-        type: SkillType
-        level: Int
-        description: String
-        icon: String
-        order: Int
-    ): UpdateSkillResponse!
+  UpdateSkill(
+    id: Int!
+    name: String
+    type: SkillType
+    level: Int
+    description: String
+    icon: String
+    order: Int
+  ): UpdateSkillResponse! @auth
 }

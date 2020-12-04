@@ -1,9 +1,9 @@
 type GetUserInfoResponse {
-    ok: Boolean!
-    error: String
-    user: User
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type Query {
-    GetUserInfo: GetUserInfoResponse!
+  GetUserInfo: GetUserInfoResponse! @auth
 }
