@@ -1,6 +1,6 @@
 schema: src/api/**/*.graphql
 generates:
-  ./src/types/api.d.ts:
+  ./src/types/api.ts:
     plugins:
       - add:
           content: "import { Request, Response } from 'express';"
