@@ -1,5 +1,4 @@
-import { WritePostMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Post from '../../../models/Post';
 import Tag from '../../../models/Tag';
@@ -10,7 +9,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    WritePost: privateResolver(async (_, args: WritePostMutationArgs) => {
+    WritePost: privateResolver(async (_, args) => {
       try {
         const { category, title, content, titleImage, tags } = args;
 
@@ -23,15 +22,15 @@ const resolvers: Resolvers = {
         });
 
         if (tags) {
-          const result = await Promise.all(
-            tags.map((tag) =>
+          const result = (await Promise.all(
+            tags.map((tag: string[]) =>
               Tag.findOrCreate({
                 where: {
                   name: tag,
                 },
               }),
             ),
-          );
+          )) as Tag[][];
           await post.addTag(result.map((r) => r[0]));
         }
 

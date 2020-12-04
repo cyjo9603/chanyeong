@@ -1,4 +1,4 @@
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import User from '../../../models/User';
 import privateResolver from '../../../utils/privateResolver';

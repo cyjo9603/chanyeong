@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize';
-import { Resolvers } from '../../../types/resolvers';
-import { Tag } from '../../../types/graph';
+import { Resolvers, Tag } from '../../../types/api';
 
 import { sequelize } from '../../../models';
 import TagModel from '../../../models/Tag';
@@ -21,7 +20,7 @@ const resolvers: Resolvers = {
 
         const tagLists = await TagModel.findAll();
 
-        const tags: Tag[] = tagOrder.map((v: { id: number }) => {
+        const tags = tagOrder.map((v: { id: number }) => {
           const { name } = tagLists.find((tag: Tag) => v.id === tag.id);
           return { ...v, name };
         });

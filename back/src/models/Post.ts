@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './sequelize';
 import { dbType } from './index';
-import { PostCategory } from '../types/graph';
+import { PostCategory } from '../types/api';
 
 class Post extends Model {
   public readonly id!: number;

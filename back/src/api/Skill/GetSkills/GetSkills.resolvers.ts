@@ -1,5 +1,4 @@
-import { GetSkillsQueryArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Skill from '../../../models/Skill';
 
@@ -9,7 +8,7 @@ import Skill from '../../../models/Skill';
  */
 const resolvers: Resolvers = {
   Query: {
-    GetSkills: async (_, args: GetSkillsQueryArgs) => {
+    GetSkills: async (_, args) => {
       try {
         const { type } = args;
         // type null 체크

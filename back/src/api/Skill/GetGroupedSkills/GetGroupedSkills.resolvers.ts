@@ -1,7 +1,6 @@
-import { GroupedSkills, Skill as SkillType } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers, GroupedSkills, SkillType, Skill as TSkill } from '../../../types/api';
 
-import Skill, { SKILL_TYPE } from '../../../models/Skill';
+import Skill from '../../../models/Skill';
 
 /** GetGroupedSkills
  *  FRONT_END, BACK_END, DEV_OPS 을 그룹별로 반환
@@ -12,13 +11,13 @@ const resolvers: Resolvers = {
       try {
         const totalSkills = await Skill.findAll({ order: [['order', 'ASC']] });
         const skills = totalSkills.reduce(
-          (groupedSkill: GroupedSkills, skill: SkillType) => {
-            if (skill.type === SKILL_TYPE.FRONT_END) {
+          (groupedSkill: GroupedSkills, skill: TSkill) => {
+            if (skill.type === SkillType.FrontEnd) {
               groupedSkill.front!.push(skill);
               return groupedSkill;
             }
 
-            if (skill.type === SKILL_TYPE.BACK_END) {
+            if (skill.type === SkillType.BackEnd) {
               groupedSkill.back!.push(skill);
               return groupedSkill;
             }

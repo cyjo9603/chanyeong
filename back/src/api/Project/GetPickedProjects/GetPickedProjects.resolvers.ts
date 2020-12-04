@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Project from '../../../models/Project';
 import Skill from '../../../models/Skill';

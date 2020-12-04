@@ -1,6 +1,5 @@
 import { Op } from 'sequelize';
-import { GetPostsQueryArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 import Post from '../../../models/Post';
 import Tag from '../../../models/Tag';
 
@@ -12,7 +11,7 @@ const LIMIT_POST = 10 as const;
  */
 const resolvers: Resolvers = {
   Query: {
-    GetPosts: async (_, args: GetPostsQueryArgs) => {
+    GetPosts: async (_, args) => {
       try {
         const { lastId, category, tagId } = args;
         const lastIdWhere = lastId && { id: { [Op.lt]: lastId } };
