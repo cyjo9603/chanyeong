@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import express, { Express, RequestHandler } from 'express';
+import express, { Express, RequestHandler, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import logger from 'morgan';
@@ -10,9 +10,12 @@ import schema from '@/schema';
 import { ACCESS_TOKEN } from '@utils/createJWT';
 import decodeJWT from '@utils/decodeJWT';
 import { decryptValue } from '@utils/crypto';
+import passportInit from '@auth/passport';
 
 const GRAPHQL_ENDPOINT = '/graphql' as const;
 const prod = process.env.NODE_ENV === 'production';
+
+const JWT_HEADER = process.env.JWT_HEADER as string;
 
 class App {
   public app: Express;
@@ -48,17 +51,17 @@ class App {
         }),
       );
     }
-    this.app.use(compression());
     this.app.use(this.jwt);
+    passportInit();
+    this.app.use(compression());
     this.server.applyMiddleware({ app: this.app, path: GRAPHQL_ENDPOINT });
   };
 
-  private jwt: RequestHandler = async (req: any, res, next) => {
-    const token = req.get('X-JWT');
-    if (token) {
-      const decryptToken = decryptValue(token);
-      const user = await decodeJWT(ACCESS_TOKEN, decryptToken);
-      req.user = user;
+  private jwt = async (req: Request, _: Response, next: NextFunction) => {
+    if (!req.headers.authorization) {
+      const cookie = req.cookies[JWT_HEADER];
+      const decryptToken = decryptValue(cookie);
+      req.headers.authorization = cookie && `Bearer ${decryptToken}`;
     }
     next();
   };
