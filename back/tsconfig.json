@@ -23,6 +23,13 @@
     "emitDecoratorMetadata": true,
 
     //path
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@api/*": ["src/api/*"],
+      "@models/*": ["src/models/*"],
+      "@utils/*": ["src/utils/*"],
+      "@gql-types": ["src/types/api.ts"],
+      "@/*": ["src/*"]
+    }
   }
 }
