@@ -1,14 +1,19 @@
 import { Resolvers } from '@gql-types';
 
 import User from '@models/User';
-import privateResolver from '@utils/privateResolver';
+
+const JWT_HEADER = process.env.JWT_HEADER as string;
 
 const resolvers: Resolvers = {
   Mutation: {
-    LogOut: privateResolver(async (_, __, context) => {
+    LogOut: async (_, __, { req, res }) => {
       try {
-        const { id } = context.req.user;
-        await User.update({ refreshToken: null }, { where: { id } });
+        await User.update(
+          { refreshToken: null },
+          { where: { id: req.user || 0 } },
+        );
+
+        res.clearCookie(JWT_HEADER);
 
         return {
           ok: true,
@@ -19,7 +24,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

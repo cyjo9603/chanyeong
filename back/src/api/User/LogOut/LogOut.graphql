@@ -1,8 +1,8 @@
 type LogOutResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    LogOut: LogOutResponse!
+  LogOut: LogOutResponse! @auth
 }
