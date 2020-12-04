@@ -6,6 +6,7 @@ import logger from 'morgan';
 import compression from 'compression';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
+import { buildContext } from 'graphql-passport';
 
 import schema from '@/schema';
 import passportInit from '@auth/passport';
@@ -22,7 +23,7 @@ class App {
     this.app = express();
     this.server = new ApolloServer({
       schema,
-      context: ({ req, res }) => ({ req, res }),
+      context: ({ req, res }) => buildContext({ req, res }),
       playground: !prod,
     });
     this.middlewares();

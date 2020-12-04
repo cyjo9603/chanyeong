@@ -4,11 +4,14 @@ generates:
     plugins:
       - add:
           content: "import { Request, Response } from 'express';"
+      - add:
+          content: "import { AuthenticateReturn } from 'graphql-passport';"
       - typescript
       - typescript-resolvers
     config:
       contextType: |
         {
           req: Request,
-          res: Response
+          res: Response,
+          authenticate: (strategyName: string, options?: object) => Promise<AuthenticateReturn<any>>
         }
