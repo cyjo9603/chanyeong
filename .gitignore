@@ -1,7 +1,6 @@
 */node_modules/*
 
-back/src/types/graph.d.ts
-back/src/schema.graphql
+back/src/types/api.d.ts
 back/.env
 
 front/.next/*

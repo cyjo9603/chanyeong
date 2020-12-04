@@ -1,0 +1,14 @@
+schema: src/api/**/*.graphql
+generates:
+  ./src/types/api.d.ts:
+    plugins:
+      - add:
+          content: "import { Request, Response } from 'express';"
+      - typescript
+      - typescript-resolvers
+    config:
+      contextType: |
+        {
+          req: Request,
+          res: Response
+        }
