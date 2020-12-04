@@ -19,6 +19,7 @@ module.exports = {
           ['@api', './src/api'],
           ['@models', './src/models'],
           ['@utils', './src/utils'],
+          ['@auth', './src/auth'],
           ['@gql-types', './src/types/api.ts'],
           ['@', './src'],
         ],
