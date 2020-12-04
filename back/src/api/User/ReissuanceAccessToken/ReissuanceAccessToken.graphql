@@ -1,9 +1,8 @@
 type ReissuanceAccessTokenResponse {
-    ok: Boolean!
-    error: String
-    token: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    ReissuanceAccessToken(refreshToken: String!): ReissuanceAccessTokenResponse
+  ReissuanceAccessToken(refreshToken: String!): ReissuanceAccessTokenResponse
 }

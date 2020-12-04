@@ -1,9 +1,16 @@
+import jwt from 'jsonwebtoken';
+
 import { Resolvers } from '@gql-types';
 
 import User from '@models/User';
-import { createAccessToken, REFRESH_TOKEN } from '@utils/createJWT';
+import { createRefreshToken, createAccessToken } from '@utils/createJWT';
 import decodeJWT from '@utils/decodeJWT';
 import { encryptValue, decryptValue } from '@utils/crypto';
+
+const JWT_HEADER = process.env.JWT_HEADER as string;
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
+
+const EXPIRED = 1000 * 60 * 60 * 24 * 7;
 
 /** ReissuanceAccessToken
  *  refreshToken을 받아 유효한 토큰일 경우
@@ -12,33 +19,39 @@ import { encryptValue, decryptValue } from '@utils/crypto';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    ReissuanceAccessToken: async (_, args) => {
+    ReissuanceAccessToken: async (_, __, { req, res }) => {
       try {
-        const { refreshToken } = args;
-        const token = decryptValue(refreshToken);
-        const decode = decodeJWT(REFRESH_TOKEN, token);
+        const cookie = req.cookies[JWT_HEADER];
 
-        if (decode.error) {
+        if (!cookie) {
+          return { ok: false, error: 'not a token' };
+        }
+        const decryptToken = decryptValue(cookie);
+        const data = jwt.verify(decryptToken, JWT_SECRET_KEY, {
+          ignoreExpiration: true,
+        }) as User;
+
+        const user = await User.findOne({ where: { id: data.id } });
+        const isRefreshToken = jwt.verify(user.refreshToken, JWT_SECRET_KEY);
+
+        if (isRefreshToken) {
           return {
             ok: false,
-            error: decode.error,
+            error: 'Bad token',
           };
         }
 
-        const user = await User.findOne({ where: { id: decode.id! } });
+        const refreshToken = createRefreshToken(data.id);
+        const accessToken = createAccessToken(data.id);
 
-        if (user?.refreshToken === token) {
-          const newAccessToken = encryptValue(createAccessToken(user.id)!);
-          return {
-            ok: true,
-            token: newAccessToken,
-          };
-        }
+        user.update({ refreshToken });
 
-        return {
-          ok: false,
-          error: 'Bad token',
-        };
+        res.cookie(JWT_HEADER, encryptValue(accessToken!), {
+          httpOnly: true,
+          maxAge: EXPIRED,
+        });
+
+        return { ok: true };
       } catch (error) {
         return {
           ok: false,
