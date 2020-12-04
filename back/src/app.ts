@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import express, { Express, RequestHandler, Request, Response, NextFunction } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import logger from 'morgan';
@@ -7,8 +7,6 @@ import compression from 'compression';
 import hpp from 'hpp';
 
 import schema from '@/schema';
-import { ACCESS_TOKEN } from '@utils/createJWT';
-import decodeJWT from '@utils/decodeJWT';
 import { decryptValue } from '@utils/crypto';
 import passportInit from '@auth/passport';
 
