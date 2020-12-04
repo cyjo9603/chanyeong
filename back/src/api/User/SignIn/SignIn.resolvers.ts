@@ -1,8 +1,10 @@
 import { Resolvers } from '@gql-types';
-import User from '@models/User';
 import { createRefreshToken, createAccessToken } from '@utils/createJWT';
-import { comparePassword } from '@utils/hashPassword';
-import { encryptValue, decryptValue } from '@utils/crypto';
+import { encryptValue } from '@utils/crypto';
+
+const JWT_HEADER = process.env.JWT_HEADER as string;
+
+const EXPIRED = 1000 * 60 * 60 * 24 * 7;
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우
@@ -11,43 +13,30 @@ import { encryptValue, decryptValue } from '@utils/crypto';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    SignIn: async (_, args) => {
+    SignIn: async (_, { userId, password }, { res, authenticate }) => {
       try {
-        const { userId, password } = args;
-
-        const decrypedUserId = decryptValue(userId);
-        const decrypedPassword = decryptValue(password);
-
-        const user = await User.findOne({ where: { userId: decrypedUserId } });
+        const { user, info } = await authenticate('local', {
+          userId,
+          password,
+        });
 
         if (!user) {
-          return {
-            ok: false,
-            error: 'No User found with that id',
-          };
+          return { ok: false, error: info?.message };
         }
 
-        const checkPassword = await comparePassword(user.password, decrypedPassword);
+        const refreshToken = createRefreshToken(user.id);
+        const accessToken = createAccessToken(user.id);
 
-        if (checkPassword) {
-          const refreshToken = createRefreshToken(user.id);
-          const accessToken = createAccessToken(user.id);
+        await user.update({ refreshToken });
 
-          user.update({ refreshToken });
-
-          return {
-            ok: true,
-            token: {
-              refreshToken: encryptValue(refreshToken!),
-              accessToken: encryptValue(accessToken!),
-            },
-            userName: `${user.familyName}${user.givenName}`,
-          };
-        }
+        res.cookie(JWT_HEADER, encryptValue(accessToken!), {
+          httpOnly: true,
+          maxAge: EXPIRED,
+        });
 
         return {
-          ok: false,
-          error: 'Wrong password',
+          ok: true,
+          userName: `${user.familyName}${user.givenName}`,
         };
       } catch (error) {
         return {
