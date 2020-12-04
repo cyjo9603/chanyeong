@@ -1,6 +1,5 @@
 import { Op } from 'sequelize';
-import { SearchPostsQueryArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 import Post from '../../../models/Post';
 import Tag from '../../../models/Tag';
 
@@ -12,7 +11,7 @@ const LIMIT_POST = 10 as const;
  */
 const resolvers: Resolvers = {
   Query: {
-    SearchPosts: async (_, args: SearchPostsQueryArgs) => {
+    SearchPosts: async (_, args) => {
       try {
         const { searchWord, lastId } = args;
         const lastIdWhere = lastId && { id: { [Op.lt]: lastId } };

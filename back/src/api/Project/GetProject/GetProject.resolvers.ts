@@ -1,5 +1,4 @@
-import { GetProjectQueryArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Project from '../../../models/Project';
 import Skill from '../../../models/Skill';
@@ -9,7 +8,7 @@ import Skill from '../../../models/Skill';
  */
 const resolvers: Resolvers = {
   Query: {
-    GetProject: async (_, args: GetProjectQueryArgs) => {
+    GetProject: async (_, args) => {
       try {
         const { id } = args;
         const project = await Project.findOne({

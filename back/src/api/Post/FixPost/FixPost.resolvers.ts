@@ -1,5 +1,4 @@
-import { Resolvers } from '../../../types/resolvers';
-import { FixPostMutationArgs } from '../../../types/graph';
+import { Resolvers } from '../../../types/api';
 
 import Post from '../../../models/Post';
 import privateResolver from '../../../utils/privateResolver';
@@ -9,7 +8,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    FixPost: privateResolver(async (_, args: FixPostMutationArgs) => {
+    FixPost: privateResolver(async (_, args) => {
       try {
         const { id, fix } = args;
         const picked = fix ? new Date() : null;

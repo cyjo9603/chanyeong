@@ -1,5 +1,4 @@
-import { DeleteProjectMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Project from '../../../models/Project';
 import privateResolver from '../../../utils/privateResolver';
@@ -9,7 +8,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    DeleteProject: privateResolver(async (_, args: DeleteProjectMutationArgs) => {
+    DeleteProject: privateResolver(async (_, args) => {
       try {
         const { id } = args;
 

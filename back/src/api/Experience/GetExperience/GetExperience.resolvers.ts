@@ -1,4 +1,4 @@
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Experience from '../../../models/Experience';
 

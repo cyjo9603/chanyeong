@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './sequelize';
 import { dbType } from './index';
-import { UserLevel } from '../types/graph';
+import { UserLevel } from '../types/api';
 
 class User extends Model {
   public readonly id!: number;

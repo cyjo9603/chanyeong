@@ -1,5 +1,4 @@
-import { ReissuanceAccessTokenMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import User from '../../../models/User';
 import { createAccessToken, REFRESH_TOKEN } from '../../../utils/createJWT';
@@ -13,7 +12,7 @@ import { encryptValue, decryptValue } from '../../../utils/crypto';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    ReissuanceAccessToken: async (_, args: ReissuanceAccessTokenMutationArgs) => {
+    ReissuanceAccessToken: async (_, args) => {
       try {
         const { refreshToken } = args;
         const token = decryptValue(refreshToken);

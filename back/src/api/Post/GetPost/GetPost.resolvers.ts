@@ -1,5 +1,4 @@
-import { GetPostQueryArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 import Post from '../../../models/Post';
 import Tag from '../../../models/Tag';
 
@@ -8,7 +7,7 @@ import Tag from '../../../models/Tag';
  */
 const resolvers: Resolvers = {
   Query: {
-    GetPost: async (_, args: GetPostQueryArgs) => {
+    GetPost: async (_, args) => {
       try {
         const { id } = args;
 

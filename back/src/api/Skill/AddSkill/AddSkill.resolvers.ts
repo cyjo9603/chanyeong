@@ -1,5 +1,4 @@
-import { AddSkillMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Skill from '../../../models/Skill';
 import privateResolver from '../../../utils/privateResolver';
@@ -10,7 +9,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    AddSkill: privateResolver(async (_, args: AddSkillMutationArgs) => {
+    AddSkill: privateResolver(async (_, args) => {
       try {
         const { name, type, level, description, icon, order } = args;
         await Skill.create({ name, type, level, description, icon, order });

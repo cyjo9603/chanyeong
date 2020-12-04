@@ -1,5 +1,4 @@
-import { DeleteSkillMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Skill from '../../../models/Skill';
 import privateResolver from '../../../utils/privateResolver';
@@ -9,7 +8,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    DeleteSkill: privateResolver(async (_, args: DeleteSkillMutationArgs) => {
+    DeleteSkill: privateResolver(async (_, args) => {
       try {
         const { id } = args;
 

@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './sequelize';
 import { dbType } from './index';
-import { ProjectType } from '../types/graph';
+import { ProjectType } from '../types/api';
 
 class Project extends Model {
   public readonly id!: number;

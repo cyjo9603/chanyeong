@@ -1,5 +1,4 @@
-import { SignInMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 import User from '../../../models/User';
 import { createRefreshToken, createAccessToken } from '../../../utils/createJWT';
 import { comparePassword } from '../../../utils/hashPassword';
@@ -12,7 +11,7 @@ import { encryptValue, decryptValue } from '../../../utils/crypto';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    SignIn: async (_, args: SignInMutationArgs) => {
+    SignIn: async (_, args) => {
       try {
         const { userId, password } = args;
 

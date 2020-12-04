@@ -1,5 +1,4 @@
-import { EditExperienceMutationArgs } from '../../../types/graph';
-import { Resolvers } from '../../../types/resolvers';
+import { Resolvers } from '../../../types/api';
 
 import Experience from '../../../models/Experience';
 import privateResolver from '../../../utils/privateResolver';
@@ -9,7 +8,7 @@ import privateResolver from '../../../utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    EditExperience: privateResolver(async (_, args: EditExperienceMutationArgs) => {
+    EditExperience: privateResolver(async (_, args) => {
       try {
         const { id, startDate, endDate, title, content } = args;
 
