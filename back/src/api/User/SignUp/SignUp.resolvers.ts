@@ -1,7 +1,6 @@
-// import { SignUpMutationArgs } from '../../../types/graph';
-// import { Resolvers } from '../../../types/resolvers';
-// import User from '../../../models/User';
-// import { hashPassword } from '../../../utils/hashPassword';
+// import { Resolvers } from '@gql-types';
+// import User from '@models/User';
+// import { hashPassword } from '@utils/hashPassword';
 
 /** SignUp
  *  id가 이미 있는지 검사 후
@@ -10,7 +9,7 @@
  */
 // const resolvers: Resolvers = {
 //   Mutation: {
-//     SignUp: async (_, args: SignUpMutationArgs) => {
+//     SignUp: async (_, args) => {
 //       try {
 //         const { userId, password, familyName, givenName } = args;
 //         const isUserId = await User.findOne({ where: { userId } });

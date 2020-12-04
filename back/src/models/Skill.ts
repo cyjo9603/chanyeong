@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
+
+import { SkillType } from '@gql-types';
+
 import { sequelize } from './sequelize';
-import { dbType } from './index';
-import { SkillType } from '../types/api';
+import { dbType } from '.';
 
 class Skill extends Model {
   public readonly id!: number;

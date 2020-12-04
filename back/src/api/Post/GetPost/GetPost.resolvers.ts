@@ -1,6 +1,7 @@
-import { Resolvers } from '../../../types/api';
-import Post from '../../../models/Post';
-import Tag from '../../../models/Tag';
+import { Resolvers } from '@gql-types';
+
+import Post from '@models/Post';
+import Tag from '@models/Tag';
 
 /** GetPost
  *  단일 포스트 정보 조회,

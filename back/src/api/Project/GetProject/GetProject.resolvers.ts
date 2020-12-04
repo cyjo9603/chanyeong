@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Project from '../../../models/Project';
-import Skill from '../../../models/Skill';
+import Project from '@models/Project';
+import Skill from '@models/Skill';
 
 /** GetProject
  *  id에 따라 프로젝트 조회

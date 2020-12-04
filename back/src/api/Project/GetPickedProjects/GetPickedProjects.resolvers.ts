@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Project from '../../../models/Project';
-import Skill from '../../../models/Skill';
+import Project from '@models/Project';
+import Skill from '@models/Skill';
 
 /** GetPickedProjects
  *  picked 프로젝트 조회

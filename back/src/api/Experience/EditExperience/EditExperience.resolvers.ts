@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Experience from '../../../models/Experience';
-import privateResolver from '../../../utils/privateResolver';
+import Experience from '@models/Experience';
+import privateResolver from '@utils/privateResolver';
 
 /** EditExperience
  *  경험 수정

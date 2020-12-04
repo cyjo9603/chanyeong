@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Skill from '../../../models/Skill';
-import privateResolver from '../../../utils/privateResolver';
+import Skill from '@models/Skill';
+import privateResolver from '@utils/privateResolver';
 
 interface UpdateValue {
   [key: string]: string | number;

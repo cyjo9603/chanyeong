@@ -1,8 +1,9 @@
 import Sequelize from 'sequelize';
-import { Resolvers, Tag } from '../../../types/api';
 
-import { sequelize } from '../../../models';
-import TagModel from '../../../models/Tag';
+import { Resolvers, Tag } from '@gql-types';
+
+import { sequelize } from '@models/.';
+import TagModel from '@models/Tag';
 
 const query = `SELECT TagId AS id, COUNT(TagId) AS count FROM PostTag GROUP BY TagId ORDER BY COUNT(PostId) DESC, PostId DESC`;
 

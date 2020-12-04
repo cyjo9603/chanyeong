@@ -1,6 +1,6 @@
-import { Resolvers, GroupedSkills, SkillType, Skill as TSkill } from '../../../types/api';
+import { Resolvers, GroupedSkills, SkillType, Skill as TSkill } from '@gql-types';
 
-import Skill from '../../../models/Skill';
+import Skill from '@models/Skill';
 
 /** GetGroupedSkills
  *  FRONT_END, BACK_END, DEV_OPS 을 그룹별로 반환

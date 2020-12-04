@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import User from '../../../models/User';
-import privateResolver from '../../../utils/privateResolver';
+import User from '@models/User';
+import privateResolver from '@utils/privateResolver';
 
 const resolvers: Resolvers = {
   Mutation: {

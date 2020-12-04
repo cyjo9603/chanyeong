@@ -1,7 +1,8 @@
+import { PostCategory } from '@gql-types';
+
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './sequelize';
-import { dbType } from './index';
-import { PostCategory } from '../types/api';
+import { dbType } from '.';
 
 class Post extends Model {
   public readonly id!: number;

@@ -1,6 +1,7 @@
-import { Resolvers } from '../../../types/api';
-import User from '../../../models/User';
-import privateResolver from '../../../utils/privateResolver';
+import { Resolvers } from '@gql-types';
+
+import User from '@models/User';
+import privateResolver from '@utils/privateResolver';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우

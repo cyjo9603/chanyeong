@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Project from '../../../models/Project';
-import privateResolver from '../../../utils/privateResolver';
+import Project from '@models/Project';
+import privateResolver from '@utils/privateResolver';
 
 /** AddProject
  *  프로젝트 등록, skills에서 skillIds가 없으면 undefined,

@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Project from '../../../models/Project';
-import privateResolver from '../../../utils/privateResolver';
+import Project from '@models/Project';
+import privateResolver from '@utils/privateResolver';
 
 /** FixProject
  *  프로젝트 메인 페이지에 고정

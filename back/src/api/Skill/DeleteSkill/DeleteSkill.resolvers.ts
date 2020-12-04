@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Skill from '../../../models/Skill';
-import privateResolver from '../../../utils/privateResolver';
+import Skill from '@models/Skill';
+import privateResolver from '@utils/privateResolver';
 
 /** DeleteSkill
  *  스킬 id값을 받아 삭제
