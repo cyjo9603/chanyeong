@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
+
 import { sequelize } from './sequelize';
-import { dbType } from './index';
+import { dbType } from '.';
 
 class Tag extends Model {
   public readonly id!: number;

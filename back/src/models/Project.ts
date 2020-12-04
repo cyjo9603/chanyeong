@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
+
+import { ProjectType } from '@gql-types';
+
 import { sequelize } from './sequelize';
-import { dbType } from './index';
-import { ProjectType } from '../types/api';
+import { dbType } from '.';
 
 class Project extends Model {
   public readonly id!: number;

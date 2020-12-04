@@ -6,10 +6,10 @@ import logger from 'morgan';
 import compression from 'compression';
 import hpp from 'hpp';
 
-import schema from './schema';
-import { ACCESS_TOKEN } from './utils/createJWT';
-import decodeJWT from './utils/decodeJWT';
-import { decryptValue } from './utils/crypto';
+import schema from '@/schema';
+import { ACCESS_TOKEN } from '@utils/createJWT';
+import decodeJWT from '@utils/decodeJWT';
+import { decryptValue } from '@utils/crypto';
 
 const GRAPHQL_ENDPOINT = '/graphql' as const;
 const prod = process.env.NODE_ENV === 'production';

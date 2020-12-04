@@ -1,8 +1,8 @@
-import { Resolvers } from '../../../types/api';
-import User from '../../../models/User';
-import { createRefreshToken, createAccessToken } from '../../../utils/createJWT';
-import { comparePassword } from '../../../utils/hashPassword';
-import { encryptValue, decryptValue } from '../../../utils/crypto';
+import { Resolvers } from '@gql-types';
+import User from '@models/User';
+import { createRefreshToken, createAccessToken } from '@utils/createJWT';
+import { comparePassword } from '@utils/hashPassword';
+import { encryptValue, decryptValue } from '@utils/crypto';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우

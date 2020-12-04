@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Skill from '../../../models/Skill';
-import privateResolver from '../../../utils/privateResolver';
+import Skill from '@models/Skill';
+import privateResolver from '@utils/privateResolver';
 
 /** AddSkill
  *  FRONT_END, BACK_END, DEV_OPS 3가지 타입으로

@@ -1,7 +1,9 @@
 import { Op } from 'sequelize';
-import { Resolvers } from '../../../types/api';
-import Post from '../../../models/Post';
-import Tag from '../../../models/Tag';
+
+import { Resolvers } from '@gql-types';
+
+import Post from '@models/Post';
+import Tag from '@models/Tag';
 
 const LIMIT_POST = 10 as const;
 

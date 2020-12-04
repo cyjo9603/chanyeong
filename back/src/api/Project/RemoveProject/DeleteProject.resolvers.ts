@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Project from '../../../models/Project';
-import privateResolver from '../../../utils/privateResolver';
+import Project from '@models/Project';
+import privateResolver from '@utils/privateResolver';
 
 /** DeleteProject
  *  프로젝트 id값을 받아 삭제

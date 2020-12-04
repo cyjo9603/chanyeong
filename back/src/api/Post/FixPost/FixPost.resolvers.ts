@@ -1,7 +1,7 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Post from '../../../models/Post';
-import privateResolver from '../../../utils/privateResolver';
+import Post from '@models/Post';
+import privateResolver from '@utils/privateResolver';
 
 /** FixPost
  *  포스트 메인 페이지에 고정

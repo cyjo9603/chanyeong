@@ -1,7 +1,7 @@
-// import { Resolvers } from '../../../types/resolvers';
-// import User from '../../../models/User';
-// import privateResolver from '../../../utils/privateResolver';
-// import { hashPassword } from '../../../utils/hashPassword';
+// import { Resolvers } from '@gql-types';
+// import User from '@models/User';
+// import privateResolver from '@utils/privateResolver';
+// import { hashPassword } from '@utils/hashPassword';
 
 // interface EditInfo {
 //   [key: string]: string;

@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Post from '../../../models/Post';
-import Tag from '../../../models/Tag';
+import Post from '@models/Post';
+import Tag from '@models/Tag';
 
 /** GetPickedPosts
  *  picked 포스트 조회

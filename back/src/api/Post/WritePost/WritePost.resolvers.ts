@@ -1,8 +1,8 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Post from '../../../models/Post';
-import Tag from '../../../models/Tag';
-import privateResolver from '../../../utils/privateResolver';
+import Post from '@models/Post';
+import Tag from '@models/Tag';
+import privateResolver from '@utils/privateResolver';
 
 /** WritePost
  *  포스트 작성, tag값을 받아 포스트에 삽입

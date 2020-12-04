@@ -1,9 +1,9 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import User from '../../../models/User';
-import { createAccessToken, REFRESH_TOKEN } from '../../../utils/createJWT';
-import decodeJWT from '../../../utils/decodeJWT';
-import { encryptValue, decryptValue } from '../../../utils/crypto';
+import User from '@models/User';
+import { createAccessToken, REFRESH_TOKEN } from '@utils/createJWT';
+import decodeJWT from '@utils/decodeJWT';
+import { encryptValue, decryptValue } from '@utils/crypto';
 
 /** ReissuanceAccessToken
  *  refreshToken을 받아 유효한 토큰일 경우

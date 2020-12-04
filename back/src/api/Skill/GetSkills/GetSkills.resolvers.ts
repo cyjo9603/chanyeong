@@ -1,6 +1,6 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Skill from '../../../models/Skill';
+import Skill from '@models/Skill';
 
 /** GetSkills
  *  FRONT_END, BACK_END, DEV_OPS 3가지 타입으로

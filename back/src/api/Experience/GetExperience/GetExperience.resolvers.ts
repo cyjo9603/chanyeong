@@ -1,6 +1,6 @@
-import { Resolvers } from '../../../types/api';
+import { Resolvers } from '@gql-types';
 
-import Experience from '../../../models/Experience';
+import Experience from '@models/Experience';
 
 /** GetExperiences
  *  경험 목록 조회
