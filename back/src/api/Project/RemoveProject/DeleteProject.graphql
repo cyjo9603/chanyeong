@@ -1,8 +1,8 @@
 type DeleteProjectResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    DeleteProject(id: Int!): DeleteProjectResponse!
+  DeleteProject(id: Int!): DeleteProjectResponse! @auth
 }

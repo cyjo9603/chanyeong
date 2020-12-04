@@ -1,7 +1,6 @@
 import { Resolvers } from '@gql-types';
 
 import Project from '@models/Project';
-import privateResolver from '@utils/privateResolver';
 
 /** AddProject
  *  프로젝트 등록, skills에서 skillIds가 없으면 undefined,
@@ -9,7 +8,7 @@ import privateResolver from '@utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Mutation: {
-    AddProject: privateResolver(async (_, args) => {
+    AddProject: async (_, args) => {
       try {
         const {
           type,
@@ -52,7 +51,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

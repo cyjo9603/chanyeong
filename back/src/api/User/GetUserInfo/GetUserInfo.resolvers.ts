@@ -1,7 +1,6 @@
 import { Resolvers } from '@gql-types';
 
 import User from '@models/User';
-import privateResolver from '@utils/privateResolver';
 
 /** SignIn
  *  비밀번호 비교 후 맞을경우
@@ -10,10 +9,9 @@ import privateResolver from '@utils/privateResolver';
  */
 const resolvers: Resolvers = {
   Query: {
-    GetUserInfo: privateResolver(async (_, __, context) => {
+    GetUserInfo: async (_, __, { req }) => {
       try {
-        const { id } = context.req.user;
-        const user = User.findOne({ where: { id } });
+        const user = User.findOne({ where: { id: req.user || 0 } });
 
         return {
           ok: true,
@@ -25,7 +23,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

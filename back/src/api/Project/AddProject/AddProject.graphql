@@ -1,20 +1,20 @@
 type AddProjectResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    AddProject(
-        type: ProjectType!
-        groupName: String
-        title: String!
-        description: String!
-        content: String!
-        startDate: String!
-        endDate: String
-        githubAddr: String
-        titleImage: String
-        contribution: Int
-        skillIds: [Int]
-    ): AddProjectResponse!
+  AddProject(
+    type: ProjectType!
+    groupName: String
+    title: String!
+    description: String!
+    content: String!
+    startDate: String!
+    endDate: String
+    githubAddr: String
+    titleImage: String
+    contribution: Int
+    skillIds: [Int]
+  ): AddProjectResponse! @auth
 }

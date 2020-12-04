@@ -1,8 +1,8 @@
 type FixProjectResponse {
-    ok: Boolean!
-    error: String
+  ok: Boolean!
+  error: String
 }
 
 type Mutation {
-    FixProject(id: Int!, fix: Boolean!): FixProjectResponse!
+  FixProject(id: Int!, fix: Boolean!): FixProjectResponse! @auth
 }

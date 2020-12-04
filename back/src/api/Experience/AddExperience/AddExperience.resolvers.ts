@@ -1,14 +1,13 @@
 import { Resolvers } from '@gql-types';
 
 import Experience from '@models/Experience';
-import privateResolver from '@utils/privateResolver';
 
 /** AddExperience
  *  경험 등록
  */
 const resolvers: Resolvers = {
   Mutation: {
-    AddExperience: privateResolver(async (_, args) => {
+    AddExperience: async (_, args) => {
       try {
         const { startDate, endDate, title, content } = args;
 
@@ -23,7 +22,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

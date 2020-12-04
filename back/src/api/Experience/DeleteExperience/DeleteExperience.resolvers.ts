@@ -1,14 +1,13 @@
 import { Resolvers } from '@gql-types';
 
 import Experience from '@models/Experience';
-import privateResolver from '@utils/privateResolver';
 
 /** DeleteExperience
  *  경험 제거
  */
 const resolvers: Resolvers = {
   Mutation: {
-    DeleteExperience: privateResolver(async (_, args) => {
+    DeleteExperience: async (_, args) => {
       try {
         const { id } = args;
 
@@ -23,7 +22,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

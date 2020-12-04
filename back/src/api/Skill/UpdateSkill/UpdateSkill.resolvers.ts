@@ -1,7 +1,6 @@
 import { Resolvers } from '@gql-types';
 
 import Skill from '@models/Skill';
-import privateResolver from '@utils/privateResolver';
 
 interface UpdateValue {
   [key: string]: string | number;
@@ -12,17 +11,23 @@ interface UpdateValue {
  */
 const resolvers: Resolvers = {
   Mutation: {
-    UpdateSkill: privateResolver(async (_, args: UpdateValue) => {
+    UpdateSkill: async (_, args) => {
       try {
-        const updateValue = Object.keys(args).reduce((value: UpdateValue, key) => {
-          if (args[key] && key !== 'id') {
-            // eslint-disable-next-line no-param-reassign
-            value[key] = args[key];
-          }
-          return value;
-        }, {});
+        const updateSkills = args as UpdateValue;
+        const updateValue = Object.keys(updateSkills).reduce(
+          (value: UpdateValue, key) => {
+            if (updateSkills[key] && key !== 'id') {
+              // eslint-disable-next-line no-param-reassign
+              value[key] = updateSkills[key];
+            }
+            return value;
+          },
+          {},
+        );
 
-        await Skill.update(updateValue, { where: { id: args.id as number } });
+        await Skill.update(updateValue, {
+          where: { id: updateSkills.id as number },
+        });
 
         return {
           ok: true,
@@ -33,7 +38,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 

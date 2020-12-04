@@ -1,14 +1,13 @@
 import { Resolvers } from '@gql-types';
 
 import Experience from '@models/Experience';
-import privateResolver from '@utils/privateResolver';
 
 /** EditExperience
  *  경험 수정
  */
 const resolvers: Resolvers = {
   Mutation: {
-    EditExperience: privateResolver(async (_, args) => {
+    EditExperience: async (_, args) => {
       try {
         const { id, startDate, endDate, title, content } = args;
 
@@ -31,7 +30,7 @@ const resolvers: Resolvers = {
           error,
         };
       }
-    }),
+    },
   },
 };
 
