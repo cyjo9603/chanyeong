@@ -12,4 +12,17 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-unused-vars': 1,
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@api', './src/api'],
+          ['@models', './src/models'],
+          ['@utils', './src/utils'],
+          ['@gql-types', './src/types/api.ts'],
+          ['@', './src'],
+        ],
+      },
+    },
+  },
 };
