@@ -3,8 +3,11 @@ import Router from 'next/router';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import { getAccessToken } from '@lib/cookie';
-import useChangeEvent from '@lib/useChangeEvent';
-import { reissuanceAccessToken, ERROR_EXPIRATION } from '@lib/reissuanceAccessToken';
+import useChangeEvent from '@src/hooks/useChangeEvent';
+import {
+  reissuanceAccessToken,
+  ERROR_EXPIRATION,
+} from '@lib/reissuanceAccessToken';
 import { GET_LOCAL_USER } from '@queries/client';
 import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
 import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
@@ -20,10 +23,12 @@ const WritePostContainer = ({ post }: Props) => {
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
-  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(post?.title || '');
-  const [category, , onChangeCategory] = useChangeEvent<HTMLSelectElement>(post?.category || 'DEV');
+  const [title, , onChangeTitle] = useChangeEvent(post?.title || '');
+  const [category, , onChangeCategory] = useChangeEvent<HTMLSelectElement>(
+    post?.category || 'DEV',
+  );
   const [tags, setTags] = useState<string[]>([]);
-  const [insertTag, , onChangeInsertTag] = useChangeEvent<HTMLInputElement>('');
+  const [insertTag, , onChangeInsertTag] = useChangeEvent('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
   const insertTagRef = useRef<HTMLInputElement>();
   const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
@@ -43,7 +48,10 @@ const WritePostContainer = ({ post }: Props) => {
             titleImage: titleImage || undefined,
             tags,
           };
-          writePostMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          writePostMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (WritePost.ok) {
@@ -70,7 +78,10 @@ const WritePostContainer = ({ post }: Props) => {
             deleteTags,
             addTags: tags,
           };
-          editPostMutation({ variables, context: { headers: { 'X-JWT': token } } });
+          editPostMutation({
+            variables,
+            context: { headers: { 'X-JWT': token } },
+          });
         }
       }
       if (EditPost.ok) {

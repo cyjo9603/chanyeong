@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import { action } from '@storybook/addon-actions';
 
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 
 import Search from '.';
 
@@ -11,7 +11,7 @@ export default {
 };
 
 export const Default = () => {
-  const [value, , onChange] = useChangeEvent<HTMLInputElement>('');
+  const [value, , onChange] = useChangeEvent('');
 
   const onSearch = (e: FormEvent) => {
     e.preventDefault();

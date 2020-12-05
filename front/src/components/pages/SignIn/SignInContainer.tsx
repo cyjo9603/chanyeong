@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 import { setToken } from '@lib/cookie';
 import { encryptValue } from '@lib/crypto';
 import { LOCAL_SIGN_IN } from '@queries/client';
@@ -11,8 +11,8 @@ import { signIn } from '@gql-types/api';
 import SignInPresenter from './SignInPresenter';
 
 const SignInContainer = () => {
-  const [userId, , onChangeUserId] = useChangeEvent<HTMLInputElement>('');
-  const [password, , onChangePassword] = useChangeEvent<HTMLInputElement>('');
+  const [userId, , onChangeUserId] = useChangeEvent('');
+  const [password, , onChangePassword] = useChangeEvent('');
   const [hasIdAndPassword, setHasIdAndPassword] = useState(false);
   const [localSignIn] = useMutation(LOCAL_SIGN_IN);
   const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
