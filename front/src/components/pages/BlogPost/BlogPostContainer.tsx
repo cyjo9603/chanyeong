@@ -87,10 +87,10 @@ BlogPostContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
     const { apolloClient } = context;
-    apolloClient.cache.reset();
     const postData = await apolloClient.query({
       query: GET_POST,
       variables: { id: parseInt(id, 10) },
+      fetchPolicy: 'no-cache',
     });
     return postData.data;
   }
