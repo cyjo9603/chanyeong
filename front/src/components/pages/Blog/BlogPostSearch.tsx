@@ -1,13 +1,11 @@
 import React, { FC, useCallback } from 'react';
 import Router from 'next/router';
 
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 import Search from '@molecules/Search';
 
 const BlogPostSearch: FC = () => {
-  const [searchWord, , onChangeSearchWord] = useChangeEvent<HTMLInputElement>(
-    '',
-  );
+  const [searchWord, , onChangeSearchWord] = useChangeEvent('');
 
   const onSearch = useCallback(
     (e: React.FormEvent) => {

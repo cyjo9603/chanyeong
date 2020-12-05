@@ -1,7 +1,7 @@
 import React from 'react';
 import { text, select } from '@storybook/addon-knobs';
 
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 
 import TransparentInput from '.';
 
@@ -11,7 +11,7 @@ export default {
 };
 
 export const Default = () => {
-  const [value, , onChange] = useChangeEvent<HTMLInputElement>('');
+  const [value, , onChange] = useChangeEvent('');
   const type = select('type', ['text', 'password'], 'text');
   const placeholder = text('placeholder', 'default');
 

@@ -4,7 +4,7 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks';
 
 import { getAccessToken } from '@lib/cookie';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
 import {
   AddSkill,
@@ -25,7 +25,9 @@ interface Props {
 
 const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   const apollo = useApolloClient();
-  const [skillType, setSkillType, onChangeType] = useChangeEvent('');
+  const [skillType, setSkillType, onChangeType] = useChangeEvent<
+    HTMLSelectElement
+  >('');
   const [name, setName, onChangeName] = useChangeEvent('');
   const [level, setLevel, onChangeLevel] = useChangeEvent('');
   const [description, setDescription, onChangeDescription] = useChangeEvent('');

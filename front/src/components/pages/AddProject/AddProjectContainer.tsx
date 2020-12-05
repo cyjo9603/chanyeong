@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
-import useChangeEvent from '@lib/useChangeEvent';
+import useChangeEvent from '@src/hooks/useChangeEvent';
 import { getAccessToken } from '@lib/cookie';
 import {
   reissuanceAccessToken,
@@ -43,27 +43,23 @@ const AddProjectContainer = ({ project }: Props) => {
   const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<
     HTMLSelectElement
   >('');
-  const [groupName, , onChangeGroupName] = useChangeEvent<HTMLInputElement>(
+  const [groupName, , onChangeGroupName] = useChangeEvent(
     project?.groupName || '',
   );
-  const [title, , onChangeTitle] = useChangeEvent<HTMLInputElement>(
-    project?.title || '',
-  );
-  const [description, , onChangeDescription] = useChangeEvent<HTMLInputElement>(
+  const [title, , onChangeTitle] = useChangeEvent(project?.title || '');
+  const [description, , onChangeDescription] = useChangeEvent(
     project?.description || '',
   );
-  const [startDate, , onChangeStartDate] = useChangeEvent<HTMLInputElement>(
+  const [startDate, , onChangeStartDate] = useChangeEvent(
     project?.startDate || '',
   );
-  const [endDate, , onChangeEndDate] = useChangeEvent<HTMLInputElement>(
-    project?.endDate || '',
-  );
-  const [githubAddr, , onChangeGithubAddr] = useChangeEvent<HTMLInputElement>(
+  const [endDate, , onChangeEndDate] = useChangeEvent(project?.endDate || '');
+  const [githubAddr, , onChangeGithubAddr] = useChangeEvent(
     project?.githubAddr || '',
   );
-  const [contribution, , onChangeContribution] = useChangeEvent<
-    HTMLInputElement
-  >(String(project?.contribution || ''));
+  const [contribution, , onChangeContribution] = useChangeEvent(
+    String(project?.contribution || ''),
+  );
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
