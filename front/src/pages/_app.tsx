@@ -33,7 +33,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
-      <ApolloProvider client={apollo}>
+      <ApolloProvider client={apollo as any}>
         <Helmet>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
