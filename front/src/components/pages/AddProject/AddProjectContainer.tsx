@@ -106,6 +106,7 @@ const AddProjectContainer = ({ project }: Props) => {
   );
 
   const [addProjectMutation] = useReissueMutation<addProject>(ADD_PROJECT, {
+    variables: getVariables(MUTATION_ADD),
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
         Router.push('/portfolio');
@@ -115,6 +116,7 @@ const AddProjectContainer = ({ project }: Props) => {
   const [updateProjectMutation] = useReissueMutation<updateProject>(
     UPDATE_PROJECT,
     {
+      variables: getVariables(MUTATION_UPDATE),
       onCompleted: async ({ UpdateProject }) => {
         if (UpdateProject.ok) {
           Router.push('/portfolio');
@@ -145,12 +147,10 @@ const AddProjectContainer = ({ project }: Props) => {
   const onSubmit = useCallback(() => {
     if (projectType && title && content && description && startDate) {
       if (project) {
-        const variables = getVariables(MUTATION_UPDATE);
-        updateProjectMutation({ variables });
-      } else {
-        const variables = getVariables(MUTATION_ADD);
-        addProjectMutation({ variables });
+        updateProjectMutation();
+        return;
       }
+      addProjectMutation();
     }
   }, [
     content,
