@@ -10,13 +10,7 @@ import { lightTheme, darkTheme } from '@theme/.';
 import GlobalStyle from '@theme/globalStyle';
 import AppLayout from '@frames/AppLayout';
 import DarkModeButton from '@molecules/DarkModeButton';
-import { GET_USER_INFO } from '@queries/user.queries';
-import { getAccessToken, getRefreshToken } from '@lib/cookie';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
-import { getUserInfo } from '@gql-types/api';
+
 import withApolloClient from '@src/apollo';
 
 interface Props extends AppProps {
@@ -32,51 +26,8 @@ const App = ({ Component, pageProps, apollo }: Props) => {
   }, [isDarkMode]);
 
   useEffect(() => {
-    const accessToken = getAccessToken();
-    const refreshToken = getRefreshToken();
     const mode = localStorage.getItem('mode');
     setIsDarkMode(mode === 'true');
-
-    if (accessToken && refreshToken) {
-      apollo
-        .query({
-          query: GET_USER_INFO,
-          context: {
-            headers: {
-              'X-JWT': accessToken,
-            },
-          },
-        })
-        .then(async (result: any) => {
-          let { GetUserInfo } = (result.data as getUserInfo) || {};
-
-          if (GetUserInfo?.error === ERROR_EXPIRATION) {
-            apollo.cache.reset();
-            const token = await reissuanceAccessToken(apollo);
-
-            if (token) {
-              const { data: userInfo } = await apollo.query({
-                query: GET_USER_INFO,
-                context: { headers: { 'X-JWT': token } },
-                fetchResults: true,
-              });
-              GetUserInfo = userInfo.GetUserInfo;
-            }
-          }
-
-          if (GetUserInfo?.user) {
-            const { familyName, givenName } = GetUserInfo.user;
-            apollo.cache.writeData({
-              data: {
-                isLoggedIn: {
-                  __typename: 'IsLoggedIn',
-                  userName: `${familyName}${givenName}`,
-                },
-              },
-            });
-          }
-        });
-    }
   }, []);
 
   return (
