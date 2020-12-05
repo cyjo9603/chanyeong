@@ -11,7 +11,7 @@
     "build": "next build",
     "prestart": "npm run build",
     "start": "NODE_ENV=production PORT=3333 pm2 start server.js",
-    "pretypes":"graphql-codegen",
+    "pretypes": "graphql-codegen",
     "types": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
     "storybook": "start-storybook -p 6006 -c .storybook"
   },
@@ -19,7 +19,7 @@
   "author": "chanyeong",
   "license": "MIT",
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/react-hooks": "^4.0.0",
     "@apollo/react-ssr": "^3.1.5",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
