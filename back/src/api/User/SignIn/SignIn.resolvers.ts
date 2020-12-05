@@ -16,7 +16,7 @@ const resolvers: Resolvers = {
     SignIn: async (_, { userId, password }, { res, authenticate }) => {
       try {
         const { user, info } = await authenticate('local', {
-          userId,
+          email: userId,
           password,
         });
 
