@@ -4,7 +4,6 @@ import { Resolvers } from '@gql-types';
 
 import User from '@models/User';
 import { createRefreshToken, createAccessToken } from '@utils/createJWT';
-import decodeJWT from '@utils/decodeJWT';
 import { encryptValue, decryptValue } from '@utils/crypto';
 
 const JWT_HEADER = process.env.JWT_HEADER as string;
