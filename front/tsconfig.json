@@ -23,6 +23,7 @@
       "@molecules/*": ["src/components/UI/molecules/*"],
       "@organisms/*": ["src/components/UI/organisms/*"],
       "@frames/*": ["src/components/UI/frames/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@lib/*": ["src/lib/*"],
       "@routes/*": ["src/routes/*"],
       "@theme/*": ["src/theme/*"],
