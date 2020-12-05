@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/react-hooks';
 import Router from 'next/router';
 
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { setToken } from '@lib/cookie';
 import { encryptValue } from '@lib/crypto';
 import { LOCAL_SIGN_IN } from '@queries/client';
 import { SIGNIN_REQUEST } from '@queries/user.queries';
@@ -17,8 +16,7 @@ const SignInContainer = () => {
   const [localSignIn] = useMutation(LOCAL_SIGN_IN);
   const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
     onCompleted: ({ SignIn }) => {
-      if (SignIn.token && SignIn.userName) {
-        setToken(SignIn.token);
+      if (SignIn.ok && SignIn.userName) {
         localSignIn({
           variables: {
             userName: SignIn.userName,
