@@ -28,7 +28,16 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   const [description, setDescription, onChangeDescription] = useChangeEvent('');
   const [order, setOrder, onChangeOrder] = useChangeEvent('');
   const [image, setImage] = useState('');
+  const addOrUpdateVariables = {
+    name,
+    type: skillType,
+    level: parseInt(level, 10),
+    description,
+    icon: image,
+    order: parseInt(order, 10),
+  };
   const [addSkillMutation] = useReissueMutation<AddSkill>(ADD_SKILL, {
+    variables: addOrUpdateVariables,
     onCompleted: async ({ AddSkill }) => {
       if (AddSkill.ok) {
         closeUpdateSkill();
@@ -36,6 +45,10 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
     },
   });
   const [updateSkillMutation] = useReissueMutation<UpdateSkill>(UPDATE_SKILL, {
+    variables: {
+      ...addOrUpdateVariables,
+      id: editSkillData.id,
+    },
     onCompleted: async ({ UpdateSkill }) => {
       if (UpdateSkill.ok) {
         closeUpdateSkill();
@@ -43,6 +56,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
     },
   });
   const [deleteSkillMutation] = useReissueMutation<DeleteSkill>(DELETE_SKILL, {
+    variables: { id: editSkillData.id },
     onCompleted: async ({ DeleteSkill }) => {
       if (DeleteSkill.ok) {
         closeUpdateSkill();
@@ -51,31 +65,16 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   });
 
   const onClickDelete = useCallback(() => {
-    deleteSkillMutation({ variables: { id: editSkillData.id } });
+    deleteSkillMutation();
   }, []);
 
-  const onSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const updateMutation = editSkillData
-        ? updateSkillMutation
-        : addSkillMutation;
-      const variables = {
-        name,
-        type: skillType,
-        level: parseInt(level, 10),
-        description,
-        icon: image,
-        order: parseInt(order, 10),
-      };
-      updateMutation({
-        variables: editSkillData
-          ? { ...variables, id: editSkillData.id }
-          : variables,
-      });
-    },
-    [name, skillType, level, description, image, order],
-  );
+  const onSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    const updateMutation = editSkillData
+      ? updateSkillMutation
+      : addSkillMutation;
+    updateMutation();
+  }, []);
 
   const onChangeImageUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {

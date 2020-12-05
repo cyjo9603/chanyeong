@@ -26,7 +26,27 @@ const WritePostContainer = ({ post }: Props) => {
   const [insertTag, , onChangeInsertTag] = useChangeEvent('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
   const insertTagRef = useRef<HTMLInputElement>();
+
+  const getVariables = useCallback(
+    (isWrite: boolean) => {
+      const variables = {
+        category,
+        title,
+        content,
+        titleImage: titleImage || undefined,
+        deleteTags,
+        addTags: tags,
+      };
+      if (!isWrite) {
+        return { ...variables, id: post?.id || 0 };
+      }
+      return { ...variables, tags };
+    },
+    [content, titleImage, title, category, tags, deleteTags, tags],
+  );
+
   const [writePostMutation] = useReissueMutation<writePost>(WRITE_POST, {
+    variables: getVariables(false),
     onCompleted: async ({ WritePost }) => {
       if (WritePost.ok) {
         Router.push('/blog');
@@ -34,6 +54,7 @@ const WritePostContainer = ({ post }: Props) => {
     },
   });
   const [editPostMutation] = useReissueMutation<editPost>(EDIT_POST, {
+    variables: getVariables(true),
     onCompleted: async ({ EditPost }) => {
       if (EditPost.ok) {
         Router.push('/blog');
@@ -43,19 +64,11 @@ const WritePostContainer = ({ post }: Props) => {
 
   const onSubmit = useCallback(() => {
     if (content.trim() && title.trim()) {
-      const variables = {
-        category,
-        title,
-        content,
-        titleImage: titleImage || undefined,
-        deleteTags,
-        addTags: tags,
-      };
       if (post) {
-        editPostMutation({ variables: { ...variables, id: post.id } });
-      } else {
-        writePostMutation({ variables: { ...variables, tags } });
+        editPostMutation();
+        return;
       }
+      writePostMutation();
     }
   }, [content, titleImage, title, category, tags, deleteTags, tags]);
 
