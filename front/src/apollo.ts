@@ -6,6 +6,7 @@ import { withApollo } from 'next-with-apollo';
 export const prod = process.env.NODE_ENV === 'production';
 const link = createHttpLink({
   uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql',
+  credentials: 'include',
 });
 
 const cache = new InMemoryCache();

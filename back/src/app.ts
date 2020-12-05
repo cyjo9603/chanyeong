@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import express, { Express } from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import helmet from 'helmet';
 import logger from 'morgan';
 import compression from 'compression';
@@ -30,29 +30,27 @@ class App {
   }
 
   private middlewares = () => {
+    const corsOptions: CorsOptions = {
+      credentials: true,
+    };
     if (prod) {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(logger('combined'));
-      this.app.use(
-        cors({
-          origin: /chanyeong\.com$/,
-          credentials: true,
-        }),
-      );
+      corsOptions.origin = /chanyeong\.com$/;
     } else {
       this.app.use(logger('dev'));
-      this.app.use(
-        cors({
-          origin: true,
-          credentials: true,
-        }),
-      );
+      corsOptions.origin = true;
     }
+    this.app.use(cors(corsOptions));
     this.app.use(cookieParser());
     passportInit();
     this.app.use(compression());
-    this.server.applyMiddleware({ app: this.app, path: GRAPHQL_ENDPOINT });
+    this.server.applyMiddleware({
+      app: this.app,
+      path: GRAPHQL_ENDPOINT,
+      cors: corsOptions,
+    });
   };
 }
 
