@@ -48,7 +48,6 @@
     "next-transpile-modules": "^4.1.0",
     "next-with-apollo": "^5.0.1",
     "react": "^16.13.1",
-    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-markdown": "^5.0.0",

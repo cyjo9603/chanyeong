@@ -5,8 +5,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { useReissueMutation } from '@hooks/useApollo';
 
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { getAccessToken } from '@lib/cookie';
-
 import { GET_SKILLS } from '@queries/skill.queries';
 import {
   ADD_PROJECT,
@@ -146,19 +144,12 @@ const AddProjectContainer = ({ project }: Props) => {
 
   const onSubmit = useCallback(() => {
     if (projectType && title && content && description && startDate) {
-      const context = { headers: { 'X-JWT': getAccessToken() } };
       if (project) {
         const variables = getVariables(MUTATION_UPDATE);
-        updateProjectMutation({
-          variables,
-          context,
-        });
+        updateProjectMutation({ variables });
       } else {
         const variables = getVariables(MUTATION_ADD);
-        addProjectMutation({
-          variables,
-          context,
-        });
+        addProjectMutation({ variables });
       }
     }
   }, [
