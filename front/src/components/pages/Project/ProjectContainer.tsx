@@ -1,13 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
-import { getAccessToken } from '@lib/cookie';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
+import { useReissueMutation } from '@hooks/useApollo';
 import { GET_LOCAL_USER } from '@queries/client';
 import {
   GET_PROJECT,
@@ -39,7 +35,6 @@ const path = [
 
 const ProjectContainer = ({ GetProject }: Props) => {
   const { project } = useMemo(() => GetProject || { project: null }, []);
-  const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [isFixed, setIsFixed] = useState(
     project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
@@ -53,29 +48,20 @@ const ProjectContainer = ({ GetProject }: Props) => {
       ),
     [],
   );
-  const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
-    variables: { id: project?.id },
-    onCompleted: async ({ DeleteProject }) => {
-      if (DeleteProject.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          deleteProjectMutation({ context: { headers: { 'X-JWT': token } } });
+  const [deleteProjectMutation] = useReissueMutation<deleteProject>(
+    DELETE_PROJECT,
+    {
+      variables: { id: project?.id },
+      onCompleted: async ({ DeleteProject }) => {
+        if (DeleteProject.ok) {
+          Router.push('/portfolio');
         }
-      }
-      if (DeleteProject.ok) {
-        Router.push('/portfolio');
-      }
+      },
     },
-  });
-  const [fixProjecttMutation] = useMutation<fixProject>(FIX_PROJECT, {
+  );
+  const [fixProjecttMutation] = useReissueMutation<fixProject>(FIX_PROJECT, {
     variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
     onCompleted: async ({ FixProject }) => {
-      if (FixProject.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          fixProjecttMutation({ context: { headers: { 'X-JWT': token } } });
-        }
-      }
       if (FixProject.ok) {
         setIsFixed(
           isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
@@ -89,25 +75,13 @@ const ProjectContainer = ({ GetProject }: Props) => {
   }, []);
 
   const onClickFix = useCallback(() => {
-    fixProjecttMutation({
-      context: {
-        headers: {
-          'X-JWT': getAccessToken(),
-        },
-      },
-    });
+    fixProjecttMutation();
   }, []);
 
   const onClickDelete = useCallback(() => {
     const result = confirm('정말 게시글을 삭제하시겠습니까?');
     if (result) {
-      deleteProjectMutation({
-        context: {
-          headers: {
-            'X-JWT': getAccessToken(),
-          },
-        },
-      });
+      deleteProjectMutation();
     }
   }, []);
 

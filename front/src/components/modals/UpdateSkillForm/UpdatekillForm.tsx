@@ -1,8 +1,7 @@
 // TODO: 추후 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useReissueMutation } from '@hooks/useApollo';
 
-import { getAccessToken } from '@lib/cookie';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
@@ -12,10 +11,7 @@ import {
   DeleteSkill,
   getSkills_GetSkills_skill,
 } from '@gql-types/api';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
+
 import { UpdateSkillFormWrapper } from './styled';
 
 interface Props {
@@ -24,7 +20,6 @@ interface Props {
 }
 
 const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
-  const apollo = useApolloClient();
   const [skillType, setSkillType, onChangeType] = useChangeEvent<
     HTMLSelectElement
   >('');
@@ -33,68 +28,22 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   const [description, setDescription, onChangeDescription] = useChangeEvent('');
   const [order, setOrder, onChangeOrder] = useChangeEvent('');
   const [image, setImage] = useState('');
-  const [addSkillMutation] = useMutation<AddSkill>(ADD_SKILL, {
+  const [addSkillMutation] = useReissueMutation<AddSkill>(ADD_SKILL, {
     onCompleted: async ({ AddSkill }) => {
-      if (AddSkill.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = {
-            name,
-            type: skillType,
-            level: parseInt(level, 10),
-            description,
-            icon: image,
-            order: parseInt(order, 10),
-          };
-          addSkillMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (AddSkill.ok) {
         closeUpdateSkill();
       }
     },
   });
-  const [updateSkillMutation] = useMutation<UpdateSkill>(UPDATE_SKILL, {
+  const [updateSkillMutation] = useReissueMutation<UpdateSkill>(UPDATE_SKILL, {
     onCompleted: async ({ UpdateSkill }) => {
-      if (UpdateSkill.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = {
-            name,
-            type: skillType,
-            level: parseInt(level, 10),
-            description,
-            icon: image,
-            order: parseInt(order, 10),
-          };
-          addSkillMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (UpdateSkill.ok) {
         closeUpdateSkill();
       }
     },
   });
-  const [deleteSkillMutation] = useMutation<DeleteSkill>(DELETE_SKILL, {
+  const [deleteSkillMutation] = useReissueMutation<DeleteSkill>(DELETE_SKILL, {
     onCompleted: async ({ DeleteSkill }) => {
-      if (DeleteSkill.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = {
-            id: editSkillData.id,
-          };
-          addSkillMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (DeleteSkill.ok) {
         closeUpdateSkill();
       }
@@ -102,14 +51,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   });
 
   const onClickDelete = useCallback(() => {
-    deleteSkillMutation({
-      variables: { id: editSkillData.id },
-      context: {
-        headers: {
-          'X-JWT': getAccessToken(),
-        },
-      },
-    });
+    deleteSkillMutation({ variables: { id: editSkillData.id } });
   }, []);
 
   const onSubmit = useCallback(
@@ -130,11 +72,6 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
         variables: editSkillData
           ? { ...variables, id: editSkillData.id }
           : variables,
-        context: {
-          headers: {
-            'X-JWT': getAccessToken(),
-          },
-        },
       });
     },
     [name, skillType, level, description, image, order],

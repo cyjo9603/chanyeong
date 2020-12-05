@@ -1,13 +1,9 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
-import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
-import { getAccessToken } from '@lib/cookie';
+import { useReissueMutation } from '@hooks/useApollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
 import { GET_LOCAL_USER } from '@queries/client';
 import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
 import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
@@ -18,7 +14,6 @@ interface Props {
 }
 
 const WritePostContainer = ({ post }: Props) => {
-  const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
@@ -31,59 +26,15 @@ const WritePostContainer = ({ post }: Props) => {
   const [insertTag, , onChangeInsertTag] = useChangeEvent('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
   const insertTagRef = useRef<HTMLInputElement>();
-  const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
-    context: {
-      headers: {
-        'X-JWT': getAccessToken(),
-      },
-    },
+  const [writePostMutation] = useReissueMutation<writePost>(WRITE_POST, {
     onCompleted: async ({ WritePost }) => {
-      if (WritePost.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = {
-            category,
-            title,
-            content,
-            titleImage: titleImage || undefined,
-            tags,
-          };
-          writePostMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (WritePost.ok) {
         Router.push('/blog');
       }
     },
   });
-  const [editPostMutation] = useMutation<editPost>(EDIT_POST, {
-    context: {
-      headers: {
-        'X-JWT': getAccessToken(),
-      },
-    },
+  const [editPostMutation] = useReissueMutation<editPost>(EDIT_POST, {
     onCompleted: async ({ EditPost }) => {
-      if (EditPost.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = {
-            id: post?.id,
-            category,
-            title,
-            content,
-            titleImage: titleImage || undefined,
-            deleteTags,
-            addTags: tags,
-          };
-          editPostMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (EditPost.ok) {
         Router.push('/blog');
       }

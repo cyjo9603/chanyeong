@@ -1,14 +1,12 @@
 // TODO: 코드 분리 및 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
-import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
+import { useReissueMutation } from '@hooks/useApollo';
 
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { getAccessToken } from '@lib/cookie';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
+
 import { GET_SKILLS } from '@queries/skill.queries';
 import {
   ADD_PROJECT,
@@ -33,7 +31,6 @@ interface Props {
 }
 
 const AddProjectContainer = ({ project }: Props) => {
-  const apollo = useApolloClient();
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
@@ -110,40 +107,23 @@ const AddProjectContainer = ({ project }: Props) => {
     ],
   );
 
-  const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
+  const [addProjectMutation] = useReissueMutation<addProject>(ADD_PROJECT, {
     onCompleted: async ({ AddProject }) => {
-      if (AddProject.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = getVariables(MUTATION_ADD);
-          addProjectMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
-        }
-      }
       if (AddProject.ok) {
         Router.push('/portfolio');
       }
     },
   });
-  const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
-    onCompleted: async ({ UpdateProject }) => {
-      if (UpdateProject.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          const variables = getVariables(MUTATION_UPDATE);
-          updateProjectMutation({
-            variables,
-            context: { headers: { 'X-JWT': token } },
-          });
+  const [updateProjectMutation] = useReissueMutation<updateProject>(
+    UPDATE_PROJECT,
+    {
+      onCompleted: async ({ UpdateProject }) => {
+        if (UpdateProject.ok) {
+          Router.push('/portfolio');
         }
-      }
-      if (UpdateProject.ok) {
-        Router.push('/portfolio');
-      }
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (project?.Skills.length) {
