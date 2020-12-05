@@ -107,6 +107,7 @@ ProjectContainer.getInitialProps = async (context) => {
     const postData = await apolloClient.query({
       query: GET_PROJECT,
       variables: { id: parseInt(id, 10) },
+      fetchPolicy: 'no-cache',
     });
     return postData.data;
   }
