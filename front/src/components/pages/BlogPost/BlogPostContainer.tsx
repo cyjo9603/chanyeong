@@ -1,13 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
-import { getAccessToken } from '@lib/cookie';
-import {
-  reissuanceAccessToken,
-  ERROR_EXPIRATION,
-} from '@lib/reissuanceAccessToken';
+import { useReissueMutation } from '@hooks/useApollo';
 import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
 import { GET_LOCAL_USER } from '@queries/client';
 import { getPost_GetPost, deletePost, fixPost } from '@gql-types/api';
@@ -31,7 +27,6 @@ const path = [
 
 const BlogPostContainer = ({ GetPost }: Props) => {
   const { post } = useMemo(() => GetPost || { post: null }, []);
-  const apollo = useApolloClient();
   const [isFixed, setIsFixed] = useState(
     post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE,
   );
@@ -44,29 +39,17 @@ const BlogPostContainer = ({ GetPost }: Props) => {
       ),
     [],
   );
-  const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
+  const [deletePostMutation] = useReissueMutation<deletePost>(DELETE_POST, {
     variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
-      if (DeletePost.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          deletePostMutation({ context: { headers: { 'X-JWT': token } } });
-        }
-      }
       if (DeletePost.ok) {
         Router.push('/blog');
       }
     },
   });
-  const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
+  const [fixPostMutation] = useReissueMutation<fixPost>(FIX_POST, {
     variables: { id: post?.id, fix: isFixed === FIX_POST_TRUE },
     onCompleted: async ({ FixPost }) => {
-      if (FixPost.error === ERROR_EXPIRATION) {
-        const token = await reissuanceAccessToken(apollo);
-        if (token) {
-          fixPostMutation({ context: { headers: { 'X-JWT': token } } });
-        }
-      }
       if (FixPost.ok) {
         setIsFixed(isFixed === FIX_POST_TRUE ? FIX_POST_FALSE : FIX_POST_TRUE);
       }
@@ -77,24 +60,12 @@ const BlogPostContainer = ({ GetPost }: Props) => {
     document.body.scrollTo(0, 0);
   }, []);
   const onClickFix = useCallback(() => {
-    fixPostMutation({
-      context: {
-        headers: {
-          'X-JWT': getAccessToken(),
-        },
-      },
-    });
+    fixPostMutation();
   }, []);
   const onClickDelete = useCallback(() => {
     const result = confirm('정말 게시글을 삭제하시겠습니까?');
     if (result) {
-      deletePostMutation({
-        context: {
-          headers: {
-            'X-JWT': getAccessToken(),
-          },
-        },
-      });
+      deletePostMutation();
     }
   }, []);
   return post ? (
