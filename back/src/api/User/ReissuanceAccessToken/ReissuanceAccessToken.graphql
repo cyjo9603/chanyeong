@@ -4,5 +4,5 @@ type ReissuanceAccessTokenResponse {
 }
 
 type Mutation {
-  ReissuanceAccessToken(refreshToken: String!): ReissuanceAccessTokenResponse
+  ReissuanceAccessToken: ReissuanceAccessTokenResponse
 }
