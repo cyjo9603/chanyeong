@@ -10,7 +10,7 @@ import { lightTheme, darkTheme } from '@theme/.';
 import GlobalStyle from '@theme/globalStyle';
 import AppLayout from '@frames/AppLayout';
 import DarkModeButton from '@molecules/DarkModeButton';
-
+import initSigininCheck from '@lib/initSigninCheck';
 import withApolloClient from '@src/apollo';
 
 interface Props extends AppProps {
@@ -28,6 +28,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
   useEffect(() => {
     const mode = localStorage.getItem('mode');
     setIsDarkMode(mode === 'true');
+    initSigininCheck(apollo);
   }, []);
 
   return (
