@@ -33,7 +33,7 @@ const resolvers: Resolvers = {
         const user = await User.findOne({ where: { id: data.id } });
         const isRefreshToken = jwt.verify(user.refreshToken, JWT_SECRET_KEY);
 
-        if (isRefreshToken) {
+        if (!isRefreshToken) {
           return {
             ok: false,
             error: 'Bad token',
