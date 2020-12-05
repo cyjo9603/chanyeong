@@ -5,10 +5,6 @@ export const SIGNIN_REQUEST = gql`
     SignIn(userId: $userId, password: $password) {
       ok
       error
-      token {
-        refreshToken
-        accessToken
-      }
       userName
     }
   }
@@ -29,11 +25,10 @@ export const GET_USER_INFO = gql`
 `;
 
 export const REISSUANCE_ACCESS_TOKEN = gql`
-  mutation reissuanceAccessToken($refreshToken: String!) {
-    ReissuanceAccessToken(refreshToken: $refreshToken) {
+  mutation reissuanceAccessToken {
+    ReissuanceAccessToken {
       ok
       error
-      token
     }
   }
 `;
