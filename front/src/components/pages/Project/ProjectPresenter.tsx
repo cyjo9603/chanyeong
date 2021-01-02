@@ -10,13 +10,12 @@ import BreadCrumbs from '@molecules/BreadCrumbs';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import { getProject_GetProject_project } from '@gql-types/api';
-import { LocalSignIn } from '@src/apollo';
 import { FixProject } from './ProjectContainer';
 
 interface Props {
   isFixed: FixProject;
   project?: getProject_GetProject_project;
-  userInfo?: LocalSignIn;
+  userName?: string;
   projectDescription: string;
   projectPath: {
     path?: string;
@@ -50,7 +49,7 @@ const StyledProject = styled.div`
 const ProjectPresenter = ({
   isFixed,
   project,
-  userInfo,
+  userName,
   projectDescription,
   projectPath,
   onClickDelete,
@@ -80,7 +79,7 @@ const ProjectPresenter = ({
               </div>
             )}
             <div>
-              {userInfo?.isLoggedIn.userName && (
+              {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
                   <Link
@@ -104,11 +103,7 @@ const ProjectPresenter = ({
               <div>
                 <span>GitHub : </span>
                 <span>
-                  <a
-                    href={project.githubAddr}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={project.githubAddr} target="_blank" rel="noopener noreferrer">
                     {project.githubAddr}
                   </a>
                 </span>

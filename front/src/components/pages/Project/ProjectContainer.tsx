@@ -1,21 +1,13 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
-import { GET_LOCAL_USER } from '@queries/client';
-import {
-  GET_PROJECT,
-  DELETE_PROJECT,
-  FIX_PROJECT,
-} from '@queries/project.queries';
-import {
-  getProject_GetProject,
-  deleteProject,
-  fixProject,
-} from '@gql-types/api';
+import { userInfoVar } from '@store/userInfo';
+import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
+import { getProject_GetProject, deleteProject, fixProject } from '@gql-types/api';
 import ProjectPresenter from './ProjectPresenter';
 
 const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
@@ -36,37 +28,26 @@ const path = [
 
 const ProjectContainer = ({ GetProject }: Props) => {
   const { project } = useMemo(() => GetProject || { project: null }, []);
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
-  const [isFixed, setIsFixed] = useState(
-    project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
-  );
+  const userInfo = useReactiveVar(userInfoVar);
+  const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
   const projectPath = useMemo(() => [...path, { name: project?.title }], []);
   const projectDescription = useMemo(
-    () =>
-      removeMd(project?.content, { useImgAltText: false }).slice(
-        0,
-        MAX_DESCRIPTION,
-      ),
+    () => removeMd(project?.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
     [],
   );
-  const [deleteProjectMutation] = useReissueMutation<deleteProject>(
-    DELETE_PROJECT,
-    {
-      variables: { id: project?.id },
-      onCompleted: async ({ DeleteProject }) => {
-        if (DeleteProject.ok) {
-          Router.push('/portfolio');
-        }
-      },
+  const [deleteProjectMutation] = useReissueMutation<deleteProject>(DELETE_PROJECT, {
+    variables: { id: project?.id },
+    onCompleted: async ({ DeleteProject }) => {
+      if (DeleteProject.ok) {
+        Router.push('/portfolio');
+      }
     },
-  );
+  });
   const [fixProjecttMutation] = useReissueMutation<fixProject>(FIX_PROJECT, {
     variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
     onCompleted: async ({ FixProject }) => {
       if (FixProject.ok) {
-        setIsFixed(
-          isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE,
-        );
+        setIsFixed(isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
       }
     },
   });
@@ -90,7 +71,7 @@ const ProjectContainer = ({ GetProject }: Props) => {
     <ProjectPresenter
       isFixed={isFixed}
       project={project}
-      userInfo={userInfo}
+      userName={userInfo.userName}
       projectDescription={projectDescription}
       projectPath={projectPath}
       onClickDelete={onClickDelete}
