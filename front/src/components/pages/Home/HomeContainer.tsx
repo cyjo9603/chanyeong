@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { GET_PICKED } from '@queries/picked.queries';
 import { getPicked } from '@gql-types/api';

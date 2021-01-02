@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
+import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
 import { GET_LOCAL_USER } from '@queries/client';
@@ -86,7 +87,7 @@ const BlogPostContainer = ({ GetPost }: Props) => {
 BlogPostContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
-    const { apolloClient } = context;
+    const apolloClient = initializeApollo();
     const postData = await apolloClient.query({
       query: GET_POST,
       variables: { id: parseInt(id, 10) },

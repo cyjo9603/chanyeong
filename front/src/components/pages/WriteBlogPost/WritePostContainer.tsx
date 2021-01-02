@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
+import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_LOCAL_USER } from '@queries/client';
@@ -148,7 +149,7 @@ const WritePostContainer = ({ post }: Props) => {
 WritePostContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
-    const { apolloClient } = context;
+    const apolloClient = initializeApollo();
     const postData = await apolloClient.query({
       query: GET_POST,
       variables: { id: parseInt(id, 10) },

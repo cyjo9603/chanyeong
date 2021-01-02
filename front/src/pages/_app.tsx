@@ -2,22 +2,17 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'emotion-theming';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-client';
-import { getDataFromTree } from '@apollo/react-ssr';
+import { ApolloProvider } from '@apollo/client';
 
 import { lightTheme, darkTheme } from '@theme/.';
 import GlobalStyle from '@theme/globalStyle';
 import AppLayout from '@frames/AppLayout';
 import DarkModeButton from '@molecules/DarkModeButton';
 import initSigininCheck from '@lib/initSigninCheck';
-import withApolloClient from '@src/apollo';
+import { useApollo } from '@src/apollo';
 
-interface Props extends AppProps {
-  apollo: ApolloClient<any>;
-}
-
-const App = ({ Component, pageProps, apollo }: Props) => {
+const App = ({ Component, pageProps }: AppProps) => {
+  const apollo = useApollo();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const onClickDarkMode = useCallback(() => {
@@ -33,7 +28,7 @@ const App = ({ Component, pageProps, apollo }: Props) => {
 
   return (
     <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
-      <ApolloProvider client={apollo as any}>
+      <ApolloProvider client={apollo}>
         <Helmet>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
@@ -88,33 +83,11 @@ const App = ({ Component, pageProps, apollo }: Props) => {
   );
 };
 
-App.getInitialProps = async ({ ctx, Component }: any) => {
-  let appProps = {};
-  const apolloState = { data: {} };
-  const { AppTree, apolloClient } = ctx;
+App.getInitialProps = async ({ ctx, Component }) => {
   const pageProps = await Component.getInitialProps?.(ctx);
-
-  if (pageProps) {
-    appProps = { pageProps };
-  }
-
-  apolloState.data = apolloClient.cache.extract();
-
-  if (typeof window === 'undefined') {
-    if (ctx.res?.headersSent || ctx.res?.finished) {
-      return pageProps;
-    }
-
-    try {
-      const props = { ...pageProps, apolloState };
-      const appTreeProps = Component ? props : { pageProps: props };
-      await getDataFromTree(<AppTree {...appTreeProps} />);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const appProps = pageProps ? { pageProps } : {};
 
   return appProps;
 };
 
-export default withApolloClient(App);
+export default App;

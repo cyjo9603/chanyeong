@@ -1,7 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
-import { getSkills_GetSkills_skill, getAbouts_GetExperiences, getAbouts_GetGroupedSkills } from '@gql-types/api';
+import { initializeApollo } from '@src/apollo';
+import {
+  getSkills_GetSkills_skill,
+  getAbouts_GetExperiences,
+  getAbouts_GetGroupedSkills,
+} from '@gql-types/api';
 import { GET_ABOUTS } from '@queries/about.queries';
 import { GET_LOCAL_USER } from '@queries/client';
 import AboutPresenter from './AboutPresenter';
@@ -14,7 +19,10 @@ interface Props {
 const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
   const { data: userInfo } = useQuery(GET_LOCAL_USER);
   const [openAddSkill, setOpenAddSkill] = useState(false);
-  const [editSkillData, setEditSkillData] = useState<getSkills_GetSkills_skill | null>(null);
+  const [
+    editSkillData,
+    setEditSkillData,
+  ] = useState<getSkills_GetSkills_skill | null>(null);
 
   useEffect(() => {
     document.body.scrollTo(0, 0);
@@ -50,11 +58,11 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
   );
 };
 
-AboutContainer.getInitialProps = async (context) => {
-  const { apolloClient } = context;
-  apolloClient.cache.reset();
+AboutContainer.getInitialProps = async () => {
+  const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_ABOUTS,
+    fetchPolicy: 'no-cache',
   });
   return data;
 };

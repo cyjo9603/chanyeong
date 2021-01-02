@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
+import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import { GET_LOCAL_USER } from '@queries/client';
 import {
@@ -103,7 +104,7 @@ const ProjectContainer = ({ GetProject }: Props) => {
 ProjectContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
-    const { apolloClient } = context;
+    const apolloClient = initializeApollo();
     const postData = await apolloClient.query({
       query: GET_PROJECT,
       variables: { id: parseInt(id, 10) },

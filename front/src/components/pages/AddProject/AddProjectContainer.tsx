@@ -1,9 +1,10 @@
 // TODO: 코드 분리 및 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useReissueMutation } from '@hooks/useApollo';
 
+import { initializeApollo } from '@src/apollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_SKILLS } from '@queries/skill.queries';
 import {
@@ -230,7 +231,7 @@ const AddProjectContainer = ({ project }: Props) => {
 AddProjectContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
-    const { apolloClient } = context;
+    const apolloClient = initializeApollo();
     const projectData = await apolloClient.query({
       query: GET_PROJECT,
       variables: { id: parseInt(id, 10) },

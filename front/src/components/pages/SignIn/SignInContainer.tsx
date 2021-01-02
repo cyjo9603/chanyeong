@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import Router from 'next/router';
 
 import useChangeEvent from '@src/hooks/useChangeEvent';

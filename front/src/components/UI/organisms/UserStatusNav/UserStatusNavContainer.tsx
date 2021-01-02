@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { useReissueMutation } from '@hooks/useApollo';
 import { LOG_OUT, GET_LOCAL_USER } from '@queries/client';

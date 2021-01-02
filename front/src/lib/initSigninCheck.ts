@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import ApolloClient, { ApolloError } from 'apollo-client';
+import { ApolloClient } from '@apollo/client';
 import { REISSUANCE_ACCESS_TOKEN, GET_USER_INFO } from '@queries/user.queries';
 
 import { reissuanceAccessToken, getUserInfo } from '@gql-types/api';
 
-const initSigninCheck = async (apollo: ApolloClient<any>) => {
+const initSigninCheck = async (apollo: ApolloClient<object>) => {
   try {
     await signinCheck();
   } catch (error) {
@@ -18,14 +18,7 @@ const initSigninCheck = async (apollo: ApolloClient<any>) => {
     });
     if (data.GetUserInfo.ok) {
       const { familyName, givenName } = data.GetUserInfo.user;
-      apollo.cache.writeData({
-        data: {
-          isLoggedIn: {
-            __typename: 'IsLoggedIn',
-            userName: `${familyName}${givenName}`,
-          },
-        },
-      });
+      // userinfo 저장
     }
   }
 

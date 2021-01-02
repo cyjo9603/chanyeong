@@ -1,62 +1,40 @@
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
-import { withApollo } from 'next-with-apollo';
+import { useMemo } from 'react';
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 export const prod = process.env.NODE_ENV === 'production';
-const link = createHttpLink({
+
+let apolloClient: ApolloClient<any>;
+
+const link = new HttpLink({
   uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql',
   credentials: 'include',
 });
 
 const cache = new InMemoryCache();
 
-export interface LocalSignIn {
-  isLoggedIn: {
-    __typename: 'IsLoggedIn';
-    userName: string | null;
-  };
-}
+const createApolloClient = () =>
+  new ApolloClient({
+    ssrMode: typeof window === 'undefined',
+    link,
+    cache,
+  });
 
-cache.writeData({
-  data: {
-    isLoggedIn: {
-      __typename: 'IsLoggedIn',
-      userName: null,
-    },
-  },
-});
+export const initializeApollo = (initialState = null) => {
+  const _apolloClient = apolloClient ?? createApolloClient();
 
-const globalApolloClient = new ApolloClient({
-  cache,
-  link,
-  resolvers: {
-    Mutation: {
-      LocalSignIn: (_, { userName }, { cache }) => {
-        cache.writeData({
-          data: {
-            isLoggedIn: {
-              __typename: 'IsLoggedIn',
-              userName,
-            },
-          },
-        });
-      },
-      LocalLogOut: (_, __, { cache }) => {
-        cache.writeData({
-          data: {
-            isLoggedIn: {
-              __typename: 'IsLoggedIn',
-              userName: null,
-            },
-          },
-        });
-      },
-    },
-  },
-});
+  if (initialState) {
+    const existingCache = _apolloClient.extract();
+    const data = Object.assign(initialState, existingCache);
 
-export default withApollo(({ initialState }) => {
-  globalApolloClient.restore(initialState);
-  return globalApolloClient;
-});
+    _apolloClient.cache.restore(data);
+  }
+
+  if (typeof window === 'undefined') return _apolloClient;
+  if (!apolloClient) apolloClient = _apolloClient;
+  return _apolloClient;
+};
+
+export const useApollo = () => {
+  const store = useMemo(() => initializeApollo(), []);
+  return store;
+};
