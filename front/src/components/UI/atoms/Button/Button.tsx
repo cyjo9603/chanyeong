@@ -7,6 +7,7 @@ interface Props {
   name: string;
   align?: ButtonAlign;
   onClick?: () => void;
+  type?: 'button' | 'submit';
 }
 
 interface StyledProps {
@@ -33,14 +34,15 @@ export const StyledButton = styled.button<StyledProps>`
   }
 `;
 
-const Button: FC<Props> = ({ name, align, onClick }) => (
-  <StyledButton align={align} onClick={onClick}>
+const Button: FC<Props> = ({ name, align, onClick, type }) => (
+  <StyledButton align={align} onClick={onClick} type={type}>
     {name}
   </StyledButton>
 );
 
 Button.defaultProps = {
   align: 'none',
+  type: 'button',
 };
 
 export default memo(Button);

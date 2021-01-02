@@ -1,17 +1,13 @@
-// TODO: 코드 분리 및 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { useReissueMutation } from '@hooks/useApollo';
+import { useForm } from 'react-hook-form';
 
 import { initializeApollo } from '@src/apollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_SKILLS } from '@queries/skill.queries';
-import {
-  ADD_PROJECT,
-  GET_PROJECT,
-  UPDATE_PROJECT,
-} from '@queries/project.queries';
+import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
 import { userInfoVar } from '@store/userInfo';
 import {
   getSkills,
@@ -19,112 +15,40 @@ import {
   getProject_GetProject_project,
   updateProject,
 } from '@gql-types/api';
+import { addProjectMapper, updateProjectMapper } from '@src/mappers/project';
 import AddProjectSection from './AddProjectSection';
 import AddProjectHeader from './AddProjectHeader';
-
-const MUTATION_ADD = 'ADD' as const;
-const MUTATION_UPDATE = 'UPDATE' as const;
 
 interface Props {
   project?: getProject_GetProject_project;
 }
 
 const AddProjectContainer = ({ project }: Props) => {
+  const { register, handleSubmit, watch } = useForm();
+  const watchProjectType = watch('projectType');
   const userInfo = useReactiveVar(userInfoVar);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
-  const [projectType, , onChangeProjectType] = useChangeEvent<
-    HTMLSelectElement
-  >(project?.type || 'PERSONAL');
-  const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<
-    HTMLSelectElement
-  >('');
-  const [groupName, , onChangeGroupName] = useChangeEvent(
-    project?.groupName || '',
-  );
-  const [title, , onChangeTitle] = useChangeEvent(project?.title || '');
-  const [description, , onChangeDescription] = useChangeEvent(
-    project?.description || '',
-  );
-  const [startDate, , onChangeStartDate] = useChangeEvent(
-    project?.startDate || '',
-  );
-  const [endDate, , onChangeEndDate] = useChangeEvent(project?.endDate || '');
-  const [githubAddr, , onChangeGithubAddr] = useChangeEvent(
-    project?.githubAddr || '',
-  );
-  const [contribution, , onChangeContribution] = useChangeEvent(
-    String(project?.contribution || ''),
-  );
+  const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
   const [image, setImage] = useState('');
 
-  const getVariables = useCallback(
-    (type: typeof MUTATION_UPDATE | typeof MUTATION_ADD) => {
-      const variables = {
-        content,
-        groupName,
-        description,
-        endDate: endDate || null,
-        contribution: contribution === '' ? 0 : parseInt(contribution, 10),
-      };
-      if (type === MUTATION_ADD) {
-        return {
-          ...variables,
-          type: projectType,
-          title,
-          startDate,
-          githubAddr: githubAddr || null,
-          titleImage: titleImage || null,
-          skillIds: skills.map((v) => v.id),
-        };
-      }
-      return {
-        ...variables,
-        id: project?.id,
-        githubAddr,
-        titleImage,
-        deleteSkills,
-        addSkills: skills.map((v) => v.id),
-      };
-    },
-    [
-      content,
-      projectType,
-      groupName,
-      title,
-      description,
-      startDate,
-      endDate,
-      githubAddr,
-      titleImage,
-      contribution,
-      skills,
-      project,
-    ],
-  );
-
   const [addProjectMutation] = useReissueMutation<addProject>(ADD_PROJECT, {
-    variables: getVariables(MUTATION_ADD),
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
         Router.push('/portfolio');
       }
     },
   });
-  const [updateProjectMutation] = useReissueMutation<updateProject>(
-    UPDATE_PROJECT,
-    {
-      variables: getVariables(MUTATION_UPDATE),
-      onCompleted: async ({ UpdateProject }) => {
-        if (UpdateProject.ok) {
-          Router.push('/portfolio');
-        }
-      },
+  const [updateProjectMutation] = useReissueMutation<updateProject>(UPDATE_PROJECT, {
+    onCompleted: async ({ UpdateProject }) => {
+      if (UpdateProject.ok) {
+        Router.push('/portfolio');
+      }
     },
-  );
+  });
 
   useEffect(() => {
     if (project?.Skills.length) {
@@ -145,35 +69,33 @@ const AddProjectContainer = ({ project }: Props) => {
     }
   }, [image]);
 
-  const onSubmit = useCallback(() => {
-    if (projectType && title && content && description && startDate) {
-      if (project) {
-        updateProjectMutation();
-        return;
-      }
-      addProjectMutation();
+  const onSubmit = (values) => {
+    if (!content) {
+      return;
     }
-  }, [
-    content,
-    projectType,
-    groupName,
-    title,
-    description,
-    startDate,
-    endDate,
-    githubAddr,
-    titleImage,
-    contribution,
-    skills,
-    project,
-  ]);
+    if (project) {
+      updateProjectMutation({
+        variables: updateProjectMapper(
+          values,
+          project.id,
+          content,
+          titleImage,
+          deleteSkills,
+          skills,
+        ),
+      });
+      return;
+    }
+    addProjectMutation({
+      variables: addProjectMapper(values, content, titleImage, skills),
+    });
+  };
 
   const onClickAddSkill = useCallback(() => {
     if (skillsData?.GetSkills.skill && currentSkill) {
       const { skill } = skillsData?.GetSkills;
       const skillIndex = skill.findIndex((v) => v.id === Number(currentSkill));
-      const newSkill = { ...skill[skillIndex] };
-      const newSkills = [...skills, newSkill];
+      const newSkills = [...skills, { ...skill[skillIndex] }];
       setSkills(newSkills);
     }
   }, [skillsData, skills, currentSkill]);
@@ -193,38 +115,19 @@ const AddProjectContainer = ({ project }: Props) => {
   );
 
   return (
-    <>
-      <AddProjectHeader
-        title={title}
-        project={project}
-        projectType={projectType}
-        groupName={groupName}
-        contribution={contribution}
-        description={description}
-        githubAddr={githubAddr}
-        startDate={startDate}
-        endDate={endDate}
-        onChangeTitle={onChangeTitle}
-        onChangeProjectType={onChangeProjectType}
-        onChangeGroupName={onChangeGroupName}
-        onChangeContribution={onChangeContribution}
-        onChangeDescription={onChangeDescription}
-        onChangeGithubAddr={onChangeGithubAddr}
-        onChangeStartDate={onChangeStartDate}
-        onChangeEndDate={onChangeEndDate}
-      />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <AddProjectHeader register={register} project={project} projectType={watchProjectType} />
       <AddProjectSection
         content={content}
         skills={skillsData?.GetSkills.skill || []}
         currentSkills={skills}
         onChangeContent={setContent}
         setImage={setImage}
-        onSubmit={onSubmit}
         onChangeCurrentSkill={onChangeCurrentSkill}
         onClickAddSkill={onClickAddSkill}
         onClickRemoveSkill={onClickRemoveSkill}
       />
-    </>
+    </form>
   );
 };
 

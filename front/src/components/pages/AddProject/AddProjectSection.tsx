@@ -14,7 +14,6 @@ interface Props {
 
   onChangeContent: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
-  onSubmit: () => void;
   onChangeCurrentSkill: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onClickAddSkill: () => void;
   onClickRemoveSkill: (id: number) => void;
@@ -58,7 +57,6 @@ const AddProjectSection = ({
 
   onChangeContent,
   setImage,
-  onSubmit,
   onChangeCurrentSkill,
   onClickAddSkill,
   onClickRemoveSkill,
@@ -72,7 +70,7 @@ const AddProjectSection = ({
       />
       <footer>
         <div>
-          <Button onClick={onSubmit} name="작성" align="right" />
+          <Button type="submit" name="작성" align="right" />
           <div>
             <span>스킬 추가</span>
             <select onChange={onChangeCurrentSkill}>
