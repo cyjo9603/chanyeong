@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useEffect } from 'react';
 import { NextPageContext } from 'next';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { SEARCH_POSTS } from '@queries/post.queries';
 import { searchPosts } from '@gql-types/api';
@@ -20,8 +20,7 @@ const SearchPageContainer = ({ word }: Props) => {
     const { posts } = data?.SearchPosts;
     if (
       lastId.current !== posts?.[posts.length - 1].id &&
-      document.body.scrollTop + document.body.clientHeight >
-        document.body.scrollHeight - 400
+      document.body.scrollTop + document.body.clientHeight > document.body.scrollHeight - 400
     ) {
       lastId.current = posts[posts.length - 1].id;
       fetchMore({
@@ -32,10 +31,7 @@ const SearchPageContainer = ({ word }: Props) => {
           if (!fetchMoreResult) {
             return prev;
           }
-          const newPosts = [
-            ...prev.SearchPosts.posts,
-            ...fetchMoreResult.SearchPosts.posts,
-          ];
+          const newPosts = [...prev.SearchPosts.posts, ...fetchMoreResult.SearchPosts.posts];
           const fetchData: searchPosts = {
             ...prev,
             SearchPosts: { ...fetchMoreResult.SearchPosts, posts: newPosts },
@@ -54,12 +50,7 @@ const SearchPageContainer = ({ word }: Props) => {
     };
   }, [data, lastId.current]);
 
-  return (
-    <SearchBlogPostPresenter
-      searchWord={word}
-      posts={data?.SearchPosts.posts || []}
-    />
-  );
+  return <SearchBlogPostPresenter searchWord={word} posts={data?.SearchPosts.posts || []} />;
 };
 
 SearchPageContainer.getInitialProps = (context: NextPageContext) => {
