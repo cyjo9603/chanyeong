@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { userInfoVar } from '@store/userInfo';
 
 export const prod = process.env.NODE_ENV === 'production';
 
@@ -10,7 +11,19 @@ const link = new HttpLink({
   credentials: 'include',
 });
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        getUserInfo: {
+          read() {
+            return userInfoVar();
+          },
+        },
+      },
+    },
+  },
+});
 
 const createApolloClient = () =>
   new ApolloClient({
