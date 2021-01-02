@@ -24,9 +24,9 @@ const initSigninCheck = async (apollo: ApolloClient<object>) => {
   }
 
   async function errorHanler(error) {
-    const { statusCode } = error.networkError;
+    const { statusCode } = error.networkError || {};
     if (statusCode !== 401) {
-      console.error(error);
+      return;
     }
 
     const { data } = await apollo.mutate<reissuanceAccessToken>({
