@@ -24,6 +24,7 @@
       "@organisms/*": ["src/components/UI/organisms/*"],
       "@frames/*": ["src/components/UI/frames/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@mappers/*": ["src/mappers/*"],
       "@store/*": ["src/store/*"],
       "@lib/*": ["src/lib/*"],
       "@routes/*": ["src/routes/*"],
