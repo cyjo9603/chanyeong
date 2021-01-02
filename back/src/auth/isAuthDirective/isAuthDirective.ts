@@ -6,6 +6,8 @@ import { decryptValue } from '@utils/crypto';
 
 const JWT_HEADER = process.env.JWT_HEADER as string;
 
+const EXPRIED_ERROR = 'jwt expired';
+
 class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field: GraphQLField<any, any>) {
     const { resolve = defaultFieldResolver } = field;
@@ -23,8 +25,10 @@ class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
 
       await new Promise((resFn) => {
         passport.authenticate('jwt', (error, payload, { message } = {}) => {
+          if (error === EXPRIED_ERROR)
+            return res.status(401).send({ data: { ok: false, message } });
           if (error || !payload)
-            return res.status(401).send({ data: { result: false, message } });
+            return res.send({ data: { ok: false, message } });
           req.user = payload;
           resFn();
         })(req, res);
