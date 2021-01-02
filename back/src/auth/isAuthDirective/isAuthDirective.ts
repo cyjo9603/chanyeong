@@ -25,7 +25,7 @@ class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
 
       await new Promise((resFn) => {
         passport.authenticate('jwt', (error, payload, { message } = {}) => {
-          if (error === EXPRIED_ERROR)
+          if (message === EXPRIED_ERROR)
             return res.status(401).send({ data: { ok: false, message } });
           if (error || !payload)
             return res.send({ data: { ok: false, message } });
