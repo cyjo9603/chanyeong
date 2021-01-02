@@ -24,7 +24,7 @@ interface Props {
 }
 
 const AddProjectContainer = ({ project }: Props) => {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch, getValues } = useForm();
   const watchProjectType = watch('projectType');
   const userInfo = useReactiveVar(userInfoVar);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
@@ -36,6 +36,7 @@ const AddProjectContainer = ({ project }: Props) => {
   const [image, setImage] = useState('');
 
   const [addProjectMutation] = useReissueMutation<addProject>(ADD_PROJECT, {
+    variables: addProjectMapper(getValues(), content, titleImage, skills),
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
         Router.push('/portfolio');
@@ -43,6 +44,14 @@ const AddProjectContainer = ({ project }: Props) => {
     },
   });
   const [updateProjectMutation] = useReissueMutation<updateProject>(UPDATE_PROJECT, {
+    variables: updateProjectMapper(
+      getValues(),
+      project?.id,
+      content,
+      titleImage,
+      deleteSkills,
+      skills,
+    ),
     onCompleted: async ({ UpdateProject }) => {
       if (UpdateProject.ok) {
         Router.push('/portfolio');
@@ -69,26 +78,15 @@ const AddProjectContainer = ({ project }: Props) => {
     }
   }, [image]);
 
-  const onSubmit = (values) => {
+  const onSubmit = () => {
     if (!content) {
       return;
     }
     if (project) {
-      updateProjectMutation({
-        variables: updateProjectMapper(
-          values,
-          project.id,
-          content,
-          titleImage,
-          deleteSkills,
-          skills,
-        ),
-      });
+      updateProjectMutation();
       return;
     }
-    addProjectMutation({
-      variables: addProjectMapper(values, content, titleImage, skills),
-    });
+    addProjectMutation();
   };
 
   const onClickAddSkill = useCallback(() => {
