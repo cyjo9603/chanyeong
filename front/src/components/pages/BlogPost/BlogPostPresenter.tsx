@@ -11,14 +11,13 @@ import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import dateFormat from '@lib/dateFormat';
 import { getPost_GetPost_post } from '@gql-types/api';
-import { LocalSignIn } from '@src/apollo';
 import styled from '@theme/styled';
 import { FixPost } from './BlogPostContainer';
 
 interface Props {
   isFixed: FixPost;
   post?: getPost_GetPost_post;
-  userInfo: LocalSignIn;
+  userName?: string;
   postPath: {
     path?: string;
     name: string;
@@ -51,7 +50,7 @@ const StyledBlogPost = styled.div`
 const BlogPostPresenter = ({
   isFixed,
   post,
-  userInfo,
+  userName,
   postPath,
   postDescription,
   onClickDelete,
@@ -81,7 +80,7 @@ const BlogPostPresenter = ({
             <HugeText text={post.title} />
             <div>
               {dateFormat(+post.createdAt)}
-              {userInfo?.isLoggedIn.userName && (
+              {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
                   <Link

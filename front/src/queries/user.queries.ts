@@ -32,3 +32,12 @@ export const REISSUANCE_ACCESS_TOKEN = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation LogOut {
+    LogOut {
+      ok
+      error
+    }
+  }
+`;

@@ -1,12 +1,12 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
-import { GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar } from '@store/userInfo';
 import { getPost_GetPost, deletePost, fixPost } from '@gql-types/api';
 import BlogPostPresenter from './BlogPostPresenter';
 
@@ -31,7 +31,7 @@ const BlogPostContainer = ({ GetPost }: Props) => {
   const [isFixed, setIsFixed] = useState(
     post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE,
   );
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const postDescription = useMemo(
     () =>
       removeMd(post?.content, { useImgAltText: false }).slice(
@@ -74,7 +74,7 @@ const BlogPostContainer = ({ GetPost }: Props) => {
       isFixed={isFixed}
       post={post}
       postDescription={postDescription}
-      userInfo={userInfo}
+      userName={userInfo.userName}
       postPath={postPath}
       onClickDelete={onClickDelete}
       onClickFix={onClickFix}
