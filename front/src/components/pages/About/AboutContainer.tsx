@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 
+import { userInfoVar } from '@store/userInfo';
 import { initializeApollo } from '@src/apollo';
 import {
   getSkills_GetSkills_skill,
@@ -8,7 +9,6 @@ import {
   getAbouts_GetGroupedSkills,
 } from '@gql-types/api';
 import { GET_ABOUTS } from '@queries/about.queries';
-import { GET_LOCAL_USER } from '@queries/client';
 import AboutPresenter from './AboutPresenter';
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const [openAddSkill, setOpenAddSkill] = useState(false);
   const [
     editSkillData,
@@ -45,7 +45,7 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
   return (
     <AboutPresenter
       openAddSkill={openAddSkill}
-      userInfo={userInfo}
+      userName={userInfo.userName}
       frontSkills={GetGroupedSkills?.skills.front || []}
       backSkills={GetGroupedSkills?.skills.back || []}
       devopsSkills={GetGroupedSkills?.skills.devops || []}

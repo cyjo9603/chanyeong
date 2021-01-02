@@ -1,7 +1,7 @@
 // TODO: 코드 분리 및 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { useReissueMutation } from '@hooks/useApollo';
 
 import { initializeApollo } from '@src/apollo';
@@ -12,7 +12,7 @@ import {
   GET_PROJECT,
   UPDATE_PROJECT,
 } from '@queries/project.queries';
-import { GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar } from '@store/userInfo';
 import {
   getSkills,
   addProject,
@@ -30,7 +30,7 @@ interface Props {
 }
 
 const AddProjectContainer = ({ project }: Props) => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
   const [projectType, , onChangeProjectType] = useChangeEvent<
@@ -134,7 +134,7 @@ const AddProjectContainer = ({ project }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!userInfo.isLoggedIn.userName) {
+    if (!userInfo.userName) {
       Router.push('/');
     }
   }, [userInfo]);

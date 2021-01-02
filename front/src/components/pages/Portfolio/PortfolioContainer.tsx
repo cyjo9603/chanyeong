@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 
-import { GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar } from '@store/userInfo';
 import { GET_PROJECTS } from '@queries/project.queries';
 import { getProjects } from '@gql-types/api';
 import PortfolioPresenter from './PortfolioPresenter';
 
 const PortfolioContainer = () => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const { data: groupData } = useQuery<getProjects>(GET_PROJECTS, {
     variables: { type: 'GROUP' },
   });
@@ -21,7 +21,7 @@ const PortfolioContainer = () => {
 
   return (
     <PortfolioPresenter
-      userInfo={userInfo}
+      userName={userInfo.userName}
       groupProjects={groupData?.GetProjects.project || []}
       personalProjects={personalData?.GetProjects.project || []}
     />

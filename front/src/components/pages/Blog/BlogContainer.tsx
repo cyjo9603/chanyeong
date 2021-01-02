@@ -1,15 +1,15 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 
+import { userInfoVar } from '@store/userInfo';
 import { GET_POSTS } from '@queries/post.queries';
 import { GET_TAGS } from '@queries/tag.queries';
-import { GET_LOCAL_USER } from '@queries/client';
 import { getPosts, getTags } from '@gql-types/api';
 import BlogPresenter from './BlogPresenter';
 
 const BlogContainer = () => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
   const lastId = useRef({});
@@ -78,7 +78,7 @@ const BlogContainer = () => {
 
   return (
     <BlogPresenter
-      userInfo={userInfo}
+      userName={userInfo.userName}
       category={category}
       postData={postData?.GetPosts.posts || []}
       tagData={tagData?.GetTags.tags || []}

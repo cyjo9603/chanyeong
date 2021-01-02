@@ -1,8 +1,7 @@
 import React, { FC, useCallback } from 'react';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 
-import { useReissueMutation } from '@hooks/useApollo';
-import { LOG_OUT, GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar, logoutUser } from '@store/userInfo';
 import UserStatusNavPresenter from './UserStatusNavPresenter';
 
 interface Props {
@@ -10,16 +9,15 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ statusHidden }) => {
-  const { data } = useQuery(GET_LOCAL_USER);
-  const [logoutMutation] = useReissueMutation(LOG_OUT);
+  const userInfo = useReactiveVar(userInfoVar);
 
   const onClickLogout = useCallback(() => {
-    logoutMutation();
+    logoutUser();
   }, []);
 
   return (
     <UserStatusNavPresenter
-      userName={data?.isLoggedIn.userName}
+      userName={userInfo.userName}
       statusHidden={statusHidden}
       onClickLogout={onClickLogout}
     />

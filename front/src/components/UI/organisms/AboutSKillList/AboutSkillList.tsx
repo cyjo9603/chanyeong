@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 
 import styled from '@theme/styled';
 import AboutSkill from '@organisms/AboutSKill';
 import { getSkills_GetSkills_skill } from '@gql-types/api';
-import { GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar } from '@store/userInfo';
 
 interface Props {
   skills?: getSkills_GetSkills_skill[];
@@ -30,14 +30,14 @@ const StyledAboutSkillList = styled.div`
 `;
 
 const AboutSkillList: FC<Props> = ({ skills, onClick }) => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   return (
     <StyledAboutSkillList>
       {skills?.map((skill) => (
         <AboutSkill
           key={`about_devops_skill${skill.id}`}
           data={skill}
-          onClick={userInfo?.isLoggedIn.userName && onClick}
+          onClick={userInfo.userName && onClick}
         />
       ))}
     </StyledAboutSkillList>

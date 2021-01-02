@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
-import { useQuery } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 
 import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { GET_LOCAL_USER } from '@queries/client';
+import { userInfoVar } from '@store/userInfo';
 import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
 import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const WritePostContainer = ({ post }: Props) => {
-  const { data: userInfo } = useQuery(GET_LOCAL_USER);
+  const userInfo = useReactiveVar(userInfoVar);
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
@@ -85,7 +85,7 @@ const WritePostContainer = ({ post }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!userInfo.isLoggedIn.userName) {
+    if (!userInfo.userName) {
       Router.push('/');
     }
   }, [userInfo]);

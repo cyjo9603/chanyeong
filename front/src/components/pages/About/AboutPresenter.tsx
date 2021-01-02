@@ -16,11 +16,10 @@ import {
   getAbouts_GetExperiences_experiences,
 } from '@gql-types/api';
 import UpdateSkillForm from '@modals/UpdateSkillForm';
-import { LocalSignIn } from '@src/apollo';
 
 interface Props {
   openAddSkill: boolean;
-  userInfo?: LocalSignIn;
+  userName?: string;
   frontSkills: getSkills_GetSkills_skill[];
   backSkills: getSkills_GetSkills_skill[];
   devopsSkills: getSkills_GetSkills_skill[];
@@ -54,7 +53,7 @@ const AboutPresenter = ({
   openAddSkill,
   onClickAddSkill,
   onClickEditSkill,
-  userInfo,
+  userName,
   frontSkills,
   backSkills,
   devopsSkills,
@@ -90,7 +89,7 @@ const AboutPresenter = ({
         <Title text="Work Process" />
         <WorkProcess />
         <div>
-          {userInfo?.isLoggedIn.userName && (
+          {userName && (
             <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />
           )}
           <Title text="Skill Stack" />

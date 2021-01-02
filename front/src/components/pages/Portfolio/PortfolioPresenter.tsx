@@ -9,11 +9,10 @@ import Button from '@atoms/Button';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
 import { getProjects_GetProjects_project } from '@gql-types/api';
-import { LocalSignIn } from '@src/apollo';
 import styled from '@theme/styled';
 
 interface Props {
-  userInfo: LocalSignIn;
+  userName?: string;
   groupProjects: getProjects_GetProjects_project[];
   personalProjects: getProjects_GetProjects_project[];
 }
@@ -44,7 +43,7 @@ const StyledProjectList = styled.div`
 `;
 
 const PortfolioPresenter = ({
-  userInfo,
+  userName,
   groupProjects,
   personalProjects,
 }: Props) => (
@@ -65,7 +64,7 @@ const PortfolioPresenter = ({
       <BreadCrumbs data={path} page="project" />
       <div className="portfolio-sub-title">
         <SubTitle text="제가 지금까지 진행한 프로젝트들 입니다." />
-        {userInfo?.isLoggedIn.userName && (
+        {userName && (
           <Link href="/portfolio/add">
             <a>
               <Button name="프로젝트 추가" align="right" />

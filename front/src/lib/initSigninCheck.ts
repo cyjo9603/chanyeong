@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { ApolloClient } from '@apollo/client';
-import { REISSUANCE_ACCESS_TOKEN, GET_USER_INFO } from '@queries/user.queries';
 
+import { signInUser } from '@store/userInfo';
+import { REISSUANCE_ACCESS_TOKEN, GET_USER_INFO } from '@queries/user.queries';
 import { reissuanceAccessToken, getUserInfo } from '@gql-types/api';
 
 const initSigninCheck = async (apollo: ApolloClient<object>) => {
@@ -18,7 +19,7 @@ const initSigninCheck = async (apollo: ApolloClient<object>) => {
     });
     if (data.GetUserInfo.ok) {
       const { familyName, givenName } = data.GetUserInfo.user;
-      // userinfo 저장
+      signInUser(`${familyName}${givenName}`);
     }
   }
 

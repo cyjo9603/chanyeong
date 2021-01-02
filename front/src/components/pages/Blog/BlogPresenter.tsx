@@ -4,17 +4,14 @@ import { Helmet } from 'react-helmet';
 import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
-import BreadCrumbs from '@molecules/BreadCrumbs';
 import Button from '@atoms/Button';
-import SubTitle from '@atoms/SubTitle';
 import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '@gql-types/api';
-import { LocalSignIn } from '@src/apollo';
 import BlogPostSearch from './BlogPostSearch';
 import TagWithTextList from './TagWithTextList';
 import CategoryNav from './CategoryNav';
 
 interface Props {
-  userInfo?: LocalSignIn;
+  userName?: string;
   category: string | null;
   postData: getPosts_GetPosts_posts[];
   tagData: getTags_GetTags_tags[];
@@ -63,13 +60,8 @@ const StyledBlog = styled.div`
   }
 `;
 
-const path = [
-  { path: '/', name: 'CHANYEONG' },
-  { path: '/blog', name: 'BLOG' },
-];
-
 const BlogPresenter = ({
-  userInfo,
+  userName,
   category,
   postData,
   tagData,
@@ -99,7 +91,7 @@ const BlogPresenter = ({
               onChangeCategory={onChangeCategory}
             />
             <div className="auth-write">
-              {userInfo?.isLoggedIn.userName && (
+              {userName && (
                 <Button onClick={onClickWritePost} name="포스트 작성" />
               )}
               <BlogPostSearch />
