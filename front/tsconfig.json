@@ -19,6 +19,7 @@
       "@pages/*": ["src/components/pages/*"],
       "@svg-icons/*": ["src/components/icons/*"],
       "@modals/*": ["src/components/modals/*"],
+      "@hoc/*": ["src/components/hoc/*"],
       "@atoms/*": ["src/components/UI/atoms/*"],
       "@molecules/*": ["src/components/UI/molecules/*"],
       "@organisms/*": ["src/components/UI/organisms/*"],
