@@ -1,29 +1,16 @@
 import { useMemo } from 'react';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
-import { userInfoVar } from '@store/userInfo';
 
 export const prod = process.env.NODE_ENV === 'production';
 
-let apolloClient: ApolloClient<any>;
+let apolloClient: ApolloClient<object>;
 
 const link = new HttpLink({
   uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql',
   credentials: 'include',
 });
 
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        getUserInfo: {
-          read() {
-            return userInfoVar();
-          },
-        },
-      },
-    },
-  },
-});
+const cache = new InMemoryCache();
 
 const createApolloClient = () =>
   new ApolloClient({
