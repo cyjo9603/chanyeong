@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
-import { useReactiveVar } from '@apollo/client';
+import { NextPage } from 'next';
 
+import auth from '@hoc/auth';
 import { initializeApollo } from '@src/apollo';
 import { useReissueMutation } from '@hooks/useApollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { userInfoVar } from '@store/userInfo';
 import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
 import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
@@ -14,8 +14,7 @@ interface Props {
   post?: getPost_GetPost_post;
 }
 
-const WritePostContainer = ({ post }: Props) => {
-  const userInfo = useReactiveVar(userInfoVar);
+const WritePostContainer: NextPage<Props> = auth(({ post }) => {
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
@@ -83,12 +82,6 @@ const WritePostContainer = ({ post }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!userInfo.userName) {
-      Router.push('/');
-    }
-  }, [userInfo]);
-
-  useEffect(() => {
     if (titleImage === '') {
       setTitleImage(image);
     }
@@ -142,7 +135,7 @@ const WritePostContainer = ({ post }: Props) => {
       onSubmit={onSubmit}
     />
   );
-};
+});
 
 WritePostContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {

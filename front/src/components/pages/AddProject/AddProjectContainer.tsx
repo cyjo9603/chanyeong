@@ -1,14 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
-import { useQuery, useReactiveVar } from '@apollo/client';
+import { NextPage } from 'next';
+import { useQuery } from '@apollo/client';
 import { useReissueMutation } from '@hooks/useApollo';
 import { useForm } from 'react-hook-form';
 
+import auth from '@hoc/auth';
 import { initializeApollo } from '@src/apollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_SKILLS } from '@queries/skill.queries';
 import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
-import { userInfoVar } from '@store/userInfo';
 import {
   getSkills,
   addProject,
@@ -23,10 +24,9 @@ interface Props {
   project?: getProject_GetProject_project;
 }
 
-const AddProjectContainer = ({ project }: Props) => {
+const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const { register, handleSubmit, watch, getValues } = useForm();
   const watchProjectType = watch('projectType');
-  const userInfo = useReactiveVar(userInfoVar);
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
   const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
@@ -65,12 +65,6 @@ const AddProjectContainer = ({ project }: Props) => {
       setSkills(saveSkills);
     }
   }, []);
-
-  useEffect(() => {
-    if (!userInfo.userName) {
-      Router.push('/');
-    }
-  }, [userInfo]);
 
   useEffect(() => {
     if (titleImage === '') {
@@ -127,7 +121,7 @@ const AddProjectContainer = ({ project }: Props) => {
       />
     </form>
   );
-};
+});
 
 AddProjectContainer.getInitialProps = async (context) => {
   if (context.query.id && typeof context.query.id === 'string') {
