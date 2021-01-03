@@ -20,9 +20,7 @@ const WritePostContainer = ({ post }: Props) => {
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
   const [title, , onChangeTitle] = useChangeEvent(post?.title || '');
-  const [category, , onChangeCategory] = useChangeEvent<HTMLSelectElement>(
-    post?.category || 'DEV',
-  );
+  const [category, , onChangeCategory] = useChangeEvent<HTMLSelectElement>(post?.category || 'DEV');
   const [tags, setTags] = useState<string[]>([]);
   const [insertTag, , onChangeInsertTag] = useChangeEvent('');
   const [deleteTags, setDeleteTags] = useState<number[]>([]);
@@ -39,9 +37,9 @@ const WritePostContainer = ({ post }: Props) => {
         addTags: tags,
       };
       if (!isWrite) {
-        return { ...variables, id: post?.id || 0 };
+        return { ...variables, tags };
       }
-      return { ...variables, tags };
+      return { ...variables, id: post?.id || 0 };
     },
     [content, titleImage, title, category, tags, deleteTags, tags],
   );
