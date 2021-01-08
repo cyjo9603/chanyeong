@@ -5,12 +5,7 @@ import { useReissueMutation } from '@hooks/useApollo';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
-import {
-  AddSkill,
-  UpdateSkill,
-  DeleteSkill,
-  getSkills_GetSkills_skill,
-} from '@gql-types/api';
+import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
 
 import { UpdateSkillFormWrapper } from './styled';
 
@@ -20,9 +15,7 @@ interface Props {
 }
 
 const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
-  const [skillType, setSkillType, onChangeType] = useChangeEvent<
-    HTMLSelectElement
-  >('');
+  const [skillType, setSkillType, onChangeType] = useChangeEvent<HTMLSelectElement>('');
   const [name, setName, onChangeName] = useChangeEvent('');
   const [level, setLevel, onChangeLevel] = useChangeEvent('');
   const [description, setDescription, onChangeDescription] = useChangeEvent('');
@@ -47,7 +40,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   const [updateSkillMutation] = useReissueMutation<UpdateSkill>(UPDATE_SKILL, {
     variables: {
       ...addOrUpdateVariables,
-      id: editSkillData.id,
+      id: editSkillData?.id,
     },
     onCompleted: async ({ UpdateSkill }) => {
       if (UpdateSkill.ok) {
@@ -56,7 +49,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
     },
   });
   const [deleteSkillMutation] = useReissueMutation<DeleteSkill>(DELETE_SKILL, {
-    variables: { id: editSkillData.id },
+    variables: { id: editSkillData?.id },
     onCompleted: async ({ DeleteSkill }) => {
       if (DeleteSkill.ok) {
         closeUpdateSkill();
@@ -70,20 +63,15 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
 
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    const updateMutation = editSkillData
-      ? updateSkillMutation
-      : addSkillMutation;
+    const updateMutation = editSkillData ? updateSkillMutation : addSkillMutation;
     updateMutation();
   }, []);
 
-  const onChangeImageUpload = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const url = await getUploadImageUrl(e.target.files[0], TYPE_FOLDER_SKILL);
+  const onChangeImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const url = await getUploadImageUrl(e.target.files[0], TYPE_FOLDER_SKILL);
 
-      setImage(url);
-    },
-    [],
-  );
+    setImage(url);
+  }, []);
 
   useEffect(() => {
     if (editSkillData) {
@@ -124,11 +112,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
         </div>
         <div>
           <span>설명</span>
-          <input
-            type="text"
-            value={description}
-            onChange={onChangeDescription}
-          />
+          <input type="text" value={description} onChange={onChangeDescription} />
         </div>
         <div>
           <span>숙련도</span>

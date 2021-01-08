@@ -1,1 +1,1 @@
-export { default } from './UpdatekillForm';
+export { default } from './UpdateSkillForm';
