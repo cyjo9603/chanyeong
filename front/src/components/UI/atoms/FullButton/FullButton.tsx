@@ -3,7 +3,9 @@ import styled from '@theme/styled';
 
 interface Props {
   text: string;
-  disabled: boolean;
+  disabled?: boolean;
+  type?: 'button' | 'submit';
+  onClick?: () => void;
 }
 
 const StyledFullButton = styled.button`
@@ -27,8 +29,15 @@ const StyledFullButton = styled.button`
   }
 `;
 
-const FullButton: FC<Props> = ({ text, disabled }) => (
-  <StyledFullButton disabled={disabled}>{text}</StyledFullButton>
+const FullButton: FC<Props> = ({ text, disabled, type, onClick }) => (
+  <StyledFullButton disabled={disabled} type={type} onClick={onClick}>
+    {text}
+  </StyledFullButton>
 );
+
+FullButton.defaultProps = {
+  type: 'submit',
+  disabled: false,
+};
 
 export default FullButton;
