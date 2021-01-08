@@ -6,3 +6,13 @@ export const addSkillMapper = (values: any, image: string) => ({
   type: values.type,
   icon: image,
 });
+
+export const updateSkillMapper = (values: any, image: string, id: number) => ({
+  id,
+  name: values.name,
+  type: values.type,
+  level: Number(values.level),
+  description: values.number,
+  icon: image,
+  order: Number(values.order),
+});
