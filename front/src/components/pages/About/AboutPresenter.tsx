@@ -62,9 +62,7 @@ const AboutPresenter = ({
 }: Props) => (
   <>
     {openAddSkill && <AddSkillForm onClose={closeAddSKill} />}
-    {editSkillData && (
-      <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} editSkillData={editSkillData} />
-    )}
+    {editSkillData && <UpdateSkillForm onClose={closeUpdateSKill} editSkillData={editSkillData} />}
     <Helmet>
       <title>소개 :: chanyeong</title>
       <meta
