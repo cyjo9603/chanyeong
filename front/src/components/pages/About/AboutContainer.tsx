@@ -19,10 +19,7 @@ interface Props {
 const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
   const userInfo = useReactiveVar(userInfoVar);
   const [openAddSkill, setOpenAddSkill] = useState(false);
-  const [
-    editSkillData,
-    setEditSkillData,
-  ] = useState<getSkills_GetSkills_skill | null>(null);
+  const [editSkillData, setEditSkillData] = useState<getSkills_GetSkills_skill | null>(null);
 
   useEffect(() => {
     document.body.scrollTo(0, 0);
@@ -35,11 +32,14 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
 
   const onClickEditSkill = useCallback((data: getSkills_GetSkills_skill) => {
     setEditSkillData(data);
-    setOpenAddSkill(true);
+  }, []);
+
+  const closeAddSKill = useCallback(() => {
+    setOpenAddSkill(false);
   }, []);
 
   const closeUpdateSKill = useCallback(() => {
-    setOpenAddSkill(false);
+    setEditSkillData(null);
   }, []);
 
   return (
@@ -53,6 +53,7 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
       editSkillData={editSkillData}
       onClickAddSkill={onClickAddSkill}
       onClickEditSkill={onClickEditSkill}
+      closeAddSKill={closeAddSKill}
       closeUpdateSKill={closeUpdateSKill}
     />
   );

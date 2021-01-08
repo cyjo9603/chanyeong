@@ -11,11 +11,9 @@ import AboutValueList from '@organisms/AboutValueList';
 import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
-import {
-  getSkills_GetSkills_skill,
-  getAbouts_GetExperiences_experiences,
-} from '@gql-types/api';
+import { getSkills_GetSkills_skill, getAbouts_GetExperiences_experiences } from '@gql-types/api';
 import UpdateSkillForm from '@modals/UpdateSkillForm';
+import AddSkillForm from '@modals/AddSkillForm';
 
 interface Props {
   openAddSkill: boolean;
@@ -27,6 +25,7 @@ interface Props {
   editSkillData: getSkills_GetSkills_skill;
   onClickAddSkill: () => void;
   onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
+  closeAddSKill: () => void;
   closeUpdateSKill: () => void;
 }
 
@@ -49,6 +48,7 @@ const path = [
 ];
 
 const AboutPresenter = ({
+  closeAddSKill,
   closeUpdateSKill,
   openAddSkill,
   onClickAddSkill,
@@ -61,11 +61,9 @@ const AboutPresenter = ({
   editSkillData,
 }: Props) => (
   <>
-    {openAddSkill && (
-      <UpdateSkillForm
-        closeUpdateSkill={closeUpdateSKill}
-        editSkillData={editSkillData}
-      />
+    {openAddSkill && <AddSkillForm onClose={closeAddSKill} />}
+    {editSkillData && (
+      <UpdateSkillForm closeUpdateSkill={closeUpdateSKill} editSkillData={editSkillData} />
     )}
     <Helmet>
       <title>소개 :: chanyeong</title>
@@ -89,9 +87,7 @@ const AboutPresenter = ({
         <Title text="Work Process" />
         <WorkProcess />
         <div>
-          {userName && (
-            <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />
-          )}
+          {userName && <Button onClick={onClickAddSkill} name="스킬 추가" align="right" />}
           <Title text="Skill Stack" />
         </div>
         <SubTitle text="Front-End" weight={SUBTITLE_WEIGHT_BOLD} />
@@ -103,10 +99,7 @@ const AboutPresenter = ({
         <div className="expreience-wrapper">
           <Title text="Experience" />
           {experiences.map((experience) => (
-            <ExperienceCard
-              key={`about_experience_${experience.id}`}
-              experience={experience}
-            />
+            <ExperienceCard key={`about_experience_${experience.id}`} experience={experience} />
           ))}
         </div>
       </StyledAbout>

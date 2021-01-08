@@ -4,8 +4,8 @@ import { useReissueMutation } from '@hooks/useApollo';
 import ModalLayout from '@modals/ModalLayout';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
-import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
+import { UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
+import { UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
 
 import { StyledForm } from './styled';
 
@@ -29,14 +29,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
     icon: image,
     order: parseInt(order, 10),
   };
-  const [addSkillMutation] = useReissueMutation<AddSkill>(ADD_SKILL, {
-    variables: addOrUpdateVariables,
-    onCompleted: async ({ AddSkill }) => {
-      if (AddSkill.ok) {
-        closeUpdateSkill();
-      }
-    },
-  });
+
   const [updateSkillMutation] = useReissueMutation<UpdateSkill>(UPDATE_SKILL, {
     variables: {
       ...addOrUpdateVariables,
@@ -63,8 +56,7 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
 
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    const updateMutation = editSkillData ? updateSkillMutation : addSkillMutation;
-    updateMutation();
+    updateSkillMutation();
   }, []);
 
   const onChangeImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
