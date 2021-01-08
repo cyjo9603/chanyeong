@@ -1,10 +1,5 @@
 import React from 'react';
-import Document, {
-  DocumentContext,
-  Head,
-  Main,
-  NextScript,
-} from 'next/document';
+import Document, { DocumentContext, Head, Main, NextScript } from 'next/document';
 import { Helmet, HelmetData } from 'react-helmet';
 import { extractCritical } from 'emotion-server';
 
@@ -41,10 +36,7 @@ class MyDocument extends Document<Props> {
       <html {...htmlAttrs} lang="ko">
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1"
-          />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1" />
           <script
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
@@ -58,6 +50,7 @@ class MyDocument extends Document<Props> {
         </Head>
         <body {...bodyAttrs}>
           <Main />
+          <div id="modal" />
           <NextScript />
         </body>
       </html>
