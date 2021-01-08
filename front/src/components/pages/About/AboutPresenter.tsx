@@ -12,11 +12,8 @@ import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
 import { getSkills_GetSkills_skill, getAbouts_GetExperiences_experiences } from '@gql-types/api';
-import UpdateSkillForm from '@modals/UpdateSkillForm';
-import AddSkillForm from '@modals/AddSkillForm';
 
 interface Props {
-  openAddSkill: boolean;
   userName?: string;
   frontSkills: getSkills_GetSkills_skill[];
   backSkills: getSkills_GetSkills_skill[];
@@ -25,8 +22,6 @@ interface Props {
   editSkillData: getSkills_GetSkills_skill;
   onClickAddSkill: () => void;
   onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
-  closeAddSKill: () => void;
-  closeUpdateSKill: () => void;
 }
 
 const StyledAbout = styled.section`
@@ -48,9 +43,6 @@ const path = [
 ];
 
 const AboutPresenter = ({
-  closeAddSKill,
-  closeUpdateSKill,
-  openAddSkill,
   onClickAddSkill,
   onClickEditSkill,
   userName,
@@ -58,11 +50,8 @@ const AboutPresenter = ({
   backSkills,
   devopsSkills,
   experiences,
-  editSkillData,
 }: Props) => (
   <>
-    {openAddSkill && <AddSkillForm onClose={closeAddSKill} />}
-    {editSkillData && <UpdateSkillForm onClose={closeUpdateSKill} editSkillData={editSkillData} />}
     <Helmet>
       <title>소개 :: chanyeong</title>
       <meta

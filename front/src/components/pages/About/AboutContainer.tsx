@@ -9,6 +9,8 @@ import {
   getAbouts_GetGroupedSkills,
 } from '@gql-types/api';
 import { GET_ABOUTS } from '@queries/about.queries';
+import UpdateSkillForm from '@modals/UpdateSkillForm';
+import AddSkillForm from '@modals/AddSkillForm';
 import AboutPresenter from './AboutPresenter';
 
 interface Props {
@@ -43,19 +45,22 @@ const AboutContainer = ({ GetExperiences, GetGroupedSkills }: Props) => {
   }, []);
 
   return (
-    <AboutPresenter
-      openAddSkill={openAddSkill}
-      userName={userInfo.userName}
-      frontSkills={GetGroupedSkills?.skills.front || []}
-      backSkills={GetGroupedSkills?.skills.back || []}
-      devopsSkills={GetGroupedSkills?.skills.devops || []}
-      experiences={GetExperiences?.experiences || []}
-      editSkillData={editSkillData}
-      onClickAddSkill={onClickAddSkill}
-      onClickEditSkill={onClickEditSkill}
-      closeAddSKill={closeAddSKill}
-      closeUpdateSKill={closeUpdateSKill}
-    />
+    <>
+      <AboutPresenter
+        userName={userInfo.userName}
+        frontSkills={GetGroupedSkills?.skills.front || []}
+        backSkills={GetGroupedSkills?.skills.back || []}
+        devopsSkills={GetGroupedSkills?.skills.devops || []}
+        experiences={GetExperiences?.experiences || []}
+        editSkillData={editSkillData}
+        onClickAddSkill={onClickAddSkill}
+        onClickEditSkill={onClickEditSkill}
+      />
+      {openAddSkill && <AddSkillForm onClose={closeAddSKill} />}
+      {editSkillData && (
+        <UpdateSkillForm onClose={closeUpdateSKill} editSkillData={editSkillData} />
+      )}
+    </>
   );
 };
 
