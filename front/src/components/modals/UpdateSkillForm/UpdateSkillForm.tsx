@@ -1,13 +1,13 @@
-// TODO: 추후 리팩터링 필요
 import React, { useState, useCallback, useEffect } from 'react';
 import { useReissueMutation } from '@hooks/useApollo';
 
+import ModalLayout from '@modals/ModalLayout';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { ADD_SKILL, UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
 import { AddSkill, UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
 
-import { UpdateSkillFormWrapper } from './styled';
+import { StyledForm } from './styled';
 
 interface Props {
   closeUpdateSkill: () => void;
@@ -85,8 +85,8 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
   }, []);
 
   return (
-    <UpdateSkillFormWrapper>
-      <form onSubmit={onSubmit}>
+    <ModalLayout>
+      <StyledForm onSubmit={onSubmit}>
         <span onClick={closeUpdateSkill}>X</span>
         <h1>스킬 업데이트</h1>
         <div>
@@ -128,8 +128,8 @@ const UpdateSkillForm = ({ closeUpdateSkill, editSkillData }: Props) => {
         </div>
         {editSkillData && <button onClick={onClickDelete}>제거</button>}
         <button type="submit">업데이트</button>
-      </form>
-    </UpdateSkillFormWrapper>
+      </StyledForm>
+    </ModalLayout>
   );
 };
 
