@@ -67,11 +67,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-App.getInitialProps = async ({ ctx, Component }) => {
-  const pageProps = await Component.getInitialProps?.(ctx);
-  const appProps = pageProps ? { pageProps } : {};
-
-  return appProps;
-};
-
 export default App;
