@@ -14,18 +14,18 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 ## Skill
 
-![architecture2](https://user-images.githubusercontent.com/49899406/92999519-647e0c00-f55c-11ea-9e10-76cf4acac1d5.png)
+![chanyeong_skill](https://user-images.githubusercontent.com/49899406/104092712-1a6a2480-52c9-11eb-903d-f9dc0ff8cf34.png)
 
 ### Front-end
 
-- React
+- React ( Atomic Design )
 - TypeScript
 - Next.js
 - GraphQL
 - Apollo Client
-- Styled Components
+- Emotion
 - TUIEditor ( WYSIWYG Editor )
-- Nginx (+ https)
+- Storybook
 
   [README](https://github.com/cyjo9603/chanyeong/blob/master/front/README.md)
 
@@ -33,15 +33,17 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 - Express.js
 - TypeScript
-- Apollo Server
 - Graphql
+- Apollo Server
+- Passport.js
 - Sequelize ( MySQL )
-- Nginx (+ https)
 
   [README](https://github.com/cyjo9603/chanyeong/blob/master/back/README.md)
 
 ### Deploy
 
+- pm2
+- NginX
 - docker
 - Toast Cloud
 
