@@ -23,7 +23,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const mode = localStorage.getItem('mode');
     setIsDarkMode(mode === 'true');
-    initSigininCheck(apollo);
+    initSigininCheck();
   }, []);
 
   return (
