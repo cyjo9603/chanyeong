@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Router from 'next/router';
+import { useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 
 import auth from '@hoc/auth';
 import { initializeApollo } from '@src/apollo';
-import { useReissueMutation } from '@hooks/useApollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
 import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
@@ -43,7 +43,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     [content, titleImage, title, category, tags, deleteTags, tags],
   );
 
-  const [writePostMutation] = useReissueMutation<writePost>(WRITE_POST, {
+  const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
     variables: getVariables(false),
     onCompleted: async ({ WritePost }) => {
       if (WritePost.ok) {
@@ -51,7 +51,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
       }
     },
   });
-  const [editPostMutation] = useReissueMutation<editPost>(EDIT_POST, {
+  const [editPostMutation] = useMutation<editPost>(EDIT_POST, {
     variables: getVariables(true),
     onCompleted: async ({ EditPost }) => {
       if (EditPost.ok) {

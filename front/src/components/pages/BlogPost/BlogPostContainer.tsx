@@ -1,10 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useReactiveVar } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { initializeApollo } from '@src/apollo';
-import { useReissueMutation } from '@hooks/useApollo';
 import { GET_POST, DELETE_POST, FIX_POST } from '@queries/post.queries';
 import { userInfoVar } from '@store/userInfo';
 import { getPost_GetPost, deletePost, fixPost } from '@gql-types/api';
@@ -28,19 +27,13 @@ const path = [
 
 const BlogPostContainer = ({ GetPost }: Props) => {
   const { post } = useMemo(() => GetPost || { post: null }, []);
-  const [isFixed, setIsFixed] = useState(
-    post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE,
-  );
+  const [isFixed, setIsFixed] = useState(post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
   const userInfo = useReactiveVar(userInfoVar);
   const postDescription = useMemo(
-    () =>
-      removeMd(post?.content, { useImgAltText: false }).slice(
-        0,
-        MAX_DESCRIPTION,
-      ),
+    () => removeMd(post?.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
     [],
   );
-  const [deletePostMutation] = useReissueMutation<deletePost>(DELETE_POST, {
+  const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
     variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
       if (DeletePost.ok) {
@@ -48,7 +41,7 @@ const BlogPostContainer = ({ GetPost }: Props) => {
       }
     },
   });
-  const [fixPostMutation] = useReissueMutation<fixPost>(FIX_POST, {
+  const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
     variables: { id: post?.id, fix: isFixed === FIX_POST_TRUE },
     onCompleted: async ({ FixPost }) => {
       if (FixPost.ok) {

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
 import styled from '@theme/styled';
-import { useReissueMutation } from '@hooks/useApollo';
 import ModalLayout from '@modals/ModalLayout';
 import FullButton from '@atoms/FullButton';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
@@ -47,7 +47,7 @@ const UpdateSkillForm = ({ onClose, editSkillData }: Props) => {
   const { register, handleSubmit, getValues } = useForm();
   const [image, setImage] = useState(editSkillData.icon);
 
-  const [updateSkillMutation] = useReissueMutation<UpdateSkill>(UPDATE_SKILL, {
+  const [updateSkillMutation] = useMutation<UpdateSkill>(UPDATE_SKILL, {
     variables: updateSkillMapper(getValues(), image, editSkillData.id),
     onCompleted: async ({ UpdateSkill }) => {
       if (UpdateSkill.ok) {
@@ -55,7 +55,7 @@ const UpdateSkillForm = ({ onClose, editSkillData }: Props) => {
       }
     },
   });
-  const [deleteSkillMutation] = useReissueMutation<DeleteSkill>(DELETE_SKILL, {
+  const [deleteSkillMutation] = useMutation<DeleteSkill>(DELETE_SKILL, {
     variables: { id: editSkillData.id },
     onCompleted: async ({ DeleteSkill }) => {
       if (DeleteSkill.ok) {

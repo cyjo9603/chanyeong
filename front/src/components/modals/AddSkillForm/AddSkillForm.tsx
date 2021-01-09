@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback } from 'react';
+import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
-import { useReissueMutation } from '@hooks/useApollo';
 import styled from '@theme/styled';
 import ModalLayout from '@modals/ModalLayout';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
@@ -42,7 +42,7 @@ const AddSkillForm: FC<Props> = ({ onClose }) => {
   const { register, handleSubmit, getValues } = useForm();
   const [image, setImage] = useState('');
 
-  const [addSkillMutation] = useReissueMutation<AddSkill>(ADD_SKILL, {
+  const [addSkillMutation] = useMutation<AddSkill>(ADD_SKILL, {
     variables: addSkillMapper(getValues(), image),
     onCompleted: async ({ AddSkill }) => {
       if (AddSkill.ok) {

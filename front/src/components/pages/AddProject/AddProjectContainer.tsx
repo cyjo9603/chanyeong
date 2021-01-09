@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Router from 'next/router';
 import { NextPage } from 'next';
-import { useQuery } from '@apollo/client';
-import { useReissueMutation } from '@hooks/useApollo';
+import { useQuery, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
 import auth from '@hoc/auth';
@@ -35,7 +34,7 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
   const [image, setImage] = useState('');
 
-  const [addProjectMutation] = useReissueMutation<addProject>(ADD_PROJECT, {
+  const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
     variables: addProjectMapper(getValues(), content, titleImage, skills),
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
@@ -43,7 +42,7 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
       }
     },
   });
-  const [updateProjectMutation] = useReissueMutation<updateProject>(UPDATE_PROJECT, {
+  const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
     variables: updateProjectMapper(
       getValues(),
       project?.id,

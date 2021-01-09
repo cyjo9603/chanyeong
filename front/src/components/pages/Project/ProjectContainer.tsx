@@ -1,10 +1,9 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useReactiveVar } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { initializeApollo } from '@src/apollo';
-import { useReissueMutation } from '@hooks/useApollo';
 import { userInfoVar } from '@store/userInfo';
 import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
 import { getProject_GetProject, deleteProject, fixProject } from '@gql-types/api';
@@ -35,7 +34,7 @@ const ProjectContainer = ({ GetProject }: Props) => {
     () => removeMd(project?.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
     [],
   );
-  const [deleteProjectMutation] = useReissueMutation<deleteProject>(DELETE_PROJECT, {
+  const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
     variables: { id: project?.id },
     onCompleted: async ({ DeleteProject }) => {
       if (DeleteProject.ok) {
@@ -43,7 +42,7 @@ const ProjectContainer = ({ GetProject }: Props) => {
       }
     },
   });
-  const [fixProjecttMutation] = useReissueMutation<fixProject>(FIX_PROJECT, {
+  const [fixProjecttMutation] = useMutation<fixProject>(FIX_PROJECT, {
     variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
     onCompleted: async ({ FixProject }) => {
       if (FixProject.ok) {
