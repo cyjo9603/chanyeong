@@ -1,7 +1,13 @@
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, concat, fromPromise } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+
+import { REISSUANCE_ACCESS_TOKEN } from '@queries/user.queries';
+import { reissuanceAccessToken } from '@gql-types/api';
 
 export const prod = process.env.NODE_ENV === 'production';
+
+const TOKEN_EXPIRED = 'jwt expired';
 
 let apolloClient: ApolloClient<object>;
 
@@ -10,12 +16,26 @@ const link = new HttpLink({
   credentials: 'include',
 });
 
+const linkOnError = onError(({ graphQLErrors, operation, forward }) => {
+  if (apolloClient && graphQLErrors?.[0].message === TOKEN_EXPIRED) {
+    const refresh = fromPromise(
+      apolloClient
+        .mutate<reissuanceAccessToken>({ mutation: REISSUANCE_ACCESS_TOKEN })
+        .then(({ data }) => {
+          return data.ReissuanceAccessToken.ok;
+        }),
+    );
+
+    return refresh.filter((result) => result).flatMap(() => forward(operation));
+  }
+});
+
 const cache = new InMemoryCache();
 
 const createApolloClient = () =>
   new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link,
+    link: concat(linkOnError, link),
     cache,
   });
 
