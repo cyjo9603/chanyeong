@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
 
-const auth = (PageComponent: FC<any>): FC<any> => (props) => {
+const auth = <Props extends {}>(PageComponent: FC<Props>): FC<Props> => (props) => {
   const userInfo = useReactiveVar(userInfoVar);
   const router = useRouter();
 
