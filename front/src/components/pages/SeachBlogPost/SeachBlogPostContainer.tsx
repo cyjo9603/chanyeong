@@ -1,16 +1,14 @@
 import React, { useCallback, useRef, useEffect } from 'react';
-import { NextPageContext } from 'next';
+import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
 import { SEARCH_POSTS } from '@queries/post.queries';
 import { searchPosts } from '@gql-types/api';
 import SearchBlogPostPresenter from './SearchBlogPostPresenter';
 
-interface Props {
-  word: string;
-}
-
-const SearchPageContainer = ({ word }: Props) => {
+const SearchPageContainer = () => {
+  const router = useRouter();
+  const { word } = router.query;
   const lastId = useRef(null);
   const { data, fetchMore } = useQuery<searchPosts>(SEARCH_POSTS, {
     variables: { searchWord: word },
@@ -50,14 +48,9 @@ const SearchPageContainer = ({ word }: Props) => {
     };
   }, [data, lastId.current]);
 
-  return <SearchBlogPostPresenter searchWord={word} posts={data?.SearchPosts.posts || []} />;
-};
-
-SearchPageContainer.getInitialProps = (context: NextPageContext) => {
-  if (context.query.word) {
-    const { word } = context.query;
-    return { word };
-  }
+  return (
+    <SearchBlogPostPresenter searchWord={word as string} posts={data?.SearchPosts.posts || []} />
+  );
 };
 
 export default SearchPageContainer;
