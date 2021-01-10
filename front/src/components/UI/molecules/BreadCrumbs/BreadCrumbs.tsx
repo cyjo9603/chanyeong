@@ -32,7 +32,7 @@ const BreadCrumbs = ({ data, page }: Props) => (
       <span key={`page_breadcrumb_${page}_${v.name}`}>
         {i !== data.length - 1 ? (
           <>
-            <Link href={v.path}>
+            <Link href={v.path} prefetch={false}>
               <a>
                 <span>{v.name}</span>
               </a>

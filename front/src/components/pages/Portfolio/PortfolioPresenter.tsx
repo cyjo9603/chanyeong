@@ -42,11 +42,7 @@ const StyledProjectList = styled.div`
   }
 `;
 
-const PortfolioPresenter = ({
-  userName,
-  groupProjects,
-  personalProjects,
-}: Props) => (
+const PortfolioPresenter = ({ userName, groupProjects, personalProjects }: Props) => (
   <>
     <Helmet>
       <title>포트폴리오 :: chanyeong</title>
@@ -65,7 +61,7 @@ const PortfolioPresenter = ({
       <div className="portfolio-sub-title">
         <SubTitle text="제가 지금까지 진행한 프로젝트들 입니다." />
         {userName && (
-          <Link href="/portfolio/add">
+          <Link href="/portfolio/add" prefetch={false}>
             <a>
               <Button name="프로젝트 추가" align="right" />
             </a>

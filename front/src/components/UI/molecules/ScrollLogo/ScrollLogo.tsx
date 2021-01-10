@@ -31,7 +31,7 @@ const ScrollLogo: FC<Props> = ({ scrollRatio }) => {
 
   return (
     <StyledScrollLogo logoWidth={logoWidth}>
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <a>
           <LogoIcon />
         </a>

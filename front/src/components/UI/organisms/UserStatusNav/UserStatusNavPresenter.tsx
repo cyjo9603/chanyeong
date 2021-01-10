@@ -50,11 +50,7 @@ const StatusBar = styled.div<StyledProps>`
   }
 `;
 
-const UserStatusNavePresenter: FC<Props> = ({
-  userName,
-  statusHidden,
-  onClickLogout,
-}) => (
+const UserStatusNavePresenter: FC<Props> = ({ userName, statusHidden, onClickLogout }) => (
   <StatusBar statusHidden={statusHidden}>
     <RowFrame>
       {userName ? (
@@ -66,7 +62,7 @@ const UserStatusNavePresenter: FC<Props> = ({
         </>
       ) : (
         <span>
-          <Link href="/signin">
+          <Link href="/signin" prefetch={false}>
             <a>로그인</a>
           </Link>
         </span>

@@ -38,7 +38,7 @@ const StyledProjectCard = styled.div`
 const ProjectCard = ({
   projectInfo: { id, titleImage, title, type, groupName, startDate, endDate, description },
 }: Props) => (
-  <Link href={`/portfolio/project/${id}`}>
+  <Link href={`/portfolio/project/${id}`} prefetch={false}>
     <a>
       <StyledProjectCard>
         {titleImage && <img src={titleImage} alt="project title" />}

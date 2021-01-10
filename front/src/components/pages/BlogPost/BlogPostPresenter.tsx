@@ -83,7 +83,7 @@ const BlogPostPresenter = ({
               {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
-                  <Link href={`/blog/write/${post.id}`}>
+                  <Link href={`/blog/write/${post.id}`} prefetch={false}>
                     <a>
                       <Button name="편집" align="right" />
                     </a>

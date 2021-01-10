@@ -32,7 +32,7 @@ const StyledDetailButton = styled.div`
 
 const DetailButton = ({ title, link }: Props) => (
   <StyledDetailButton>
-    <Link href={link}>
+    <Link href={link} prefetch={false}>
       <a>
         <span className="detail-button">
           더 많은 {title} 보러가기

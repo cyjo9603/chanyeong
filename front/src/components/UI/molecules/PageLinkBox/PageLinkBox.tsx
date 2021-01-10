@@ -31,7 +31,7 @@ interface Props {
 const PageLinkBox: FC<Props> = ({ onClick, link, text }) => {
   return (
     <StyledPageLinkBox onClick={onClick}>
-      <Link href={link}>
+      <Link href={link} prefetch={false}>
         <a>{text}</a>
       </Link>
     </StyledPageLinkBox>

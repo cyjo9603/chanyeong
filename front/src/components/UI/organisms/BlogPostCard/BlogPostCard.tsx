@@ -37,7 +37,7 @@ const StyledBlogPostCard = styled.div<{ hasImage: boolean }>`
 
 const BlogPostCard = ({ data }: Props) => {
   return (
-    <Link href={`/blog/post/${data.id}`}>
+    <Link href={`/blog/post/${data.id}`} prefetch={false}>
       <a>
         <StyledBlogPostCard hasImage={Boolean(data.titleImage)}>
           <PostCardView data={data} />

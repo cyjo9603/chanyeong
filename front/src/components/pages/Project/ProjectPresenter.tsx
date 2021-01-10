@@ -82,7 +82,7 @@ const ProjectPresenter = ({
               {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
-                  <Link href={`/portfolio/add/${project.id}`}>
+                  <Link href={`/portfolio/add/${project.id}`} prefetch={false}>
                     <a>
                       <Button name="편집" align="right" />
                     </a>
