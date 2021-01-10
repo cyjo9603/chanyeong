@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 import { signInUser } from '@store/userInfo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
@@ -10,6 +10,7 @@ import { signIn } from '@gql-types/api';
 import SignInPresenter from './SignInPresenter';
 
 const SignInContainer = () => {
+  const router = useRouter();
   const [userId, , onChangeUserId] = useChangeEvent('');
   const [password, , onChangePassword] = useChangeEvent('');
   const [hasIdAndPassword, setHasIdAndPassword] = useState(false);
@@ -17,7 +18,7 @@ const SignInContainer = () => {
     onCompleted: ({ SignIn }) => {
       if (SignIn.ok && SignIn.userName) {
         signInUser(SignIn.userName);
-        Router.push('/');
+        router.back();
         return;
       }
       alert('아이디나 비밀번호가 올바르지 않습니다');

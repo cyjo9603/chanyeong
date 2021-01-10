@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { useQuery, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ interface Props {
 }
 
 const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
+  const router = useRouter();
   const { register, handleSubmit, watch } = useForm();
   const watchProjectType = watch('projectType');
   const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
@@ -36,14 +37,14 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
-        Router.push('/portfolio');
+        router.push('/portfolio');
       }
     },
   });
   const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
     onCompleted: async ({ UpdateProject }) => {
       if (UpdateProject.ok) {
-        Router.push('/portfolio');
+        router.push('/portfolio');
       }
     },
   });

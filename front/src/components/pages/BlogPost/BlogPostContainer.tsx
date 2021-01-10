@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useMutation, useReactiveVar } from '@apollo/client';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { DELETE_POST, FIX_POST } from '@queries/post.queries';
@@ -25,6 +25,7 @@ const path = [
 ];
 
 const BlogPostContainer = ({ post }: Props) => {
+  const router = useRouter();
   const [isFixed, setIsFixed] = useState(post?.picked ? FIX_POST_FALSE : FIX_POST_TRUE);
   const userInfo = useReactiveVar(userInfoVar);
   const postDescription = useMemo(
@@ -35,7 +36,7 @@ const BlogPostContainer = ({ post }: Props) => {
     variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
       if (DeletePost.ok) {
-        Router.push('/blog');
+        router.push('/blog');
       }
     },
   });

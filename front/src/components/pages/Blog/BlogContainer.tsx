@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery, useReactiveVar } from '@apollo/client';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
 import { GET_POSTS } from '@queries/post.queries';
@@ -9,6 +9,7 @@ import { getPosts, getTags } from '@gql-types/api';
 import BlogPresenter from './BlogPresenter';
 
 const BlogContainer = () => {
+  const router = useRouter();
   const userInfo = useReactiveVar(userInfoVar);
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
@@ -28,8 +29,7 @@ const BlogContainer = () => {
     if (
       posts &&
       lastId.current[category] !== posts?.[posts.length - 1].id &&
-      document.body.scrollTop + document.body.clientHeight >
-        document.body.scrollHeight - 400
+      document.body.scrollTop + document.body.clientHeight > document.body.scrollHeight - 400
     ) {
       lastId.current[category] = posts[posts.length - 1].id;
       fetchMore({
@@ -42,10 +42,7 @@ const BlogContainer = () => {
           if (!fetchMoreResult) {
             return prev;
           }
-          const newPosts = [
-            ...prev.GetPosts.posts,
-            ...fetchMoreResult.GetPosts.posts,
-          ];
+          const newPosts = [...prev.GetPosts.posts, ...fetchMoreResult.GetPosts.posts];
           const fetchData: getPosts = {
             ...prev,
             GetPosts: { ...fetchMoreResult.GetPosts, posts: newPosts },
@@ -65,7 +62,7 @@ const BlogContainer = () => {
   }, []);
 
   const onClickWritePost = useCallback(() => {
-    Router.push('/blog/write');
+    router.push('/blog/write');
   }, []);
 
   useEffect(() => {

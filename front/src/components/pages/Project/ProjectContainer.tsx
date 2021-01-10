@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 
 import { useMutation, useReactiveVar } from '@apollo/client';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { userInfoVar } from '@store/userInfo';
@@ -30,6 +30,7 @@ const path = [
 ];
 
 const ProjectContainer = ({ project }: Props) => {
+  const router = useRouter();
   const userInfo = useReactiveVar(userInfoVar);
   const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
   const projectPath = useMemo(() => [...path, { name: project?.title }], []);
@@ -41,7 +42,7 @@ const ProjectContainer = ({ project }: Props) => {
     variables: { id: project?.id },
     onCompleted: async ({ DeleteProject }) => {
       if (DeleteProject.ok) {
-        Router.push('/portfolio');
+        router.push('/portfolio');
       }
     },
   });
