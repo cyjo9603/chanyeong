@@ -10,7 +10,8 @@
     "start": "next start -p 3333",
     "pretypes": "graphql-codegen",
     "types": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "start:prod": "pm2 start npm --name \"next\" -- start"
   },
   "keywords": [],
   "author": "chanyeong",
