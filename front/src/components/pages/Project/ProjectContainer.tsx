@@ -1,12 +1,16 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+
 import { useMutation, useReactiveVar } from '@apollo/client';
 import Router from 'next/router';
 import removeMd from 'remove-markdown';
 
-import { initializeApollo } from '@src/apollo';
 import { userInfoVar } from '@store/userInfo';
-import { GET_PROJECT, DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
-import { getProject_GetProject, deleteProject, fixProject } from '@gql-types/api';
+import { DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
+import {
+  getProject_GetProject_project as Project,
+  deleteProject,
+  fixProject,
+} from '@gql-types/api';
 import ProjectPresenter from './ProjectPresenter';
 
 const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
@@ -17,7 +21,7 @@ export type FixProject = typeof FIX_PROJECT_TRUE | typeof FIX_PROJECT_FALSE;
 const MAX_DESCRIPTION = 200 as const;
 
 interface Props {
-  GetProject: getProject_GetProject;
+  project: Project;
 }
 
 const path = [
@@ -25,8 +29,7 @@ const path = [
   { path: '/portfolio', name: 'PORTFOLIO' },
 ];
 
-const ProjectContainer = ({ GetProject }: Props) => {
-  const { project } = useMemo(() => GetProject || { project: null }, []);
+const ProjectContainer = ({ project }: Props) => {
   const userInfo = useReactiveVar(userInfoVar);
   const [isFixed, setIsFixed] = useState(project?.picked ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
   const projectPath = useMemo(() => [...path, { name: project?.title }], []);
@@ -79,19 +82,6 @@ const ProjectContainer = ({ GetProject }: Props) => {
   ) : (
     <></>
   );
-};
-
-ProjectContainer.getInitialProps = async (context) => {
-  if (context.query.id && typeof context.query.id === 'string') {
-    const { id } = context.query;
-    const apolloClient = initializeApollo();
-    const postData = await apolloClient.query({
-      query: GET_PROJECT,
-      variables: { id: parseInt(id, 10) },
-      fetchPolicy: 'no-cache',
-    });
-    return postData.data;
-  }
 };
 
 export default ProjectContainer;
