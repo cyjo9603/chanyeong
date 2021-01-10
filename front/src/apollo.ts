@@ -35,6 +35,7 @@ const cache = new InMemoryCache();
 const createApolloClient = () =>
   new ApolloClient({
     ssrMode: typeof window === 'undefined',
+    connectToDevTools: !prod,
     link: concat(linkOnError, link),
     cache,
   });
