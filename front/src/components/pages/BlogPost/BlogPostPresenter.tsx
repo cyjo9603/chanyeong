@@ -83,10 +83,7 @@ const BlogPostPresenter = ({
               {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
-                  <Link
-                    href={{ pathname: '/blog/write', query: { id: post.id } }}
-                    as={`/blog/write/${post.id}`}
-                  >
+                  <Link href={`/blog/write/${post.id}`}>
                     <a>
                       <Button name="편집" align="right" />
                     </a>

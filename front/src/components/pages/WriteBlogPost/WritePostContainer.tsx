@@ -1,20 +1,20 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 
 import auth from '@hoc/auth';
-import { initializeApollo } from '@src/apollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { WRITE_POST, GET_POST, EDIT_POST } from '@queries/post.queries';
-import { writePost, getPost_GetPost_post, editPost } from '@gql-types/api';
+import { WRITE_POST, EDIT_POST } from '@queries/post.queries';
+import { writePost, getPost_GetPost_post as Post, editPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
 
 interface Props {
-  post?: getPost_GetPost_post;
+  post?: Post;
 }
 
 const WritePostContainer: NextPage<Props> = auth(({ post }) => {
+  const router = useRouter();
   const [content, setContent] = useState(post?.content || '');
   const [image, setImage] = useState('');
   const [titleImage, setTitleImage] = useState(post?.titleImage || '');
@@ -47,7 +47,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     variables: getVariables(false),
     onCompleted: async ({ WritePost }) => {
       if (WritePost.ok) {
-        Router.push('/blog');
+        router.push('/blog');
       }
     },
   });
@@ -55,7 +55,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     variables: getVariables(true),
     onCompleted: async ({ EditPost }) => {
       if (EditPost.ok) {
-        Router.push('/blog');
+        router.push('/blog');
       }
     },
   });
@@ -136,17 +136,5 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     />
   );
 });
-
-WritePostContainer.getInitialProps = async (context) => {
-  if (context.query.id && typeof context.query.id === 'string') {
-    const { id } = context.query;
-    const apolloClient = initializeApollo();
-    const postData = await apolloClient.query({
-      query: GET_POST,
-      variables: { id: parseInt(id, 10) },
-    });
-    return postData.data?.GetPost;
-  }
-};
 
 export default WritePostContainer;
