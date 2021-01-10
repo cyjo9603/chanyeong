@@ -9,7 +9,7 @@ const initSigninCheck = async () => {
     query: GET_USER_INFO,
     fetchPolicy: 'no-cache',
   });
-  if (data.GetUserInfo.ok) {
+  if (data.GetUserInfo?.ok) {
     const { familyName, givenName } = data.GetUserInfo.user;
     signInUser(`${familyName}${givenName}`);
   }
