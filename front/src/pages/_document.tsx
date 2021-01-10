@@ -1,5 +1,5 @@
 import React from 'react';
-import Document, { DocumentContext, Head, Main, NextScript } from 'next/document';
+import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document';
 import { Helmet, HelmetData } from 'react-helmet';
 import { extractCritical } from 'emotion-server';
 
@@ -33,7 +33,7 @@ class MyDocument extends Document<Props> {
     const bodyAttrs = bodyAttributes.toComponent();
 
     return (
-      <html {...htmlAttrs} lang="ko">
+      <Html {...htmlAttrs} lang="ko">
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1" />
@@ -53,7 +53,7 @@ class MyDocument extends Document<Props> {
           <div id="modal" />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
