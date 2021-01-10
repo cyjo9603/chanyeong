@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import Image from 'next/image';
 
 import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
@@ -16,10 +17,12 @@ const StyledContact = styled.div`
     font-size: 18px;
   }
 
-  & > img {
-    width: 200px;
+  & img {
     border-radius: 100px;
-    margin-bottom: 10px;
+  }
+
+  & .contact-name {
+    margin-top: 10px;
   }
 
   & > div span {
@@ -44,8 +47,8 @@ const Contact = () => (
     <RowFrame>
       <BreadCrumbs data={path} page="contact" />
       <StyledContact>
-        <img src="/profile.jpg" alt="profile" />
-        <span>조찬영</span>
+        <Image src="/profile.jpg" alt="profile" width={200} height={200} />
+        <span className="contact-name">조찬영</span>
         <div>
           <div>
             <span>Mail : cyjo9603@gmail.com</span>
@@ -54,11 +57,7 @@ const Contact = () => (
             <span>Kakaotalk : chnyng9603</span>
           </div>
           <div>
-            <a
-              href="https://github.com/cyjo9603"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://github.com/cyjo9603" target="_blank" rel="noopener noreferrer">
               <span>GitHub : github.com/cyjo9603</span>
             </a>
           </div>

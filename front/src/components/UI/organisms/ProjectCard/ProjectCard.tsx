@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import {
   getPicked_GetPickedProjects_project,
@@ -41,7 +42,7 @@ const ProjectCard = ({
   <Link href={`/portfolio/project/${id}`} prefetch={false}>
     <a>
       <StyledProjectCard>
-        {titleImage && <img src={titleImage} alt="project title" />}
+        {titleImage && <Image src={titleImage} alt="project title" width={120} height={80} />}
         <ProjectCardMain
           title={title}
           type={type}

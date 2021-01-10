@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react';
+import Image from 'next/image';
 
 import { getSkills_GetSkills_skill } from '@gql-types/api';
 import ProgressBar from '@molecules/ProgressBar';
@@ -14,9 +15,7 @@ const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
   flex-direction: column;
   align-items: center;
 
-  & > img {
-    width: 74px;
-    height: 74px;
+  & img {
     cursor: ${({ isAdmin }) => (isAdmin ? 'pointer' : 'default')};
   }
 
@@ -41,10 +40,12 @@ const AboutSkill: FC<Props> = ({ data, onClick }) => {
   const isAdmin = useMemo(() => Boolean(onClick), [onClick]);
   return (
     <AboutSkillWrapper isAdmin={isAdmin}>
-      <img
+      <Image
         src={data.icon}
         alt={data.name}
         onClick={isAdmin ? () => onClick(data) : () => undefined}
+        width={74}
+        height={74}
       />
       <h1>{data.name}</h1>
       <ProgressBar ratio={data.level} />

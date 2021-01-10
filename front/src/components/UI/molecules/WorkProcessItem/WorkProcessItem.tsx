@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import styled from '@theme/styled';
 
@@ -13,10 +14,6 @@ export const StyledWorkProcessItem = styled.div`
   flex-direction: column;
   align-items: center;
 
-  & > img {
-    width: 100px;
-  }
-
   & > span {
     margin-top: 14px;
     text-align: center;
@@ -25,7 +22,7 @@ export const StyledWorkProcessItem = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
-    & > img {
+    & img {
       width: 60px;
     }
 
@@ -37,7 +34,7 @@ export const StyledWorkProcessItem = styled.div`
 
 const WorkProcessItem = ({ engName, korName }: Props) => (
   <StyledWorkProcessItem>
-    <img src={`/${engName}.svg`} alt={engName} />
+    <Image src={`/${engName}.svg`} alt={engName} width={100} height={100} />
     <span>{korName}</span>
   </StyledWorkProcessItem>
 );

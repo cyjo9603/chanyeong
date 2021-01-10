@@ -23,6 +23,12 @@ const nextConfig = {
       plugins,
     };
   },
+  images: {
+    domains: ['image.toast.com'],
+  },
 };
 
-module.exports = process.env.BUNDLE_ANALYZE === 'both' ? withTM(withBundleAnalyzer(nextConfig)) : withTM(nextConfig);
+module.exports =
+  process.env.BUNDLE_ANALYZE === 'both'
+    ? withTM(withBundleAnalyzer(nextConfig))
+    : withTM(nextConfig);

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import removeMd from 'remove-markdown';
 
 import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
@@ -20,11 +21,6 @@ export const StyledMiniPostCard = styled.div`
   transition: box-shadow 0.3s, border-color 0.3s;
   margin: 0 auto;
 
-  & > img {
-    width: 100%;
-    height: 150px;
-  }
-
   &:hover {
     box-shadow: 3px 3px 3px ${(props) => props.theme.CARD_BORDER};
   }
@@ -39,7 +35,7 @@ const MiniPostCard = ({ data: { id, title, content, titleImage } }: Props) => {
     <Link href={`/blog/post/${id}`} prefetch={false}>
       <a>
         <StyledMiniPostCard>
-          {titleImage && <img src={titleImage} alt={`post ${title}`} />}
+          {titleImage && <Image src={titleImage} alt={`post ${title}`} width={250} height={150} />}
           <MiniPostCardContent title={title} content={postContent} />
         </StyledMiniPostCard>
       </a>

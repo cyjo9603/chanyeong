@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import styled from '@theme/styled';
 import { getPosts_GetPosts_posts } from '@gql-types/api';
@@ -18,10 +19,6 @@ const StyledBlogPostCard = styled.div<{ hasImage: boolean }>`
   transition: box-shadow 0.3s, border-color 0.3s;
   color: ${({ theme }) => theme.PRIMARY_FONT};
 
-  & > img {
-    width: 290px;
-  }
-
   &:hover {
     box-shadow: 5px 5px 5px ${({ theme }) => theme.CARD_BORDER};
   }
@@ -29,7 +26,7 @@ const StyledBlogPostCard = styled.div<{ hasImage: boolean }>`
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     height: 130px;
 
-    & > img {
+    & img {
       width: 170px;
     }
   }
@@ -41,7 +38,9 @@ const BlogPostCard = ({ data }: Props) => {
       <a>
         <StyledBlogPostCard hasImage={Boolean(data.titleImage)}>
           <PostCardView data={data} />
-          {data.titleImage && <img src={data.titleImage} alt="post_card" />}
+          {data.titleImage && (
+            <Image src={data.titleImage} alt="post_card" width={290} height={'100%'} />
+          )}
         </StyledBlogPostCard>
       </a>
     </Link>
