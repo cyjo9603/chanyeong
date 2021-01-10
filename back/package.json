@@ -4,8 +4,8 @@
   "description": "chanyeong web backend server",
   "main": "index.ts",
   "scripts": {
-    "predev": "npm run types",
-    "prestart": "npm run types",
+    "predev": "yarn run types",
+    "prestart": "yarn run types",
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./src/index.ts",
     "start": "NODE_ENV=production PORT=6666 pm2 start ts-node -- --type-check -r tsconfig-paths/register ./src/index.ts",
     "types": "graphql-codegen"
