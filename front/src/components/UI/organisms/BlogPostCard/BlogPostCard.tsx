@@ -37,10 +37,7 @@ const StyledBlogPostCard = styled.div<{ hasImage: boolean }>`
 
 const BlogPostCard = ({ data }: Props) => {
   return (
-    <Link
-      href={{ pathname: '/blog/post', query: { id: data.id } }}
-      as={`/blog/post/${data.id}`}
-    >
+    <Link href={`/blog/post/${data.id}`}>
       <a>
         <StyledBlogPostCard hasImage={Boolean(data.titleImage)}>
           <PostCardView data={data} />
@@ -51,7 +48,4 @@ const BlogPostCard = ({ data }: Props) => {
   );
 };
 
-export default memo(
-  BlogPostCard,
-  (prev, next) => prev.data.id === next.data.id,
-);
+export default memo(BlogPostCard, (prev, next) => prev.data.id === next.data.id);

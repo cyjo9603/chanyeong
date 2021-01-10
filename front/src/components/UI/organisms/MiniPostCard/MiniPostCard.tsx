@@ -31,16 +31,12 @@ export const StyledMiniPostCard = styled.div`
 `;
 
 const MiniPostCard = ({ data: { id, title, content, titleImage } }: Props) => {
-  const postContent = useMemo(
-    () => removeMd(content, { useImgAltText: false }).slice(0, 100),
-    [content],
-  );
+  const postContent = useMemo(() => removeMd(content, { useImgAltText: false }).slice(0, 100), [
+    content,
+  ]);
 
   return (
-    <Link
-      href={{ pathname: '/blog/post', query: { id } }}
-      as={`/blog/post/${id}`}
-    >
+    <Link href={`/blog/post/${id}`}>
       <a>
         <StyledMiniPostCard>
           {titleImage && <img src={titleImage} alt={`post ${title}`} />}

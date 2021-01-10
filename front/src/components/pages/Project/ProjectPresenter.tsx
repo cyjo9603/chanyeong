@@ -82,13 +82,7 @@ const ProjectPresenter = ({
               {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
-                  <Link
-                    href={{
-                      pathname: '/portfolio/add',
-                      query: { id: project.id },
-                    }}
-                    as={`/portfolio/add/${project.id}`}
-                  >
+                  <Link href={`/portfolio/add/${project.id}`}>
                     <a>
                       <Button name="편집" align="right" />
                     </a>

@@ -11,9 +11,7 @@ import ProjectCardMain from './ProjectCardMain';
 import ProjectCardDescription from './ProjectCardDescription';
 
 interface Props {
-  projectInfo:
-    | getPicked_GetPickedProjects_project
-    | getProjects_GetProjects_project;
+  projectInfo: getPicked_GetPickedProjects_project | getProjects_GetProjects_project;
 }
 
 const StyledProjectCard = styled.div`
@@ -38,21 +36,9 @@ const StyledProjectCard = styled.div`
 `;
 
 const ProjectCard = ({
-  projectInfo: {
-    id,
-    titleImage,
-    title,
-    type,
-    groupName,
-    startDate,
-    endDate,
-    description,
-  },
+  projectInfo: { id, titleImage, title, type, groupName, startDate, endDate, description },
 }: Props) => (
-  <Link
-    href={{ pathname: '/portfolio/project', query: { id } }}
-    as={`/portfolio/project/${id}`}
-  >
+  <Link href={`/portfolio/project/${id}`}>
     <a>
       <StyledProjectCard>
         {titleImage && <img src={titleImage} alt="project title" />}
