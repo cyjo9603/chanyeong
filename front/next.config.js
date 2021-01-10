@@ -1,6 +1,8 @@
 const withTM = require('next-transpile-modules')(['react-syntax-highlighter']);
 const Dotenv = require('dotenv-webpack');
-const withBundleAnalyzer = require('@next/bundle-analyzer');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 const CompressionPlugin = require('compression-webpack-plugin');
 
 const prod = process.env.NODE_ENV === 'production';
@@ -28,7 +30,4 @@ const nextConfig = {
   },
 };
 
-module.exports =
-  process.env.BUNDLE_ANALYZE === 'both'
-    ? withTM(withBundleAnalyzer(nextConfig))
-    : withTM(nextConfig);
+module.exports = withTM(withBundleAnalyzer(nextConfig));
