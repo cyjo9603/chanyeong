@@ -31,12 +31,7 @@ const StyledAddProjectHeader = styled.div`
   }
 `;
 
-const AddProjectHeader: FC<Props> = ({
-  project,
-  projectType,
-
-  register,
-}) => (
+const AddProjectHeader: FC<Props> = ({ project, projectType, register }) => (
   <RowFrame>
     <StyledAddProjectHeader>
       <div className="project-input">
@@ -46,11 +41,17 @@ const AddProjectHeader: FC<Props> = ({
           readOnly={Boolean(project)}
           name="title"
           ref={register({ required: true })}
+          defaultValue={project?.title || ''}
         />
       </div>
       <div className="project-input">
         <span>프로젝트 타입 : </span>
-        <select disabled={Boolean(project)} name="projectType" ref={register}>
+        <select
+          disabled={Boolean(project)}
+          name="projectType"
+          ref={register}
+          defaultValue={project?.type || 'PERSONAL'}
+        >
           <option value="PERSONAL">개인 프로젝트</option>
           <option value="GROUP">그룹 프로젝트</option>
         </select>
@@ -59,11 +60,21 @@ const AddProjectHeader: FC<Props> = ({
         <>
           <div className="project-input">
             <span>그룹이름 : </span>
-            <input type="text" name="groupName" ref={register} />
+            <input
+              type="text"
+              name="groupName"
+              ref={register}
+              defaultValue={project?.groupName || ''}
+            />
           </div>
           <div className="project-input">
             <span>기여도 : </span>
-            <input type="text" name="contribution" ref={register} />
+            <input
+              type="text"
+              name="contribution"
+              ref={register}
+              defaultValue={project?.contribution || ''}
+            />
           </div>
         </>
       )}
@@ -73,11 +84,17 @@ const AddProjectHeader: FC<Props> = ({
           type="text"
           name="description"
           ref={register({ required: true })}
+          defaultValue={project?.description || ''}
         />
       </div>
       <div className="project-input">
         <span>깃허브 주소 : </span>
-        <input type="text" name="githubAddr" ref={register} />
+        <input
+          type="text"
+          name="githubAddr"
+          ref={register}
+          defaultValue={project?.githubAddr || ''}
+        />
       </div>
       <div className="project-input">
         <span>프로젝트 시작 날짜 : </span>
@@ -87,6 +104,7 @@ const AddProjectHeader: FC<Props> = ({
           readOnly={Boolean(project)}
           name="startDate"
           ref={register({ required: true })}
+          defaultValue={project?.startDate || ''}
         />
       </div>
       <div className="project-input">
@@ -96,6 +114,7 @@ const AddProjectHeader: FC<Props> = ({
           placeholder="YYYY-MM-DD"
           name="endDate"
           ref={register}
+          defaultValue={project?.endDate || ''}
         />
       </div>
     </StyledAddProjectHeader>

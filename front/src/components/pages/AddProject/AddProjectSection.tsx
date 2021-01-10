@@ -4,14 +4,13 @@ import RowFrame from '@frames/RowFrame';
 import TUIEditor from '@organisms/TUIEditor';
 import SkillIcon from '@atoms/SkillIcon';
 import Button from '@atoms/Button';
-import { getSkills_GetSkills_skill } from '@gql-types/api';
+import { getSkills_GetSkills_skill as Skill } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {
   content: string;
-  skills: getSkills_GetSkills_skill[];
-  currentSkills: getSkills_GetSkills_skill[];
-
+  skills: Skill[];
+  currentSkills: Skill[];
   onChangeContent: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   onChangeCurrentSkill: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -54,7 +53,6 @@ const AddProjectSection = ({
   content,
   skills,
   currentSkills,
-
   onChangeContent,
   setImage,
   onChangeCurrentSkill,
@@ -63,11 +61,7 @@ const AddProjectSection = ({
 }: Props) => (
   <RowFrame>
     <StyledAddProjectSection>
-      <TUIEditor
-        onChange={onChangeContent}
-        setImage={setImage}
-        initialValue={content}
-      />
+      <TUIEditor onChange={onChangeContent} setImage={setImage} initialValue={content} />
       <footer>
         <div>
           <Button type="submit" name="작성" align="right" />
@@ -86,10 +80,7 @@ const AddProjectSection = ({
         </div>
         <div>
           {currentSkills.map((v) => (
-            <div
-              className="add-project-skills"
-              key={`add_project_skill_icon_${v.id}`}
-            >
+            <div className="add-project-skills" key={`add_project_skill_icon_${v.id}`}>
               <SkillIcon icon={v.icon} name={v.name} />
               <span onClick={() => onClickRemoveSkill(v.id)}>x</span>
             </div>

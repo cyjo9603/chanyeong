@@ -5,14 +5,13 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
 import auth from '@hoc/auth';
-import { initializeApollo } from '@src/apollo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_SKILLS } from '@queries/skill.queries';
-import { ADD_PROJECT, GET_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
+import { ADD_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
 import {
   getSkills,
   addProject,
-  getProject_GetProject_project,
+  getProject_GetProject_project as Project,
   updateProject,
 } from '@gql-types/api';
 import { addProjectMapper, updateProjectMapper } from '@src/mappers/project';
@@ -20,7 +19,7 @@ import AddProjectSection from './AddProjectSection';
 import AddProjectHeader from './AddProjectHeader';
 
 interface Props {
-  project?: getProject_GetProject_project;
+  project?: Project;
 }
 
 const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
@@ -121,17 +120,5 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
     </form>
   );
 });
-
-AddProjectContainer.getInitialProps = async (context) => {
-  if (context.query.id && typeof context.query.id === 'string') {
-    const { id } = context.query;
-    const apolloClient = initializeApollo();
-    const projectData = await apolloClient.query({
-      query: GET_PROJECT,
-      variables: { id: parseInt(id, 10) },
-    });
-    return projectData.data?.GetProject;
-  }
-};
 
 export default AddProjectContainer;
