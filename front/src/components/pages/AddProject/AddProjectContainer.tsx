@@ -7,12 +7,12 @@ import { useForm } from 'react-hook-form';
 import auth from '@hoc/auth';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { GET_SKILLS } from '@queries/skill.queries';
-import { ADD_PROJECT, UPDATE_PROJECT } from '@queries/project.queries';
+import { ADD_PROJECT, UPDATE_PROJECT } from '@queries';
 import {
   getSkills,
-  addProject,
-  getProject_GetProject_project as Project,
-  updateProject,
+  AddProject,
+  GetProject_GetProject_project as Project,
+  UpdateProject,
 } from '@gql-types/api';
 import { addProjectMapper, updateProjectMapper } from '@src/mappers/project';
 import AddProjectSection from './AddProjectSection';
@@ -34,14 +34,14 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
   const [image, setImage] = useState('');
 
-  const [addProjectMutation] = useMutation<addProject>(ADD_PROJECT, {
+  const [addProjectMutation] = useMutation<AddProject>(ADD_PROJECT, {
     onCompleted: async ({ AddProject }) => {
       if (AddProject.ok) {
         router.push('/portfolio');
       }
     },
   });
-  const [updateProjectMutation] = useMutation<updateProject>(UPDATE_PROJECT, {
+  const [updateProjectMutation] = useMutation<UpdateProject>(UPDATE_PROJECT, {
     onCompleted: async ({ UpdateProject }) => {
       if (UpdateProject.ok) {
         router.push('/portfolio');

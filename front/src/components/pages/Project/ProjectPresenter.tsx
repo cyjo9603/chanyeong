@@ -9,12 +9,12 @@ import SkillIconList from '@organisms/SkillIconList';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
-import { getProject_GetProject_project } from '@gql-types/api';
-import { FixProject } from './ProjectContainer';
+import { GetProject_GetProject_project as Project } from '@gql-types/api';
+import { IsFixProject } from './ProjectContainer';
 
 interface Props {
-  isFixed: FixProject;
-  project?: getProject_GetProject_project;
+  isFixed: IsFixProject;
+  project?: Project;
   userName?: string;
   projectDescription: string;
   projectPath: {

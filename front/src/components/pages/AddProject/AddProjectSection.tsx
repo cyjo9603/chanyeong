@@ -70,7 +70,7 @@ const AddProjectSection = ({
             <select onChange={onChangeCurrentSkill}>
               <option value="">선택</option>
               {skills.map((v) => (
-                <option key={`add_project_skill_${v.id}`} value={v.id}>
+                <option key={`_skill_${v.id}`} value={v.id}>
                   {v.name}
                 </option>
               ))}

@@ -12,3 +12,11 @@ export { EDIT_POST } from './post/editPost.queries';
 export { DELETE_POST } from './post/deletePost.queries';
 export { FIX_POST } from './post/fixPost.queries';
 export { SEARCH_POSTS } from './post/searchPosts.queries';
+
+// project
+export { GET_PROJECT } from './project/getProject.queries';
+export { GET_PROJECTS } from './project/getProjects.queries';
+export { ADD_PROJECT } from './project/addProject.queries';
+export { UPDATE_PROJECT } from './project/updateProject.queries';
+export { DELETE_PROJECT } from './project/deleteProject.queries';
+export { FIX_PROJECT } from './project/fixProject.queries';

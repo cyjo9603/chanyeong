@@ -5,18 +5,18 @@ import { useRouter } from 'next/router';
 import removeMd from 'remove-markdown';
 
 import { userInfoVar } from '@store/userInfo';
-import { DELETE_PROJECT, FIX_PROJECT } from '@queries/project.queries';
+import { DELETE_PROJECT, FIX_PROJECT } from '@queries';
 import {
-  getProject_GetProject_project as Project,
-  deleteProject,
-  fixProject,
+  GetProject_GetProject_project as Project,
+  DeleteProject,
+  FixProject,
 } from '@gql-types/api';
 import ProjectPresenter from './ProjectPresenter';
 
 const FIX_PROJECT_TRUE = '프로젝트 고정' as const;
 const FIX_PROJECT_FALSE = '프로젝트 고정 해제' as const;
 
-export type FixProject = typeof FIX_PROJECT_TRUE | typeof FIX_PROJECT_FALSE;
+export type IsFixProject = typeof FIX_PROJECT_TRUE | typeof FIX_PROJECT_FALSE;
 
 const MAX_DESCRIPTION = 200 as const;
 
@@ -38,7 +38,7 @@ const ProjectContainer = ({ project }: Props) => {
     () => removeMd(project?.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
     [],
   );
-  const [deleteProjectMutation] = useMutation<deleteProject>(DELETE_PROJECT, {
+  const [deleteProjectMutation] = useMutation<DeleteProject>(DELETE_PROJECT, {
     variables: { id: project?.id },
     onCompleted: async ({ DeleteProject }) => {
       if (DeleteProject.ok) {
@@ -46,7 +46,7 @@ const ProjectContainer = ({ project }: Props) => {
       }
     },
   });
-  const [fixProjecttMutation] = useMutation<fixProject>(FIX_PROJECT, {
+  const [fixProjecttMutation] = useMutation<FixProject>(FIX_PROJECT, {
     variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
     onCompleted: async ({ FixProject }) => {
       if (FixProject.ok) {
