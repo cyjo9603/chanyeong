@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
 import { GET_POSTS, GET_TAGS } from '@queries';
-import { GetPosts, getTags } from '@gql-types/api';
+import { GetPosts, GetTags } from '@gql-types/api';
 import BlogPresenter from './BlogPresenter';
 
 const BlogContainer = () => {
@@ -16,7 +16,7 @@ const BlogContainer = () => {
   const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
     variables: { category, tagId },
   });
-  const { data: tagData } = useQuery<getTags>(GET_TAGS);
+  const { data: tagData } = useQuery<GetTags>(GET_TAGS);
 
   useEffect(() => {
     document.body.scrollTo(0, 0);

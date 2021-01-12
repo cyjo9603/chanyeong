@@ -26,3 +26,6 @@ export { GET_SKILLS } from './skill/getSkills.queries';
 export { ADD_SKILL } from './skill/addSkill.queries';
 export { UPDATE_SKILL } from './skill/updateSkill.queries';
 export { DELETE_SKILL } from './skill/deleteSkill.queries';
+
+// tag
+export { GET_TAGS } from './tag/getTags.queries';
