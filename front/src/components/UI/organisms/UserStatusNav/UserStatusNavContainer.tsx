@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useMutation, useReactiveVar } from '@apollo/client';
 
 import { userInfoVar, logoutUser } from '@store/userInfo';
-import { LOG_OUT } from '@queries/user.queries';
+import { LOG_OUT } from '@queries';
 import { LogOut } from '@gql-types/api';
 import UserStatusNavPresenter from './UserStatusNavPresenter';
 

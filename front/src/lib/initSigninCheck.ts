@@ -1,11 +1,11 @@
 import { initializeApollo } from '@src/apollo';
 import { signInUser } from '@store/userInfo';
-import { GET_USER_INFO } from '@queries/user.queries';
-import { getUserInfo } from '@gql-types/api';
+import { GET_USER_INFO } from '@queries';
+import { GetUserInfo } from '@gql-types/api';
 
 const initSigninCheck = async () => {
   const apollo = initializeApollo();
-  const { data } = await apollo.query<getUserInfo>({
+  const { data } = await apollo.query<GetUserInfo>({
     query: GET_USER_INFO,
     fetchPolicy: 'no-cache',
   });

@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { ApolloClient, InMemoryCache, HttpLink, concat, fromPromise } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
-import { REISSUANCE_ACCESS_TOKEN } from '@queries/user.queries';
-import { reissuanceAccessToken } from '@gql-types/api';
+import { REISSUANCE_ACCESS_TOKEN } from '@queries';
+import { ReissuanceAccessToken } from '@gql-types/api';
 
 export const prod = process.env.NODE_ENV === 'production';
 
@@ -20,7 +20,7 @@ const linkOnError = onError(({ graphQLErrors, operation, forward }) => {
   if (apolloClient && graphQLErrors?.[0].message === TOKEN_EXPIRED) {
     const refresh = fromPromise(
       apolloClient
-        .mutate<reissuanceAccessToken>({ mutation: REISSUANCE_ACCESS_TOKEN })
+        .mutate<ReissuanceAccessToken>({ mutation: REISSUANCE_ACCESS_TOKEN })
         .then(({ data }) => {
           return data.ReissuanceAccessToken.ok;
         }),

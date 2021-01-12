@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { signInUser } from '@store/userInfo';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { encryptValue } from '@lib/crypto';
-import { SIGNIN_REQUEST } from '@queries/user.queries';
-import { signIn } from '@gql-types/api';
+import { SIGNIN_REQUEST } from '@queries';
+import { SignIn } from '@gql-types/api';
 import SignInPresenter from './SignInPresenter';
 
 const SignInContainer = () => {
@@ -14,7 +14,7 @@ const SignInContainer = () => {
   const [userId, , onChangeUserId] = useChangeEvent('');
   const [password, , onChangePassword] = useChangeEvent('');
   const [hasIdAndPassword, setHasIdAndPassword] = useState(false);
-  const [signInMutation] = useMutation<signIn>(SIGNIN_REQUEST, {
+  const [signInMutation] = useMutation<SignIn>(SIGNIN_REQUEST, {
     onCompleted: ({ SignIn }) => {
       if (SignIn.ok && SignIn.userName) {
         signInUser(SignIn.userName);
