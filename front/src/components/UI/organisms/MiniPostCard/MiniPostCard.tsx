@@ -3,13 +3,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import removeMd from 'remove-markdown';
 
-import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
+import { GetPicked_GetPickedPosts_posts as Posts } from '@gql-types/api';
 import styled from '@theme/styled';
 
 import MiniPostCardContent from './MiniPostCardContent';
 
 interface Props {
-  data: getPicked_GetPickedPosts_posts;
+  data: Posts;
 }
 
 export const StyledMiniPostCard = styled.div`

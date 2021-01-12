@@ -8,13 +8,13 @@ import BreadCrumbs from '@molecules/BreadCrumbs';
 import Button from '@atoms/Button';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
-import { getProjects_GetProjects_project } from '@gql-types/api';
+import { GetProjects_GetProjects_project as Proejct } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {
   userName?: string;
-  groupProjects: getProjects_GetProjects_project[];
-  personalProjects: getProjects_GetProjects_project[];
+  groupProjects: Proejct[];
+  personalProjects: Proejct[];
 }
 
 const path = [

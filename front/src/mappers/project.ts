@@ -1,4 +1,4 @@
-import { getSkills_GetSkills_skill as Skill } from '@gql-types/api';
+import { GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
 
 export const addProjectMapper = (
   values: any,

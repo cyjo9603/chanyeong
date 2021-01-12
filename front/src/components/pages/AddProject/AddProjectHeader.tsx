@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 
 import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
-import { getProject_GetProject_project } from '@gql-types/api';
+import { GetProject_GetProject_project as Project } from '@gql-types/api';
 
 interface Props {
-  project?: getProject_GetProject_project;
+  project?: Project;
   projectType: string;
   register: any;
 }

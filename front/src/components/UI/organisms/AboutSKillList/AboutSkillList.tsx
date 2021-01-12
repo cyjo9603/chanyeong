@@ -3,12 +3,12 @@ import { useReactiveVar } from '@apollo/client';
 
 import styled from '@theme/styled';
 import AboutSkill from '@organisms/AboutSKill';
-import { getSkills_GetSkills_skill } from '@gql-types/api';
+import { GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
 import { userInfoVar } from '@store/userInfo';
 
 interface Props {
-  skills?: getSkills_GetSkills_skill[];
-  onClick?: (data: getSkills_GetSkills_skill) => void;
+  skills?: Skill[];
+  onClick?: (data: Skill) => void;
 }
 
 const StyledAboutSkillList = styled.div`

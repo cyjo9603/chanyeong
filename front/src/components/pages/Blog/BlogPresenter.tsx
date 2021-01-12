@@ -5,7 +5,7 @@ import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import Button from '@atoms/Button';
-import { getPosts_GetPosts_posts, getTags_GetTags_tags } from '@gql-types/api';
+import { GetPosts_GetPosts_posts as Post, GetTags_GetTags_tags as Tag } from '@gql-types/api';
 import BlogPostSearch from './BlogPostSearch';
 import TagWithTextList from './TagWithTextList';
 import CategoryNav from './CategoryNav';
@@ -13,8 +13,8 @@ import CategoryNav from './CategoryNav';
 interface Props {
   userName?: string;
   category: string | null;
-  postData: getPosts_GetPosts_posts[];
-  tagData: getTags_GetTags_tags[];
+  postData: Post[];
+  tagData: Tag[];
   onClickWritePost: () => void;
   onChangeCategory: (categoryName: string | null) => void;
   onChangeTagId: (tagId: number) => void;
@@ -86,14 +86,9 @@ const BlogPresenter = ({
       <StyledBlog>
         <section>
           <nav>
-            <CategoryNav
-              category={category}
-              onChangeCategory={onChangeCategory}
-            />
+            <CategoryNav category={category} onChangeCategory={onChangeCategory} />
             <div className="auth-write">
-              {userName && (
-                <Button onClick={onClickWritePost} name="포스트 작성" />
-              )}
+              {userName && <Button onClick={onClickWritePost} name="포스트 작성" />}
               <BlogPostSearch />
             </div>
           </nav>

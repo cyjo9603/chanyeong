@@ -11,17 +11,20 @@ import AboutValueList from '@organisms/AboutValueList';
 import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
-import { getSkills_GetSkills_skill, getAbouts_GetExperiences_experiences } from '@gql-types/api';
+import {
+  GetSkills_GetSkills_skill as Skill,
+  GetAbouts_GetExperiences_experiences as Experience,
+} from '@gql-types/api';
 
 interface Props {
   userName?: string;
-  frontSkills: getSkills_GetSkills_skill[];
-  backSkills: getSkills_GetSkills_skill[];
-  devopsSkills: getSkills_GetSkills_skill[];
-  experiences: getAbouts_GetExperiences_experiences[];
-  editSkillData: getSkills_GetSkills_skill;
+  frontSkills: Skill[];
+  backSkills: Skill[];
+  devopsSkills: Skill[];
+  experiences: Experience[];
+  editSkillData: Skill;
   onClickAddSkill: () => void;
-  onClickEditSkill: (data: getSkills_GetSkills_skill) => void;
+  onClickEditSkill: (data: Skill) => void;
 }
 
 const StyledAbout = styled.section`

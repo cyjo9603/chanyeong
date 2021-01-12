@@ -5,11 +5,11 @@ import DetailButton from '@molecules/DetailButton';
 import ProjectCard from '@organisms/ProjectCard';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
-import { getPicked_GetPickedProjects_project } from '@gql-types/api';
+import { GetPicked_GetPickedProjects_project as Project } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {
-  data: getPicked_GetPickedProjects_project[];
+  data: Project[];
 }
 
 export const StyledProjectSummary = styled.article`
@@ -35,10 +35,7 @@ const ProjectSummary = ({ data }: Props) => (
   <RowFrame>
     <StyledProjectSummary>
       <Title size={SMALL_SIZE} text="Project" align="center" />
-      <SubTitle
-        text="제가 개발을 진행하며 수행한 프로젝트입니다."
-        align="center"
-      />
+      <SubTitle text="제가 개발을 진행하며 수행한 프로젝트입니다." align="center" />
       <section>
         {data.map((v) => (
           <ProjectCard key={`picked_project${v.id}`} projectInfo={v} />

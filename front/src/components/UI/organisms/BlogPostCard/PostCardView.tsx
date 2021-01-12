@@ -3,13 +3,13 @@ import removeMd from 'remove-markdown';
 
 import styled from '@theme/styled';
 import TagList from '@molecules/TagList';
-import { getPosts_GetPosts_posts } from '@gql-types/api';
+import { GetPosts_GetPosts_posts as Posts } from '@gql-types/api';
 
 import PostCardTitle from './PostCardTitle';
 import PostCardContent from './PostCardContent';
 
 interface Props {
-  data: getPosts_GetPosts_posts;
+  data: Posts;
 }
 
 interface StyledProps {
@@ -47,11 +47,7 @@ const PostCardView: FC<Props> = ({ data }) => {
   return (
     <StyledPostCardView hasImage={Boolean(data.titleImage)}>
       <h5>{data.category}</h5>
-      <PostCardTitle
-        title={data.title}
-        createdAt={data.createdAt}
-        isNew={isNew}
-      />
+      <PostCardTitle title={data.title} createdAt={data.createdAt} isNew={isNew} />
       <PostCardContent content={postContent} />
       <TagList postId={data.id} tags={data.Tags || []} responsive />
     </StyledPostCardView>

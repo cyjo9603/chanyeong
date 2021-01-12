@@ -2,10 +2,10 @@ import React, { FC, memo } from 'react';
 
 import styled from '@theme/styled';
 import TagWithNumber from '@molecules/TagWithNumber';
-import { getTags_GetTags_tags } from '@gql-types/api';
+import { GetTags_GetTags_tags as Tag } from '@gql-types/api';
 
 interface Props {
-  tags: getTags_GetTags_tags[];
+  tags: Tag[];
   onCLick: (tagId: number) => void;
 }
 
@@ -37,11 +37,7 @@ const TagWithNumberList: FC<Props> = ({ tags, onCLick }) => (
     <span>인기 태그</span>
     <section>
       {tags.map((v) => (
-        <TagWithNumber
-          key={`popularity_tag${v.id}`}
-          data={v}
-          onClick={onCLick}
-        />
+        <TagWithNumber key={`popularity_tag${v.id}`} data={v} onClick={onCLick} />
       ))}
     </section>
   </StyledTagWithNumberList>

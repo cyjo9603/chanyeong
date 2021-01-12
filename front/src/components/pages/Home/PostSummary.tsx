@@ -8,7 +8,7 @@ import DetailButton from '@molecules/DetailButton';
 import MiniPostCard from '@organisms/MiniPostCard';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
-import { getPicked_GetPickedPosts_posts } from '@gql-types/api';
+import { GetPicked_GetPickedPosts_posts as Post } from '@gql-types/api';
 
 const StyledPostSummary = styled.article`
   padding: 40px 0;
@@ -71,7 +71,7 @@ const settings = {
 };
 
 interface Props {
-  data: getPicked_GetPickedPosts_posts[];
+  data: Post[];
 }
 
 const PostSummary = ({ data }: Props) => {

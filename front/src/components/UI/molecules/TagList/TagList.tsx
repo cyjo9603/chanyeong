@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
-import { getPosts_GetPosts_posts_Tags } from '@gql-types/api';
+import { GetPosts_GetPosts_posts_Tags as TagType } from '@gql-types/api';
 import styled from '@theme/styled';
 import Tag from '@atoms/Tag';
 
 interface Props {
   postId: number;
   responsive?: boolean;
-  tags: getPosts_GetPosts_posts_Tags[];
+  tags: TagType[];
 }
 
 interface StyledProps {

@@ -3,13 +3,13 @@ import React from 'react';
 import PageContainer from '@frames/RowFrame';
 import TUIEditor from '@organisms/TUIEditor';
 import Button from '@atoms/Button';
-import { getPost_GetPost_post } from '@gql-types/api';
+import { GetPost_GetPost_post as Post } from '@gql-types/api';
 import styled from '@theme/styled';
 import PostTagForm from './PostTagForm';
 
 interface Props {
   title: string;
-  post: getPost_GetPost_post;
+  post: Post;
   insertTagRef: React.MutableRefObject<HTMLInputElement>;
   tags: string[];
   setContent: React.Dispatch<React.SetStateAction<string>>;
@@ -69,8 +69,7 @@ const WritePostPresenter = ({
     <StyledWritePost>
       <header>
         <div>
-          <span>제목 : </span>{' '}
-          <input type="text" onChange={onChangeTitle} value={title} />
+          <span>제목 : </span> <input type="text" onChange={onChangeTitle} value={title} />
         </div>
         <div>
           <span>카테고리 : </span>
@@ -80,11 +79,7 @@ const WritePostPresenter = ({
           </select>
         </div>
       </header>
-      <TUIEditor
-        onChange={setContent}
-        setImage={setImage}
-        initialValue={post?.content || ''}
-      />
+      <TUIEditor onChange={setContent} setImage={setImage} initialValue={post?.content || ''} />
       <footer>
         <PostTagForm
           tags={tags}

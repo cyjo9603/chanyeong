@@ -3,9 +3,9 @@ import { useReactiveVar } from '@apollo/client';
 
 import { userInfoVar } from '@store/userInfo';
 import {
-  getSkills_GetSkills_skill,
-  getAbouts_GetExperiences_experiences as Experiences,
-  getAbouts_GetGroupedSkills_skills as Skills,
+  GetSkills_GetSkills_skill as Skill,
+  GetAbouts_GetExperiences_experiences as Experiences,
+  GetAbouts_GetGroupedSkills_skills as Skills,
 } from '@gql-types/api';
 
 import UpdateSkillForm from '@modals/UpdateSkillForm';
@@ -20,7 +20,7 @@ interface Props {
 const AboutContainer = ({ experiences, skills }: Props) => {
   const userInfo = useReactiveVar(userInfoVar);
   const [openAddSkill, setOpenAddSkill] = useState(false);
-  const [editSkillData, setEditSkillData] = useState<getSkills_GetSkills_skill | null>(null);
+  const [editSkillData, setEditSkillData] = useState<Skill | null>(null);
 
   useEffect(() => {
     document.body.scrollTo(0, 0);
@@ -31,7 +31,7 @@ const AboutContainer = ({ experiences, skills }: Props) => {
     setOpenAddSkill(true);
   }, []);
 
-  const onClickEditSkill = useCallback((data: getSkills_GetSkills_skill) => {
+  const onClickEditSkill = useCallback((data: Skill) => {
     setEditSkillData(data);
   }, []);
 

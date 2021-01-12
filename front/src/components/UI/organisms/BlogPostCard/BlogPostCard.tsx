@@ -3,12 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import styled from '@theme/styled';
-import { getPosts_GetPosts_posts } from '@gql-types/api';
+import { GetPosts_GetPosts_posts as Posts } from '@gql-types/api';
 
 import PostCardView from './PostCardView';
 
 interface Props {
-  data: getPosts_GetPosts_posts;
+  data: Posts;
 }
 
 const StyledBlogPostCard = styled.div<{ hasImage: boolean }>`

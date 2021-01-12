@@ -1,14 +1,14 @@
 import { GetServerSideProps } from 'next';
 
 import { initializeApollo } from '@src/apollo';
-import { GET_ABOUTS } from '@queries/about.queries';
-import { getAbouts } from '@gql-types/api';
+import { GET_ABOUTS } from '@queries';
+import { GetAbouts } from '@gql-types/api';
 
 export { default } from '@pages/About';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query<getAbouts>({
+  const { data } = await apolloClient.query<GetAbouts>({
     query: GET_ABOUTS,
     fetchPolicy: 'no-cache',
   });

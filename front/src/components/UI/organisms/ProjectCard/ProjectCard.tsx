@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import {
-  getPicked_GetPickedProjects_project,
-  getProjects_GetProjects_project,
+  GetPicked_GetPickedProjects_project as PickedProject,
+  GetProjects_GetProjects_project as Project,
 } from '@gql-types/api';
 import styled from '@theme/styled';
 
@@ -12,7 +12,7 @@ import ProjectCardMain from './ProjectCardMain';
 import ProjectCardDescription from './ProjectCardDescription';
 
 interface Props {
-  projectInfo: getPicked_GetPickedProjects_project | getProjects_GetProjects_project;
+  projectInfo: PickedProject | Project;
 }
 
 const StyledProjectCard = styled.div`

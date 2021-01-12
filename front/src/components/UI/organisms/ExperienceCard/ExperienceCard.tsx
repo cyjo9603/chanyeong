@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from '@theme/styled';
-import { getAbouts_GetExperiences_experiences } from '@gql-types/api';
+import { GetAbouts_GetExperiences_experiences as Experiences } from '@gql-types/api';
 
 import ExperienceDate from './ExperienceDate';
 import ExperienceContent from './ExperienceContent';
@@ -18,15 +18,12 @@ const ExperienceCardWrapper = styled.div`
 `;
 
 interface Props {
-  experience: getAbouts_GetExperiences_experiences;
+  experience: Experiences;
 }
 
 const ExperienceCard = ({ experience }: Props) => (
   <ExperienceCardWrapper>
-    <ExperienceDate
-      startDate={experience.startDate}
-      endDate={experience.endDate}
-    />
+    <ExperienceDate startDate={experience.startDate} endDate={experience.endDate} />
     <ExperienceContent title={experience.title} content={experience.content} />
   </ExperienceCardWrapper>
 );

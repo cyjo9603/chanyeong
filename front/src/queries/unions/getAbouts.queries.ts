@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const GET_ABOUTS = gql`
-  query getAbouts {
+  query GetAbouts {
     GetExperiences {
       ok
       error

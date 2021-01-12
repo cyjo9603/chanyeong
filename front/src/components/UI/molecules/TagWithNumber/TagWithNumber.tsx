@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { getTags_GetTags_tags } from '@gql-types/api';
+import { GetTags_GetTags_tags as Tags } from '@gql-types/api';
 import styled from '@theme/styled';
 import Tag from '@atoms/Tag';
 
@@ -32,7 +32,7 @@ export const TagWrapper = styled.div`
 `;
 
 interface Props {
-  data: getTags_GetTags_tags;
+  data: Tags;
   onClick: (tagId: number) => void;
 }
 

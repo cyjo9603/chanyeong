@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const GET_PICKED = gql`
-  query getPicked {
+  query GetPicked {
     GetPickedProjects {
       ok
       error

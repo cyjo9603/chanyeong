@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from 'react';
 import Image from 'next/image';
 
-import { getSkills_GetSkills_skill } from '@gql-types/api';
+import { GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
 import ProgressBar from '@molecules/ProgressBar';
 import styled from '@theme/styled';
 
 interface Props {
-  data: getSkills_GetSkills_skill;
-  onClick?: (data: getSkills_GetSkills_skill) => void;
+  data: Skill;
+  onClick?: (data: Skill) => void;
 }
 
 const AboutSkillWrapper = styled.div<{ isAdmin: boolean }>`
