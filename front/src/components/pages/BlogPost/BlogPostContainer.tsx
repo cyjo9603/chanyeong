@@ -3,9 +3,9 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import removeMd from 'remove-markdown';
 
-import { DELETE_POST, FIX_POST } from '@queries/post.queries';
+import { DELETE_POST, FIX_POST } from '@queries';
 import { userInfoVar } from '@store/userInfo';
-import { getPost_GetPost_post, deletePost, fixPost } from '@gql-types/api';
+import { GetPost_GetPost_post as Post, DeletePost, FixPost } from '@gql-types/api';
 import BlogPostPresenter from './BlogPostPresenter';
 
 const FIX_POST_TRUE = '게시글 고정' as const;
@@ -13,10 +13,10 @@ const FIX_POST_FALSE = '게시글 고정 해제' as const;
 
 const MAX_DESCRIPTION = 400 as const;
 
-export type FixPost = typeof FIX_POST_TRUE | typeof FIX_POST_FALSE;
+export type IsFixPost = typeof FIX_POST_TRUE | typeof FIX_POST_FALSE;
 
 interface Props {
-  post: getPost_GetPost_post;
+  post: Post;
 }
 
 const path = [
@@ -32,7 +32,7 @@ const BlogPostContainer = ({ post }: Props) => {
     () => removeMd(post?.content, { useImgAltText: false }).slice(0, MAX_DESCRIPTION),
     [],
   );
-  const [deletePostMutation] = useMutation<deletePost>(DELETE_POST, {
+  const [deletePostMutation] = useMutation<DeletePost>(DELETE_POST, {
     variables: { id: post?.id },
     onCompleted: async ({ DeletePost }) => {
       if (DeletePost.ok) {
@@ -40,7 +40,7 @@ const BlogPostContainer = ({ post }: Props) => {
       }
     },
   });
-  const [fixPostMutation] = useMutation<fixPost>(FIX_POST, {
+  const [fixPostMutation] = useMutation<FixPost>(FIX_POST, {
     variables: { id: post?.id, fix: isFixed === FIX_POST_TRUE },
     onCompleted: async ({ FixPost }) => {
       if (FixPost.ok) {

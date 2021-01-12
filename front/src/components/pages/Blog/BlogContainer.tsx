@@ -3,9 +3,8 @@ import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
-import { GET_POSTS } from '@queries/post.queries';
-import { GET_TAGS } from '@queries/tag.queries';
-import { getPosts, getTags } from '@gql-types/api';
+import { GET_POSTS, GET_TAGS } from '@queries';
+import { GetPosts, getTags } from '@gql-types/api';
 import BlogPresenter from './BlogPresenter';
 
 const BlogContainer = () => {
@@ -14,7 +13,7 @@ const BlogContainer = () => {
   const [category, setCategory] = useState(null);
   const [tagId, setTagId] = useState(null);
   const lastId = useRef({});
-  const { data: postData, fetchMore, refetch } = useQuery<getPosts>(GET_POSTS, {
+  const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
     variables: { category, tagId },
   });
   const { data: tagData } = useQuery<getTags>(GET_TAGS);
@@ -43,7 +42,7 @@ const BlogContainer = () => {
             return prev;
           }
           const newPosts = [...prev.GetPosts.posts, ...fetchMoreResult.GetPosts.posts];
-          const fetchData: getPosts = {
+          const fetchData: GetPosts = {
             ...prev,
             GetPosts: { ...fetchMoreResult.GetPosts, posts: newPosts },
           };

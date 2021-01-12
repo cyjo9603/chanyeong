@@ -10,13 +10,13 @@ import TagList from '@molecules/TagList';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import dateFormat from '@lib/dateFormat';
-import { getPost_GetPost_post } from '@gql-types/api';
+import { GetPost_GetPost_post as Post } from '@gql-types/api';
 import styled from '@theme/styled';
-import { FixPost } from './BlogPostContainer';
+import { IsFixPost } from './BlogPostContainer';
 
 interface Props {
-  isFixed: FixPost;
-  post?: getPost_GetPost_post;
+  isFixed: IsFixPost;
+  post?: Post;
   userName?: string;
   postPath: {
     path?: string;

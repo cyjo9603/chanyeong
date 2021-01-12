@@ -2,15 +2,15 @@ import React, { useCallback, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
-import { SEARCH_POSTS } from '@queries/post.queries';
-import { searchPosts } from '@gql-types/api';
+import { SEARCH_POSTS } from '@queries';
+import { SearchPosts } from '@gql-types/api';
 import SearchBlogPostPresenter from './SearchBlogPostPresenter';
 
 const SearchPageContainer = () => {
   const router = useRouter();
   const { word } = router.query;
   const lastId = useRef(null);
-  const { data, fetchMore } = useQuery<searchPosts>(SEARCH_POSTS, {
+  const { data, fetchMore } = useQuery<SearchPosts>(SEARCH_POSTS, {
     variables: { searchWord: word },
   });
 
@@ -30,7 +30,7 @@ const SearchPageContainer = () => {
             return prev;
           }
           const newPosts = [...prev.SearchPosts.posts, ...fetchMoreResult.SearchPosts.posts];
-          const fetchData: searchPosts = {
+          const fetchData: SearchPosts = {
             ...prev,
             SearchPosts: { ...fetchMoreResult.SearchPosts, posts: newPosts },
           };

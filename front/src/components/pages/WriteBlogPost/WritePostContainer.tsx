@@ -5,8 +5,8 @@ import { NextPage } from 'next';
 
 import auth from '@hoc/auth';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { WRITE_POST, EDIT_POST } from '@queries/post.queries';
-import { writePost, getPost_GetPost_post as Post, editPost } from '@gql-types/api';
+import { WRITE_POST, EDIT_POST } from '@queries';
+import { WritePost, GetPost_GetPost_post as Post, EditPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
 
 interface Props {
@@ -43,7 +43,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     [content, titleImage, title, category, tags, deleteTags, tags],
   );
 
-  const [writePostMutation] = useMutation<writePost>(WRITE_POST, {
+  const [writePostMutation] = useMutation<WritePost>(WRITE_POST, {
     variables: getVariables(false),
     onCompleted: async ({ WritePost }) => {
       if (WritePost.ok) {
@@ -51,7 +51,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
       }
     },
   });
-  const [editPostMutation] = useMutation<editPost>(EDIT_POST, {
+  const [editPostMutation] = useMutation<EditPost>(EDIT_POST, {
     variables: getVariables(true),
     onCompleted: async ({ EditPost }) => {
       if (EditPost.ok) {
