@@ -20,3 +20,9 @@ export { ADD_PROJECT } from './project/addProject.queries';
 export { UPDATE_PROJECT } from './project/updateProject.queries';
 export { DELETE_PROJECT } from './project/deleteProject.queries';
 export { FIX_PROJECT } from './project/fixProject.queries';
+
+// skill
+export { GET_SKILLS } from './skill/getSkills.queries';
+export { ADD_SKILL } from './skill/addSkill.queries';
+export { UPDATE_SKILL } from './skill/updateSkill.queries';
+export { DELETE_SKILL } from './skill/deleteSkill.queries';

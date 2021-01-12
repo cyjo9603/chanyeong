@@ -6,13 +6,13 @@ import styled from '@theme/styled';
 import ModalLayout from '@modals/ModalLayout';
 import FullButton from '@atoms/FullButton';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
-import { UPDATE_SKILL, DELETE_SKILL } from '@queries/skill.queries';
-import { UpdateSkill, DeleteSkill, getSkills_GetSkills_skill } from '@gql-types/api';
+import { UPDATE_SKILL, DELETE_SKILL } from '@queries';
+import { UpdateSkill, DeleteSkill, GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
 import { updateSkillMapper } from '@mappers/skill';
 
 interface Props {
   onClose: () => void;
-  editSkillData: getSkills_GetSkills_skill;
+  editSkillData: Skill;
 }
 
 const StyledUpdateSkillForm = styled.form`

@@ -6,7 +6,7 @@ import styled from '@theme/styled';
 import ModalLayout from '@modals/ModalLayout';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import FullButton from '@atoms/FullButton';
-import { ADD_SKILL } from '@queries/skill.queries';
+import { ADD_SKILL } from '@queries';
 import { AddSkill } from '@gql-types/api';
 import { addSkillMapper } from '@mappers/skill';
 

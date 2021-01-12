@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 
 import auth from '@hoc/auth';
 import useChangeEvent from '@src/hooks/useChangeEvent';
-import { GET_SKILLS } from '@queries/skill.queries';
-import { ADD_PROJECT, UPDATE_PROJECT } from '@queries';
+import { ADD_PROJECT, UPDATE_PROJECT, GET_SKILLS } from '@queries';
+
 import {
-  getSkills,
+  GetSkills,
   AddProject,
   GetProject_GetProject_project as Project,
   UpdateProject,
@@ -26,7 +26,7 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const router = useRouter();
   const { register, handleSubmit, watch } = useForm();
   const watchProjectType = watch('projectType');
-  const { data: skillsData } = useQuery<getSkills>(GET_SKILLS);
+  const { data: skillsData } = useQuery<GetSkills>(GET_SKILLS);
   const [content, setContent] = useState(project?.content || '');
   const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
   const [skills, setSkills] = useState([]);
