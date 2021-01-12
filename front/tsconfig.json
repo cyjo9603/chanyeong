@@ -30,7 +30,7 @@
       "@lib/*": ["src/lib/*"],
       "@routes/*": ["src/routes/*"],
       "@theme/*": ["src/theme/*"],
-      "@queries/*": ["src/queries/*"],
+      "@queries": ["src/queries/index.ts"],
       "@gql-types/*": ["src/types/*"],
     }
   },
