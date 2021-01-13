@@ -13,8 +13,8 @@ import { Tag } from '@tags/tags.model';
 import { PostTag } from '@common/associate.model';
 
 export enum PostCategory {
-  DIARY,
-  DEV,
+  DIARY = 'DIARY',
+  DEV = 'DEV',
 }
 
 registerEnumType(PostCategory, { name: 'PostCategory' });
