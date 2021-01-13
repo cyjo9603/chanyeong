@@ -9,6 +9,15 @@ import { Project, ProjectType } from './projects.model';
 export class ProjectsService {
   constructor(@InjectModel(Project) private projectModel: typeof Project) {}
 
+  async getById(id: number) {
+    try {
+      const project = await this.projectModel.findOne({ where: { id } });
+      return { project };
+    } catch (error) {
+      return { error };
+    }
+  }
+
   async getAllByType(type: ProjectType) {
     try {
       const projects = await this.projectModel.findAll({
