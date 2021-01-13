@@ -21,7 +21,8 @@ _Deprecated_
 
 - [ ] Sign In
 - [ ] Get Skills
-- [ ] Get Group or Personal Projects
+- [ ] Get Project
+- [x] Get Group or Personal Projects
 - [x] Get Picked Projects
 - [x] Get Posts
 - [x] Get Post
