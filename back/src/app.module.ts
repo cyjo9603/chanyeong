@@ -4,6 +4,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 
 import { Experience } from '@experiences/experiences.model';
+import { Post } from '@posts/posts.model';
 import { User } from '@users/users.model';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -18,7 +19,7 @@ const prod = process.env.NODE_ENV === 'production';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Experience, User],
+      models: [Experience, Post, User],
       define: {
         timestamps: false,
         charset: 'utf8',
