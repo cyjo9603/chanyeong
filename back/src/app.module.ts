@@ -3,7 +3,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 
+import { ExperiencesModule } from '@experiences/experiences.module';
 import { PostsModule } from '@posts/posts.module';
+import { ProjectsModule } from '@projects/projects.module';
+import { TagsModule } from '@tags/tags.module';
 
 import { Experience } from '@experiences/experiences.model';
 import { Post } from '@posts/posts.model';
@@ -12,8 +15,6 @@ import { Skill } from '@skills/skills.model';
 import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 import { PostTag, ProjectSkill } from '@common/associate.model';
-import { TagsModule } from './tags/tags.module';
-import { ExperiencesModule } from './experiences/experiences.module';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -43,9 +44,10 @@ const prod = process.env.NODE_ENV === 'production';
       },
       context: (ctx) => ({ ...ctx }),
     }),
+    ExperiencesModule,
     PostsModule,
     TagsModule,
-    ExperiencesModule,
+    ProjectsModule,
   ],
 })
 export class AppModule {}
