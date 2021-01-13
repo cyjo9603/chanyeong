@@ -1,4 +1,12 @@
-import { Column, Model, Table, DataType, BelongsToMany } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  CreatedAt,
+  UpdatedAt,
+  BelongsToMany,
+} from 'sequelize-typescript';
 import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
 
 import { Tag } from '@tags/tags.model';
@@ -45,11 +53,11 @@ export class Post extends Model<Post> {
   picked?: Date;
 
   @Field((type) => Date)
-  @Column({ type: DataType.DATE })
+  @CreatedAt
   createdAt!: Date;
 
   @Field((type) => Date)
-  @Column({ type: DataType.DATE })
+  @UpdatedAt
   updatedAt!: Date;
 
   @Field((type) => [Tag], { nullable: true })
