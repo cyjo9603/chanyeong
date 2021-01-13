@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@auth/*": ["src/auth/*"],
+      "@common/*": ["src/common/*"],
+      "@experiences/*": ["src/experiences/*"],
+      "@posts/*": ["src/posts/*"],
+      "@projects/*": ["src/projects/*"],
+      "@skills/*": ["src/skills/*"],
+      "@tags/*": ["src/tags/*"],
+      "@users/*": ["src/users/*"],
+      "@utils/*": ["src/utils/*"],
+    },
+  }
+}
