@@ -5,7 +5,7 @@ import { Op } from 'sequelize';
 import { TagsService } from '@tags/tags.service';
 import { Tag, TagWithMethod } from '@tags/tags.model';
 import { Post } from './posts.model';
-import { GetPostsRequest } from './dtos/getPosts.dto';
+import { GetPostsRequest } from './dto/getPosts.dto';
 
 const LIMIT_POST = 10;
 
