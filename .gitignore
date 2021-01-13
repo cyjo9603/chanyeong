@@ -1,7 +1,7 @@
 */node_modules/*
 
-back/src/types/api.ts
-back/.env
+_back/src/types/api.ts
+_back/.env
 
 front/.next/*
 front/next-env.d.ts
