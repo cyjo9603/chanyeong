@@ -20,6 +20,7 @@ _Deprecated_
 ### Public Resolvers:
 
 - [ ] Sign In
+- [x] Search Posts
 - [x] Get Grouped Skills
 - [x] Get Skills
 - [x] Get Project
@@ -33,6 +34,7 @@ _Deprecated_
 
 ### Private Resolvers:
 
+- [ ] Get User Info
 - [ ] LogOut
 - [ ] Add Skill
 - [ ] Eidt Skill

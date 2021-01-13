@@ -2,8 +2,9 @@ import { Resolver, Query, Args } from '@nestjs/graphql';
 
 import { PostsService } from './posts.service';
 import { GetPostRequest, GetPostResponse } from './dto/getPost.dto';
-import { GetPostsRequest, GetPostsResponse } from './dto/getPosts.dto';
-import { GetPickedPostsResponse } from './dto/getPickedPosts.dto';
+import { GetPostsRequest } from './dto/getPosts.dto';
+import { PostsResponse } from './dto/postsResponse.dto';
+import { SearchPostRequest } from './dto/searchPost.dto';
 
 @Resolver()
 export class PostsResolver {
@@ -18,8 +19,8 @@ export class PostsResolver {
     return { ok: true, post };
   }
 
-  @Query((returns) => GetPostsResponse)
-  async getPosts(@Args('input') input: GetPostsRequest): Promise<GetPostsResponse> {
+  @Query((returns) => PostsResponse)
+  async getPosts(@Args('input') input: GetPostsRequest): Promise<PostsResponse> {
     const { posts, error } = input.tagId
       ? await this.postsService.getPostsByTag(input)
       : await this.postsService.getPosts(input);
@@ -29,9 +30,18 @@ export class PostsResolver {
     return { ok: true, posts };
   }
 
-  @Query((returns) => GetPickedPostsResponse)
+  @Query((returns) => PostsResponse)
   async getPickedPosts() {
     const { posts, error } = await this.postsService.getPickeds();
+
+    if (!posts || error) return { ok: false, error };
+
+    return { ok: true, posts };
+  }
+
+  @Query((returns) => PostsResponse)
+  async searchPosts(@Args('input') input: SearchPostRequest) {
+    const { posts, error } = await this.postsService.getPostsBySearch(input);
 
     if (!posts || error) return { ok: false, error };
 

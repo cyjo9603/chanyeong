@@ -6,6 +6,7 @@ import { TagsService } from '@tags/tags.service';
 import { Tag, TagWithMethod } from '@tags/tags.model';
 import { Post } from './posts.model';
 import { GetPostsRequest } from './dto/getPosts.dto';
+import { SearchPostRequest } from './dto/searchPost.dto';
 
 const LIMIT_POST = 10;
 
@@ -75,6 +76,21 @@ export class PostsService {
         order: [['picked', 'DESC']],
       });
 
+      return { posts };
+    } catch (error) {
+      return { error };
+    }
+  }
+
+  async getPostsBySearch({ searchWord, lastId }: SearchPostRequest) {
+    try {
+      const lastIdWhere = lastId && { id: { [Op.lt]: lastId } };
+      const posts = await this.postModel.findAll({
+        where: { title: { [Op.like]: `%${searchWord}%` }, ...lastIdWhere },
+        limit: LIMIT_POST,
+        include: [{ model: Tag }],
+        order: [['id', 'DESC']],
+      });
       return { posts };
     } catch (error) {
       return { error };
