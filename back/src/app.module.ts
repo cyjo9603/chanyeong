@@ -13,6 +13,7 @@ import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 import { PostTag, ProjectSkill } from '@common/associate.model';
 import { TagsModule } from './tags/tags.module';
+import { ExperiencesModule } from './experiences/experiences.module';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -44,6 +45,7 @@ const prod = process.env.NODE_ENV === 'production';
     }),
     PostsModule,
     TagsModule,
+    ExperiencesModule,
   ],
 })
 export class AppModule {}

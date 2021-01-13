@@ -27,7 +27,7 @@ _Deprecated_
 - [x] Get Post
 - [x] Get Picked Posts
 - [x] Get Tags
-- [ ] Get Experiences
+- [x] Get Experiences
 
 ### Private Resolvers:
 
