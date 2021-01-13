@@ -1,8 +1,8 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
 
 import { PostsService } from './posts.service';
-import { GetPostRequest, GetPostResponse } from './dtos/getPost.dto';
-import { GetPostsRequest, GetPostsResponse } from './dtos/getPosts.dto';
+import { GetPostRequest, GetPostResponse } from './dto/getPost.dto';
+import { GetPostsRequest, GetPostsResponse } from './dto/getPosts.dto';
 
 @Resolver()
 export class PostsResolver {
