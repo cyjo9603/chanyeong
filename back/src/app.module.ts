@@ -3,6 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 
+import { PostsModule } from '@posts/posts.module';
+
 import { Experience } from '@experiences/experiences.model';
 import { Post } from '@posts/posts.model';
 import { Project } from '@projects/projects.model';
@@ -39,6 +41,7 @@ const prod = process.env.NODE_ENV === 'production';
       },
       context: (ctx) => ({ ...ctx }),
     }),
+    PostsModule,
   ],
 })
 export class AppModule {}

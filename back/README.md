@@ -24,7 +24,7 @@ _Deprecated_
 - [ ] Get Group or Personal Projects
 - [ ] Get Picked Projects
 - [ ] Get Posts
-- [ ] Get Post
+- [x] Get Post
 - [ ] Get Picked Posts
 - [ ] Get Tag Posts
 - [ ] Get Experiences

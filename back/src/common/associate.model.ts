@@ -6,7 +6,7 @@ import { Tag } from '@tags/tags.model';
 import { Project } from '@projects/projects.model';
 import { Skill } from '@skills/skills.model';
 
-@Table
+@Table({ tableName: 'postTag' })
 export class PostTag extends Model {
   @ForeignKey(() => Post)
   @Column
@@ -17,7 +17,7 @@ export class PostTag extends Model {
   tagId!: number;
 }
 
-@Table
+@Table({ tableName: 'projectSkill' })
 export class ProjectSkill extends Model {
   @ForeignKey(() => Project)
   @Column
