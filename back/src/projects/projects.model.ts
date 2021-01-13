@@ -1,5 +1,7 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Column, Model, Table, DataType, BelongsToMany } from 'sequelize-typescript';
 import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+import { Skill } from '@/skills/skills.model';
+import { ProjectSkill } from '@/common/associate.model';
 
 export enum ProjectType {
   PERSONAL,
@@ -72,4 +74,11 @@ export class Project extends Model<Project> {
   @Field((type) => Date)
   @Column({ type: DataType.DATE })
   updatedAt!: Date;
+
+  @Field((type) => [Skill], { nullable: true })
+  @BelongsToMany(
+    () => Skill,
+    () => ProjectSkill,
+  )
+  skills?: Skill[];
 }
