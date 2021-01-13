@@ -1,7 +1,6 @@
-import { ObjectType, InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
-import { Post, PostCategory } from '../posts.model';
+import { PostCategory } from '../posts.model';
 
 @InputType('InputGetPosts')
 export class GetPostsRequest {
@@ -13,10 +12,4 @@ export class GetPostsRequest {
 
   @Field((type) => PostCategory, { nullable: true })
   category?: PostCategory;
-}
-
-@ObjectType()
-export class GetPostsResponse extends CoreResponse {
-  @Field((type) => [Post], { nullable: true })
-  posts?: Post[];
 }
