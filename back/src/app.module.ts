@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 
+import { Experience } from '@experiences/experiences.model';
 import { User } from '@users/users.model';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -17,7 +18,7 @@ const prod = process.env.NODE_ENV === 'production';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User],
+      models: [Experience, User],
       define: {
         timestamps: false,
         charset: 'utf8',
