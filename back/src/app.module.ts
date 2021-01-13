@@ -15,6 +15,7 @@ import { Skill } from '@skills/skills.model';
 import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 import { PostTag, ProjectSkill } from '@common/associate.model';
+import { SkillsModule } from './skills/skills.module';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -48,6 +49,7 @@ const prod = process.env.NODE_ENV === 'production';
     PostsModule,
     TagsModule,
     ProjectsModule,
+    SkillsModule,
   ],
 })
 export class AppModule {}

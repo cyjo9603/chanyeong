@@ -20,7 +20,8 @@ _Deprecated_
 ### Public Resolvers:
 
 - [ ] Sign In
-- [ ] Get Skills
+- [ ] Get Grouped Skills
+- [x] Get Skills
 - [x] Get Project
 - [x] Get Group or Personal Projects
 - [x] Get Picked Projects
