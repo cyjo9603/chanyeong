@@ -1,6 +1,8 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { GetPostRequest, GetPostResponse } from './dtos/getPost.dto';
+
 import { PostsService } from './posts.service';
+import { GetPostRequest, GetPostResponse } from './dtos/getPost.dto';
+import { GetPostsRequest, GetPostsResponse } from './dtos/getPosts.dto';
 
 @Resolver()
 export class PostsResolver {
@@ -14,5 +16,18 @@ export class PostsResolver {
       return { ok: false, error };
     }
     return { ok: true, post };
+  }
+
+  @Query((returns) => GetPostsResponse)
+  async getPosts(@Args('input') input: GetPostsRequest): Promise<GetPostsResponse> {
+    const { posts, error } = input.tagId
+      ? await this.postsService.getPostsByTag(input)
+      : await this.postsService.getPosts(input);
+
+    if (!posts || error) {
+      return { ok: false, error };
+    }
+
+    return { ok: true, posts };
   }
 }

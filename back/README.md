@@ -23,7 +23,7 @@ _Deprecated_
 - [ ] Get Skills
 - [ ] Get Group or Personal Projects
 - [ ] Get Picked Projects
-- [ ] Get Posts
+- [x] Get Posts
 - [x] Get Post
 - [ ] Get Picked Posts
 - [ ] Get Tag Posts
