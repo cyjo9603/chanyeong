@@ -2,9 +2,9 @@ import { Column, Model, Table, DataType } from 'sequelize-typescript';
 import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
 
 export enum SkillType {
-  FRONT_END,
-  BACK_END,
-  DEV_OPS,
+  FRONT_END = 'FRONT_END',
+  BACK_END = 'BACK_END',
+  DEV_OPS = 'DEV_OPS',
 }
 
 registerEnumType(SkillType, { name: 'SkillType' });
