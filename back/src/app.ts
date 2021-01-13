@@ -6,6 +6,7 @@ import logger from 'morgan';
 import compression from 'compression';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
 import { buildContext } from 'graphql-passport';
 
 import schema from '@/schema';
@@ -13,6 +14,9 @@ import passportInit from '@auth/passport';
 
 const GRAPHQL_ENDPOINT = '/graphql' as const;
 const prod = process.env.NODE_ENV === 'production';
+
+const WINDOW_MS = 60 * 1000;
+const MAX_REQUEST_PER_15 = 80;
 
 class App {
   public app: Express;
@@ -37,6 +41,7 @@ class App {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(logger('combined'));
+      this.app.use(rateLimit({ windowMs: WINDOW_MS, max: MAX_REQUEST_PER_15 }));
       corsOptions.origin = /chanyeong\.com$/;
     } else {
       this.app.use(logger('dev'));
