@@ -7,6 +7,7 @@ import { Experience } from '@experiences/experiences.model';
 import { Post } from '@posts/posts.model';
 import { Project } from '@projects/projects.model';
 import { Skill } from '@skills/skills.model';
+import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -21,7 +22,7 @@ const prod = process.env.NODE_ENV === 'production';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Experience, Post, Project, Skill, User],
+      models: [Experience, Post, Project, Skill, Tag, User],
       define: {
         timestamps: false,
         charset: 'utf8',
