@@ -25,8 +25,8 @@ _Deprecated_
 - [ ] Get Picked Projects
 - [x] Get Posts
 - [x] Get Post
-- [ ] Get Picked Posts
-- [ ] Get Tag Posts
+- [x] Get Picked Posts
+- [ ] Get Tags
 - [ ] Get Experiences
 
 ### Private Resolvers:

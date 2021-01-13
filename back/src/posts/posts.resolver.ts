@@ -3,6 +3,7 @@ import { Resolver, Query, Args } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
 import { GetPostRequest, GetPostResponse } from './dto/getPost.dto';
 import { GetPostsRequest, GetPostsResponse } from './dto/getPosts.dto';
+import { GetPickedPostsResponse } from './dto/getPickedPosts.dto';
 
 @Resolver()
 export class PostsResolver {
@@ -12,9 +13,8 @@ export class PostsResolver {
   async getPost(@Args('input') input: GetPostRequest): Promise<GetPostResponse> {
     const { post, error } = await this.postsService.getById(input.id);
 
-    if (!post || error) {
-      return { ok: false, error };
-    }
+    if (!post || error) return { ok: false, error };
+
     return { ok: true, post };
   }
 
@@ -24,9 +24,16 @@ export class PostsResolver {
       ? await this.postsService.getPostsByTag(input)
       : await this.postsService.getPosts(input);
 
-    if (!posts || error) {
-      return { ok: false, error };
-    }
+    if (!posts || error) return { ok: false, error };
+
+    return { ok: true, posts };
+  }
+
+  @Query((returns) => GetPickedPostsResponse)
+  async getPickedPosts() {
+    const { posts, error } = await this.postsService.getPickeds();
+
+    if (!posts || error) return { ok: false, error };
 
     return { ok: true, posts };
   }

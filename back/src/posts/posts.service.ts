@@ -66,4 +66,18 @@ export class PostsService {
       return { error };
     }
   }
+
+  async getPickeds() {
+    try {
+      const posts = await this.postModel.findAll({
+        where: { [Op.not]: { picked: null } },
+        include: [{ model: Tag }],
+        order: [['picked', 'DESC']],
+      });
+
+      return { posts };
+    } catch (error) {
+      return { error };
+    }
+  }
 }
