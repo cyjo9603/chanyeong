@@ -2,8 +2,8 @@ import { InputType, Field } from '@nestjs/graphql';
 
 import { ProjectType } from '../projects.model';
 
-@InputType('InputProjectType')
-export class GetProjectRequest {
+@InputType('InputProjectsType')
+export class GetProjectsRequest {
   @Field(() => ProjectType)
   type!: ProjectType;
 }
