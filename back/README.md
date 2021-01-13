@@ -22,7 +22,7 @@ _Deprecated_
 - [ ] Sign In
 - [ ] Get Skills
 - [ ] Get Group or Personal Projects
-- [ ] Get Picked Projects
+- [x] Get Picked Projects
 - [x] Get Posts
 - [x] Get Post
 - [x] Get Picked Posts

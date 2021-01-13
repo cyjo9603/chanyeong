@@ -12,8 +12,8 @@ import { Skill } from '@/skills/skills.model';
 import { ProjectSkill } from '@/common/associate.model';
 
 export enum ProjectType {
-  PERSONAL,
-  GROUP,
+  PERSONAL = 'PERSONAL',
+  GROUP = 'GROUP',
 }
 
 registerEnumType(ProjectType, { name: 'ProjectType' });
