@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { Skill, SkillType } from './skills.model';
+import { GroupedSkills } from './dto/getGroupedSkills.dto';
 
 @Injectable()
 export class SkillsService {
@@ -13,6 +14,33 @@ export class SkillsService {
         where: type ? { type } : undefined,
         order: [['order', 'ASC']],
       });
+      return { skills };
+    } catch (error) {
+      return { error };
+    }
+  }
+
+  async getGroupeds() {
+    try {
+      const total = await this.skillModel.findAll({ order: [['order', 'ASC']] });
+      const skills = (total.reduce(
+        (groupedSkill, skill: Skill) => {
+          if (skill.type === SkillType.FRONT_END) {
+            groupedSkill.front.push(skill);
+            return groupedSkill;
+          }
+
+          if (skill.type === SkillType.BACK_END) {
+            groupedSkill.back.push(skill);
+            return groupedSkill;
+          }
+
+          groupedSkill.devops.push(skill);
+          return groupedSkill;
+        },
+        { front: [], back: [], devops: [] } as { [key: string]: Skill[] },
+      ) as unknown) as GroupedSkills;
+
       return { skills };
     } catch (error) {
       return { error };
