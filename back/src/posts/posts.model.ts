@@ -1,5 +1,8 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Column, Model, Table, DataType, BelongsToMany } from 'sequelize-typescript';
 import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+
+import { Tag } from '@tags/tags.model';
+import { PostTag } from '@common/associate.model';
 
 export enum PostCategory {
   DIARY,
@@ -48,4 +51,11 @@ export class Post extends Model<Post> {
   @Field((type) => Date)
   @Column({ type: DataType.DATE })
   updatedAt!: Date;
+
+  @Field((type) => [Tag], { nullable: true })
+  @BelongsToMany(
+    () => Tag,
+    () => PostTag,
+  )
+  tags?: Tag[];
 }
