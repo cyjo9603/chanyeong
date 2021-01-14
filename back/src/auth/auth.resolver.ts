@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { LocalAuthGuard } from '@auth/guards/local-auth.guard';
 import { User, TokenUser } from '@decorators/user.decorator';
 import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { UsersService } from '@users/users.service';
 import { AuthService } from './auth.service';
 import { SigninRequest, SigninResponse } from './dto/signin.dto';
 import { ExpriedJwtAuthGuard } from './guards/jwt-auth.guard';
@@ -14,7 +15,7 @@ const EXPIRED = 1000 * 60 * 60 * 24 * 7;
 
 @Resolver()
 export class AuthResolver {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private userService: UsersService) {}
 
   @UseGuards(LocalAuthGuard)
   @Mutation((returns) => SigninResponse)
@@ -44,6 +45,16 @@ export class AuthResolver {
       httpOnly: true,
       maxAge: EXPIRED,
     });
+
+    return { ok: true };
+  }
+
+  @UseGuards(ExpriedJwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async logout(@User() user: TokenUser, @Context() { res }: { res: Response }) {
+    await this.userService.updateRefreshToken(user.id, null);
+
+    res.clearCookie(jwtConstants.header);
 
     return { ok: true };
   }
