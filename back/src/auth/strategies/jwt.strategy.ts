@@ -18,3 +18,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return { id: payload.id };
   }
 }
+
+@Injectable()
+export class ExpriedJwtStrategy extends PassportStrategy(Strategy, 'jwt-expried') {
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: jwtConstants.secret,
+      ignoreExpiration: true,
+    });
+  }
+
+  validate(payload: TokenUser) {
+    return { id: payload.id };
+  }
+}
