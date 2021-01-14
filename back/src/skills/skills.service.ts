@@ -18,6 +18,15 @@ export class SkillsService {
     }
   }
 
+  async delete(id: number) {
+    try {
+      await this.skillModel.destroy({ where: { id } });
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
   async getByType(type?: SkillType) {
     try {
       const skills = await this.skillModel.findAll({
