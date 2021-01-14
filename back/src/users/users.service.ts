@@ -8,6 +8,11 @@ import { SignupRequest } from './dto/signup.dto';
 export class UsersService {
   constructor(@InjectModel(User) private userModel: typeof User) {}
 
+  async getByUserId(userId: string) {
+    const user = await this.userModel.findOne({ where: { userId }, attributes: ['id'] });
+    return user;
+  }
+
   async create(input: SignupRequest) {
     try {
       await this.userModel.create(input);

@@ -7,7 +7,9 @@ import { ExperiencesModule } from '@experiences/experiences.module';
 import { PostsModule } from '@posts/posts.module';
 import { ProjectsModule } from '@projects/projects.module';
 import { TagsModule } from '@tags/tags.module';
+import { SkillsModule } from '@skills/skills.module';
 import { UsersModule } from '@users/users.module';
+import { AuthModule } from '@auth/auth.module';
 
 import { Experience } from '@experiences/experiences.model';
 import { Post } from '@posts/posts.model';
@@ -16,7 +18,6 @@ import { Skill } from '@skills/skills.model';
 import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 import { PostTag, ProjectSkill } from '@common/associate.model';
-import { SkillsModule } from './skills/skills.module';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -52,6 +53,7 @@ const prod = process.env.NODE_ENV === 'production';
     ProjectsModule,
     SkillsModule,
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
