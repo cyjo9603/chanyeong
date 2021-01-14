@@ -8,7 +8,7 @@ Back-End Server for the chanyeong webpage on chanyeong. GraphQL, Typescript, Nes
 
 _Deprecated_
 
-- [ ] ~~admin Sign Up~~
+- [x] ~~admin Sign Up~~
 - [ ] ~~Edit User Info~~
 
 ### Authentication:
