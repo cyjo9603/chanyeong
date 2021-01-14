@@ -36,7 +36,7 @@ _Deprecated_
 - [x] Get User Info
 - [x] LogOut
 - [x] Add Skill
-- [ ] Edit Skill
+- [x] Update Skill
 - [x] Delete Skill
 - [ ] Add Project
 - [ ] Edit Project

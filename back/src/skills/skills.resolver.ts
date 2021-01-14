@@ -7,6 +7,7 @@ import { GetGroupedSkillsResponse } from './dto/getGroupedSkills.dto';
 import { GetSkillsRequest, GetSkillsResponse } from './dto/getSkills.dto';
 import { AddSkillRequest } from './dto/addSkill.dto';
 import { DeleteSkillRequest } from './dto/deleteSkill.dto';
+import { UpdateSkillRequest } from './dto/updateSkill.dto';
 import { SkillsService } from './skills.service';
 
 @Resolver()
@@ -45,6 +46,14 @@ export class SkillsResolver {
   @Mutation((returns) => CoreResponse)
   async deleteSkill(@Args('input') input: DeleteSkillRequest): Promise<CoreResponse> {
     const { ok, error } = await this.skillsService.delete(input.id);
+
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async updateSkill(@Args('input') input: UpdateSkillRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.skillsService.update(input);
 
     return { ok, error };
   }
