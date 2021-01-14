@@ -1,12 +1,16 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
-import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+import { Column, Model, Table, DataType, BeforeCreate, BeforeUpdate } from 'sequelize-typescript';
+import { ObjectType, Field, registerEnumType, Int, InputType } from '@nestjs/graphql';
+import bcrypt from 'bcrypt';
+
+const BCRYPT_SALT = 10 as const;
 
 export enum UserLevel {
-  ADMIN,
+  ADMIN = 'ADMIN',
 }
 
 registerEnumType(UserLevel, { name: 'UserLevel' });
 
+@InputType('InputUser', { isAbstract: true })
 @ObjectType()
 @Table({ tableName: 'user', modelName: 'User' })
 export class User extends Model<User> {
@@ -19,7 +23,7 @@ export class User extends Model<User> {
   level!: UserLevel;
 
   @Field((type) => String)
-  @Column({ type: DataType.STRING(20) })
+  @Column({ type: DataType.STRING(20), unique: true })
   userId!: string;
 
   @Field((type) => String)
@@ -37,4 +41,16 @@ export class User extends Model<User> {
   @Field((type) => String, { nullable: true })
   @Column({ type: DataType.STRING(400), allowNull: true })
   refreshToken?: string;
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async hashPassword(instance: User) {
+    if (!instance.password) return;
+    instance.password = await bcrypt.hash(instance.password, BCRYPT_SALT);
+  }
+
+  async comparePassword(aPassword: string) {
+    const isCompare = await bcrypt.compare(aPassword, this.password);
+    return isCompare;
+  }
 }
