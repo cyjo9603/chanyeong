@@ -1,6 +1,7 @@
 import { Column, Model, Table, DataType } from 'sequelize-typescript';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 
+@InputType('InputExperience', { isAbstract: true })
 @ObjectType()
 @Table({
   tableName: 'experience',
