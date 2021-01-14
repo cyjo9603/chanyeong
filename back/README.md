@@ -34,7 +34,7 @@ _Deprecated_
 ### Private Resolvers:
 
 - [ ] Get User Info
-- [ ] LogOut
+- [x] LogOut
 - [ ] Add Skill
 - [ ] Eidt Skill
 - [ ] Delete Skill

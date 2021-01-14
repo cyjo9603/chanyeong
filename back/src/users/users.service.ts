@@ -21,7 +21,7 @@ export class UsersService {
     return user;
   }
 
-  async updateRefreshToken(id: number, refreshToken: string) {
+  async updateRefreshToken(id: number, refreshToken: string | null) {
     await this.userModel.update({ refreshToken }, { where: { id } });
   }
 
