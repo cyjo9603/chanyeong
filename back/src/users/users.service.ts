@@ -16,6 +16,11 @@ export class UsersService {
     return user;
   }
 
+  async getById(id: number) {
+    const user = await this.userModel.findOne({ where: { id }, attributes: ['refreshToken'] });
+    return user;
+  }
+
   async updateRefreshToken(id: number, refreshToken: string) {
     await this.userModel.update({ refreshToken }, { where: { id } });
   }

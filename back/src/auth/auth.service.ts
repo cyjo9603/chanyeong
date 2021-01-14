@@ -27,4 +27,11 @@ export class AuthService {
 
     return encryptValue(accessToken);
   }
+
+  async verifyRefresh(id: number) {
+    const user = await this.userService.getById(id);
+
+    if (!user) return false;
+    return user.verifyRefresh();
+  }
 }
