@@ -19,7 +19,7 @@ _Deprecated_
 
 ### Public Resolvers:
 
-- [ ] Sign In
+- [x] Sign In
 - [x] Search Posts
 - [x] Get Grouped Skills
 - [x] Get Skills

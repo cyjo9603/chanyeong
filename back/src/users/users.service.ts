@@ -9,8 +9,15 @@ export class UsersService {
   constructor(@InjectModel(User) private userModel: typeof User) {}
 
   async getByUserId(userId: string) {
-    const user = await this.userModel.findOne({ where: { userId }, attributes: ['id'] });
+    const user = await this.userModel.findOne({
+      where: { userId },
+      attributes: ['id', 'password'],
+    });
     return user;
+  }
+
+  async updateRefreshToken(id: number, refreshToken: string) {
+    await this.userModel.update({ refreshToken }, { where: { id } });
   }
 
   async create(input: SignupRequest) {
