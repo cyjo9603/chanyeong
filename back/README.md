@@ -14,8 +14,7 @@ _Deprecated_
 ### Authentication:
 
 - [ ] Generate JWT ( Refresh and Access )
-- [ ] Generate JWT ( only Access )
-- [ ] Verify Access JWT
+- [x] Verify Access JWT
 
 ### Public Resolvers:
 
