@@ -1,5 +1,5 @@
 import { Column, Model, Table, DataType } from 'sequelize-typescript';
-import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+import { ObjectType, Field, registerEnumType, Int, InputType } from '@nestjs/graphql';
 
 export enum SkillType {
   FRONT_END = 'FRONT_END',
@@ -9,6 +9,7 @@ export enum SkillType {
 
 registerEnumType(SkillType, { name: 'SkillType' });
 
+@InputType('InputSkill', { isAbstract: true })
 @ObjectType()
 @Table({
   tableName: 'skill',
