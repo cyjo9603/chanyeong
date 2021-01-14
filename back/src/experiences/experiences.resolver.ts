@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { ExperiencesService } from './experiences.service';
 import { GetExperiences } from './dto/getExperiences.dto';
 import { AddExperienceRequest } from './dto/addExperience.dto';
+import { EditExperienceRequest } from './dto/editExperience.dto';
 
 @Resolver()
 export class ExperiencesResolver {
@@ -24,6 +25,13 @@ export class ExperiencesResolver {
   @Mutation((returns) => CoreResponse)
   async addExperience(@Args('input') input: AddExperienceRequest): Promise<CoreResponse> {
     const { ok, error } = await this.experiencesService.add(input);
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async editExperience(@Args('input') input: EditExperienceRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.experiencesService.update(input);
     return { ok, error };
   }
 }
