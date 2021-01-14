@@ -17,7 +17,10 @@ export class UsersService {
   }
 
   async getById(id: number) {
-    const user = await this.userModel.findOne({ where: { id }, attributes: ['refreshToken'] });
+    const user = await this.userModel.findOne({
+      where: { id },
+      attributes: ['refreshToken', 'id', 'familyName', 'givenName'],
+    });
     return user;
   }
 

@@ -33,7 +33,7 @@ _Deprecated_
 
 ### Private Resolvers:
 
-- [ ] Get User Info
+- [x] Get User Info
 - [x] LogOut
 - [ ] Add Skill
 - [ ] Eidt Skill
