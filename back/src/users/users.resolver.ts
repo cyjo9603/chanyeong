@@ -1,6 +1,8 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Directive } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 
-import { CoreResponse } from '@/common/dtos/coreResponse.dto';
+import { DeactivateGuard } from '@/auth/guards/deactivated.guard';
+import { CoreResponse } from '@common/dtos/coreResponse.dto';
 import { UsersService } from './users.service';
 import { SignupRequest } from './dto/signup.dto';
 
@@ -8,9 +10,11 @@ import { SignupRequest } from './dto/signup.dto';
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
+  /** @deprecated */
+  @UseGuards(DeactivateGuard)
+  @Directive('@deprecated(reason: "deactivated graphql request")')
   @Mutation((returns) => CoreResponse)
   async signup(@Args('input') input: SignupRequest): Promise<CoreResponse> {
-    console.log(input);
     const { ok, error } = await this.usersService.create(input);
     return { ok, error };
   }
