@@ -35,11 +35,11 @@ _Deprecated_
 
 - [x] Get User Info
 - [x] LogOut
-- [ ] Add Skill
-- [ ] Eidt Skill
+- [x] Add Skill
+- [ ] Edit Skill
 - [ ] Delete Skill
 - [ ] Add Project
-- [ ] Eidt Project
+- [ ] Edit Project
 - [ ] Delete Project
 - [ ] Write Post
 - [ ] Edit Post

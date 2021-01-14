@@ -3,10 +3,20 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { Skill, SkillType } from './skills.model';
 import { GroupedSkills } from './dto/getGroupedSkills.dto';
+import { AddSkillRequest } from './dto/addSkill.dto';
 
 @Injectable()
 export class SkillsService {
   constructor(@InjectModel(Skill) private skillModel: typeof Skill) {}
+
+  async add(input: AddSkillRequest) {
+    try {
+      await this.skillModel.create(input);
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
 
   async getByType(type?: SkillType) {
     try {
