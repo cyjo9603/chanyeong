@@ -35,4 +35,13 @@ export class ExperiencesService {
       return { ok: false, error };
     }
   }
+
+  async delete(id: number) {
+    try {
+      await this.experienceModel.destroy({ where: { id } });
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
 }
