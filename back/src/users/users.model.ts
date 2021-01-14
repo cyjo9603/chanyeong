@@ -1,6 +1,9 @@
 import { Column, Model, Table, DataType, BeforeCreate, BeforeUpdate } from 'sequelize-typescript';
 import { ObjectType, Field, registerEnumType, Int, InputType } from '@nestjs/graphql';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import { jwtConstants } from '@auth/constants';
 
 const BCRYPT_SALT = 10 as const;
 
@@ -52,5 +55,12 @@ export class User extends Model<User> {
   async comparePassword(aPassword: string) {
     const isCompare = await bcrypt.compare(aPassword, this.password);
     return isCompare;
+  }
+
+  verifyRefresh() {
+    if (!this.refreshToken) return false;
+    const result = jwt.verify(this.refreshToken, jwtConstants.secret);
+
+    return Boolean(result);
   }
 }

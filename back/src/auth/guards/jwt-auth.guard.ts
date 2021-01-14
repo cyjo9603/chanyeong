@@ -3,11 +3,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { decryptValue } from '@utils/crypto';
+import { jwtConstants } from '../constants';
 
 const setAuth = (context: ExecutionContext) => {
   const gqlContext = GqlExecutionContext.create(context);
   const ctx = gqlContext.getContext();
-  const authCookie = ctx.req.cookies[process.env.JWT_HEADER!];
+  const authCookie = ctx.req.cookies[jwtConstants.header];
 
   if (authCookie) {
     ctx.req.headers.authorization = `Bearer ${decryptValue(authCookie)}`;

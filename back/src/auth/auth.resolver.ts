@@ -4,8 +4,11 @@ import { Response } from 'express';
 
 import { LocalAuthGuard } from '@auth/guards/local-auth.guard';
 import { User, TokenUser } from '@decorators/user.decorator';
+import { CoreResponse } from '@common/dtos/coreResponse.dto';
 import { AuthService } from './auth.service';
 import { SigninRequest, SigninResponse } from './dto/signin.dto';
+import { ExpriedJwtAuthGuard } from './guards/jwt-auth.guard';
+import { jwtConstants } from './constants';
 
 const EXPIRED = 1000 * 60 * 60 * 24 * 7;
 
@@ -21,7 +24,23 @@ export class AuthResolver {
     @Context() { res }: { res: Response },
   ) {
     const accessToken = await this.authService.signin({ id: user.id });
-    res.cookie(process.env.JWT_HEADER!, accessToken, {
+    res.cookie(jwtConstants.header, accessToken, {
+      httpOnly: true,
+      maxAge: EXPIRED,
+    });
+
+    return { ok: true };
+  }
+
+  @UseGuards(ExpriedJwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async refresh(@User() user: TokenUser, @Context() { res }: { res: Response }) {
+    const isVerifiedToken = this.authService.verifyRefresh(user.id);
+
+    if (!isVerifiedToken) return { ok: false, error: 'expried refresh token' };
+
+    const accessToken = await this.authService.signin({ id: user.id });
+    res.cookie(jwtConstants.header, accessToken, {
       httpOnly: true,
       maxAge: EXPIRED,
     });
