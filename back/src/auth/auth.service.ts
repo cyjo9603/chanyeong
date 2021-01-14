@@ -2,9 +2,7 @@ import { User } from '@/users/users.model';
 import { UsersService } from '@/users/users.service';
 import { Injectable } from '@nestjs/common';
 
-export interface TokenUser {
-  id: number;
-}
+import { TokenUser } from '@decorators/user.decorator';
 
 @Injectable()
 export class AuthService {

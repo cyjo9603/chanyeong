@@ -12,6 +12,7 @@
       "@tags/*": ["src/tags/*"],
       "@users/*": ["src/users/*"],
       "@utils/*": ["src/utils/*"],
+      "@decorators/*": ["src/decorators/*"],
     },
   }
 }
