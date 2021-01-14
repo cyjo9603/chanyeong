@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Skill, SkillType } from './skills.model';
 import { GroupedSkills } from './dto/getGroupedSkills.dto';
 import { AddSkillRequest } from './dto/addSkill.dto';
+import { UpdateSkillRequest } from './dto/updateSkill.dto';
 
 @Injectable()
 export class SkillsService {
@@ -21,6 +22,15 @@ export class SkillsService {
   async delete(id: number) {
     try {
       await this.skillModel.destroy({ where: { id } });
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async update({ id, ...updateInfo }: UpdateSkillRequest) {
+    try {
+      await this.skillModel.update(updateInfo, { where: { id } });
       return { ok: true };
     } catch (error) {
       return { ok: false, error };
