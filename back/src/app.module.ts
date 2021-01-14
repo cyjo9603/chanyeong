@@ -7,6 +7,7 @@ import { ExperiencesModule } from '@experiences/experiences.module';
 import { PostsModule } from '@posts/posts.module';
 import { ProjectsModule } from '@projects/projects.module';
 import { TagsModule } from '@tags/tags.module';
+import { UsersModule } from '@users/users.module';
 
 import { Experience } from '@experiences/experiences.model';
 import { Post } from '@posts/posts.model';
@@ -50,6 +51,7 @@ const prod = process.env.NODE_ENV === 'production';
     TagsModule,
     ProjectsModule,
     SkillsModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

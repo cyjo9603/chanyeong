@@ -32,5 +32,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'import/extensions': 0,
     'max-classes-per-file': 0,
+    'no-param-reassign': 0,
   },
 };
