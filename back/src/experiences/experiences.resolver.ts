@@ -7,6 +7,7 @@ import { ExperiencesService } from './experiences.service';
 import { GetExperiences } from './dto/getExperiences.dto';
 import { AddExperienceRequest } from './dto/addExperience.dto';
 import { EditExperienceRequest } from './dto/editExperience.dto';
+import { DeleteExperienceRequest } from './dto/deleteExperience.dto';
 
 @Resolver()
 export class ExperiencesResolver {
@@ -32,6 +33,13 @@ export class ExperiencesResolver {
   @Mutation((returns) => CoreResponse)
   async editExperience(@Args('input') input: EditExperienceRequest): Promise<CoreResponse> {
     const { ok, error } = await this.experiencesService.update(input);
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async deleteExperience(@Args('input') input: DeleteExperienceRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.experiencesService.delete(input.id);
     return { ok, error };
   }
 }
