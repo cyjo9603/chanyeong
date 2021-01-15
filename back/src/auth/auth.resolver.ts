@@ -23,7 +23,7 @@ export class AuthResolver {
     @Args('input') _: SigninRequest,
     @User() user: TokenUser,
     @Context() { res }: { res: Response },
-  ) {
+  ): Promise<SigninResponse> {
     const accessToken = await this.authService.signin({ id: user.id });
     res.cookie(jwtConstants.header, accessToken, {
       httpOnly: true,
@@ -35,7 +35,10 @@ export class AuthResolver {
 
   @UseGuards(ExpriedJwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async refresh(@User() user: TokenUser, @Context() { res }: { res: Response }) {
+  async refresh(
+    @User() user: TokenUser,
+    @Context() { res }: { res: Response },
+  ): Promise<CoreResponse> {
     const isVerifiedToken = this.authService.verifyRefresh(user.id);
 
     if (!isVerifiedToken) return { ok: false, error: 'expried refresh token' };
@@ -51,7 +54,10 @@ export class AuthResolver {
 
   @UseGuards(ExpriedJwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async logout(@User() user: TokenUser, @Context() { res }: { res: Response }) {
+  async logout(
+    @User() user: TokenUser,
+    @Context() { res }: { res: Response },
+  ): Promise<CoreResponse> {
     await this.userService.updateRefreshToken(user.id, null);
 
     res.clearCookie(jwtConstants.header);
