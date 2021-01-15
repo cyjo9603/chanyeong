@@ -1,8 +1,9 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { CoreResponse } from '@/common/dto/coreResponse.dto';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { CoreResponse } from '@common/dto/coreResponse.dto';
+import { FixRequest } from '@common/dto/inputFix.dto';
 import { PostsService } from './posts.service';
 import { GetPostResponse } from './dto/getPost.dto';
 import { PostIdRequest } from './dto/postId.dto';
@@ -72,6 +73,13 @@ export class PostsResolver {
   @Mutation((returns) => CoreResponse)
   async deletePost(@Args('input') input: PostIdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.postsService.delete(input.id);
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async fixPost(@Args('input') input: FixRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.postsService.fix(input);
     return { ok, error };
   }
 }

@@ -6,7 +6,7 @@ import { Skill } from '@skills/skills.model';
 import { Project, ProjectType, ProjectWithMethod } from './projects.model';
 import { AddProjectRequest } from './dto/addProject.dto';
 import { UpdateProjectRequest } from './dto/updateProject.dto';
-import { FixProjectRequest } from './dto/fixProject.dto';
+import { FixRequest } from '../common/dto/inputFix.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -53,7 +53,7 @@ export class ProjectsService {
     }
   }
 
-  async fix({ id, fix }: FixProjectRequest) {
+  async fix({ id, fix }: FixRequest) {
     try {
       await this.projectModel.update({ picked: fix ? Date.now() : null }, { where: { id } });
       return { ok: true };
