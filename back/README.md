@@ -44,7 +44,7 @@ _Deprecated_
 - [x] Fix Project
 - [x] Write Post
 - [x] Edit Post
-- [ ] Delete Post
+- [x] Delete Post
 - [ ] Fix Post
 - [x] Add Experience
 - [x] Edit Experience

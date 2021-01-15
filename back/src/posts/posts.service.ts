@@ -128,4 +128,18 @@ export class PostsService {
       return { ok: false, error };
     }
   }
+
+  async delete(id: number) {
+    try {
+      const post = (await this.postModel.findOne({
+        where: { id },
+        include: [{ model: Tag }],
+      })) as PostWithMethod;
+      await post.removeTags(post.tags?.map(({ id: tagId }) => tagId) || []);
+      await post.destroy();
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
 }
