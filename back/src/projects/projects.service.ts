@@ -38,6 +38,20 @@ export class ProjectsService {
     }
   }
 
+  async delete(id: number) {
+    try {
+      const project = (await this.projectModel.findOne({
+        where: { id },
+        include: [{ model: Skill }],
+      })) as ProjectWithMethod;
+      await project?.removeSkill(project.skills?.map(({ id: skillId }: any) => skillId) || []);
+      await project?.destroy();
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
   async getById(id: number) {
     try {
       const project = await this.projectModel.findOne({ where: { id } });
