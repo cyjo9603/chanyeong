@@ -11,7 +11,7 @@ import { Post } from '@posts/posts.model';
 })
 export class Tag extends Model<Tag> {
   @Field((type) => Int)
-  @Column({ primaryKey: true })
+  @Column({ primaryKey: true, autoIncrement: true })
   readonly id!: number;
 
   @Field((type) => String)

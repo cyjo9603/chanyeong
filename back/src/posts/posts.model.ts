@@ -7,7 +7,7 @@ import {
   UpdatedAt,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+import { ObjectType, Field, registerEnumType, Int, InputType } from '@nestjs/graphql';
 
 import { Tag } from '@tags/tags.model';
 import { PostTag } from '@common/associate.model';
@@ -19,6 +19,7 @@ export enum PostCategory {
 
 registerEnumType(PostCategory, { name: 'PostCategory' });
 
+@InputType('InputPost', { isAbstract: true })
 @ObjectType()
 @Table({
   tableName: 'post',
@@ -29,7 +30,7 @@ registerEnumType(PostCategory, { name: 'PostCategory' });
 })
 export class Post extends Model<Post> {
   @Field((type) => Int)
-  @Column({ primaryKey: true })
+  @Column({ primaryKey: true, autoIncrement: true })
   readonly id!: number;
 
   @Field((type) => PostCategory)
@@ -66,4 +67,8 @@ export class Post extends Model<Post> {
     () => PostTag,
   )
   tags?: Tag[];
+}
+
+export interface PostWithMethod extends Post {
+  addTags: (tags: Tag[]) => Promise<void>;
 }

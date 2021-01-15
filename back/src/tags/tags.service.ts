@@ -44,4 +44,20 @@ export class TagsService {
       return { error };
     }
   }
+
+  async addTags(tags: string[]) {
+    try {
+      const tagResults = await this.sequelize.transaction(async (transaction) => {
+        const _tags = await Promise.all(
+          tags.map((tag) => this.tagModel.findOrCreate({ where: { name: tag }, transaction })),
+        );
+        return _tags;
+      });
+
+      const createdTags = tagResults.map((tagResult) => tagResult[0]);
+      return { createdTags };
+    } catch (error) {
+      return { error };
+    }
+  }
 }

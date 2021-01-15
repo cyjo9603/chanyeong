@@ -42,7 +42,7 @@ _Deprecated_
 - [x] Update Project
 - [x] Delete Project
 - [x] Fix Project
-- [ ] Write Post
+- [x] Write Post
 - [ ] Edit Post
 - [ ] Delete Post
 - [ ] Fix Post
