@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { User } from './users.model';
 import { SignupRequest } from './dto/signup.dto';
+import { EditUserInfoRequest } from './dto/editUserInfo.dto';
 
 @Injectable()
 export class UsersService {
@@ -31,6 +32,16 @@ export class UsersService {
   async create(input: SignupRequest) {
     try {
       await this.userModel.create(input);
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async update({ id, ...updateInfo }: EditUserInfoRequest) {
+    try {
+      const user = await this.userModel.findOne({ where: { id } });
+      await user?.update(updateInfo);
       return { ok: true };
     } catch (error) {
       return { ok: false, error };
