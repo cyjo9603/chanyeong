@@ -4,7 +4,7 @@ import { Response } from 'express';
 
 import { LocalAuthGuard } from '@auth/guards/local-auth.guard';
 import { User, TokenUser } from '@decorators/user.decorator';
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { UsersService } from '@users/users.service';
 import { AuthService } from './auth.service';
 import { SigninRequest, SigninResponse } from './dto/signin.dto';

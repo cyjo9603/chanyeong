@@ -2,7 +2,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { CoreResponse } from '@/common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { PostsService } from './posts.service';
 import { GetPostResponse } from './dto/getPost.dto';
 import { PostIdRequest } from './dto/postId.dto';

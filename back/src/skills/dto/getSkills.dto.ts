@@ -1,6 +1,6 @@
 import { ObjectType, InputType, Field } from '@nestjs/graphql';
 
-import { CoreResponse } from '@/common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { Skill, SkillType } from '../skills.model';
 
 @InputType('InputSkillType')

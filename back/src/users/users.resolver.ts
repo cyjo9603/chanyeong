@@ -4,7 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { DeactivateGuard } from '@auth/guards/deactivated.guard';
 import { User, TokenUser } from '@decorators/user.decorator';
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { UsersService } from './users.service';
 import { SignupRequest } from './dto/signup.dto';
 import { GetUserInfoResponse } from './dto/getUserInfo.dto';

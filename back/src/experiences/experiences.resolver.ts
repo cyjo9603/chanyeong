@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { ExperiencesService } from './experiences.service';
 import { GetExperiences } from './dto/getExperiences.dto';
