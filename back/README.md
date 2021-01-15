@@ -39,7 +39,7 @@ _Deprecated_
 - [x] Update Skill
 - [x] Delete Skill
 - [x] Add Project
-- [ ] Edit Project
+- [x] Update Project
 - [ ] Delete Project
 - [ ] Fix Project
 - [ ] Write Post

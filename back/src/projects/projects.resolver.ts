@@ -8,6 +8,7 @@ import { GetProjectsRequest } from './dto/getProjects.dto';
 import { ProjectsResponse } from './dto/projectResponse.dto';
 import { GetProjectRequest, GetProjectResponse } from './dto/getProject.dto';
 import { AddProjectRequest } from './dto/addProject.dto';
+import { UpdateProjectRequest } from './dto/updateProject.dto';
 
 @Resolver()
 export class ProjectsResolver {
@@ -44,6 +45,13 @@ export class ProjectsResolver {
   @Mutation((returns) => CoreResponse)
   async addProject(@Args('input') input: AddProjectRequest): Promise<CoreResponse> {
     const { ok, error } = await this.projectsService.add(input);
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async updateProject(@Args('input') input: UpdateProjectRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.projectsService.update(input);
     return { ok, error };
   }
 }
