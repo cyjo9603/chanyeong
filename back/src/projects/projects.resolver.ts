@@ -10,6 +10,7 @@ import { GetProjectResponse } from './dto/getProject.dto';
 import { ProjectIdRequest } from './dto/projectId.dto';
 import { AddProjectRequest } from './dto/addProject.dto';
 import { UpdateProjectRequest } from './dto/updateProject.dto';
+import { FixProjectRequest } from './dto/fixProject.dto';
 
 @Resolver()
 export class ProjectsResolver {
@@ -60,6 +61,13 @@ export class ProjectsResolver {
   @Mutation((returns) => CoreResponse)
   async deleteProject(@Args('input') input: ProjectIdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.projectsService.delete(input.id);
+    return { ok, error };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation((returns) => CoreResponse)
+  async fixProject(@Args('input') input: FixProjectRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.projectsService.fix(input);
     return { ok, error };
   }
 }

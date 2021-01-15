@@ -41,7 +41,7 @@ _Deprecated_
 - [x] Add Project
 - [x] Update Project
 - [x] Delete Project
-- [ ] Fix Project
+- [x] Fix Project
 - [ ] Write Post
 - [ ] Edit Post
 - [ ] Delete Post
