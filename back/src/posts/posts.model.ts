@@ -71,4 +71,5 @@ export class Post extends Model<Post> {
 
 export interface PostWithMethod extends Post {
   addTags: (tags: Tag[]) => Promise<void>;
+  removeTags: (tags: number[]) => Promise<void>;
 }

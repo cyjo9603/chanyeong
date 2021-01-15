@@ -8,6 +8,7 @@ import { Post, PostWithMethod } from './posts.model';
 import { GetPostsRequest } from './dto/getPosts.dto';
 import { SearchPostRequest } from './dto/searchPost.dto';
 import { WritePostRequest } from './dto/writePost.dto';
+import { EditPostRequest } from './dto/editPost.dto';
 
 const LIMIT_POST = 10;
 
@@ -106,6 +107,22 @@ export class PostsService {
         if (createdTags) await post.addTags(createdTags);
       }
 
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async update({ id, deleteTags, addTags, ...updateInfo }: EditPostRequest) {
+    try {
+      const post = (await this.postModel.findOne({ where: { id } })) as PostWithMethod;
+      if (!post) throw new Error('no post');
+      await post.update(updateInfo);
+      if (deleteTags) await post.removeTags(deleteTags);
+      if (addTags) {
+        const { createdTags } = await this.tagsService.addTags(addTags);
+        if (createdTags) await post.addTags(createdTags);
+      }
       return { ok: true };
     } catch (error) {
       return { ok: false, error };

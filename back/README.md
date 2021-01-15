@@ -43,7 +43,7 @@ _Deprecated_
 - [x] Delete Project
 - [x] Fix Project
 - [x] Write Post
-- [ ] Edit Post
+- [x] Edit Post
 - [ ] Delete Post
 - [ ] Fix Post
 - [x] Add Experience
