@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 
 import { TagsService } from '@tags/tags.service';
 import { Tag, TagWithMethod } from '@tags/tags.model';
+import { FixRequest } from '@common/dto/inputFix.dto';
 import { Post, PostWithMethod } from './posts.model';
 import { GetPostsRequest } from './dto/getPosts.dto';
 import { SearchPostRequest } from './dto/searchPost.dto';
@@ -137,6 +138,15 @@ export class PostsService {
       })) as PostWithMethod;
       await post.removeTags(post.tags?.map(({ id: tagId }) => tagId) || []);
       await post.destroy();
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async fix({ id, fix }: FixRequest) {
+    try {
+      await this.postModel.update({ picked: fix ? Date.now() : null }, { where: { id } });
       return { ok: true };
     } catch (error) {
       return { ok: false, error };

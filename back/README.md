@@ -45,7 +45,7 @@ _Deprecated_
 - [x] Write Post
 - [x] Edit Post
 - [x] Delete Post
-- [ ] Fix Post
+- [x] Fix Post
 - [x] Add Experience
 - [x] Edit Experience
 - [x] Delete Experience

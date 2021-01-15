@@ -10,7 +10,7 @@ import { GetProjectResponse } from './dto/getProject.dto';
 import { ProjectIdRequest } from './dto/projectId.dto';
 import { AddProjectRequest } from './dto/addProject.dto';
 import { UpdateProjectRequest } from './dto/updateProject.dto';
-import { FixProjectRequest } from './dto/fixProject.dto';
+import { FixRequest } from '../common/dto/inputFix.dto';
 
 @Resolver()
 export class ProjectsResolver {
@@ -66,7 +66,7 @@ export class ProjectsResolver {
 
   @UseGuards(JwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async fixProject(@Args('input') input: FixProjectRequest): Promise<CoreResponse> {
+  async fixProject(@Args('input') input: FixRequest): Promise<CoreResponse> {
     const { ok, error } = await this.projectsService.fix(input);
     return { ok, error };
   }
