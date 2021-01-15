@@ -1,19 +1,9 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, PartialType, IntersectionType, PickType } from '@nestjs/graphql';
+
+import { Experience } from '../experiences.model';
 
 @InputType('InputEditExperience')
-export class EditExperienceRequest {
-  @Field((type) => Int)
-  id!: number;
-
-  @Field((type) => String, { nullable: true })
-  startDate?: string;
-
-  @Field((type) => String, { nullable: true })
-  endDate?: string;
-
-  @Field((type) => String, { nullable: true })
-  title?: string;
-
-  @Field((type) => String, { nullable: true })
-  content?: string;
-}
+export class EditExperienceRequest extends IntersectionType(
+  PickType(PartialType(Experience), ['startDate', 'endDate', 'title', 'content']),
+  PickType(Experience, ['id']),
+) {}
