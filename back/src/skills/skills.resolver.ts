@@ -3,10 +3,10 @@ import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { IdRequest } from '@common/dto/inputId.dto';
 import { GetGroupedSkillsResponse } from './dto/getGroupedSkills.dto';
 import { GetSkillsRequest, GetSkillsResponse } from './dto/getSkills.dto';
 import { AddSkillRequest } from './dto/addSkill.dto';
-import { DeleteSkillRequest } from './dto/deleteSkill.dto';
 import { UpdateSkillRequest } from './dto/updateSkill.dto';
 import { SkillsService } from './skills.service';
 
@@ -44,7 +44,7 @@ export class SkillsResolver {
 
   @UseGuards(JwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async deleteSkill(@Args('input') input: DeleteSkillRequest): Promise<CoreResponse> {
+  async deleteSkill(@Args('input') input: IdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.skillsService.delete(input.id);
 
     return { ok, error };

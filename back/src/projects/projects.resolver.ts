@@ -2,12 +2,12 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
-import { CoreResponse } from '@/common/dto/coreResponse.dto';
+import { IdRequest } from '@common/dto/inputId.dto';
+import { CoreResponse } from '@common/dto/coreResponse.dto';
 import { ProjectsService } from './projects.service';
 import { GetProjectsRequest } from './dto/getProjects.dto';
 import { ProjectsResponse } from './dto/projectResponse.dto';
 import { GetProjectResponse } from './dto/getProject.dto';
-import { ProjectIdRequest } from './dto/projectId.dto';
 import { AddProjectRequest } from './dto/addProject.dto';
 import { UpdateProjectRequest } from './dto/updateProject.dto';
 import { FixRequest } from '../common/dto/inputFix.dto';
@@ -17,7 +17,7 @@ export class ProjectsResolver {
   constructor(private projectsService: ProjectsService) {}
 
   @Query((returns) => GetProjectResponse)
-  async getProject(@Args('input') input: ProjectIdRequest): Promise<GetProjectResponse> {
+  async getProject(@Args('input') input: IdRequest): Promise<GetProjectResponse> {
     const { project, error } = await this.projectsService.getById(input.id);
 
     if (!project || error) return { ok: false, error };
@@ -59,7 +59,7 @@ export class ProjectsResolver {
 
   @UseGuards(JwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async deleteProject(@Args('input') input: ProjectIdRequest): Promise<CoreResponse> {
+  async deleteProject(@Args('input') input: IdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.projectsService.delete(input.id);
     return { ok, error };
   }
