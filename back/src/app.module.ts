@@ -18,6 +18,7 @@ import { Skill } from '@skills/skills.model';
 import { Tag } from '@tags/tags.model';
 import { User } from '@users/users.model';
 import { PostTag, ProjectSkill } from '@common/associate.model';
+import { join } from 'path';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -40,7 +41,7 @@ const prod = process.env.NODE_ENV === 'production';
     }),
     GraphQLModule.forRoot({
       playground: !prod,
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'schema.graphql'),
       cors: {
         credentials: true,
         origin: prod ? /chanyeong\.com$/ : 'http://localhost:3060',
