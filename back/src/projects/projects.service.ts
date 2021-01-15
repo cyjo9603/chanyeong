@@ -5,6 +5,7 @@ import { Op } from 'sequelize';
 import { Skill } from '@skills/skills.model';
 import { Project, ProjectType, ProjectWithMethod } from './projects.model';
 import { AddProjectRequest } from './dto/addProject.dto';
+import { UpdateProjectRequest } from './dto/updateProject.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -12,10 +13,25 @@ export class ProjectsService {
 
   async add({ skillIds, ...addInfo }: AddProjectRequest) {
     try {
-      const project = ((await this.projectModel.create(addInfo)) as unknown) as ProjectWithMethod;
+      const project = (await this.projectModel.create(addInfo)) as ProjectWithMethod;
       if (skillIds) {
         await project.addSkills(skillIds);
       }
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  async update({ id, deleteSkills, addSkills, ...updateInfo }: UpdateProjectRequest) {
+    try {
+      const project = (await this.projectModel.findOne({ where: { id } })) as ProjectWithMethod;
+      if (!project) throw new Error('no project');
+
+      await project.update(updateInfo);
+      if (deleteSkills) await project.removeSkill(deleteSkills);
+      if (addSkills) await project.addSkill(addSkills);
+
       return { ok: true };
     } catch (error) {
       return { ok: false, error };

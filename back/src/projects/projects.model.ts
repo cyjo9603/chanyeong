@@ -93,6 +93,8 @@ export class Project extends Model<Project> {
   skills?: Skill[];
 }
 
-export interface ProjectWithMethod {
+export interface ProjectWithMethod extends Project {
   addSkills: (ids: number[]) => Promise<void>;
+  removeSkill: (ids: number[]) => Promise<void>;
+  addSkill: (ids: number[]) => Promise<void>;
 }
