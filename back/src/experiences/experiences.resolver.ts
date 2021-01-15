@@ -1,13 +1,13 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { CoreResponse } from '@/common/dto/coreResponse.dto';
+import { IdRequest } from '@common/dto/inputId.dto';
+import { CoreResponse } from '@common/dto/coreResponse.dto';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { ExperiencesService } from './experiences.service';
 import { GetExperiences } from './dto/getExperiences.dto';
 import { AddExperienceRequest } from './dto/addExperience.dto';
 import { EditExperienceRequest } from './dto/editExperience.dto';
-import { DeleteExperienceRequest } from './dto/deleteExperience.dto';
 
 @Resolver()
 export class ExperiencesResolver {
@@ -38,7 +38,7 @@ export class ExperiencesResolver {
 
   @UseGuards(JwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async deleteExperience(@Args('input') input: DeleteExperienceRequest): Promise<CoreResponse> {
+  async deleteExperience(@Args('input') input: IdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.experiencesService.delete(input.id);
     return { ok, error };
   }

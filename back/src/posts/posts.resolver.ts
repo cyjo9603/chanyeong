@@ -4,9 +4,9 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { CoreResponse } from '@common/dto/coreResponse.dto';
 import { FixRequest } from '@common/dto/inputFix.dto';
+import { IdRequest } from '@common/dto/inputId.dto';
 import { PostsService } from './posts.service';
 import { GetPostResponse } from './dto/getPost.dto';
-import { PostIdRequest } from './dto/postId.dto';
 import { GetPostsRequest } from './dto/getPosts.dto';
 import { PostsResponse } from './dto/postsResponse.dto';
 import { SearchPostRequest } from './dto/searchPost.dto';
@@ -18,7 +18,7 @@ export class PostsResolver {
   constructor(private postsService: PostsService) {}
 
   @Query((returns) => GetPostResponse)
-  async getPost(@Args('input') input: PostIdRequest): Promise<GetPostResponse> {
+  async getPost(@Args('input') input: IdRequest): Promise<GetPostResponse> {
     const { post, error } = await this.postsService.getById(input.id);
 
     if (!post || error) return { ok: false, error };
@@ -71,7 +71,7 @@ export class PostsResolver {
 
   @UseGuards(JwtAuthGuard)
   @Mutation((returns) => CoreResponse)
-  async deletePost(@Args('input') input: PostIdRequest): Promise<CoreResponse> {
+  async deletePost(@Args('input') input: IdRequest): Promise<CoreResponse> {
     const { ok, error } = await this.postsService.delete(input.id);
     return { ok, error };
   }

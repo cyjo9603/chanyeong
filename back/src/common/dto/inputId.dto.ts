@@ -1,7 +1,7 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 
-@InputType('InputPostId')
-export class PostIdRequest {
+@InputType('InputId')
+export class IdRequest {
   @Field((type) => Int)
   id!: number;
 }
