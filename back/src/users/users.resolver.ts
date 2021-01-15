@@ -8,6 +8,7 @@ import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { UsersService } from './users.service';
 import { SignupRequest } from './dto/signup.dto';
 import { GetUserInfoResponse } from './dto/getUserInfo.dto';
+import { EditUserInfoRequest } from './dto/editUserInfo.dto';
 
 @Resolver()
 export class UsersResolver {
@@ -29,6 +30,15 @@ export class UsersResolver {
   @Mutation((returns) => CoreResponse)
   async signup(@Args('input') input: SignupRequest): Promise<CoreResponse> {
     const { ok, error } = await this.usersService.create(input);
+    return { ok, error };
+  }
+
+  /** @deprecated */
+  @UseGuards(DeactivateGuard)
+  @Directive('@deprecated(reason: "deactivated graphql request")')
+  @Mutation((returns) => CoreResponse)
+  async editUserInfo(@Args('input') input: EditUserInfoRequest): Promise<CoreResponse> {
+    const { ok, error } = await this.usersService.update(input);
     return { ok, error };
   }
 }
