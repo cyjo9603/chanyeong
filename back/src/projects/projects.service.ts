@@ -3,11 +3,24 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 
 import { Skill } from '@skills/skills.model';
-import { Project, ProjectType } from './projects.model';
+import { Project, ProjectType, ProjectWithMethod } from './projects.model';
+import { AddProjectRequest } from './dto/addProject.dto';
 
 @Injectable()
 export class ProjectsService {
   constructor(@InjectModel(Project) private projectModel: typeof Project) {}
+
+  async add({ skillIds, ...addInfo }: AddProjectRequest) {
+    try {
+      const project = ((await this.projectModel.create(addInfo)) as unknown) as ProjectWithMethod;
+      if (skillIds) {
+        await project.addSkills(skillIds);
+      }
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
 
   async getById(id: number) {
     try {

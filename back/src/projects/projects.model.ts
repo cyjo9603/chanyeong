@@ -6,8 +6,9 @@ import {
   CreatedAt,
   UpdatedAt,
   BelongsToMany,
+  ForeignKey,
 } from 'sequelize-typescript';
-import { ObjectType, Field, registerEnumType, Int } from '@nestjs/graphql';
+import { ObjectType, InputType, Field, registerEnumType, Int } from '@nestjs/graphql';
 import { Skill } from '@/skills/skills.model';
 import { ProjectSkill } from '@/common/associate.model';
 
@@ -18,6 +19,7 @@ export enum ProjectType {
 
 registerEnumType(ProjectType, { name: 'ProjectType' });
 
+@InputType('InputProject', { isAbstract: true })
 @ObjectType()
 @Table({
   tableName: 'project',
@@ -28,7 +30,7 @@ registerEnumType(ProjectType, { name: 'ProjectType' });
 })
 export class Project extends Model<Project> {
   @Field((type) => Int)
-  @Column({ primaryKey: true })
+  @Column({ primaryKey: true, autoIncrement: true })
   readonly id!: number;
 
   @Field((type) => ProjectType)
@@ -89,4 +91,8 @@ export class Project extends Model<Project> {
     () => ProjectSkill,
   )
   skills?: Skill[];
+}
+
+export interface ProjectWithMethod {
+  addSkills: (ids: number[]) => Promise<void>;
 }

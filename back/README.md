@@ -38,9 +38,10 @@ _Deprecated_
 - [x] Add Skill
 - [x] Update Skill
 - [x] Delete Skill
-- [ ] Add Project
+- [x] Add Project
 - [ ] Edit Project
 - [ ] Delete Project
+- [ ] Fix Project
 - [ ] Write Post
 - [ ] Edit Post
 - [ ] Delete Post
