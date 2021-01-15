@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 
 @ObjectType()
 class UserInfo {

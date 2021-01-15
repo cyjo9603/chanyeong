@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 
-import { CoreResponse } from '@/common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { Project } from '../projects.model';
 
 @ObjectType()

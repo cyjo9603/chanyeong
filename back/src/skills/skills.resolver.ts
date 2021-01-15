@@ -1,5 +1,5 @@
 import { Query, Args, Resolver, Mutation } from '@nestjs/graphql';
-import { CoreResponse } from '@common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';

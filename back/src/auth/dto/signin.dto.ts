@@ -1,4 +1,4 @@
-import { CoreResponse } from '@/common/dtos/coreResponse.dto';
+import { CoreResponse } from '@/common/dto/coreResponse.dto';
 import { ObjectType, InputType, PickType, Field } from '@nestjs/graphql';
 
 import { User } from '@users/users.model';
