@@ -45,7 +45,7 @@ export class ProjectsService {
         where: { id },
         include: [{ model: Skill }],
       })) as ProjectWithMethod;
-      await project?.removeSkill(project.skills?.map(({ id: skillId }: any) => skillId) || []);
+      await project?.removeSkill(project.skills?.map(({ id: skillId }) => skillId) || []);
       await project?.destroy();
       return { ok: true };
     } catch (error) {
