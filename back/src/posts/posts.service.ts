@@ -4,9 +4,10 @@ import { Op } from 'sequelize';
 
 import { TagsService } from '@tags/tags.service';
 import { Tag, TagWithMethod } from '@tags/tags.model';
-import { Post } from './posts.model';
+import { Post, PostWithMethod } from './posts.model';
 import { GetPostsRequest } from './dto/getPosts.dto';
 import { SearchPostRequest } from './dto/searchPost.dto';
+import { WritePostRequest } from './dto/writePost.dto';
 
 const LIMIT_POST = 10;
 
@@ -94,6 +95,20 @@ export class PostsService {
       return { posts };
     } catch (error) {
       return { error };
+    }
+  }
+
+  async add({ tags, ...addInfo }: WritePostRequest) {
+    try {
+      const post = (await this.postModel.create(addInfo)) as PostWithMethod;
+      if (tags) {
+        const { createdTags } = await this.tagsService.addTags(tags);
+        if (createdTags) await post.addTags(createdTags);
+      }
+
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
     }
   }
 }
