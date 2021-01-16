@@ -33,9 +33,11 @@ const BlogContainer = () => {
       lastId.current[category] = posts[posts.length - 1].id;
       fetchMore({
         variables: {
-          category,
-          tagId,
-          lastId: lastId.current[category],
+          input: {
+            category,
+            tagId,
+            lastId: lastId.current[category],
+          },
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
