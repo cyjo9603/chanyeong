@@ -19,7 +19,7 @@ const StyledExperienceContent = styled.div`
 const ExperienceContent: FC<Props> = ({ title, content }) => (
   <StyledExperienceContent>
     <h1>{title}</h1>
-    <div>{newLine(content)}</div>
+    <div>{newLine(content, title)}</div>
   </StyledExperienceContent>
 );
 
