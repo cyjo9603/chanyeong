@@ -15,9 +15,9 @@ const SignInContainer = () => {
   const [password, , onChangePassword] = useChangeEvent('');
   const [hasIdAndPassword, setHasIdAndPassword] = useState(false);
   const [signInMutation] = useMutation<SignIn>(SIGNIN_REQUEST, {
-    onCompleted: ({ SignIn }) => {
-      if (SignIn.ok && SignIn.userName) {
-        signInUser(SignIn.userName);
+    onCompleted: ({ signin }) => {
+      if (signin.ok && signin.userName) {
+        signInUser(signin.userName);
         router.back();
         return;
       }
@@ -38,12 +38,7 @@ const SignInContainer = () => {
       e.preventDefault();
       const cryptoUserId = encryptValue(userId);
       const cryptoPassword = encryptValue(password);
-      signInMutation({
-        variables: {
-          userId: cryptoUserId,
-          password: cryptoPassword,
-        },
-      });
+      signInMutation({ variables: { input: { userId: cryptoUserId, password: cryptoPassword } } });
     },
     [userId, password],
   );

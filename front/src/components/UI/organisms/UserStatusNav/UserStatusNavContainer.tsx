@@ -13,8 +13,8 @@ interface Props {
 const Header: FC<Props> = ({ statusHidden }) => {
   const userInfo = useReactiveVar(userInfoVar);
   const [logoutMutation] = useMutation<LogOut>(LOG_OUT, {
-    onCompleted: ({ LogOut }) => {
-      if (LogOut.ok) {
+    onCompleted: ({ logout }) => {
+      if (logout.ok) {
         logoutUser();
       }
     },
