@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 
 import styled from '@theme/styled';
 import TagWithNumber from '@molecules/TagWithNumber';
-import { GetTags_GetTags_tags as Tag } from '@gql-types/api';
+import { GetTags_getTags_tags as Tag } from '@gql-types/api';
 
 interface Props {
   tags: Tag[];
@@ -32,15 +32,17 @@ const StyledTagWithNumberList = styled.aside`
   }
 `;
 
-const TagWithNumberList: FC<Props> = ({ tags, onCLick }) => (
-  <StyledTagWithNumberList>
-    <span>인기 태그</span>
-    <section>
-      {tags.map((v) => (
-        <TagWithNumber key={`popularity_tag${v.id}`} data={v} onClick={onCLick} />
-      ))}
-    </section>
-  </StyledTagWithNumberList>
-);
+const TagWithNumberList: FC<Props> = ({ tags, onCLick }) => {
+  return (
+    <StyledTagWithNumberList>
+      <span>인기 태그</span>
+      <section>
+        {tags.map((v) => (
+          <TagWithNumber key={`popularity_tag${v.id}`} data={v} onClick={onCLick} />
+        ))}
+      </section>
+    </StyledTagWithNumberList>
+  );
+};
 
 export default memo(TagWithNumberList);

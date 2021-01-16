@@ -5,7 +5,7 @@ import DetailButton from '@molecules/DetailButton';
 import ProjectCard from '@organisms/ProjectCard';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
-import { GetPicked_GetPickedProjects_project as Project } from '@gql-types/api';
+import { GetPicked_getPickedProjects_projects as Project } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {

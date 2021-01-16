@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { GetPosts_GetPosts_posts_Tags as TagType } from '@gql-types/api';
+import { GetPosts_getPosts_posts_tags as TagType } from '@gql-types/api';
 import styled from '@theme/styled';
 import Tag from '@atoms/Tag';
 
