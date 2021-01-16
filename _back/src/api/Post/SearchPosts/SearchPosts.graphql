@@ -1,9 +1,0 @@
-type SearchPostsResponse {
-    ok: Boolean!
-    error: String
-    posts: [Post]
-}
-
-type Query {
-    SearchPosts(searchWord: String!, lastId: Int): SearchPostsResponse!
-}

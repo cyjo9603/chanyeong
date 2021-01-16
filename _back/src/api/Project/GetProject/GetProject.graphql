@@ -1,9 +1,0 @@
-type GetProjectResponse {
-    ok: Boolean!
-    error: String
-    project: Project
-}
-
-type Query {
-    GetProject(id: Int!) : GetProjectResponse!
-}

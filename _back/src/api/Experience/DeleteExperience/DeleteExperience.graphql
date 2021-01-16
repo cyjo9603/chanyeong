@@ -1,8 +1,0 @@
-type DeleteExperienceResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  DeleteExperience(id: Int!): DeleteExperienceResponse! @auth
-}
