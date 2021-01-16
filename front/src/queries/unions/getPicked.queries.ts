@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 
 export const GET_PICKED = gql`
   query GetPicked {
-    GetPickedProjects {
+    getPickedProjects {
       ok
       error
-      project {
+      projects {
         id
         type
         groupName
@@ -16,7 +16,7 @@ export const GET_PICKED = gql`
         titleImage
       }
     }
-    GetPickedPosts {
+    getPickedPosts {
       ok
       error
       posts {

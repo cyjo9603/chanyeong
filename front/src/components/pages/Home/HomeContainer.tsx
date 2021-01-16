@@ -19,8 +19,8 @@ const HomeContainer = () => {
     <>
       <Banner />
       <AboutSummary />
-      <ProjectSummary data={data?.GetPickedProjects.project || []} />
-      <PostSummary data={data?.GetPickedPosts.posts || []} />
+      <ProjectSummary data={data?.getPickedProjects.projects || []} />
+      <PostSummary data={data?.getPickedPosts.posts || []} />
     </>
   );
 };

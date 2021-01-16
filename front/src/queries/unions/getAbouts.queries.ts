@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_ABOUTS = gql`
   query GetAbouts {
-    GetExperiences {
+    getExperiences {
       ok
       error
       experiences {
@@ -13,7 +13,7 @@ export const GET_ABOUTS = gql`
         content
       }
     }
-    GetGroupedSkills {
+    getGroupedSkills {
       ok
       error
       skills {

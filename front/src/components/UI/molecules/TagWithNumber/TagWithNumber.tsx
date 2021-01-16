@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { GetTags_GetTags_tags as Tags } from '@gql-types/api';
+import { GetTags_getTags_tags as Tags } from '@gql-types/api';
 import styled from '@theme/styled';
 import Tag from '@atoms/Tag';
 
