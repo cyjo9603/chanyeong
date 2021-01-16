@@ -43,9 +43,9 @@ const AddSkillForm: FC<Props> = ({ onClose }) => {
   const [image, setImage] = useState('');
 
   const [addSkillMutation] = useMutation<AddSkill>(ADD_SKILL, {
-    variables: addSkillMapper(getValues(), image),
-    onCompleted: async ({ AddSkill }) => {
-      if (AddSkill.ok) {
+    variables: { input: addSkillMapper(getValues(), image) },
+    onCompleted: async ({ addSkill }) => {
+      if (addSkill.ok) {
         onClose();
       }
     },

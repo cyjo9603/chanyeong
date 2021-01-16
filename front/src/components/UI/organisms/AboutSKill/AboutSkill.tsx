@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import Image from 'next/image';
 
-import { GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
+import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 import ProgressBar from '@molecules/ProgressBar';
 import styled from '@theme/styled';
 

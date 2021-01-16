@@ -3,9 +3,9 @@ import { useReactiveVar } from '@apollo/client';
 
 import { userInfoVar } from '@store/userInfo';
 import {
-  GetSkills_GetSkills_skill as Skill,
-  GetAbouts_GetExperiences_experiences as Experiences,
-  GetAbouts_GetGroupedSkills_skills as Skills,
+  GetSkills_getSkills_skills as Skill,
+  GetAbouts_getExperiences_experiences as Experiences,
+  GetAbouts_getGroupedSkills_skills as Skills,
 } from '@gql-types/api';
 
 import UpdateSkillForm from '@modals/UpdateSkillForm';
