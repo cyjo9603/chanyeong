@@ -10,11 +10,11 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 ## Architecture
 
-![architecture1](https://user-images.githubusercontent.com/49899406/92999517-634cdf00-f55c-11ea-8a80-b89cb1ce4b11.jpg)
+![chanyeong_architecture](https://user-images.githubusercontent.com/49899406/104811789-552c0980-5841-11eb-8c23-dcd3d6c3581f.png)
 
 ## Skill
 
-![chanyeong_skill](https://user-images.githubusercontent.com/49899406/104092712-1a6a2480-52c9-11eb-903d-f9dc0ff8cf34.png)
+![chanyeong_skill](https://user-images.githubusercontent.com/49899406/104811791-5826fa00-5841-11eb-94f1-75be2b55f1d0.png)
 
 ### Front-end
 
@@ -31,7 +31,7 @@ chanyeong은 개발자 조찬영의 포트폴리오 및 블로그 기능을 포�
 
 ### Back-end
 
-- Express.js
+- NestJS
 - TypeScript
 - Graphql
 - Apollo Server
