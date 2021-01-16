@@ -32,19 +32,17 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
         title,
         content,
         titleImage: titleImage || undefined,
-        deleteTags,
-        addTags: tags,
       };
-      if (!isWrite) {
+      if (isWrite) {
         return { ...variables, tags };
       }
-      return { ...variables, id: post?.id || 0 };
+      return { ...variables, id: post?.id || 0, deleteTags, addTags: tags };
     },
     [content, titleImage, title, category, tags, deleteTags, tags],
   );
 
   const [writePostMutation] = useMutation<WritePost>(WRITE_POST, {
-    variables: { input: getVariables(false) },
+    variables: { input: getVariables(true) },
     onCompleted: async ({ writePost }) => {
       if (writePost.ok) {
         router.push('/blog');
@@ -52,7 +50,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
     },
   });
   const [editPostMutation] = useMutation<EditPost>(EDIT_POST, {
-    variables: { input: getVariables(true) },
+    variables: { input: getVariables(false) },
     onCompleted: async ({ editPost }) => {
       if (editPost.ok) {
         router.push('/blog');
