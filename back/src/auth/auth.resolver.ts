@@ -39,7 +39,8 @@ export class AuthResolver {
     @User() user: TokenUser,
     @Context() { res }: { res: Response },
   ): Promise<CoreResponse> {
-    const isVerifiedToken = this.authService.verifyRefresh(user.id);
+    if (!user) return { ok: false };
+    const isVerifiedToken = await this.authService.verifyRefresh(user.id);
 
     if (!isVerifiedToken) return { ok: false, error: 'expried refresh token' };
 

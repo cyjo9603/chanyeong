@@ -44,7 +44,7 @@ const prod = process.env.NODE_ENV === 'production';
       autoSchemaFile: join(process.cwd(), 'schema.graphql'),
       cors: {
         credentials: true,
-        origin: prod ? /chanyeong\.com$/ : 'http://localhost:3060',
+        origin: prod ? /chanyeong\.com$/ : true,
       },
       context: (ctx) => ({ ...ctx }),
     }),
