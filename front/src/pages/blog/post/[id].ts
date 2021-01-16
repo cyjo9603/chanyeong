@@ -12,9 +12,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const apolloClient = initializeApollo();
     const postData = await apolloClient.query<GetPost>({
       query: GET_POST,
-      variables: { id: Number(id) },
+      variables: { input: { id: Number(id) } },
       fetchPolicy: 'no-cache',
     });
-    return { props: { post: postData.data.GetPost?.post } };
+    return { props: { post: postData.data.getPost?.post } };
   }
 };

@@ -14,7 +14,7 @@ const BlogContainer = () => {
   const [tagId, setTagId] = useState(null);
   const lastId = useRef({});
   const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
-    variables: { category, tagId },
+    variables: { input: { category, tagId } },
   });
   const { data: tagData } = useQuery<GetTags>(GET_TAGS);
 
@@ -24,7 +24,7 @@ const BlogContainer = () => {
   }, []);
 
   const onScroll = useCallback(() => {
-    const posts = postData?.GetPosts?.posts;
+    const posts = postData?.getPosts?.posts;
     if (
       posts &&
       lastId.current[category] !== posts?.[posts.length - 1].id &&
@@ -41,10 +41,10 @@ const BlogContainer = () => {
           if (!fetchMoreResult) {
             return prev;
           }
-          const newPosts = [...prev.GetPosts.posts, ...fetchMoreResult.GetPosts.posts];
+          const newPosts = [...prev.getPosts.posts, ...fetchMoreResult.getPosts.posts];
           const fetchData: GetPosts = {
             ...prev,
-            GetPosts: { ...fetchMoreResult.GetPosts, posts: newPosts },
+            getPosts: { ...fetchMoreResult.getPosts, posts: newPosts },
           };
           return fetchData;
         },
@@ -76,8 +76,8 @@ const BlogContainer = () => {
     <BlogPresenter
       userName={userInfo.userName}
       category={category}
-      postData={postData?.GetPosts.posts || []}
-      tagData={tagData?.GetTags.tags || []}
+      postData={postData?.getPosts.posts || []}
+      tagData={tagData?.getTags.tags || []}
       onClickWritePost={onClickWritePost}
       onChangeCategory={onChangeCategory}
       onChangeTagId={onChangeTagId}

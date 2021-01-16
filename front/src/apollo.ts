@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 import { ApolloClient, InMemoryCache, HttpLink, concat, fromPromise } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
-import { REISSUANCE_ACCESS_TOKEN } from '@queries';
-import { ReissuanceAccessToken } from '@gql-types/api';
+import { REFRESH } from '@queries';
+import { Refresh } from '@gql-types/api';
 
 export const prod = process.env.NODE_ENV === 'production';
 
-const TOKEN_EXPIRED = 'jwt expired';
+const TOKEN_EXPIRED = 'Unauthorized';
 
 let apolloClient: ApolloClient<object>;
 
@@ -17,12 +17,13 @@ const link = new HttpLink({
 });
 
 const linkOnError = onError(({ graphQLErrors, operation, forward }) => {
-  if (apolloClient && graphQLErrors?.[0].message === TOKEN_EXPIRED) {
+  if (!apolloClient) return;
+  if (graphQLErrors?.[0].message === TOKEN_EXPIRED) {
     const refresh = fromPromise(
       apolloClient
-        .mutate<ReissuanceAccessToken>({ mutation: REISSUANCE_ACCESS_TOKEN })
+        .mutate<Refresh>({ mutation: REFRESH })
         .then(({ data }) => {
-          return data.ReissuanceAccessToken.ok;
+          return data.refresh.ok;
         }),
     );
 

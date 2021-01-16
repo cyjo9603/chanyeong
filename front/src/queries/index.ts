@@ -1,7 +1,7 @@
 // user
 export { SIGNIN_REQUEST } from './users/signin.queries';
 export { GET_USER_INFO } from './users/getUserInfo.queries';
-export { REISSUANCE_ACCESS_TOKEN } from './users/reissuanceAccessToken.queries';
+export { REFRESH } from './users/reissuanceAccessToken.queries';
 export { LOG_OUT } from './users/logout.queries';
 
 // post

@@ -5,7 +5,7 @@ import removeMd from 'remove-markdown';
 
 import { DELETE_POST, FIX_POST } from '@queries';
 import { userInfoVar } from '@store/userInfo';
-import { GetPost_GetPost_post as Post, DeletePost, FixPost } from '@gql-types/api';
+import { GetPost_getPost_post as Post, DeletePost, FixPost } from '@gql-types/api';
 import BlogPostPresenter from './BlogPostPresenter';
 
 const FIX_POST_TRUE = '게시글 고정' as const;
@@ -33,17 +33,17 @@ const BlogPostContainer = ({ post }: Props) => {
     [],
   );
   const [deletePostMutation] = useMutation<DeletePost>(DELETE_POST, {
-    variables: { id: post?.id },
-    onCompleted: async ({ DeletePost }) => {
-      if (DeletePost.ok) {
+    variables: { input: { id: post?.id } },
+    onCompleted: async ({ deletePost }) => {
+      if (deletePost.ok) {
         router.push('/blog');
       }
     },
   });
   const [fixPostMutation] = useMutation<FixPost>(FIX_POST, {
-    variables: { id: post?.id, fix: isFixed === FIX_POST_TRUE },
-    onCompleted: async ({ FixPost }) => {
-      if (FixPost.ok) {
+    variables: { input: { id: post?.id, fix: isFixed === FIX_POST_TRUE } },
+    onCompleted: async ({ fixPost }) => {
+      if (fixPost.ok) {
         setIsFixed(isFixed === FIX_POST_TRUE ? FIX_POST_FALSE : FIX_POST_TRUE);
       }
     },

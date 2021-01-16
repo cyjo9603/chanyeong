@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_POSTS = gql`
-  query GetPosts($lastId: Int, $tagId: Int, $category: PostCategory) {
-    GetPosts(lastId: $lastId, tagId: $tagId, category: $category) {
+  query GetPosts($input: InputGetPosts!) {
+    getPosts(input: $input) {
       ok
       error
       posts {
@@ -13,7 +13,7 @@ export const GET_POSTS = gql`
         titleImage
         createdAt
         updatedAt
-        Tags {
+        tags {
           id
           name
         }

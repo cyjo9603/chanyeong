@@ -2,7 +2,7 @@ import React from 'react';
 
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
-import { SearchPosts_SearchPosts_posts as Post } from '@gql-types/api';
+import { SearchPosts_searchPosts_posts as Post } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {
