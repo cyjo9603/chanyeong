@@ -12,8 +12,8 @@ import Button from '@atoms/Button';
 import Title from '@atoms/Title';
 import SubTitle, { SUBTITLE_WEIGHT_BOLD } from '@atoms/SubTitle';
 import {
-  GetSkills_GetSkills_skill as Skill,
-  GetAbouts_GetExperiences_experiences as Experience,
+  GetSkills_getSkills_skills as Skill,
+  GetAbouts_getExperiences_experiences as Experience,
 } from '@gql-types/api';
 
 interface Props {

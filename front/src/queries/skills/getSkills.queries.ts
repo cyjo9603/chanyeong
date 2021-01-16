@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const GET_SKILLS = gql`
-  query GetSkills($type: SkillType) {
-    GetSkills(type: $type) {
+  query GetSkills($input: InputGetSkills) {
+    getSkills(input: $input) {
       ok
       error
-      skill {
+      skills {
         id
         name
         type

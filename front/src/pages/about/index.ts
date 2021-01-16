@@ -14,8 +14,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   });
   return {
     props: {
-      experiences: data.GetExperiences.experiences,
-      skills: data.GetGroupedSkills.skills,
+      experiences: data.getExperiences.experiences,
+      skills: data.getGroupedSkills.skills,
     },
   };
 };

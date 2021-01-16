@@ -7,7 +7,7 @@ import ModalLayout from '@modals/ModalLayout';
 import FullButton from '@atoms/FullButton';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import { UPDATE_SKILL, DELETE_SKILL } from '@queries';
-import { UpdateSkill, DeleteSkill, GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
+import { UpdateSkill, DeleteSkill, GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 import { updateSkillMapper } from '@mappers/skill';
 
 interface Props {
@@ -48,17 +48,17 @@ const UpdateSkillForm = ({ onClose, editSkillData }: Props) => {
   const [image, setImage] = useState(editSkillData.icon);
 
   const [updateSkillMutation] = useMutation<UpdateSkill>(UPDATE_SKILL, {
-    variables: updateSkillMapper(getValues(), image, editSkillData.id),
-    onCompleted: async ({ UpdateSkill }) => {
-      if (UpdateSkill.ok) {
+    variables: { input: updateSkillMapper(getValues(), image, editSkillData.id) },
+    onCompleted: async ({ updateSkill }) => {
+      if (updateSkill.ok) {
         onClose();
       }
     },
   });
   const [deleteSkillMutation] = useMutation<DeleteSkill>(DELETE_SKILL, {
-    variables: { id: editSkillData.id },
-    onCompleted: async ({ DeleteSkill }) => {
-      if (DeleteSkill.ok) {
+    variables: { input: { id: editSkillData.id } },
+    onCompleted: async ({ deleteSkill }) => {
+      if (deleteSkill.ok) {
         onClose();
       }
     },
