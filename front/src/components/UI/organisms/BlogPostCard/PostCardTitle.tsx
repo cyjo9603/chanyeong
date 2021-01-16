@@ -44,7 +44,7 @@ const PostCardTitle: FC<Props> = ({ title, createdAt, isNew }) => (
   <StyledPostCardTitle>
     <span className="blog-post-title">{title}</span>
     <span className="blog-post-content">
-      {dateFormat(+createdAt)}
+      {dateFormat(createdAt)}
       {isNew && <NewTag />}
     </span>
   </StyledPostCardTitle>

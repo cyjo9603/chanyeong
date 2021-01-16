@@ -1,4 +1,4 @@
-const dateFormat = (dateValue: number) => {
+const dateFormat = (dateValue: string) => {
   const result = new Date(dateValue).toISOString().slice(0, 10).split('-').join(' / ');
   return result;
 };

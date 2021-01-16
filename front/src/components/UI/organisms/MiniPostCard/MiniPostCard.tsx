@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import removeMd from 'remove-markdown';
 
-import { GetPicked_GetPickedPosts_posts as Posts } from '@gql-types/api';
+import { GetPicked_getPickedPosts_posts as Posts } from '@gql-types/api';
 import styled from '@theme/styled';
 
 import MiniPostCardContent from './MiniPostCardContent';

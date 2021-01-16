@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_POST = gql`
-  query GetPost($id: Int!) {
-    GetPost(id: $id) {
+  query GetPost($input: InputId!) {
+    getPost(input: $input) {
       ok
       error
       post {
@@ -14,7 +14,7 @@ export const GET_POST = gql`
         createdAt
         updatedAt
         picked
-        Tags {
+        tags {
           id
           name
         }

@@ -3,7 +3,7 @@ import removeMd from 'remove-markdown';
 
 import styled from '@theme/styled';
 import TagList from '@molecules/TagList';
-import { GetPosts_GetPosts_posts as Posts } from '@gql-types/api';
+import { GetPosts_getPosts_posts as Posts } from '@gql-types/api';
 
 import PostCardTitle from './PostCardTitle';
 import PostCardContent from './PostCardContent';
@@ -49,7 +49,7 @@ const PostCardView: FC<Props> = ({ data }) => {
       <h5>{data.category}</h5>
       <PostCardTitle title={data.title} createdAt={data.createdAt} isNew={isNew} />
       <PostCardContent content={postContent} />
-      <TagList postId={data.id} tags={data.Tags || []} responsive />
+      <TagList postId={data.id} tags={data.tags || []} responsive />
     </StyledPostCardView>
   );
 };

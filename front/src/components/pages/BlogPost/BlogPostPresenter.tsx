@@ -10,7 +10,7 @@ import TagList from '@molecules/TagList';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import dateFormat from '@lib/dateFormat';
-import { GetPost_GetPost_post as Post } from '@gql-types/api';
+import { GetPost_getPost_post as Post } from '@gql-types/api';
 import styled from '@theme/styled';
 import { IsFixPost } from './BlogPostContainer';
 
@@ -79,7 +79,7 @@ const BlogPostPresenter = ({
           <header className="post-header">
             <HugeText text={post.title} />
             <div>
-              {dateFormat(+post.createdAt)}
+              {dateFormat(post.createdAt)}
               {userName && (
                 <>
                   <Button name="제거" align="right" onClick={onClickDelete} />
@@ -92,7 +92,7 @@ const BlogPostPresenter = ({
                 </>
               )}
             </div>
-            <TagList postId={post.id} tags={post.Tags} />
+            <TagList postId={post.id} tags={post.tags} />
           </header>
           <hr />
           <MarkdownViewer content={post.content} />

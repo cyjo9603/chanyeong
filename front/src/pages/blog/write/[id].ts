@@ -12,8 +12,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const apolloClient = initializeApollo();
     const { data } = await apolloClient.query<GetPost>({
       query: GET_POST,
-      variables: { id: parseInt(id, 10) },
+      variables: { input: { id: parseInt(id, 10) } },
     });
-    return { props: { post: data?.GetPost.post } };
+    return { props: { post: data?.getPost.post } };
   }
 };

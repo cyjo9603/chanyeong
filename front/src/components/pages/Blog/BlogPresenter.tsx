@@ -5,7 +5,7 @@ import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import Button from '@atoms/Button';
-import { GetPosts_GetPosts_posts as Post, GetTags_GetTags_tags as Tag } from '@gql-types/api';
+import { GetPosts_getPosts_posts as Post, GetTags_getTags_tags as Tag } from '@gql-types/api';
 import BlogPostSearch from './BlogPostSearch';
 import TagWithTextList from './TagWithTextList';
 import CategoryNav from './CategoryNav';
