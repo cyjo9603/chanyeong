@@ -7,7 +7,8 @@ import { Refresh } from '@gql-types/api';
 
 export const prod = process.env.NODE_ENV === 'production';
 
-const TOKEN_EXPIRED = 'Unauthorized';
+const TOKEN_EXPIRED = 'jwt expired';
+const NO_AUTH_TOKEN = 'No auth token';
 
 let apolloClient: ApolloClient<object>;
 
@@ -16,7 +17,7 @@ const link = new HttpLink({
   credentials: 'include',
 });
 
-const linkOnError = onError(({ graphQLErrors, operation, forward }) => {
+const linkOnError = onError(({ graphQLErrors, operation, forward, response }) => {
   if (!apolloClient) return;
   if (graphQLErrors?.[0].message === TOKEN_EXPIRED) {
     const refresh = fromPromise(
@@ -28,6 +29,9 @@ const linkOnError = onError(({ graphQLErrors, operation, forward }) => {
     );
 
     return refresh.filter((result) => result).flatMap(() => forward(operation));
+  }
+  if (graphQLErrors?.[0].message === NO_AUTH_TOKEN) {
+    response.errors = null;
   }
 });
 
