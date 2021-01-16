@@ -11,7 +11,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "NODE_ENV=production PORT=6666 pm2 start ./dist/src/main.js"
+    "start:prod": "NODE_ENV=production PORT=6666 pm2 start ./dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
