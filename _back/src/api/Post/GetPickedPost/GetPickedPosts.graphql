@@ -1,9 +1,0 @@
-type GetPickedPostsRequest {
-    ok: Boolean!
-    error: String
-    posts: [Post]
-}
-
-type Query {
-    GetPickedPosts: GetPickedPostsRequest!
-}

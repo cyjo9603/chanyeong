@@ -1,9 +1,0 @@
-type GetPostsResponse {
-    ok: Boolean!
-    error: String
-    posts: [Post]
-}
-
-type Query {
-    GetPosts(lastId: Int, tagId: Int, category: PostCategory): GetPostsResponse!
-}

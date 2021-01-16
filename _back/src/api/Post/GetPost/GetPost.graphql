@@ -1,9 +1,0 @@
-type GetPostResponse {
-    ok: Boolean!
-    error: String
-    post: Post
-}
-
-type Query {
-    GetPost(id: Int!): GetPostResponse!
-}

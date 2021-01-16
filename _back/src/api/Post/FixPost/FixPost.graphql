@@ -1,8 +1,0 @@
-type FixPostResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  FixPost(id: Int!, fix: Boolean!): FixPostResponse! @auth
-}

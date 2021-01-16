@@ -1,8 +1,0 @@
-type DeletePostResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  DeletePost(id: Int!): DeletePostResponse! @auth
-}

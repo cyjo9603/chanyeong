@@ -1,8 +1,0 @@
-type ReissuanceAccessTokenResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  ReissuanceAccessToken: ReissuanceAccessTokenResponse
-}

@@ -1,9 +1,0 @@
-type SignInResponse {
-  ok: Boolean!
-  error: String
-  userName: String
-}
-
-type Mutation {
-  SignIn(userId: String!, password: String!): SignInResponse!
-}
