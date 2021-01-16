@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const GET_PROJECTS = gql`
-  query GetProjects($type: ProjectType) {
-    GetProjects(type: $type) {
+  query GetProjects($input: InputGetProjects!) {
+    getProjects(input: $input) {
       ok
       error
-      project {
+      projects {
         id
         type
         groupName

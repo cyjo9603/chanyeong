@@ -4,7 +4,7 @@ import RowFrame from '@frames/RowFrame';
 import TUIEditor from '@organisms/TUIEditor';
 import SkillIcon from '@atoms/SkillIcon';
 import Button from '@atoms/Button';
-import { GetSkills_GetSkills_skill as Skill } from '@gql-types/api';
+import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 import styled from '@theme/styled';
 
 interface Props {

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_PROJECT = gql`
-  query GetProject($id: Int!) {
-    GetProject(id: $id) {
+  query GetProject($input: InputId!) {
+    getProject(input: $input) {
       ok
       error
       project {
@@ -20,7 +20,7 @@ export const GET_PROJECT = gql`
         picked
         createdAt
         updatedAt
-        Skills {
+        skills {
           id
           name
           icon

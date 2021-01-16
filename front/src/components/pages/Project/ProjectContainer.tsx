@@ -7,7 +7,7 @@ import removeMd from 'remove-markdown';
 import { userInfoVar } from '@store/userInfo';
 import { DELETE_PROJECT, FIX_PROJECT } from '@queries';
 import {
-  GetProject_GetProject_project as Project,
+  GetProject_getProject_project as Project,
   DeleteProject,
   FixProject,
 } from '@gql-types/api';
@@ -39,17 +39,17 @@ const ProjectContainer = ({ project }: Props) => {
     [],
   );
   const [deleteProjectMutation] = useMutation<DeleteProject>(DELETE_PROJECT, {
-    variables: { id: project?.id },
-    onCompleted: async ({ DeleteProject }) => {
-      if (DeleteProject.ok) {
+    variables: { input: { id: project?.id } },
+    onCompleted: async ({ deleteProject }) => {
+      if (deleteProject.ok) {
         router.push('/portfolio');
       }
     },
   });
   const [fixProjecttMutation] = useMutation<FixProject>(FIX_PROJECT, {
-    variables: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE },
-    onCompleted: async ({ FixProject }) => {
-      if (FixProject.ok) {
+    variables: { input: { id: project?.id, fix: isFixed === FIX_PROJECT_TRUE } },
+    onCompleted: async ({ fixProject }) => {
+      if (fixProject.ok) {
         setIsFixed(isFixed === FIX_PROJECT_TRUE ? FIX_PROJECT_FALSE : FIX_PROJECT_TRUE);
       }
     },

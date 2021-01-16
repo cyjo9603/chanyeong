@@ -6,7 +6,7 @@ import { NextPage } from 'next';
 import auth from '@hoc/auth';
 import useChangeEvent from '@src/hooks/useChangeEvent';
 import { WRITE_POST, EDIT_POST } from '@queries';
-import { WritePost, GetPost_GetPost_post as Post, EditPost } from '@gql-types/api';
+import { WritePost, GetPost_getPost_post as Post, EditPost } from '@gql-types/api';
 import WritePostPresenter from './WritePostPresenter';
 
 interface Props {
@@ -44,17 +44,17 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
   );
 
   const [writePostMutation] = useMutation<WritePost>(WRITE_POST, {
-    variables: getVariables(false),
-    onCompleted: async ({ WritePost }) => {
-      if (WritePost.ok) {
+    variables: { input: getVariables(false) },
+    onCompleted: async ({ writePost }) => {
+      if (writePost.ok) {
         router.push('/blog');
       }
     },
   });
   const [editPostMutation] = useMutation<EditPost>(EDIT_POST, {
-    variables: getVariables(true),
-    onCompleted: async ({ EditPost }) => {
-      if (EditPost.ok) {
+    variables: { input: getVariables(true) },
+    onCompleted: async ({ editPost }) => {
+      if (editPost.ok) {
         router.push('/blog');
       }
     },
@@ -72,10 +72,10 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
 
   useEffect(() => {
     if (post) {
-      const { Tags } = post;
+      const { tags } = post;
 
-      if (Tags.length !== 0) {
-        const saveTags = Tags.map((v) => v.name);
+      if (tags.length !== 0) {
+        const saveTags = tags.map((v) => v.name);
         setTags(saveTags);
       }
     }
@@ -106,7 +106,7 @@ const WritePostContainer: NextPage<Props> = auth(({ post }) => {
 
   const removeTag = useCallback(
     (tag: string) => {
-      const deleteId = post?.Tags.find((v) => v.name === tag).id;
+      const deleteId = post?.tags.find((v) => v.name === tag).id;
       if (deleteId) {
         const newDeleteTags = [...deleteTags, deleteId];
         setDeleteTags(newDeleteTags);

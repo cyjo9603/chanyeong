@@ -9,10 +9,10 @@ import PortfolioPresenter from './PortfolioPresenter';
 const PortfolioContainer = () => {
   const userInfo = useReactiveVar(userInfoVar);
   const { data: groupData } = useQuery<GetProjects>(GET_PROJECTS, {
-    variables: { type: 'GROUP' },
+    variables: { input: { type: 'GROUP' } },
   });
   const { data: personalData } = useQuery<GetProjects>(GET_PROJECTS, {
-    variables: { type: 'PERSONAL' },
+    variables: { input: { type: 'PERSONAL' } },
   });
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const PortfolioContainer = () => {
   return (
     <PortfolioPresenter
       userName={userInfo.userName}
-      groupProjects={groupData?.GetProjects.project || []}
-      personalProjects={personalData?.GetProjects.project || []}
+      groupProjects={groupData?.getProjects.projects || []}
+      personalProjects={personalData?.getProjects.projects || []}
     />
   );
 };

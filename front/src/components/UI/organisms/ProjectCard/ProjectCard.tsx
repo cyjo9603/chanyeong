@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import {
-  GetPicked_GetPickedProjects_project as PickedProject,
-  GetProjects_GetProjects_project as Project,
+  GetPicked_getPickedProjects_projects as PickedProject,
+  GetProjects_getProjects_projects as Project,
 } from '@gql-types/api';
 import styled from '@theme/styled';
 
