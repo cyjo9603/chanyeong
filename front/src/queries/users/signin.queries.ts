@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const SIGNIN_REQUEST = gql`
-  mutation SignIn($userId: String!, $password: String!) {
-    SignIn(userId: $userId, password: $password) {
+  mutation SignIn($input: InputSignin!) {
+    signin(input: $input) {
       ok
       error
       userName
