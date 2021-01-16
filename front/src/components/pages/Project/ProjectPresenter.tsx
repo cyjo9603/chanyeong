@@ -9,7 +9,7 @@ import SkillIconList from '@organisms/SkillIconList';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
-import { GetProject_GetProject_project as Project } from '@gql-types/api';
+import { GetProject_getProject_project as Project } from '@gql-types/api';
 import { IsFixProject } from './ProjectContainer';
 
 interface Props {
@@ -105,7 +105,7 @@ const ProjectPresenter = ({
             )}
           </header>
           <MarkdownViewer content={project.content} />
-          <SkillIconList title="적용 기술" skills={project?.Skills || []} />
+          <SkillIconList title="적용 기술" skills={project?.skills || []} />
         </section>
       </StyledProject>
     </RowFrame>

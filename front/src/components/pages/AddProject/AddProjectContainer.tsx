@@ -11,7 +11,7 @@ import { ADD_PROJECT, UPDATE_PROJECT, GET_SKILLS } from '@queries';
 import {
   GetSkills,
   AddProject,
-  GetProject_GetProject_project as Project,
+  GetProject_getProject_project as Project,
   UpdateProject,
 } from '@gql-types/api';
 import { addProjectMapper, updateProjectMapper } from '@src/mappers/project';
@@ -35,23 +35,23 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const [image, setImage] = useState('');
 
   const [addProjectMutation] = useMutation<AddProject>(ADD_PROJECT, {
-    onCompleted: async ({ AddProject }) => {
-      if (AddProject.ok) {
+    onCompleted: async ({ addProject }) => {
+      if (addProject.ok) {
         router.push('/portfolio');
       }
     },
   });
   const [updateProjectMutation] = useMutation<UpdateProject>(UPDATE_PROJECT, {
-    onCompleted: async ({ UpdateProject }) => {
-      if (UpdateProject.ok) {
+    onCompleted: async ({ updateProject }) => {
+      if (updateProject.ok) {
         router.push('/portfolio');
       }
     },
   });
 
   useEffect(() => {
-    if (project?.Skills.length) {
-      const saveSkills = [...project.Skills];
+    if (project?.skills.length) {
+      const saveSkills = [...project.skills];
       setSkills(saveSkills);
     }
   }, []);
@@ -68,25 +68,22 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
     }
     if (project) {
       updateProjectMutation({
-        variables: updateProjectMapper(
-          values,
-          project.id,
-          content,
-          titleImage,
-          deleteSkills,
-          skills,
-        ),
+        variables: {
+          input: updateProjectMapper(values, project.id, content, titleImage, deleteSkills, skills),
+        },
       });
       return;
     }
-    addProjectMutation({ variables: addProjectMapper(values, content, titleImage, skills) });
+    addProjectMutation({
+      variables: { input: addProjectMapper(values, content, titleImage, skills) },
+    });
   };
 
   const onClickAddSkill = useCallback(() => {
-    if (skillsData?.GetSkills.skill && currentSkill) {
-      const { skill } = skillsData?.GetSkills;
-      const skillIndex = skill.findIndex((v) => v.id === Number(currentSkill));
-      const newSkills = [...skills, { ...skill[skillIndex] }];
+    if (skillsData?.getSkills.skills && currentSkill) {
+      const { skills } = skillsData?.getSkills;
+      const skillIndex = skills.findIndex((v) => v.id === Number(currentSkill));
+      const newSkills = [...skills, { ...skills[skillIndex] }];
       setSkills(newSkills);
     }
   }, [skillsData, skills, currentSkill]);
@@ -110,7 +107,7 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
       <AddProjectHeader register={register} project={project} projectType={watchProjectType} />
       <AddProjectSection
         content={content}
-        skills={skillsData?.GetSkills.skill || []}
+        skills={skillsData?.getSkills.skills || []}
         currentSkills={skills}
         onChangeContent={setContent}
         setImage={setImage}
