@@ -34,6 +34,10 @@ export class ExpriedJwtAuthGuard extends AuthGuard('jwt-expried') {
     super();
   }
 
+  handleRequest(err: unknown, user: any) {
+    return user;
+  }
+
   getRequest(context: ExecutionContext) {
     return setAuth(context);
   }
