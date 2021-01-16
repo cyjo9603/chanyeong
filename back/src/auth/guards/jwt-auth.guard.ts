@@ -1,4 +1,4 @@
-import { Injectable, ExecutionContext } from '@nestjs/common';
+import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
@@ -21,6 +21,13 @@ const setAuth = (context: ExecutionContext) => {
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor() {
     super();
+  }
+
+  handleRequest(err: unknown, user: any, info: any) {
+    if (err || !user) {
+      throw err || new UnauthorizedException(info.message);
+    }
+    return user;
   }
 
   getRequest(context: ExecutionContext) {
