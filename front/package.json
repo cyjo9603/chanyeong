@@ -21,7 +21,6 @@
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
     "@next/bundle-analyzer": "^10.0.5",
-    "@toast-ui/editor-plugin-code-syntax-highlight": "1.0.0",
     "@toast-ui/editor-plugin-color-syntax": "1.0.0",
     "@toast-ui/react-editor": "2.2.0",
     "axios": "0.21.1",
