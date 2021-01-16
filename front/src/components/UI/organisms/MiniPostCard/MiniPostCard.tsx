@@ -35,7 +35,15 @@ const MiniPostCard = ({ data: { id, title, content, titleImage } }: Props) => {
     <Link href={`/blog/post/${id}`} prefetch={false}>
       <a>
         <StyledMiniPostCard>
-          {titleImage && <Image src={titleImage} alt={`post ${title}`} width={250} height={150} />}
+          {titleImage && (
+            <Image
+              src={titleImage}
+              alt={`post ${title}`}
+              width={250}
+              height={150}
+              priority={true}
+            />
+          )}
           <MiniPostCardContent title={title} content={postContent} />
         </StyledMiniPostCard>
       </a>
