@@ -64,7 +64,10 @@ export class ProjectsService {
 
   async getById(id: number) {
     try {
-      const project = await this.projectModel.findOne({ where: { id } });
+      const project = await this.projectModel.findOne({
+        where: { id },
+        include: [{ model: Skill }],
+      });
       return { project };
     } catch (error) {
       return { error };
