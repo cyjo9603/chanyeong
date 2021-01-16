@@ -23,7 +23,9 @@ const SearchPageContainer = () => {
       lastId.current = posts[posts.length - 1].id;
       fetchMore({
         variables: {
-          lastId: lastId.current,
+          input: {
+            lastId: lastId.current,
+          },
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
