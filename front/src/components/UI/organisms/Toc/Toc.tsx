@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
 import styled from '@theme/styled';
@@ -14,9 +14,10 @@ const StyledToc = styled.aside`
   top: 80px;
   height: fit-content;
   border-left: 4px solid ${({ theme }) => theme.LIGHT_GREY};
-  padding-left: 10px;
+  padding-left: 18px;
 
-  & > a {
+  & > span {
+    cursor: pointer;
     font-size: 12px;
     margin: 6px 0;
     color: ${({ theme }) => theme.LIGHT_GREY};
@@ -36,14 +37,28 @@ const StyledToc = styled.aside`
   }
 `;
 
+const HEADER_HEIGHT = 50;
+
 const Toc = () => {
   const tocs = useReactiveVar(tocVar);
+
+  const onClickToc = useCallback(
+    (slug: string) => () => {
+      document.body.scroll({
+        left: 0,
+        top: document.getElementById(slug).offsetTop - HEADER_HEIGHT,
+        behavior: 'smooth',
+      });
+    },
+    [],
+  );
+
   return (
     <StyledToc>
       {tocs.map((toc, i) => (
-        <a key={`${toc.slug}_${i}`} href={`#${toc.slug}`}>
+        <span key={`${toc.slug}_${i}`} onClick={onClickToc(toc.slug)}>
           {toc.content}
-        </a>
+        </span>
       ))}
     </StyledToc>
   );
