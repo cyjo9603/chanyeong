@@ -5,6 +5,7 @@ import { DiscussionEmbed } from 'disqus-react';
 
 import RowFrame from '@frames/RowFrame';
 import MarkdownViewer from '@organisms/MarkDownViewer';
+import Toc from '@organisms/Toc';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 import TagList from '@molecules/TagList';
 import Button from '@atoms/Button';
@@ -32,6 +33,20 @@ const StyledBlogPost = styled.div`
 
   & > section {
     margin-bottom: 56px;
+  }
+
+  & .post-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      width: 78%;
+
+      @media (max-width: ${({ theme }) => theme.BP.PC}) {
+        width: 100%;
+      }
+    }
   }
 
   & #disqus_thread a {
@@ -95,7 +110,10 @@ const BlogPostPresenter = ({
             <TagList postId={post.id} tags={post.tags} />
           </header>
           <hr />
-          <MarkdownViewer content={post.content} />
+          <section className="post-content">
+            <MarkdownViewer content={post.content} />
+            <Toc />
+          </section>
         </section>
         <DiscussionEmbed
           shortname="canyeongyi-beulrogeu"
