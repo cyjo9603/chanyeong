@@ -38,15 +38,23 @@ const StyledToc = styled.aside`
 `;
 
 const HEADER_HEIGHT = 50;
+const STATUS_HEADER_HEIGHT = 30;
+const INIT_OFFSET = 80;
 
 const Toc = () => {
   const tocs = useReactiveVar(tocVar);
 
   const onClickToc = useCallback(
     (slug: string) => () => {
+      const targetToc = document.getElementById(slug);
+      const headerOffset =
+        document.body.scrollTop > STATUS_HEADER_HEIGHT
+          ? HEADER_HEIGHT
+          : INIT_OFFSET - document.body.scrollTop;
+
       document.body.scroll({
         left: 0,
-        top: document.getElementById(slug).offsetTop - HEADER_HEIGHT,
+        top: targetToc.offsetTop - headerOffset,
         behavior: 'smooth',
       });
     },
