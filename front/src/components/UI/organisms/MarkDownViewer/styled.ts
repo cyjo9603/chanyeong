@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 export const MarkdownWrapper = styled(ReactMarkdown)`
   color: ${({ theme }) => theme.PRIMARY_FONT};
   font-size: 16px;
+  user-select: text;
 
   & td {
     border: 1px solid ${({ theme }) => theme.BORDER_LINE_GREY};

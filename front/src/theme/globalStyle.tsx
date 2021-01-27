@@ -29,6 +29,7 @@ const GlobalStyle = ({ theme }: GlobalStyleProps) => (
         margin: 0;
         font-size: 14px;
         line-height: 1.5715;
+        user-select: none;
       }
 
       h1,
