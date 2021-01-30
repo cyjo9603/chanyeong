@@ -42,7 +42,7 @@ const PostCardView: FC<Props> = ({ data }) => {
     () => removeMd(data.content, { useImgAltText: false }).slice(0, 300),
     [data.content],
   );
-  const isNew = useMemo(() => +data.createdAt > +new Date() - THREEDAY, []);
+  const isNew = useMemo(() => Date.parse(data.createdAt) > Date.now() - THREEDAY, []);
 
   return (
     <StyledPostCardView hasImage={Boolean(data.titleImage)}>
