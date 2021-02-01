@@ -1,12 +1,7 @@
 import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 
-export const addProjectMapper = (
-  values: any,
-  content: string,
-  titleImage: string,
-  skills: Skill[],
-) => ({
-  content,
+export const addProjectMapper = (values: any, titleImage: string, skills: Skill[]) => ({
+  content: values.content,
   groupName: values.groupName || '',
   description: values.description,
   endDate: values.endDate || null,
@@ -22,12 +17,11 @@ export const addProjectMapper = (
 export const updateProjectMapper = (
   values: any,
   projectId: number,
-  content: string,
   titleImage: string,
   deleteSkills: number[],
   skills: Skill[],
 ) => ({
-  content,
+  content: values.content,
   groupName: values.groupName || '',
   description: values.description,
   endDate: values.endDate || null,

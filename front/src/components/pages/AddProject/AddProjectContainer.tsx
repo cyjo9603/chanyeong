@@ -24,15 +24,15 @@ interface Props {
 
 const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
   const router = useRouter();
-  const { register, handleSubmit, watch } = useForm();
-  const watchProjectType = watch('projectType');
+  const { register, handleSubmit, watch, setValue } = useForm();
   const { data: skillsData } = useQuery<GetSkills>(GET_SKILLS);
-  const [content, setContent] = useState(project?.content || '');
   const [currentSkill, , onChangeCurrentSkill] = useChangeEvent<HTMLSelectElement>('');
   const [skills, setSkills] = useState([]);
   const [deleteSkills, setDeleteSkills] = useState([]);
   const [titleImage, setTitleImage] = useState(project?.titleImage || '');
   const [image, setImage] = useState('');
+
+  const watchProjectType = watch('projectType');
 
   const [addProjectMutation] = useMutation<AddProject>(ADD_PROJECT, {
     onCompleted: async ({ addProject }) => {
@@ -62,20 +62,25 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
     }
   }, [image]);
 
+  useEffect(() => {
+    register({ name: 'content', defaultValue: project?.content || '', required: true });
+  }, []);
+
+  const onChangeContent = useCallback((content) => {
+    setValue('content', content);
+  }, []);
+
   const onSubmit = (values) => {
-    if (!content) {
-      return;
-    }
     if (project) {
       updateProjectMutation({
         variables: {
-          input: updateProjectMapper(values, project.id, content, titleImage, deleteSkills, skills),
+          input: updateProjectMapper(values, project.id, titleImage, deleteSkills, skills),
         },
       });
       return;
     }
     addProjectMutation({
-      variables: { input: addProjectMapper(values, content, titleImage, skills) },
+      variables: { input: addProjectMapper(values, titleImage, skills) },
     });
   };
 
@@ -106,10 +111,10 @@ const AddProjectContainer: NextPage<Props> = auth(({ project }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <AddProjectHeader register={register} project={project} projectType={watchProjectType} />
       <AddProjectSection
-        content={content}
+        content={project?.content || ''}
         skills={skillsData?.getSkills.skills || []}
         currentSkills={skills}
-        onChangeContent={setContent}
+        onChangeContent={onChangeContent}
         setImage={setImage}
         onChangeCurrentSkill={onChangeCurrentSkill}
         onClickAddSkill={onClickAddSkill}
