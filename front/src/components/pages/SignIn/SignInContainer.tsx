@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
 import { signInUser } from '@store/userInfo';
-import useChangeEvent from '@src/hooks/useChangeEvent';
 import { encryptValue } from '@lib/crypto';
 import { SIGNIN_REQUEST } from '@queries';
 import { SignIn } from '@gql-types/api';
@@ -11,9 +11,7 @@ import SignInPresenter from './SignInPresenter';
 
 const SignInContainer = () => {
   const router = useRouter();
-  const [userId, , onChangeUserId] = useChangeEvent('');
-  const [password, , onChangePassword] = useChangeEvent('');
-  const [hasIdAndPassword, setHasIdAndPassword] = useState(false);
+  const { handleSubmit, control, watch } = useForm();
   const [signInMutation] = useMutation<SignIn>(SIGNIN_REQUEST, {
     onCompleted: ({ signin }) => {
       if (signin.ok && signin.userName) {
@@ -25,32 +23,17 @@ const SignInContainer = () => {
     },
   });
 
-  useEffect(() => {
-    if (!hasIdAndPassword && userId && password) {
-      setHasIdAndPassword(true);
-    } else if (hasIdAndPassword && (!userId || !password)) {
-      setHasIdAndPassword(false);
-    }
-  }, [hasIdAndPassword, userId, password]);
-
-  const onSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const cryptoUserId = encryptValue(userId);
-      const cryptoPassword = encryptValue(password);
-      signInMutation({ variables: { input: { userId: cryptoUserId, password: cryptoPassword } } });
-    },
-    [userId, password],
-  );
+  const onSubmit = useCallback((values: any) => {
+    const cryptoUserId = encryptValue(values.userId);
+    const cryptoPassword = encryptValue(values.password);
+    signInMutation({ variables: { input: { userId: cryptoUserId, password: cryptoPassword } } });
+  }, []);
 
   return (
     <SignInPresenter
-      userId={userId}
-      password={password}
-      hasIdAndPassword={hasIdAndPassword}
-      onChangeUserId={onChangeUserId}
-      onChangePassword={onChangePassword}
-      onSubmit={onSubmit}
+      control={control}
+      hasIdAndPassword={watch('userId') && watch('password')}
+      onSubmit={handleSubmit(onSubmit)}
     />
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Control, Controller } from 'react-hook-form';
 
 import RowFrame from '@frames/RowFrame';
 import BorderInput from '@molecules/BorderInput';
@@ -7,11 +8,8 @@ import FullButton from '@atoms/FullButton';
 import styled from '@theme/styled';
 
 interface Props {
-  userId: string;
-  password: string;
+  control: Control<Record<string, any>>;
   hasIdAndPassword: boolean;
-  onChangeUserId: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -31,14 +29,7 @@ const StyledSignIn = styled.section`
   }
 `;
 
-const SignInPresenter = ({
-  userId,
-  password,
-  hasIdAndPassword,
-  onChangeUserId,
-  onChangePassword,
-  onSubmit,
-}: Props) => (
+const SignInPresenter = ({ control, hasIdAndPassword, onSubmit }: Props) => (
   <>
     <Helmet>
       <title>로그인 :: chanyeong</title>
@@ -46,16 +37,26 @@ const SignInPresenter = ({
     <RowFrame>
       <StyledSignIn>
         <form onSubmit={onSubmit}>
-          <BorderInput
-            placeholder="아이디"
-            value={userId}
-            onChange={onChangeUserId}
+          <Controller
+            name="userId"
+            control={control}
+            rules={{ required: true }}
+            render={({ onChange, value }) => (
+              <BorderInput placeholder="아이디" value={value} onChange={onChange} />
+            )}
           />
-          <BorderInput
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={onChangePassword}
+          <Controller
+            name="password"
+            control={control}
+            rules={{ required: true }}
+            render={({ onChange, value }) => (
+              <BorderInput
+                type="password"
+                placeholder="비밀번호"
+                value={value}
+                onChange={onChange}
+              />
+            )}
           />
           <FullButton disabled={!hasIdAndPassword} text="로그인" />
         </form>
