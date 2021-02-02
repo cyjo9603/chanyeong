@@ -25,6 +25,7 @@ const SearchPageContainer = () => {
         variables: {
           input: {
             lastId: lastId.current,
+            searchWord: word,
           },
         },
         updateQuery: (prev, { fetchMoreResult }) => {
