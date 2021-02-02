@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Helmet } from 'react-helmet';
 
 import styled from '@theme/styled';
@@ -15,6 +15,7 @@ interface Props {
   category: string | null;
   postData: Post[];
   tagData: Tag[];
+  ref: React.RefObject<HTMLDivElement>;
   onClickWritePost: () => void;
   onChangeCategory: (categoryName: string | null) => void;
   onChangeTagId: (tagId: number) => void;
@@ -60,48 +61,45 @@ const StyledBlog = styled.div`
   }
 `;
 
-const BlogPresenter = ({
-  userName,
-  category,
-  postData,
-  tagData,
-  onClickWritePost,
-  onChangeCategory,
-  onChangeTagId,
-}: Props) => (
-  <>
-    <Helmet>
-      <title>블로그 :: chanyeong</title>
-      <meta
-        name="description"
-        content="개발자 조찬영의 블로그 입니다. 개발을 진행하거나 일상생활에서 느낀 모든 점들을 적어놓았습니다."
-      />
-      <meta name="og:title" content="블로그 :: chanyeong" />
-      <meta
-        name="og:description"
-        content="개발자 조찬영의 블로그 입니다. 개발을 진행하거나 일상생활에서 느낀 모든 점들을 적어놓았습니다."
-      />
-    </Helmet>
-    <RowFrame>
-      <StyledBlog>
-        <section>
-          <nav>
-            <CategoryNav category={category} onChangeCategory={onChangeCategory} />
-            <div className="auth-write">
-              {userName && <Button onClick={onClickWritePost} name="포스트 작성" />}
-              <BlogPostSearch />
-            </div>
-          </nav>
+const BlogPresenter = forwardRef<HTMLDivElement, Props>(
+  (
+    { userName, category, postData, tagData, onClickWritePost, onChangeCategory, onChangeTagId },
+    ref,
+  ) => (
+    <>
+      <Helmet>
+        <title>블로그 :: chanyeong</title>
+        <meta
+          name="description"
+          content="개발자 조찬영의 블로그 입니다. 개발을 진행하거나 일상생활에서 느낀 모든 점들을 적어놓았습니다."
+        />
+        <meta name="og:title" content="블로그 :: chanyeong" />
+        <meta
+          name="og:description"
+          content="개발자 조찬영의 블로그 입니다. 개발을 진행하거나 일상생활에서 느낀 모든 점들을 적어놓았습니다."
+        />
+      </Helmet>
+      <RowFrame>
+        <StyledBlog>
           <section>
-            {postData.map((v) => (
-              <BlogPostCard key={`blog_post${v.id}`} data={v} />
-            ))}
+            <nav>
+              <CategoryNav category={category} onChangeCategory={onChangeCategory} />
+              <div className="auth-write">
+                {userName && <Button onClick={onClickWritePost} name="포스트 작성" />}
+                <BlogPostSearch />
+              </div>
+            </nav>
+            <section ref={ref}>
+              {postData.map((v) => (
+                <BlogPostCard key={`blog_post${v.id}`} data={v} />
+              ))}
+            </section>
           </section>
-        </section>
-        <TagWithTextList tags={tagData} onCLick={onChangeTagId} />
-      </StyledBlog>
-    </RowFrame>
-  </>
+          <TagWithTextList tags={tagData} onCLick={onChangeTagId} />
+        </StyledBlog>
+      </RowFrame>
+    </>
+  ),
 );
 
 export default BlogPresenter;
