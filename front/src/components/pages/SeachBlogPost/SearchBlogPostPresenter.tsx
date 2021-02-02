@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
@@ -21,7 +21,7 @@ const StyledSearchBlogPost = styled.section`
     margin-bottom: 20px;
   }
 
-  & > a > div {
+  & section > a > div {
     margin-bottom: 40px;
   }
 
@@ -39,19 +39,23 @@ const StyledSearchBlogPost = styled.section`
   }
 `;
 
-const SearchBlogPostPresenter = ({ searchWord, posts }: Props) => (
+const SearchBlogPostPresenter = forwardRef<HTMLDivElement, Props>(({ searchWord, posts }, ref) => (
   <RowFrame>
     <StyledSearchBlogPost>
       <header>
         <h1>검색 결과 : {searchWord}</h1>
       </header>
-      {posts.length !== 0 ? (
-        posts.map((v) => <BlogPostCard key={`blog_search_${searchWord}_${v.id}`} data={v} />)
-      ) : (
-        <div className="empty-posts">&apos;{searchWord}&apos;와 일치하는 포스트가 없습니다.</div>
-      )}
+      <section ref={ref}>
+        {posts.length !== 0 ? (
+          posts.map((v, i) => (
+            <BlogPostCard key={`blog_search_${searchWord}_${v.id}_${i}`} data={v} />
+          ))
+        ) : (
+          <div className="empty-posts">&apos;{searchWord}&apos;와 일치하는 포스트가 없습니다.</div>
+        )}
+      </section>
     </StyledSearchBlogPost>
   </RowFrame>
-);
+));
 
 export default SearchBlogPostPresenter;
