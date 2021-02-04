@@ -3,7 +3,6 @@ import helmet from 'helmet';
 import logger from 'morgan';
 import compression from 'compression';
 import hpp from 'hpp';
-import csurf from 'csurf';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 
@@ -21,7 +20,6 @@ async function bootstrap() {
   if (prod) {
     app.use(hpp());
     app.use(helmet());
-    app.use(csurf());
     app.use(logger('combined'));
     app.use(rateLimit({ windowMs: WINDOW_MS, max: MAX_REQUEST_PER_15 }));
   } else {
