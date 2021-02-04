@@ -6,7 +6,6 @@ import {
   CreatedAt,
   UpdatedAt,
   BelongsToMany,
-  ForeignKey,
 } from 'sequelize-typescript';
 import { ObjectType, InputType, Field, registerEnumType, Int } from '@nestjs/graphql';
 import { Skill } from '@/skills/skills.model';
