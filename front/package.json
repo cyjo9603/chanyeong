@@ -10,7 +10,7 @@
     "start": "next start -p 3333",
     "start:prod": "pm2 start npm --name \"next\" -- start",
     "pretypes": "graphql-codegen",
-    "types": "graphql-codegen generate **/*.graphql --schema schema.json -- target typescript --output src/teyps/api.d.ts",
+    "types": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
     "storybook": "start-storybook -p 6006 -c .storybook"
   },
   "keywords": [],
