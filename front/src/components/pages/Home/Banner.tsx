@@ -58,7 +58,7 @@ const Banner = () => (
       <div className="banner-intro">
         <TextLoop interval={3000}>
           <span>
-            프론트엔드 개발자를 꿈꾸는
+            프론트엔드 개발자
             <br />
             조찬영입니다
           </span>
