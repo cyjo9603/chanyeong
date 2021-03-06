@@ -8,11 +8,22 @@ import DetailButton from '@molecules/DetailButton';
 import MiniPostCard from '@organisms/MiniPostCard';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
+import SlickArrowIcon from '@src/components/icons/SlickArrowIcon';
 import { GetPicked_getPickedPosts_posts as Post } from '@gql-types/api';
 
 const StyledPostSummary = styled.article`
   padding: 40px 0;
   width: 100%;
+
+  & .slick-arrow {
+    width: 14px;
+    display: block;
+    fill: ${({ theme }) => theme.PRIMARY_FONT};
+
+    &.reverse {
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
 
   & .post-slide {
     width: 90%;
@@ -22,28 +33,12 @@ const StyledPostSummary = styled.article`
 `;
 
 function NextArrow(props: any) {
-  const { className, style, onClick } = props;
-  return (
-    <img
-      className={className}
-      src="/arrow_right.svg"
-      alt="next post"
-      onClick={onClick}
-      style={{ ...style, width: 14, display: 'block' }}
-    />
-  );
+  const { className, onClick } = props;
+  return <SlickArrowIcon className={className} onClick={onClick} />;
 }
 function PrevArrow(props: any) {
-  const { className, style, onClick } = props;
-  return (
-    <img
-      className={className}
-      src="/arrow_left.svg"
-      alt="prev post"
-      onClick={onClick}
-      style={{ ...style, width: 14, display: 'block' }}
-    />
-  );
+  const { className, onClick } = props;
+  return <SlickArrowIcon className={`${className} reverse`} onClick={onClick} />;
 }
 
 const settings = {
