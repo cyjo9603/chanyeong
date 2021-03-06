@@ -1,12 +1,8 @@
 import { useState, useCallback, Dispatch, SetStateAction } from 'react';
 
-export default <T extends { value: string } = HTMLInputElement>(
+const useChangeEvent = <T extends { value: string } = HTMLInputElement>(
   initValue: string,
-): [
-  string,
-  Dispatch<SetStateAction<string>>,
-  (e: React.ChangeEvent<T>) => void,
-] => {
+): [string, Dispatch<SetStateAction<string>>, (e: React.ChangeEvent<T>) => void] => {
   const [value, setValue] = useState(initValue);
 
   const onChangeValue = useCallback((e: React.ChangeEvent<T>) => {
@@ -15,3 +11,5 @@ export default <T extends { value: string } = HTMLInputElement>(
 
   return [value, setValue, onChangeValue];
 };
+
+export default useChangeEvent;
