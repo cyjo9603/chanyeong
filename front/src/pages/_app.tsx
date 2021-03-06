@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import { AppProps } from 'next/app';
+import { AppProps, AppContext } from 'next/app';
 import { ThemeProvider } from 'emotion-theming';
 import { ApolloProvider } from '@apollo/client';
+import { useCookies } from 'react-cookie';
 
 import { lightTheme, darkTheme } from '@theme/.';
 import GlobalStyle from '@theme/globalStyle';
@@ -10,24 +11,31 @@ import AppLayout from '@frames/AppLayout';
 import DarkModeButton from '@molecules/DarkModeButton';
 import initSigininCheck from '@lib/initSigninCheck';
 import { useApollo } from '@src/apollo';
+import cookieParser from '@lib/cookieParser';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const LIGHT_MODE = 'light';
+const DARK_MODE = 'dark';
+
+interface Props extends AppProps {
+  mode: typeof LIGHT_MODE | typeof DARK_MODE;
+}
+
+const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
   const apollo = useApollo();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [cookies, setCookie] = useCookies(['mode']);
+  const mode = useMemo(() => cookies.mode || modeInCookie, [modeInCookie, cookies.mode]);
 
   const onClickDarkMode = useCallback(() => {
-    localStorage.setItem('mode', String(!isDarkMode));
-    setIsDarkMode(!isDarkMode);
-  }, [isDarkMode]);
+    setCookie('mode', mode === LIGHT_MODE ? DARK_MODE : LIGHT_MODE);
+  }, [mode]);
 
   useEffect(() => {
-    const mode = localStorage.getItem('mode');
-    setIsDarkMode(mode === 'true');
+    if (!cookies.mode) setCookie('mode', LIGHT_MODE);
     initSigininCheck();
   }, []);
 
   return (
-    <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
+    <ThemeProvider theme={mode === LIGHT_MODE ? lightTheme : darkTheme}>
       <ApolloProvider client={apollo}>
         <Helmet>
           <title>chanyeong</title>
@@ -57,14 +65,19 @@ const App = ({ Component, pageProps }: AppProps) => {
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="apple-touch-icon-precomposed" href="/favicon2.png" />
         </Helmet>
-        <GlobalStyle theme={!isDarkMode ? lightTheme : darkTheme} />
+        <GlobalStyle theme={mode === LIGHT_MODE ? lightTheme : darkTheme} />
         <AppLayout>
           <Component {...pageProps} />
-          <DarkModeButton onClick={onClickDarkMode} isDarkMode={isDarkMode} />
+          <DarkModeButton onClick={onClickDarkMode} isDarkMode={mode === DARK_MODE} />
         </AppLayout>
       </ApolloProvider>
     </ThemeProvider>
   );
+};
+
+App.getInitialProps = async ({ ctx }: AppContext) => {
+  const cookies = cookieParser(ctx.req?.headers?.cookie);
+  return { mode: cookies.mode || LIGHT_MODE };
 };
 
 export default App;
