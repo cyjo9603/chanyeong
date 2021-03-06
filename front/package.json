@@ -44,7 +44,8 @@
     "react-slick": "^0.26.1",
     "react-syntax-highlighter": "^15.4.3",
     "react-text-loop": "^2.3.0",
-    "remove-markdown": "0.3.0"
+    "remove-markdown": "0.3.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.19.4",

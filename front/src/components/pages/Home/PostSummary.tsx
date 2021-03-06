@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import Slider from 'react-slick';
-import { Helmet } from 'react-helmet';
 
 import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
@@ -10,6 +9,9 @@ import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
 import SlickArrowIcon from '@src/components/icons/SlickArrowIcon';
 import { GetPicked_getPickedPosts_posts as Post } from '@gql-types/api';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const StyledPostSummary = styled.article`
   padding: 40px 0;
@@ -76,37 +78,23 @@ const PostSummary = ({ data }: Props) => {
   }, [data]);
 
   return (
-    <>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+    <RowFrame>
+      <StyledPostSummary>
+        <Title size={SMALL_SIZE} text="Blog" align="center" />
+        <SubTitle
+          text="개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다."
+          align="center"
         />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-      </Helmet>
-      <RowFrame>
-        <StyledPostSummary>
-          <Title size={SMALL_SIZE} text="Blog" align="center" />
-          <SubTitle
-            text="개발을 진행하며 알게되거나 느낀 저의 이야기들을 적어놓았습니다."
-            align="center"
-          />
-          <div className="post-slide">
-            <Slider {...settings} slidesToShow={showLength}>
-              {data.map((v) => (
-                <MiniPostCard key={`main_post_${v.id}`} data={v} />
-              ))}
-            </Slider>
-          </div>
-          <DetailButton title="포스트" link="/blog" />
-        </StyledPostSummary>
-      </RowFrame>
-    </>
+        <div className="post-slide">
+          <Slider {...settings} slidesToShow={showLength}>
+            {data.map((v) => (
+              <MiniPostCard key={`main_post_${v.id}`} data={v} />
+            ))}
+          </Slider>
+        </div>
+        <DetailButton title="포스트" link="/blog" />
+      </StyledPostSummary>
+    </RowFrame>
   );
 };
 
