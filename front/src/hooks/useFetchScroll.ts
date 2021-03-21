@@ -8,6 +8,7 @@ const useFetchScroll = (targetEl: React.RefObject<HTMLDivElement>, fetchCallback
       ([entry]) => {
         if (entry.isIntersecting) {
           fetchCallback();
+          observerRef.current?.unobserve(targetEl.current.lastElementChild);
         }
       },
       { rootMargin: '0px', threshold: 0 },
@@ -20,9 +21,7 @@ const useFetchScroll = (targetEl: React.RefObject<HTMLDivElement>, fetchCallback
     observerRef.current.observe(targetEl.current.lastElementChild);
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      observerRef.current?.disconnect();
     };
   }, [targetEl.current, getObserber]);
 };
