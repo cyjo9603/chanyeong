@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 
 import styled from '@theme/styled';
 import RowFrame from '@frames/RowFrame';
@@ -67,7 +67,7 @@ const BlogPresenter = forwardRef<HTMLDivElement, Props>(
     ref,
   ) => (
     <>
-      <Helmet>
+      <Head>
         <title>블로그 :: chanyeong</title>
         <meta
           name="description"
@@ -78,7 +78,7 @@ const BlogPresenter = forwardRef<HTMLDivElement, Props>(
           name="og:description"
           content="개발자 조찬영의 블로그 입니다. 개발을 진행하거나 일상생활에서 느낀 모든 점들을 적어놓았습니다."
         />
-      </Helmet>
+      </Head>
       <RowFrame>
         <StyledBlog>
           <section>

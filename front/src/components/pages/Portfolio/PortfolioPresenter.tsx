@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 
 import RowFrame from '@frames/RowFrame';
 import ProjectCard from '@organisms/ProjectCard';
@@ -44,7 +44,7 @@ const StyledProjectList = styled.div`
 
 const PortfolioPresenter = ({ userName, groupProjects, personalProjects }: Props) => (
   <>
-    <Helmet>
+    <Head>
       <title>포트폴리오 :: chanyeong</title>
       <meta
         name="description"
@@ -55,7 +55,7 @@ const PortfolioPresenter = ({ userName, groupProjects, personalProjects }: Props
         name="og:description"
         content="개발자 조찬영의 포트폴리오입니다. 개발을 하며 진행해온 프로젝트들을 기록해놓았습니다."
       />
-    </Helmet>
+    </Head>
     <RowFrame>
       <BreadCrumbs data={path} page="project" />
       <div className="portfolio-sub-title">

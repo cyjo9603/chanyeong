@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import Image from 'next/image';
 
 import styled from '@theme/styled';
@@ -38,12 +38,12 @@ const path = [
 
 const Contact = () => (
   <>
-    <Helmet>
+    <Head>
       <title>연락처 :: chanyeong</title>
       <meta name="description" content="개발자 조찬영의 연락처입니다." />
       <meta name="og:title" content="연락처 :: chanyeong" />
       <meta name="og:description" content="개발자 조찬영의 연락처입니다." />
-    </Helmet>
+    </Head>
     <RowFrame>
       <BreadCrumbs data={path} page="contact" />
       <StyledContact>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import Link from 'next/link';
 
 import styled from '@theme/styled';
@@ -56,7 +56,7 @@ const ProjectPresenter = ({
   onClickFix,
 }: Props) => (
   <>
-    <Helmet>
+    <Head>
       <title>{project.title} :: chanyeong</title>
       <meta name="description" content={`${projectDescription}...`} />
       <meta name="og:title" content={`${project.title} - chanyeong`} />
@@ -66,7 +66,7 @@ const ProjectPresenter = ({
         rel="stylesheet"
         href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"
       />
-    </Helmet>
+    </Head>
     <RowFrame>
       <StyledProject>
         <BreadCrumbs data={projectPath} page={`project_${project.title}`} />

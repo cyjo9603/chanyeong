@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import { DiscussionEmbed } from 'disqus-react';
 
 import RowFrame from '@frames/RowFrame';
@@ -72,7 +72,7 @@ const BlogPostPresenter = ({
   onClickFix,
 }: Props) => (
   <>
-    <Helmet>
+    <Head>
       <title>{post.title} :: chanyeong</title>
       <meta name="description" content={`${postDescription}...`} />
       <meta name="og:title" content={`${post.title} - chanyeong`} />
@@ -86,7 +86,7 @@ const BlogPostPresenter = ({
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
       />
-    </Helmet>
+    </Head>
     <RowFrame>
       <StyledBlogPost>
         <BreadCrumbs data={postPath} page={`post_${post.title}`} />

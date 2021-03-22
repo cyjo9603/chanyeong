@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import { Control, Controller } from 'react-hook-form';
 
 import RowFrame from '@frames/RowFrame';
@@ -31,9 +31,9 @@ const StyledSignIn = styled.section`
 
 const SignInPresenter = ({ control, hasIdAndPassword, onSubmit }: Props) => (
   <>
-    <Helmet>
+    <Head>
       <title>로그인 :: chanyeong</title>
-    </Helmet>
+    </Head>
     <RowFrame>
       <StyledSignIn>
         <form onSubmit={onSubmit}>

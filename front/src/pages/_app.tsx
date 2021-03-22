@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import { AppProps, AppContext } from 'next/app';
 import { ThemeProvider } from 'emotion-theming';
 import { ApolloProvider } from '@apollo/client';
@@ -37,7 +37,7 @@ const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
   return (
     <ThemeProvider theme={mode === LIGHT_MODE ? lightTheme : darkTheme}>
       <ApolloProvider client={apollo}>
-        <Helmet>
+        <Head>
           <title>chanyeong</title>
           <meta charSet="UTF-8" />
           <meta name="naver-site-verification" content="2b9008defffc3f461603f5498a43a990cd8b8b65" />
@@ -65,7 +65,7 @@ const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
           />
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="apple-touch-icon-precomposed" href="/favicon2.png" />
-        </Helmet>
+        </Head>
         <GlobalStyle theme={mode === LIGHT_MODE ? lightTheme : darkTheme} />
         <AppLayout>
           <Component {...pageProps} />

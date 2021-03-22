@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useRef } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import styled from '@theme/styled';
@@ -11,16 +11,10 @@ interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
 }
 
-const Editor = dynamic<TUIEditorWithForwardedProps>(
-  () => import('./TUIEditor'),
-  { ssr: false },
+const Editor = dynamic<TUIEditorWithForwardedProps>(() => import('./TUIEditor'), { ssr: false });
+const EditorWithForwardedRef = forwardRef<EditorType | undefined, EditorPropsWithHandlers>(
+  (props, ref) => <Editor {...props} forwardedRef={ref as React.MutableRefObject<EditorType>} />,
 );
-const EditorWithForwardedRef = forwardRef<
-  EditorType | undefined,
-  EditorPropsWithHandlers
->((props, ref) => (
-  <Editor {...props} forwardedRef={ref as React.MutableRefObject<EditorType>} />
-));
 
 interface Props extends EditorProps {
   onChange(value: string): void;
@@ -48,9 +42,7 @@ const TUIEditor = (props: Props) => {
     const instance = editorRef.current.getInstance();
     const valueType = props.valueType || 'markdown';
 
-    props.onChange(
-      valueType === 'markdown' ? instance.getMarkdown() : instance.getHtml(),
-    );
+    props.onChange(valueType === 'markdown' ? instance.getMarkdown() : instance.getHtml());
   }, [props, editorRef]);
 
   const addImageBlobHook = useCallback(async (blob, callback) => {
@@ -64,11 +56,8 @@ const TUIEditor = (props: Props) => {
 
   return (
     <>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://uicdn.toast.com/editor/latest/toastui-editor.css"
-        />
+      <Head>
+        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"
@@ -81,7 +70,7 @@ const TUIEditor = (props: Props) => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
         />
-      </Helmet>
+      </Head>
       <EditorWrapper>
         <EditorWithForwardedRef
           {...props}

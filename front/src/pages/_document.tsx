@@ -1,10 +1,8 @@
 import React from 'react';
 import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document';
-import { Helmet, HelmetData } from 'react-helmet';
 import { extractCritical } from 'emotion-server';
 
 interface Props {
-  helmet: HelmetData;
   styleTags: Array<React.ReactElement<{}>>;
 }
 
@@ -14,7 +12,6 @@ class MyDocument extends Document<Props> {
     const styles = extractCritical(initialProps.html);
     return {
       ...initialProps,
-      helmet: Helmet.renderStatic(),
       styles: (
         <>
           {initialProps.styles}
@@ -28,12 +25,8 @@ class MyDocument extends Document<Props> {
   }
 
   render() {
-    const { htmlAttributes, bodyAttributes, ...helmet } = this.props.helmet;
-    const htmlAttrs = htmlAttributes.toComponent();
-    const bodyAttrs = bodyAttributes.toComponent();
-
     return (
-      <Html {...htmlAttrs} lang="ko">
+      <Html lang="ko">
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176037246-1" />
@@ -46,9 +39,8 @@ class MyDocument extends Document<Props> {
               gtag('config', 'UA-176037246-1');`,
             }}
           />
-          {Object.values(helmet).map((el) => el.toComponent())}
         </Head>
-        <body {...bodyAttrs}>
+        <body>
           <Main />
           <div id="modal" />
           <NextScript />
