@@ -1,7 +1,7 @@
 import React from 'react';
 import { text, select } from '@storybook/addon-knobs';
 
-import useChangeEvent from '@src/hooks/useChangeEvent';
+import useChangeEvent from '@hooks/useChangeEvent';
 
 import TransparentInput from '.';
 
@@ -16,11 +16,6 @@ export const Default = () => {
   const placeholder = text('placeholder', 'default');
 
   return (
-    <TransparentInput
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      type={type}
-    />
+    <TransparentInput value={value} onChange={onChange} placeholder={placeholder} type={type} />
   );
 };

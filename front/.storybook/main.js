@@ -19,6 +19,8 @@ module.exports = {
       '@organisms': path.resolve(__dirname, '../src/components/UI/organisms'),
       '@frames': path.resolve(__dirname, '../src/components/UI/frames'),
       '@lib': path.resolve(__dirname, '../src/lib'),
+      '@hooks': path.resolve(__dirname, '../src/hooks'),
+      '@store': path.resolve(__dirname, '../src/store'),
       '@theme': path.resolve(__dirname, '../src/theme'),
       '@queries': path.resolve(__dirname, '../src/queries'),
       '@gql-types': path.resolve(__dirname, '../src/types'),

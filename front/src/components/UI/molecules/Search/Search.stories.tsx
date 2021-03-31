@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import { action } from '@storybook/addon-actions';
 
-import useChangeEvent from '@src/hooks/useChangeEvent';
+import useChangeEvent from '@hooks/useChangeEvent';
 
 import Search from '.';
 
