@@ -3,6 +3,7 @@ import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
+import { blogCategoryVar, setTagId } from '@store/blogCategory';
 import { GET_POSTS, GET_TAGS } from '@queries';
 import { GetPosts, GetTags } from '@gql-types/api';
 import useFetchScroll from '@hooks/useFetchScroll';
@@ -11,19 +12,19 @@ import BlogPresenter from './BlogPresenter';
 const BlogContainer = () => {
   const router = useRouter();
   const userInfo = useReactiveVar(userInfoVar);
+  const blogCategory = useReactiveVar(blogCategoryVar);
   const [category, setCategory] = useState(null);
-  const [tagId, setTagId] = useState(null);
   const lastId = useRef({});
   const listRef = useRef(null);
   const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
-    variables: { input: { category, tagId } },
+    variables: { input: { category, tagId: blogCategory.tagId } },
   });
   const { data: tagData } = useQuery<GetTags>(GET_TAGS);
 
   const postFetch = useCallback(() => {
     fetchMore({
       variables: {
-        input: { category, tagId, lastId: lastId.current[category] },
+        input: { category, tagId: blogCategory.tagId, lastId: lastId.current[category] },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -41,7 +42,7 @@ const BlogContainer = () => {
 
   const onChangeCategory = useCallback((categoryName: string | null) => {
     setCategory(categoryName);
-    setTagId(null);
+    setTagId();
   }, []);
   const onChangeTagId = useCallback((tagId: number) => {
     setTagId(tagId);
