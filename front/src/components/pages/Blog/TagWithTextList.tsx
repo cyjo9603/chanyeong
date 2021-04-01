@@ -1,6 +1,8 @@
 import React, { FC, memo } from 'react';
+import { useReactiveVar } from '@apollo/client';
 
 import styled from '@theme/styled';
+import { blogCategoryVar } from '@store/blogCategory';
 import TagWithNumber from '@molecules/TagWithNumber';
 import { GetTags_getTags_tags as Tag } from '@gql-types/api';
 
@@ -33,12 +35,18 @@ const StyledTagWithNumberList = styled.aside`
 `;
 
 const TagWithNumberList: FC<Props> = ({ tags, onCLick }) => {
+  const { tagId } = useReactiveVar(blogCategoryVar);
   return (
     <StyledTagWithNumberList>
       <span>인기 태그</span>
       <section>
         {tags.map((v) => (
-          <TagWithNumber key={`popularity_tag${v.id}`} data={v} onClick={onCLick} />
+          <TagWithNumber
+            key={`popularity_tag${v.id}`}
+            data={v}
+            onClick={onCLick}
+            isFocus={tagId === v.id}
+          />
         ))}
       </section>
     </StyledTagWithNumberList>
