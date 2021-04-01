@@ -10,6 +10,7 @@ export const TagWrapper = styled.div`
   justify-content: space-between;
   height: 23px;
   border-radius: 8px;
+  transition: transform 0.5s;
   cursor: pointer;
   text-align: center;
   margin-top: 4px;
@@ -29,18 +30,27 @@ export const TagWrapper = styled.div`
     color: ${({ theme }) => theme.LIGHT_GREY};
     padding: 0 10px;
   }
+
+  &.tag-focus {
+    transform: translateX(-14px);
+  }
 `;
 
 interface Props {
   data: Tags;
   onClick: (tagId: number) => void;
+  isFocus?: boolean;
 }
 
-const TagWithNumber: FC<Props> = ({ data, onClick }) => (
-  <TagWrapper onClick={() => onClick(data.id)}>
-    <Tag name={data.name} />
+const TagWithNumber: FC<Props> = ({ data, onClick, isFocus }) => (
+  <TagWrapper onClick={() => onClick(data.id)} className={`${isFocus ? 'tag-focus' : ''}`}>
+    <Tag name={data.name} isFocus={isFocus} />
     <span className="tag-number">{data.count}</span>
   </TagWrapper>
 );
+
+TagWithNumber.defaultProps = {
+  isFocus: false,
+};
 
 export default TagWithNumber;
