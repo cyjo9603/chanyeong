@@ -15,7 +15,7 @@ const BlogContainer = () => {
   const blogCategory = useReactiveVar(blogCategoryVar);
   const lastId = useRef({});
   const listRef = useRef(null);
-  const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
+  const { data: postData, fetchMore } = useQuery<GetPosts>(GET_POSTS, {
     variables: { input: blogCategory },
   });
   const { data: tagData } = useQuery<GetTags>(GET_TAGS);
@@ -59,7 +59,6 @@ const BlogContainer = () => {
 
   useEffect(() => {
     document.body.scrollTo(0, 0);
-    refetch();
   }, []);
 
   useFetchScroll(listRef, postFetch);
