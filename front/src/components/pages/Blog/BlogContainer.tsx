@@ -3,7 +3,7 @@ import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 
 import { userInfoVar } from '@store/userInfo';
-import { blogCategoryVar, setTagId } from '@store/blogCategory';
+import { blogCategoryVar, setTagId, setCategory } from '@store/blogCategory';
 import { GET_POSTS, GET_TAGS } from '@queries';
 import { GetPosts, GetTags } from '@gql-types/api';
 import useFetchScroll from '@hooks/useFetchScroll';
@@ -13,18 +13,17 @@ const BlogContainer = () => {
   const router = useRouter();
   const userInfo = useReactiveVar(userInfoVar);
   const blogCategory = useReactiveVar(blogCategoryVar);
-  const [category, setCategory] = useState(null);
   const lastId = useRef({});
   const listRef = useRef(null);
   const { data: postData, fetchMore, refetch } = useQuery<GetPosts>(GET_POSTS, {
-    variables: { input: { category, tagId: blogCategory.tagId } },
+    variables: { input: blogCategory },
   });
   const { data: tagData } = useQuery<GetTags>(GET_TAGS);
 
   const postFetch = useCallback(() => {
     fetchMore({
       variables: {
-        input: { category, tagId: blogCategory.tagId, lastId: lastId.current[category] },
+        input: { ...blogCategory, lastId: lastId.current[blogCategory.category] },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -38,7 +37,7 @@ const BlogContainer = () => {
         return fetchData;
       },
     });
-  }, [lastId.current, postData, category]);
+  }, [lastId.current, postData, blogCategory]);
 
   const onChangeCategory = useCallback((categoryName: string | null) => {
     setCategory(categoryName);
@@ -55,7 +54,7 @@ const BlogContainer = () => {
   useEffect(() => {
     if (!postData?.getPosts?.posts.length) return;
     const { posts } = postData.getPosts;
-    lastId.current[category] = posts[posts.length - 1].id;
+    lastId.current[blogCategory.category] = posts[posts.length - 1].id;
   }, [postData]);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const BlogContainer = () => {
     <BlogPresenter
       ref={listRef}
       userName={userInfo.userName}
-      category={category}
+      category={blogCategory.category}
       postData={postData?.getPosts.posts || []}
       tagData={tagData?.getTags.tags || []}
       onClickWritePost={onClickWritePost}
