@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import { GET_PICKED } from '@queries';
@@ -10,10 +10,6 @@ import PostSummary from './PostSummary';
 
 const HomeContainer = () => {
   const { data } = useQuery<GetPicked>(GET_PICKED);
-
-  useEffect(() => {
-    document.body.scrollTo(0, 0);
-  }, []);
 
   return (
     <>

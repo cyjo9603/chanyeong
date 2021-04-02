@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 
@@ -59,10 +59,6 @@ const BlogContainer = () => {
     const { posts } = postData.getPosts;
     lastId.current[blogCategory.category] = posts[posts.length - 1].id;
   }, [postData]);
-
-  useEffect(() => {
-    document.body.scrollTo(0, 0);
-  }, []);
 
   useFetchScroll(listRef, postFetch);
 

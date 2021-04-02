@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery, useReactiveVar } from '@apollo/client';
 
 import { userInfoVar } from '@store/userInfo';
@@ -14,10 +14,6 @@ const PortfolioContainer = () => {
   const { data: personalData } = useQuery<GetProjects>(GET_PROJECTS, {
     variables: { input: { type: 'PERSONAL' } },
   });
-
-  useEffect(() => {
-    document.body.scrollTo(0, 0);
-  }, []);
 
   return (
     <PortfolioPresenter
