@@ -43,9 +43,12 @@ const BlogContainer = () => {
     setCategory(categoryName);
     setTagId();
   }, []);
-  const onChangeTagId = useCallback((tagId: number) => {
-    setTagId(tagId);
-  }, []);
+  const onChangeTagId = useCallback(
+    (tagId: number) => {
+      setTagId(blogCategory.tagId !== tagId ? tagId : null);
+    },
+    [blogCategory.tagId],
+  );
 
   const onClickWritePost = useCallback(() => {
     router.push('/blog/write');
