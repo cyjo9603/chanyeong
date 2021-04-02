@@ -49,12 +49,11 @@ const BlogPostContainer = ({ post }: Props) => {
     },
   });
   const postPath = useMemo(() => [...path, { name: post?.title }], []);
-  useEffect(() => {
-    document.body.scrollTo(0, 0);
-  }, []);
+
   const onClickFix = useCallback(() => {
     fixPostMutation();
   }, []);
+
   const onClickDelete = useCallback(() => {
     const result = confirm('정말 게시글을 삭제하시겠습니까?');
     if (result) {

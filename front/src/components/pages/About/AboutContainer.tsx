@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
 import { userInfoVar } from '@store/userInfo';
@@ -21,10 +21,6 @@ const AboutContainer = ({ experiences, skills }: Props) => {
   const userInfo = useReactiveVar(userInfoVar);
   const [openAddSkill, setOpenAddSkill] = useState(false);
   const [editSkillData, setEditSkillData] = useState<Skill | null>(null);
-
-  useEffect(() => {
-    document.body.scrollTo(0, 0);
-  }, []);
 
   const onClickAddSkill = useCallback(() => {
     setEditSkillData(null);

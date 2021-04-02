@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { AppProps, AppContext } from 'next/app';
 import { ThemeProvider } from 'emotion-theming';
 import { ApolloProvider } from '@apollo/client';
@@ -11,6 +12,7 @@ import AppLayout from '@frames/AppLayout';
 import DarkModeButton from '@molecules/DarkModeButton';
 import initSigininCheck from '@lib/initSigninCheck';
 import { useApollo } from '@src/apollo';
+import usePageScroll from '@src/hooks/usePageScroll';
 import cookieParser from '@lib/cookieParser';
 
 const LIGHT_MODE = 'light';
@@ -22,8 +24,10 @@ interface Props extends AppProps {
 
 const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
   const apollo = useApollo();
+  const { asPath } = useRouter();
   const [cookies, setCookie] = useCookies(['mode']);
   const mode = useMemo(() => cookies.mode || modeInCookie, [modeInCookie, cookies.mode]);
+  usePageScroll(asPath);
 
   const onClickDarkMode = useCallback(() => {
     setCookie('mode', mode === LIGHT_MODE ? DARK_MODE : LIGHT_MODE);
