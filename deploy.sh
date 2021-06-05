@@ -5,6 +5,8 @@ PROJECT_NAME="chanyeong-$1"
 
 cd $1
 
+git pull
+
 # modules install
 yarn install
 echo 'yarn install'
