@@ -8,7 +8,6 @@
     "build": "next build",
     "build:test": "ANALYZE=true next build",
     "start": "next start -p 3333",
-    "start:prod": "pm2 start npm --name \"next\" -- start",
     "pretypes": "graphql-codegen",
     "types": "apollo codegen:generate src/types/api.d.ts --queries=src/queries/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
     "storybook": "start-storybook -p 6006 -c .storybook"

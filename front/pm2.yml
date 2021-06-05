@@ -1,0 +1,4 @@
+apps:
+  - script: npm
+    name: 'chanyeong-front'
+    args: start

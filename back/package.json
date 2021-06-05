@@ -10,9 +10,7 @@
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "NODE_ENV=production PORT=6666 pm2 start ./dist/main.js",
-    "schema:gen": "ts-node -r tsconfig-paths/register generateSchema.ts"
+    "start:debug": "nest start --debug --watch"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
