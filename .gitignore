@@ -1,8 +1,5 @@
 */node_modules/*
 
-_back/src/types/api.ts
-_back/.env
-
 front/.next/*
 front/next-env.d.ts
 front/schema.json
