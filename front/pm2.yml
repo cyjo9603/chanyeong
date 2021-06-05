@@ -1,4 +1,4 @@
 apps:
   - script: npm
-    name: 'chanyeong-client'
+    name: 'chanyeong-front'
     args: start

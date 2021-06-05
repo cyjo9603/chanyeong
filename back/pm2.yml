@@ -1,6 +1,6 @@
 apps:
   - script: ./dist/main.js
-    name: 'chanyeong-server'
+    name: 'chanyeong-back'
     env:
       NODE_ENV: production
       PORT: 6666
