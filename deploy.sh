@@ -3,31 +3,7 @@
 # project name
 PROJECT_NAME="chanyeong-$1"
 
-cd $1
-
-git pull
-
-# modules install
-yarn install
-echo 'yarn install'
-
-# front setting
-if [ $1 == 'front' ];
-then
-
-  if !(ls src | grep types)
-  then
-    mkdir src/types
-    echo 'mkdir types'
-  fi
-
-  yarn types
-  echo 'yarn types'
-fi
-
-# project build
-yarn build
-echo 'yarn build'
+cd /home/ubuntu/$1
 
 # pm2 ecosystem deploy
 if pm2 list | grep -q ${PROJECT_NAME}
