@@ -1,0 +1,12 @@
+{
+  "name": "chanyeong",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cyjo9603/chanyeong.git",
+  "author": "cyjo9603 <cyjo9603@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "cd ./server && yarn start:dev",
+    "client": "cd ./client && yarn dev"
+  }
+}
