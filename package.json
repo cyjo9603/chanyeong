@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "server": "cd ./server && yarn start:dev",
-    "client": "cd ./client && yarn dev"
+    "client": "cd ./client && yarn dev",
+    "install:all": "cd ./server && yarn install && cd ../client && yarn install",
+    "remove:all": "cd ./server && rm -rf node_modules yarn.lock && cd ../client && rm -rf node_modules yarn.lock"
   }
 }
