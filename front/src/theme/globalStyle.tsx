@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { Global, css, jsx } from '@emotion/core';
+/* eslint-disable react/react-in-jsx-scope */
+import { Global, css } from '@emotion/core';
 import reset from 'emotion-reset';
 
 import { ThemeType } from './index';
