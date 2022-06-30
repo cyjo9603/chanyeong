@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Global, css } from '@emotion/core';
-import reset from 'emotion-reset';
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 import { ThemeType } from './index';
 
@@ -8,12 +8,11 @@ interface GlobalStyleProps {
   theme: ThemeType;
 }
 
-const GlobalStyle = ({ theme }: GlobalStyleProps) => (
-  <Global
-    styles={css`
-      ${reset}
+const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
+  ${reset}
+  /* other styles */
 
-      html, body, #__next {
+  html, body, #__next {
         height: 100%;
       }
 
@@ -53,14 +52,12 @@ const GlobalStyle = ({ theme }: GlobalStyleProps) => (
 
       ::-webkit-scrollbar {
         width: 6px;
-        background: ${theme.BACKGROUND_COLOR};
+        background: ${({ theme }) => theme.BACKGROUND_COLOR};
       }
 
       ::-webkit-scrollbar-thumb {
-        background-color: ${theme.PRIMARY_FONT};
+        background-color: ${({ theme }) => theme.PRIMARY_FONT};
       }
-    `}
-  />
-);
+`;
 
 export default GlobalStyle;

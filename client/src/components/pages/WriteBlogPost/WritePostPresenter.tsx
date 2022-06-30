@@ -4,7 +4,7 @@ import PageContainer from '@frames/RowFrame';
 import TUIEditor from '@organisms/TUIEditor';
 import Button from '@atoms/Button';
 import { GetPost_getPost_post as Post } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import PostTagForm from './PostTagForm';
 
 interface Props {

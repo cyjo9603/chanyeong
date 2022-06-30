@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 const StyledFooterContent = styled.div`
   color: ${({ theme }) => theme.LIGHT_GREY};
@@ -33,11 +33,7 @@ const FooterContent: FC = () => (
       <span>조찬영</span>
       <span>cyjo9603@gmail.com</span>
       <span>
-        <a
-          href="https://github.com/cyjo9603"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://github.com/cyjo9603" target="_blank" rel="noopener noreferrer">
           github.com/cyjo9603
         </a>
       </span>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import cb from 'react-syntax-highlighter/dist/esm/styles/prism/cb';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript';

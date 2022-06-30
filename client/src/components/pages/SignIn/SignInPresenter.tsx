@@ -5,7 +5,7 @@ import { Control, Controller } from 'react-hook-form';
 import RowFrame from '@frames/RowFrame';
 import BorderInput from '@molecules/BorderInput';
 import FullButton from '@atoms/FullButton';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   control: Control<Record<string, any>>;

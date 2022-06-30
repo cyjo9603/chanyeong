@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 import { getUploadImageUrl, TYPE_FOLDER_POST } from '@lib/uploadImage';
 import { TUIEditorWithForwardedProps } from './TUIEditor';
@@ -24,14 +24,8 @@ interface Props extends EditorProps {
 }
 
 const TUIEditor = (props: Props) => {
-  const {
-    initialValue,
-    previewStyle,
-    height,
-    initialEditType,
-    useCommandShortcut,
-    setImage,
-  } = props;
+  const { initialValue, previewStyle, height, initialEditType, useCommandShortcut, setImage } =
+    props;
 
   const editorRef = useRef<EditorType>();
   const handleChange = useCallback(() => {

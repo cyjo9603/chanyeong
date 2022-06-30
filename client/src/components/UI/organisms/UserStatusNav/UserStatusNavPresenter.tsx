@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import Link from 'next/link';
 
 import RowFrame from '@frames/RowFrame';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   userName?: string;

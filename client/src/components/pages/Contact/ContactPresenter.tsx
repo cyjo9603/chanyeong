@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 

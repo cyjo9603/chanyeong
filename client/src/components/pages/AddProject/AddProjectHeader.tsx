@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import { GetProject_getProject_project as Project } from '@gql-types/api';
 

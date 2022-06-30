@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import WorkProcessItem from '@molecules/WorkProcessItem';
 
 export const StyledWorkProcess = styled.div`

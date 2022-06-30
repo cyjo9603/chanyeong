@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 export interface InputProps {
   type?: 'text' | 'password';
@@ -19,18 +19,8 @@ const StyledTransparentInput = styled.input`
   }
 `;
 
-const TransparentInput: FC<InputProps> = ({
-  type,
-  placeholder,
-  onChange,
-  value,
-}) => (
-  <StyledTransparentInput
-    type={type}
-    placeholder={placeholder}
-    onChange={onChange}
-    value={value}
-  />
+const TransparentInput: FC<InputProps> = ({ type, placeholder, onChange, value }) => (
+  <StyledTransparentInput type={type} placeholder={placeholder} onChange={onChange} value={value} />
 );
 
 TransparentInput.defaultProps = {

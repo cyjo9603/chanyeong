@@ -2,7 +2,7 @@ import React, { FC, useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import ModalLayout from '@modals/ModalLayout';
 import { getUploadImageUrl, TYPE_FOLDER_SKILL } from '@lib/uploadImage';
 import FullButton from '@atoms/FullButton';

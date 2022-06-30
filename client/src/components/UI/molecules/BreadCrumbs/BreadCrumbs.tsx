@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   data: {

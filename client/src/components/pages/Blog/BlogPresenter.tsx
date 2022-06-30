@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import Head from 'next/head';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import Button from '@atoms/Button';

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   text: string;
@@ -23,8 +23,6 @@ const StyledHugeText = styled.h1`
   }
 `;
 
-const HugeText: FC<Props> = ({ text }) => (
-  <StyledHugeText>{text}</StyledHugeText>
-);
+const HugeText: FC<Props> = ({ text }) => <StyledHugeText>{text}</StyledHugeText>;
 
 export default HugeText;

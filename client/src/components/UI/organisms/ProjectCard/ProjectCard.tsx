@@ -6,7 +6,7 @@ import {
   GetPicked_getPickedProjects_projects as PickedProject,
   GetProjects_getProjects_projects as Project,
 } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 import ProjectCardMain from './ProjectCardMain';
 import ProjectCardDescription from './ProjectCardDescription';

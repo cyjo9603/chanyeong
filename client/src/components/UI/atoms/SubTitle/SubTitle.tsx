@@ -1,14 +1,12 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 export const SUBTITLE_WEIGHT_DEFAULT = 500;
 export const SUBTITLE_WEIGHT_BOLD = 700;
 
 type SubTitleAlign = 'left' | 'right' | 'center';
-type SubTitleWeight =
-  | typeof SUBTITLE_WEIGHT_DEFAULT
-  | typeof SUBTITLE_WEIGHT_BOLD;
+type SubTitleWeight = typeof SUBTITLE_WEIGHT_DEFAULT | typeof SUBTITLE_WEIGHT_BOLD;
 
 interface Props {
   text: string;

@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   category: string | null;
@@ -26,10 +26,7 @@ const CATEGORY_DEV = 'DEV';
 
 const CategoryNav: FC<Props> = ({ category, onChangeCategory }) => (
   <StyledCategoryNav>
-    <span
-      onClick={() => onChangeCategory(null)}
-      className={category === null ? 'focus' : ''}
-    >
+    <span onClick={() => onChangeCategory(null)} className={category === null ? 'focus' : ''}>
       All
     </span>
     <span
@@ -47,7 +44,4 @@ const CategoryNav: FC<Props> = ({ category, onChangeCategory }) => (
   </StyledCategoryNav>
 );
 
-export default memo(
-  CategoryNav,
-  (prev, next) => prev.category === next.category,
-);
+export default memo(CategoryNav, (prev, next) => prev.category === next.category);

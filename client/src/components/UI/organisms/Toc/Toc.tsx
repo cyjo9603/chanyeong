@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { tocVar } from '@store/postToc';
 
 const StyledToc = styled.aside`

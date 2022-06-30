@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import AboutSkill from '@organisms/AboutSKill';
 import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 import { userInfoVar } from '@store/userInfo';

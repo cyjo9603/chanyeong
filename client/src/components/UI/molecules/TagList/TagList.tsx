@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { GetPosts_getPosts_posts_tags as TagType } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import Tag from '@atoms/Tag';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 import TransparentInput from '@atoms/TransparentInput';
 import TransparentButton from '@atoms/TransparentButton';

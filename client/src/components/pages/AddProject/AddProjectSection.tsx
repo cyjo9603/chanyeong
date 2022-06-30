@@ -5,7 +5,7 @@ import TUIEditor from '@organisms/TUIEditor';
 import SkillIcon from '@atoms/SkillIcon';
 import Button from '@atoms/Button';
 import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   content: string;

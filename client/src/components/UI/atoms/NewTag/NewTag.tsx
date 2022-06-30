@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 const StyledNewTag = styled.span`
   margin-left: 8px;

@@ -9,7 +9,7 @@ import Button from '@atoms/Button';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
 import { GetProjects_getProjects_projects as Proejct } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   userName?: string;

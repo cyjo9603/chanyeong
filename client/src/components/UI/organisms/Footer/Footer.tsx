@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import RowFrame from '@frames/RowFrame';
 import LogoIcon, { LOGO_TYPE_DARK } from '@svg-icons/LogoIcon';
 import FooterContent from '@molecules/FooterContent';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
   position: absolute;

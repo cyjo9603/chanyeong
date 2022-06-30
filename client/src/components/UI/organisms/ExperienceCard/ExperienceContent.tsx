@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import newLine from '@lib/newLine';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   title: string;

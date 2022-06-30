@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { blogCategoryVar } from '@store/blogCategory';
 import TagWithNumber from '@molecules/TagWithNumber';
 import { GetTags_getTags_tags as Tag } from '@gql-types/api';

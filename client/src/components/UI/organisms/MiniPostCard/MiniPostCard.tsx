@@ -4,7 +4,7 @@ import Image from 'next/image';
 import removeMd from 'remove-markdown';
 
 import { GetPicked_getPickedPosts_posts as Posts } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 import MiniPostCardContent from './MiniPostCardContent';
 
@@ -27,9 +27,10 @@ export const StyledMiniPostCard = styled.div`
 `;
 
 const MiniPostCard = ({ data: { id, title, content, titleImage } }: Props) => {
-  const postContent = useMemo(() => removeMd(content, { useImgAltText: false }).slice(0, 100), [
-    content,
-  ]);
+  const postContent = useMemo(
+    () => removeMd(content, { useImgAltText: false }).slice(0, 100),
+    [content],
+  );
 
   return (
     <Link href={`/blog/post/${id}`} prefetch={false}>

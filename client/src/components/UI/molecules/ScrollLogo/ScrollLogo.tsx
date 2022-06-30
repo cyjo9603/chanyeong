@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import LogoIcon from '@svg-icons/LogoIcon';
 
 interface Props {

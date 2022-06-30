@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import RowFrame from '@frames/RowFrame';
 import BlogPostCard from '@organisms/BlogPostCard';
 import { SearchPosts_searchPosts_posts as Post } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   searchWord: string;

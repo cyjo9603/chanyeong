@@ -2,7 +2,7 @@ import React from 'react';
 import TextLoop from 'react-text-loop';
 
 import RowFrame from '@frames/RowFrame';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 const StyledBanner = styled.section`
   position: relative;

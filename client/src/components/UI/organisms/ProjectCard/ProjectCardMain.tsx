@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { ProjectType } from '@gql-types/api';
 
 interface Props {
@@ -39,13 +39,7 @@ const StyledProjectCardMain = styled.div`
   }
 `;
 
-const ProjectCardMain: FC<Props> = ({
-  title,
-  type,
-  groupName,
-  startDate,
-  endDate,
-}) => (
+const ProjectCardMain: FC<Props> = ({ title, type, groupName, startDate, endDate }) => (
   <StyledProjectCardMain>
     <div>
       <h1>{title}</h1>

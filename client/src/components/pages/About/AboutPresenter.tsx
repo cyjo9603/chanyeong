@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import BreadCrumbs from '@molecules/BreadCrumbs';
 import AboutSkillList from '@organisms/AboutSKillList';

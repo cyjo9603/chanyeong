@@ -12,7 +12,7 @@ import Button from '@atoms/Button';
 import HugeText from '@atoms/HugeText';
 import dateFormat from '@lib/dateFormat';
 import { GetPost_getPost_post as Post } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { IsFixPost } from './BlogPostContainer';
 
 interface Props {

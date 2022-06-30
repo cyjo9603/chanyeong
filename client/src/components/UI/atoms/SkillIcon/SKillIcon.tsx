@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   name: string;
@@ -17,8 +17,6 @@ const StyledSkillIcon = styled.img`
   }
 `;
 
-const SkillIcon: FC<Props> = ({ name, icon }) => (
-  <StyledSkillIcon src={icon} alt={name} />
-);
+const SkillIcon: FC<Props> = ({ name, icon }) => <StyledSkillIcon src={icon} alt={name} />;
 
 export default SkillIcon;

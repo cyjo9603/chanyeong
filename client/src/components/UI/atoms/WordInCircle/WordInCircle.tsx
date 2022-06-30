@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   word: string;
@@ -24,8 +24,6 @@ const StyledWordInCircle = styled.div`
   }
 `;
 
-const WordInCircle: FC<Props> = ({ word }) => (
-  <StyledWordInCircle>{word}</StyledWordInCircle>
-);
+const WordInCircle: FC<Props> = ({ word }) => <StyledWordInCircle>{word}</StyledWordInCircle>;
 
 export default WordInCircle;

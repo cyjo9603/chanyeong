@@ -1,4 +1,4 @@
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
 export const MarkdownWrapper = styled(ReactMarkdown)`

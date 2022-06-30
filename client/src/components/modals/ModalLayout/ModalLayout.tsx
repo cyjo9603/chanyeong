@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import ClientOnlyPortal from '@modals/ClientOnlyPortal';
 
 interface Props {

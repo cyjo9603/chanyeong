@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import AboutValueList from '@organisms/AboutValueList';
 import DetailButton from '@molecules/DetailButton';

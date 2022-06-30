@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface InlineCodeProps {
   value: string;
@@ -12,8 +12,6 @@ const InlineCode = styled.code`
   border-radius: 4px;
 `;
 
-const inlineCode = ({ value }: InlineCodeProps) => (
-  <InlineCode>{value}</InlineCode>
-);
+const inlineCode = ({ value }: InlineCodeProps) => <InlineCode>{value}</InlineCode>;
 
 export default inlineCode;

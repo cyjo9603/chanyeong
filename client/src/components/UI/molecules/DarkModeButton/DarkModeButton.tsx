@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import SunIcon from '@svg-icons/SunIcon';
 import MoonIcon from '@svg-icons/MoonIcon';
 
@@ -66,10 +66,7 @@ const StyledDarkModeButton = styled.div<StyledProps>`
 `;
 
 const DarkMode: FC<Props> = ({ onClick, isDarkMode }) => (
-  <StyledDarkModeButton
-    iconSize={isDarkMode ? DARK_IMG_SIZE : LIGHT_IMG_SIZE}
-    onClick={onClick}
-  >
+  <StyledDarkModeButton iconSize={isDarkMode ? DARK_IMG_SIZE : LIGHT_IMG_SIZE} onClick={onClick}>
     {isDarkMode ? <SunIcon /> : <MoonIcon />}
     <span>{isDarkMode ? '라이트모드' : '다크모드'}</span>
   </StyledDarkModeButton>

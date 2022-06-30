@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { GetAbouts_getExperiences_experiences as Experiences } from '@gql-types/api';
 
 import ExperienceDate from './ExperienceDate';

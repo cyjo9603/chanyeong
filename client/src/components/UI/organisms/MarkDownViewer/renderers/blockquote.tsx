@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface BlockQuoteProps {
   children: React.ReactChildren[];

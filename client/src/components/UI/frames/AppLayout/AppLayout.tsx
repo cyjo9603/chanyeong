@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from '@organisms/Header';
 import Footer from '@organisms/Footer';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactNode;

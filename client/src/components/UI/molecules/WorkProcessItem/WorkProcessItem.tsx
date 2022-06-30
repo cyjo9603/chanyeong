@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   engName: string;

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import { GetPosts_getPosts_posts as Posts } from '@gql-types/api';
 
 import PostCardView from './PostCardView';

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import SkillIcon from '@atoms/SkillIcon';
 import { GetProject_getProject_project_skills as Skill } from '@gql-types/api';
 

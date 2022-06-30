@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import MarkdownViewer from '@organisms/MarkDownViewer';
 import SkillIconList from '@organisms/SkillIconList';

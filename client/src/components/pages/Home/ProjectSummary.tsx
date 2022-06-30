@@ -6,7 +6,7 @@ import ProjectCard from '@organisms/ProjectCard';
 import Title, { SMALL_SIZE } from '@atoms/Title';
 import SubTitle from '@atoms/SubTitle';
 import { GetPicked_getPickedProjects_projects as Project } from '@gql-types/api';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   data: Project[];

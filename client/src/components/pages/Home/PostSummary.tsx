@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Slider from 'react-slick';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import DetailButton from '@molecules/DetailButton';
 import MiniPostCard from '@organisms/MiniPostCard';

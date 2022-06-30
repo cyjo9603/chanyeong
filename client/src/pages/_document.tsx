@@ -1,29 +1,34 @@
 import React from 'react';
 import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document';
-import { extractCritical } from 'emotion-server';
+import { ServerStyleSheet } from 'styled-components';
 
-interface Props {
-  styleTags: Array<React.ReactElement<{}>>;
-}
-
-class MyDocument extends Document<Props> {
+class MyDocument extends Document {
   static async getInitialProps(context: DocumentContext) {
-    const initialProps = await Document.getInitialProps(context);
-    const styles = extractCritical(initialProps.html);
-    return {
-      ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
-          <style
-            data-emotion-css={styles.ids.join('')}
-            dangerouslySetInnerHTML={{ __html: styles.css }}
-          />
-        </>
-      ),
-    };
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = context.renderPage;
+
+    try {
+      context.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App: any) => (props) => sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(context);
+      return {
+        ...initialProps,
+        styles: [
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>,
+        ],
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   render() {
     return (
       <Html lang="ko">

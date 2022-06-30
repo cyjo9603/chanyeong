@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface ParahraphProps {
   children: React.ReactChildren[];
@@ -11,8 +11,6 @@ const Paragraph = styled.p`
   margin: 18px 0;
 `;
 
-const paragraph = ({ children }: ParahraphProps) => (
-  <Paragraph>{children}</Paragraph>
-);
+const paragraph = ({ children }: ParahraphProps) => <Paragraph>{children}</Paragraph>;
 
 export default paragraph;

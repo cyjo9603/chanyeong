@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { GetSkills_getSkills_skills as Skill } from '@gql-types/api';
 import ProgressBar from '@molecules/ProgressBar';
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   data: Skill;

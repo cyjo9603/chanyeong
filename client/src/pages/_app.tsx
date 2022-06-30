@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { AppProps, AppContext } from 'next/app';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/client';
 import { useCookies } from 'react-cookie';
 
@@ -18,8 +18,9 @@ import cookieParser from '@lib/cookieParser';
 const LIGHT_MODE = 'light';
 const DARK_MODE = 'dark';
 
-interface Props extends AppProps {
+interface Props extends Omit<AppProps, 'Component'> {
   mode: typeof LIGHT_MODE | typeof DARK_MODE;
+  Component: React.FC;
 }
 
 const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {

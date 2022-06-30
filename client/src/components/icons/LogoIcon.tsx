@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 export const LOGO_TYPE_LIGHT = '#23374D';
 export const LOGO_TYPE_DARK = '#c7c7c7';

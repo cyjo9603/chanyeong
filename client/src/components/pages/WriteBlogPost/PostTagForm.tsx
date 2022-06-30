@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import Tag from '@atoms/Tag';
 import Button from '@atoms/Button';
 
@@ -48,13 +48,7 @@ const StyledPostTagForm = styled.div`
   }
 `;
 
-const PostTagForm: FC<Props> = ({
-  tags,
-  addTag,
-  removeTag,
-  onChangeInsertTag,
-  insertTagRef,
-}) => (
+const PostTagForm: FC<Props> = ({ tags, addTag, removeTag, onChangeInsertTag, insertTagRef }) => (
   <StyledPostTagForm>
     <span>태그</span>
     <form onSubmit={addTag}>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import RowFrame from '@frames/RowFrame';
 import PageNav from '@organisms/PageNav';
 import ScrollLogo from '@molecules/ScrollLogo';
@@ -36,10 +36,10 @@ const StyledHeaderSection = styled.div<Props>`
     }
 
     @media (max-width: ${({ theme }) => theme.BP.PC}) {
-    position: absolute;
-    width: 60px;
-    right: 0;
-  }
+      position: absolute;
+      width: 60px;
+      right: 0;
+    }
   }
 `;
 

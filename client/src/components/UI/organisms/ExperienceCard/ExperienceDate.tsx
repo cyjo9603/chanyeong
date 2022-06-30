@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 
 interface Props {
   startDate: string;

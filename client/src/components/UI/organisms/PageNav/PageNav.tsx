@@ -1,6 +1,6 @@
 import React, { useState, useCallback, memo } from 'react';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import PageLinkBox from '@molecules/PageLinkBox';
 import ResponsiveMenu from './ResponseveMenu';
 

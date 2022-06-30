@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import removeMd from 'remove-markdown';
 
-import styled from '@theme/styled';
+import styled from 'styled-components';
 import TagList from '@molecules/TagList';
 import { GetPosts_getPosts_posts as Posts } from '@gql-types/api';
 
