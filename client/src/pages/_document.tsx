@@ -44,6 +44,12 @@ class MyDocument extends Document {
               gtag('config', 'UA-176037246-1');`,
             }}
           />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+          />
         </Head>
         <body>
           <Main />

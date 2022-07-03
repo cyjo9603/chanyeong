@@ -1,4 +1,4 @@
-schema: ../back/schema.graphql
+schema: ../server/schema.graphql
 generates:
   schema.json:
     plugins:

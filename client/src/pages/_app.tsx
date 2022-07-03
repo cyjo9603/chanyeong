@@ -62,12 +62,6 @@ const App = ({ Component, pageProps, mode: modeInCookie }: Props) => {
             content="프론트엔드 개발자를 목표로 공부하고 있는 조찬영의 포트폴리오와 블로그 페이지입니다. 개발자가 되기 위해 노력한 제 이야기들을 기록해 놓았습니다."
           />
           <meta property="og:type" content="website" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
-          />
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="apple-touch-icon-precomposed" href="/favicon2.png" />
         </Head>
