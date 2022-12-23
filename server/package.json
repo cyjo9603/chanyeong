@@ -31,7 +31,7 @@
     "graphql-tools": "^7.0.2",
     "helmet": "^4.3.1",
     "hpp": "^0.2.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
